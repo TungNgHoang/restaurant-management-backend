@@ -598,12 +598,16 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.SqlServer/8.0.12": {
+      "Microsoft.EntityFrameworkCore.SqlServer/9.0.2": {
         "type": "package",
         "dependencies": {
           "Microsoft.Data.SqlClient": "5.1.6",
-          "Microsoft.EntityFrameworkCore.Relational": "8.0.12",
-          "System.Formats.Asn1": "8.0.1"
+          "Microsoft.EntityFrameworkCore.Relational": "9.0.2",
+          "Microsoft.Extensions.Caching.Memory": "9.0.2",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.2",
+          "Microsoft.Extensions.Logging": "9.0.2",
+          "System.Formats.Asn1": "9.0.2",
+          "System.Text.Json": "9.0.2"
         },
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll": {
@@ -1329,10 +1333,10 @@
           }
         }
       },
-      "System.Formats.Asn1/8.0.1": {
+      "System.Formats.Asn1/9.0.2": {
         "type": "package",
         "compile": {
-          "lib/net8.0/System.Formats.Asn1.dll": {
+          "lib/net8.0/_._": {
             "related": ".xml"
           }
         },
@@ -1342,7 +1346,7 @@
           }
         },
         "build": {
-          "buildTransitive/net6.0/_._": {}
+          "buildTransitive/net8.0/_._": {}
         }
       },
       "System.IdentityModel.Tokens.Jwt/6.35.0": {
@@ -3057,10 +3061,10 @@
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.SqlServer/8.0.12": {
-      "sha512": "k97zTGXGdLI+FDx7sjuTlNrmO6uy6NuJsBITUHNNuaSHHP06cHJ8JJrdheHDQPEgMw9/e/9OglBSn/dANHRdWA==",
+    "Microsoft.EntityFrameworkCore.SqlServer/9.0.2": {
+      "sha512": "PN65soRvSajLqr1kVRvpUwqI/rmab4x/6TxcYzyUVvg52DMPxx4Y760EZ6OzFhJnilP/WFEEzdftHsTsHQ64IQ==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.sqlserver/8.0.12",
+      "path": "microsoft.entityframeworkcore.sqlserver/9.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3068,7 +3072,7 @@
         "PACKAGE.md",
         "lib/net8.0/Microsoft.EntityFrameworkCore.SqlServer.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.SqlServer.xml",
-        "microsoft.entityframeworkcore.sqlserver.8.0.12.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlserver.9.0.2.nupkg.sha512",
         "microsoft.entityframeworkcore.sqlserver.nuspec"
       ]
     },
@@ -4335,31 +4339,30 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "System.Formats.Asn1/8.0.1": {
-      "sha512": "XqKba7Mm/koKSjKMfW82olQdmfbI5yqeoLV/tidRp7fbh5rmHAQ5raDI/7SU0swTzv+jgqtUGkzmFxuUg0it1A==",
+    "System.Formats.Asn1/9.0.2": {
+      "sha512": "OKWHCPYQr/+cIoO8EVjFn7yFyiT8Mnf1wif/5bYGsqxQV6PrwlX2HQ9brZNx57ViOvRe4ing1xgHCKl/5Ko8xg==",
       "type": "package",
-      "path": "system.formats.asn1/8.0.1",
+      "path": "system.formats.asn1/9.0.2",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "Icon.png",
         "LICENSE.TXT",
+        "PACKAGE.md",
         "THIRD-PARTY-NOTICES.TXT",
         "buildTransitive/net461/System.Formats.Asn1.targets",
         "buildTransitive/net462/_._",
-        "buildTransitive/net6.0/_._",
+        "buildTransitive/net8.0/_._",
         "buildTransitive/netcoreapp2.0/System.Formats.Asn1.targets",
         "lib/net462/System.Formats.Asn1.dll",
         "lib/net462/System.Formats.Asn1.xml",
-        "lib/net6.0/System.Formats.Asn1.dll",
-        "lib/net6.0/System.Formats.Asn1.xml",
-        "lib/net7.0/System.Formats.Asn1.dll",
-        "lib/net7.0/System.Formats.Asn1.xml",
         "lib/net8.0/System.Formats.Asn1.dll",
         "lib/net8.0/System.Formats.Asn1.xml",
+        "lib/net9.0/System.Formats.Asn1.dll",
+        "lib/net9.0/System.Formats.Asn1.xml",
         "lib/netstandard2.0/System.Formats.Asn1.dll",
         "lib/netstandard2.0/System.Formats.Asn1.xml",
-        "system.formats.asn1.8.0.1.nupkg.sha512",
+        "system.formats.asn1.9.0.2.nupkg.sha512",
         "system.formats.asn1.nuspec",
         "useSharedDesignerContext.txt"
       ]
@@ -5234,7 +5237,6 @@
       "AutoMapper >= 14.0.0",
       "Microsoft.AspNetCore.OpenApi >= 8.0.7",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.2",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.12",
       "RestaurantManagement.Core >= 1.0.0",
       "RestaurantManagement.Service >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.4.0"
@@ -5306,10 +5308,6 @@
             "target": "Package",
             "version": "[9.0.2, )"
           },
-          "Microsoft.EntityFrameworkCore.SqlServer": {
-            "target": "Package",
-            "version": "[8.0.12, )"
-          },
           "Swashbuckle.AspNetCore": {
             "target": "Package",
             "version": "[6.4.0, )"
@@ -5337,16 +5335,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Warning As Error: Detected package downgrade: Microsoft.EntityFrameworkCore.SqlServer from 9.0.2 to 8.0.12. Reference the package directly from the project to select a different version. \r\n RestaurantManagement.Api -> RestaurantManagement.Service -> RestaurantManagement.DataAccess -> Microsoft.EntityFrameworkCore.SqlServer (>= 9.0.2) \r\n RestaurantManagement.Api -> Microsoft.EntityFrameworkCore.SqlServer (>= 8.0.12)",
-      "libraryId": "Microsoft.EntityFrameworkCore.SqlServer",
-      "targetGraphs": [
-        "net8.0"
-      ]
-    }
-  ]
+  }
 }
