@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "PH7ceMUQKVY=",
+  "dgSpecHash": "z/soqmE/9JuXCWravS29v3wYHERCSUnPAvayg2lTztwXRQXZlMKIx1fbTy0GuaHti26vhnRu6wJEQCpClqAIYg==",
   "success": true,
-  "projectFilePath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj",
+  "projectFilePath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",

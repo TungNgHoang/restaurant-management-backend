@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "KGoOFMr0kRg=",
+  "dgSpecHash": "/ZoiYbx5eNe+8HZ+MeUh5Tce94omxbbOnUeXk9kAo8O04SMK2gQ7JSwZ3UWjBRNw7OykJJa3PlPubIpJ+L3VqA==",
   "success": true,
-  "projectFilePath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
+  "projectFilePath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\automapper\\14.0.0\\automapper.14.0.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

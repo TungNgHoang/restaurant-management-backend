@@ -4791,11 +4791,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
+      "projectUniqueName": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
       "projectName": "RestaurantManagement.DataAccess",
-      "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
+      "projectPath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
       "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\obj\\",
+      "outputPath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.DataAccess\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4806,15 +4806,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
-              "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
+            "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
+              "projectPath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
             }
           }
         }
@@ -4875,7 +4874,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

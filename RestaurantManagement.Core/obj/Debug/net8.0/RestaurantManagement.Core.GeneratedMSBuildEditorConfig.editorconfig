@@ -16,6 +16,6 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = RestaurantManagement.Core
-build_property.ProjectDir = D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\
+build_property.ProjectDir = D:\CMCUniversity\third_year\YeuCauPhanMem\Abc\RestaurantManagement\RestaurantManagement.Core\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

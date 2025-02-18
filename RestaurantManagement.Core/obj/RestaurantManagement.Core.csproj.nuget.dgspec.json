@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {}
+    "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {}
   },
   "projects": {
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
+    "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
+        "projectUniqueName": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
         "projectName": "RestaurantManagement.Core",
-        "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
+        "projectPath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\obj\\",
+        "outputPath": "D:\\CMCUniversity\\third_year\\YeuCauPhanMem\\Abc\\RestaurantManagement\\RestaurantManagement.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -73,7 +72,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
