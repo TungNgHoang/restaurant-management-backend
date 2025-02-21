@@ -7,11 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ApiModels\" />
     <Folder Include="Constants\" />
-    <Folder Include="Enums\" />
-    <Folder Include="Exceptions\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
