@@ -9,6 +9,7 @@ namespace RestaurantManagement.Api.Middlewares
 {
     public class ExceptionMiddleware
     {
+       /*
         private readonly RequestDelegate _next;
         private readonly ILogger<ExceptionMiddleware> _logger;
 
@@ -207,5 +208,7 @@ namespace RestaurantManagement.Api.Middlewares
             var logMessage = builder.ToString();
             _logger.LogInformation(logMessage);
         }
+      
+       */
     }
 }

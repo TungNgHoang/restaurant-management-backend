@@ -55,6 +55,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.8.5, )"
             }
           },
           "imports": [
@@ -146,6 +150,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.8.5, )"
             }
           },
           "imports": [

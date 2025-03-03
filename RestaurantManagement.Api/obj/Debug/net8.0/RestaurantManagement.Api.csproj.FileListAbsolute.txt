@@ -177,3 +177,6 @@ D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\z
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\efpt.config.json
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\Newtonsoft.Json.dll
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\obj\Debug\net8.0\RestaurantManagement.Api.sourcelink.json
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\Microsoft.Bcl.Memory.dll
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\Twilio.dll
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\RestaurantManagement.Api.staticwebassets.runtime.json
