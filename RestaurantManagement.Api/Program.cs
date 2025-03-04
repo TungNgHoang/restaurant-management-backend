@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Api.AutoMapperProfile;
 using RestaurantManagement.Api.Models;
 using RestaurantManagement.DataAccess.Implementation;
@@ -7,6 +7,9 @@ using RestaurantManagement.Service.Interfaces;
 using RestaurantManagement.Service.Implementation;
 using RestaurantManagement.Core.ApiModels;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -50,7 +53,27 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseStaticFiles();
+// Lấy key từ cấu hình
+var jwtSettings = builder.Configuration.GetSection("JwtSettings");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
 
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+    });
+
+builder.Services.AddAuthorization();
+builder.Services.AddControllers();
 
 //app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
