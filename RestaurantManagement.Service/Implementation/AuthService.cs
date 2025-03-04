@@ -19,13 +19,14 @@ namespace RestaurantManagement.Service.Implementation
     {
         private readonly IConfiguration _configuration;
 
-        public AuthService(AppSettings appSettings, IMapper mapper) : base(appSettings, mapper)
+        public AuthService(AppSettings appSettings, IMapper mapper, IConfiguration configuration) : base(appSettings, mapper)
         {
+            _configuration = configuration;
         }
 
         public Task<string> GenerateJwtTokenAsync(TblUserAccount user)
         {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
+            var jwtSettings = _configuration.GetSection("AppSettings:Jwt");
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSettings["Key"]));
 
             // Tạo danh sách claims, bao gồm thông tin username và role
@@ -39,7 +40,7 @@ namespace RestaurantManagement.Service.Implementation
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSettings["ExpireMinutes"])),
+                expires: DateTime.UtcNow.AddMinutes(Convert.ToDouble(jwtSettings["AccessTokenExpiresTime"])),
                 signingCredentials: new SigningCredentials(key, SecurityAlgorithms.HmacSha256)
             );
 

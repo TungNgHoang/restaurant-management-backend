@@ -16,6 +16,5 @@ namespace RestaurantManagement.Service.Dtos
         [Required(ErrorMessage = "Password là bắt buộc.")]
         public string Password { get; set; }
 
-        public string UacRole { get; set; }
     }
 }

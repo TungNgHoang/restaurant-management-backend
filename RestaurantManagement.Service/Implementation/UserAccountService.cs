@@ -42,22 +42,21 @@ namespace RestaurantManagement.Service.Implementation
 
         public async Task<string> LoginAsync(LoginRequestDto loginRequest)
         {
-            // Tìm user theo email (được lưu trong trường UacUsername)
-            var user = await _userAccountRepository.FindAsync(u => u.UacEmail == loginRequest.Email);
+            // 1. Tìm user trong DB dựa trên Email
+            var user = await _userAccountRepository.FindAsync(u => u.UacEmail== loginRequest.Email);
             if (user == null)
             {
-                // Không tìm thấy user
-                return null;
+                throw new UnauthorizedAccessException("User not found.");
             }
 
-            // Kiểm tra password (so sánh trực tiếp, cần hash hoặc bảo mật thêm trong thực tế)
+            // 2. Kiểm tra password
             if (user.UacPassword != loginRequest.Password)
             {
-                // Mật khẩu không đúng
-                throw new UnauthorizedAccessException("Sai mật khẩu.");
+                throw new UnauthorizedAccessException("Invalid credentials.");
             }
 
-            // Tạo JWT token qua AuthService
+            // 3. Gọi AuthService để tạo token
+            //    Role được lấy từ DB: user.UacRole
             var token = await _authService.GenerateJwtTokenAsync(user);
             return token;
         }

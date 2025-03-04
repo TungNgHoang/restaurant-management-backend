@@ -10,6 +10,7 @@ using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using RestaurantManagement.DataAccess.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -46,8 +47,8 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddAutoMapper(typeof(ProjectProfile));
 // Lấy key từ cấu hình
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-var key = Encoding.UTF8.GetBytes(appSettings.Jwt.Key);
+var jwtSettings = builder.Configuration.GetSection("AppSettings:Jwt");
+var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>
     {
@@ -80,6 +81,11 @@ builder.Configuration
        .AddEnvironmentVariables();
 
 //app.UseStaticFiles();
+//Khai báo DataSeeder
+using (var scope = app.Services.CreateScope())
+{
+    await DataSeeder.SeedDataAsync(scope.ServiceProvider);
+}
 
 
 //app.UseCors(MyAllowSpecificOrigins);
