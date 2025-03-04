@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj": {}
+    "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj": {}
   },
   "projects": {
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj": {
+    "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj",
+        "projectUniqueName": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj",
         "projectName": "RestaurantManagement.Api",
-        "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj",
+        "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\RestaurantManagement.Api.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\obj\\",
+        "outputPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -22,18 +22,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
-                "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
+              "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
+                "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
               },
-              "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj": {
-                "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj"
+              "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj": {
+                "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj"
               }
             }
           }
@@ -57,6 +56,10 @@
               "target": "Package",
               "version": "[14.0.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.7, )"
@@ -74,6 +77,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.6.0, )"
             },
             "Twilio": {
               "target": "Package",
@@ -99,18 +106,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
+    "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
+        "projectUniqueName": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
         "projectName": "RestaurantManagement.Core",
-        "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
+        "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\obj\\",
+        "outputPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -121,7 +128,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -149,11 +155,19 @@
               "target": "Package",
               "version": "[14.0.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.6.0, )"
             },
             "Twilio": {
               "target": "Package",
@@ -176,18 +190,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj": {
+    "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
+        "projectUniqueName": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
         "projectName": "RestaurantManagement.DataAccess",
-        "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
+        "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\obj\\",
+        "outputPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -198,15 +212,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
-                "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
+              "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
+                "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
               }
             }
           }
@@ -229,6 +242,10 @@
             "AutoMapper": {
               "target": "Package",
               "version": "[14.0.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.13, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -250,6 +267,10 @@
               "target": "Package",
               "version": "[9.0.2, )"
             },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.6.0, )"
+            },
             "Twilio": {
               "target": "Package",
               "version": "[7.8.5, )"
@@ -271,18 +292,18 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj": {
+    "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj",
+        "projectUniqueName": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj",
         "projectName": "RestaurantManagement.Service",
-        "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj",
+        "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\RestaurantManagement.Service.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\obj\\",
+        "outputPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -293,18 +314,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
-                "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
+              "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj": {
+                "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\RestaurantManagement.Core.csproj"
               },
-              "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj": {
-                "projectPath": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj"
+              "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj": {
+                "projectPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj"
               }
             }
           }
@@ -328,11 +348,19 @@
               "target": "Package",
               "version": "[14.0.0, )"
             },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.13, )"
+            },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
               "version": "[9.0.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.6.0, )"
             },
             "Twilio": {
               "target": "Package",
@@ -355,7 +383,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
