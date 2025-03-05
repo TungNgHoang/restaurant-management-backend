@@ -12,6 +12,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RestaurantManagement.DataAccess.Infrastructure;
 using RestaurantManagement.Api.Middlewares;
+using System.IdentityModel.Tokens.Jwt;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -61,6 +62,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = jwtSettings["Issuer"],
             ValidAudience = jwtSettings["Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(key)
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnTokenValidated = context =>
+            {
+                // Lấy token từ context
+                var jwtToken = context.SecurityToken as JwtSecurityToken;
+                if (jwtToken != null && AuthService.IsTokenBlacklisted(jwtToken.RawData))
+                {
+                    // Nếu token đã bị revoke, đánh dấu không hợp lệ
+                    context.Fail("This token has been revoked.");
+                }
+                return Task.CompletedTask;
+            }
         };
     });
 
