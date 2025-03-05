@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RestaurantManagement.DataAccess.Infrastructure;
+using RestaurantManagement.Api.Middlewares;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -21,7 +22,7 @@ builder.Services.Configure<AppSettings>(appSettingsSection);
 var appSettings = appSettingsSection?.Get<AppSettings>();
 builder.Services.AddSingleton(appSettings ?? new AppSettings());
 
-builder.Services.AddControllers();//.AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddDbContext<RestaurantDBContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
@@ -44,7 +45,6 @@ builder.Services.AddCors(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-
 builder.Services.AddAutoMapper(typeof(ProjectProfile));
 // Lấy key từ cấu hình
 var jwtSettings = builder.Configuration.GetSection("AppSettings:Jwt");
@@ -66,8 +66,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 builder.Services.AddControllers();
-var app = builder.Build();
 
+var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -80,15 +80,15 @@ builder.Configuration
        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
        .AddEnvironmentVariables();
 
-//app.UseStaticFiles();
+app.UseStaticFiles();
 //Khai báo DataSeeder
 using (var scope = app.Services.CreateScope())
 {
     await DataSeeder.SeedDataAsync(scope.ServiceProvider);
 }
 
-
-//app.UseCors(MyAllowSpecificOrigins);
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 app.MapControllers();
 app.Run();

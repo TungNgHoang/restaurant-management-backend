@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RestaurantManagement.Api.Models;
 using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.Service.Dtos;
 using RestaurantManagement.Service.Interfaces;
@@ -44,16 +45,12 @@ namespace RestaurantManagement.Service.Implementation
         {
             // 1. Tìm user trong DB dựa trên Email
             var user = await _userAccountRepository.FindAsync(u => u.UacEmail== loginRequest.Email);
-            if (user == null)
+            if (user == null || user.UacPassword != loginRequest.Password)
             {
-                throw new UnauthorizedAccessException("User not found.");
+                //throw new UnauthorizedAccessException("User not found.");
+                throw new ErrorException(Core.Enums.StatusCodeEnum.B01);
             }
 
-            // 2. Kiểm tra password
-            if (user.UacPassword != loginRequest.Password)
-            {
-                throw new UnauthorizedAccessException("Invalid credentials.");
-            }
 
             // 3. Gọi AuthService để tạo token
             //    Role được lấy từ DB: user.UacRole

@@ -3,36 +3,36 @@
   "WorkspaceRootPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\implementation\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\implementation\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\implementation\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\implementation\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\implementation\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\implementation\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.core\\enums\\statuscodeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|solutionrelative:restaurantmanagement.core\\enums\\statuscodeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.dataaccess\\dbcontexts\\restaurantdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\dbcontexts\\restaurantdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\interfaces\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\interfaces\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\dtos\\useraccountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\dtos\\useraccountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\interfaces\\ireservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -75,14 +75,6 @@
       "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\models\\tblreservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\middlewares\\exceptionmiddleware.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.core\\exceptions\\errorexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|solutionrelative:restaurantmanagement.core\\exceptions\\errorexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\wwwroot\\test.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\wwwroot\\test.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -101,10 +93,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\controllers\\baseapicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.core\\enums\\statuscodeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|solutionrelative:restaurantmanagement.core\\enums\\statuscodeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.core\\apimodels\\appsettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -130,7 +118,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -138,13 +126,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Program.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\Program.cs",
               "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Program.cs",
               "RelativeToolTip": "RestaurantManagement.Api\\Program.cs",
-              "ViewState": "AQIAAAsAAAAAAAAAAAAAADEAAABAAAAA",
+              "ViewState": "AQIAAE8AAAAAAAAAAAAAAFoAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-18T04:14:28.871Z",
               "EditorCaption": ""
@@ -152,19 +140,32 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "ViewState": "AQIAABkAAAAAAAAAAAAmwCoAAABpAAAA",
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\AuthController.cs",
+              "RelativeDocumentMoniker": "RestaurantManagement.Api\\Controllers\\AuthController.cs",
+              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\AuthController.cs",
+              "RelativeToolTip": "RestaurantManagement.Api\\Controllers\\AuthController.cs",
+              "ViewState": "AQIAABMAAAAAAAAAAAAhwCAAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T02:33:11.678Z",
+              "WhenOpened": "2025-03-04T04:46:46.687Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
+              "Title": "UserAccountService.cs",
+              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
+              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
+              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
+              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAACgAAAAwAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-04T03:27:06.153Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\appsettings.json",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\appsettings.json",
@@ -178,57 +179,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "UserAccountService.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAkwC0AAABNAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T03:27:06.153Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "RestaurantDBContext.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\DbContexts\\RestaurantDBContext.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\DbContexts\\RestaurantDBContext.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\DbContexts\\RestaurantDBContext.cs",
-              "RelativeToolTip": "RestaurantManagement.DataAccess\\DbContexts\\RestaurantDBContext.cs",
-              "ViewState": "AQIAAMoAAAAAAAAAAAAcwBgBAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T09:32:33.788Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IUserAccountService.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAA4AAAA+AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T01:42:58.705Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Api\\Controllers\\AuthController.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "RestaurantManagement.Api\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAACMAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T04:46:46.687Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
               "Title": "UserAccountDto.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\UserAccountDto.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Service\\Dtos\\UserAccountDto.cs",
@@ -236,7 +186,47 @@
               "RelativeToolTip": "RestaurantManagement.Service\\Dtos\\UserAccountDto.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-04T04:33:23.93Z"
+              "WhenOpened": "2025-03-04T04:33:23.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ExceptionMiddleware.cs",
+              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeDocumentMoniker": "RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
+              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
+              "RelativeToolTip": "RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
+              "ViewState": "AQIAAMsAAAAAAAAAAAAqwNAAAAAZAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T01:32:05.529Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StatusCodeEnum.cs",
+              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
+              "RelativeDocumentMoniker": "RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
+              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
+              "RelativeToolTip": "RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
+              "ViewState": "AQIAADMAAAAAAAAAAAAAwAkAAAAeAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T01:32:43.865Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ReservationController.cs",
+              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\ReservationController.cs",
+              "RelativeDocumentMoniker": "RestaurantManagement.Api\\Controllers\\ReservationController.cs",
+              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\ReservationController.cs",
+              "RelativeToolTip": "RestaurantManagement.Api\\Controllers\\ReservationController.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABMAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-05T01:14:32.345Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -313,7 +303,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 20,
               "Title": "FilterOptionEnum.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\FilterOptionEnum.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Core\\Enums\\FilterOptionEnum.cs",
@@ -337,7 +327,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 18,
               "Title": "test.html",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\wwwroot\\test.html",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\wwwroot\\test.html",
@@ -349,7 +339,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 21,
               "Title": "SearchOperatorEnum.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\SearchOperatorEnum.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Core\\Enums\\SearchOperatorEnum.cs",
@@ -361,7 +351,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 19,
               "Title": "PagingBaseModel.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\ApiModels\\PagingBaseModel.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Core\\ApiModels\\PagingBaseModel.cs",
@@ -397,19 +387,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "ErrorException.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Exceptions\\ErrorException.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Core\\Exceptions\\ErrorException.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Exceptions\\ErrorException.cs",
-              "RelativeToolTip": "RestaurantManagement.Core\\Exceptions\\ErrorException.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAIBJwAQAAAAKAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-26T01:54:18.713Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 23,
               "Title": "AppSettings.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\ApiModels\\AppSettings.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Core\\ApiModels\\AppSettings.cs",
@@ -421,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 22,
               "Title": "BaseApiController.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\BaseApiController.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\Controllers\\BaseApiController.cs",
@@ -445,7 +423,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 24,
               "Title": "TblTableInfo.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\TblTableInfo.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Models\\TblTableInfo.cs",
@@ -457,7 +435,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 25,
               "Title": "TblMenu.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\TblMenu.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Models\\TblMenu.cs",
@@ -469,31 +447,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
-              "Title": "StatusCodeEnum.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
-              "RelativeToolTip": "RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
-              "ViewState": "AQIAACoAAAAAAAAAAAAMwDQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T01:32:43.865Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "ExceptionMiddleware.cs",
-              "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
-              "ToolTip": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
-              "RelativeToolTip": "RestaurantManagement.Api\\Middlewares\\ExceptionMiddleware.cs",
-              "ViewState": "AQIAAMMAAAAAAAAAAAAcwNIAAAAGAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-25T01:32:05.529Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 26,
               "Title": "TblOrderInfo.cs",
               "DocumentMoniker": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\TblOrderInfo.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Models\\TblOrderInfo.cs",
