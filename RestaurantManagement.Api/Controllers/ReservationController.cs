@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Route("aa")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ReservationController : BaseApiController
     {
@@ -19,25 +19,35 @@ namespace RestaurantManagement.Api.Controllers
             _reservationService = reservationService;
         }
 
-        [HttpPost]
-        [Route("Insert")]
-        public async Task<IActionResult> CreateReservation([FromBody] ReservationDto reservationDto)
+        [HttpPost("check-availability")]
+        public async Task<IActionResult> CheckAvailability([FromBody] CheckAvailabilityRequestDto request)
+        {
+            try
+            {
+                var availableTables = await _reservationService.GetAvailableTablesAsync(request);
+                return Success(new { Success = true, Data = availableTables });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = ex.Message });
+            }
+        }
+
+        [HttpPost("create-reservation")]
+        public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequestDto request)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
-                var createdReservation = await _reservationService.CreateReservationAsync(reservationDto);
-                return Success(createdReservation);
+                var reservation = await _reservationService.CreateReservationAsync(request);
+                return Success(new { Success = true, Data = reservation, Message = "Đặt bàn thành công" });
             }
-            catch
+            catch (Exception ex)
             {
-                // Ghi log lỗi ở đây
-                throw new ErrorException(StatusCodeEnum.Error);
+                return StatusCode(500, new { Success = false, Message = ex.Message });
             }
         }
-
-      
     }
 }

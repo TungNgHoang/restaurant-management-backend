@@ -8,6 +8,7 @@ namespace RestaurantManagement.Api.Models;
 public partial class TblTableInfo
 {
     public Guid TbiId { get; set; }
+    public int TbiTableNumber {  get; set; }
 
     public string TbiQrcode { get; set; }
 
