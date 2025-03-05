@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "D:\\FinalProject\\RestaurantManagement\\",
+  "WorkspaceRootPath": "D:\\CMCUniversity\\third_year\\DuAnQuanLyNH\\RestaurantManagement\\",
   "Documents": [
     {
       "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\dtos\\availabletabledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -19,16 +19,16 @@
       "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\interfaces\\ireservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\implementation\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\implementation\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.service\\dtos\\useraccountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\dtos\\useraccountdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\models\\tblreservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\models\\tblreservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.api\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\controllers\\reservationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\cmcuniversity\\third_year\\duanquanlynh\\restaurantmanagement\\restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\implementation\\reservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -60,6 +60,10 @@
           "DockedWidth": 200,
           "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
