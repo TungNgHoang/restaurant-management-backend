@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using RestaurantManagement.Api.Models;
 using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.Service.Dtos;
+
+//using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Service.Interfaces;
 using System;
 using System.Collections.Concurrent;
@@ -19,12 +24,14 @@ namespace RestaurantManagement.Service.Implementation
     public class AuthService : BaseService, IAuthService
     {
         private readonly IConfiguration _configuration;
-        // Dùng ConcurrentDictionary hoặc ConcurrentBag để lưu token đã bị hủy
-        private static readonly ConcurrentBag<string> _blacklistedTokens = new ConcurrentBag<string>();
+        private readonly RestaurantDBContext _dbContext;
+        private readonly IRepository<TblBlackListToken> _blackListTokenRepository;
 
-        public AuthService(AppSettings appSettings, IMapper mapper, IConfiguration configuration) : base(appSettings, mapper)
+
+        public AuthService(AppSettings appSettings, IMapper mapper, IConfiguration configuration, IRepository<TblBlackListToken> blackListTokenRepository) : base(appSettings, mapper)
         {
             _configuration = configuration;
+            _blackListTokenRepository = blackListTokenRepository;
         }
 
         public Task<string> GenerateJwtTokenAsync(TblUserAccount user)
@@ -50,18 +57,40 @@ namespace RestaurantManagement.Service.Implementation
             return Task.FromResult(new JwtSecurityTokenHandler().WriteToken(token));
         }
 
-        // Phương thức logout tích hợp vào AuthService
-        public Task LogoutAsync(string token)
+        // Phương thức logout: lưu token vào bảng BlacklistedTokens trong DB
+        // Lưu token vào Blacklist khi logout
+        public async Task<bool> LogoutAsync(string token)
         {
-            // Thêm token vào danh sách blacklist
-            _blacklistedTokens.Add(token);
-            return Task.CompletedTask;
+            //if (string.IsNullOrEmpty(token))
+               // return false;
+
+            // Lấy ngày hết hạn của token
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadToken(token) as JwtSecurityToken;
+
+            if (jwtToken == null)
+                return false;
+
+            var expiryDate = jwtToken.ValidTo;
+
+            // Lưu token vào database
+            var blacklistedToken = new TblBlackListToken
+            {
+                Token = token,
+                ExpiryDate = expiryDate
+            };
+
+            await _blackListTokenRepository.InsertAsync(blacklistedToken);
+            //await _dbContext.SaveChangesAsync();
+            return true;
         }
 
-        // Phương thức kiểm tra token có bị blacklisted hay không
-        public static bool IsTokenBlacklisted(string token)
+        // Kiểm tra token có trong blacklist không
+        public async Task<bool> IsTokenBlacklisted(string token)
         {
-            return _blacklistedTokens.Contains(token);
+            return await _dbContext.TblBlackListedTokens.AnyAsync(t => t.Token == token);
         }
+
+        
     }
 }
