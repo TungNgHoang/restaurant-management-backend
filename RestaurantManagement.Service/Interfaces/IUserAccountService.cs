@@ -1,5 +1,5 @@
-﻿using RestaurantManagement.Api.Models;
-using RestaurantManagement.Service.Dtos;
+﻿using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.Dtos.AuthDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;

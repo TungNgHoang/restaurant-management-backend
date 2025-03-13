@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.Core.Enums;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.ReserDto;
 using RestaurantManagement.Service.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,41 +12,85 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using RestaurantManagement.DataAccess.Implementation;
+using RestaurantManagement.Core.Exceptions;
+
 namespace RestaurantManagement.Service.Implementation
 {
     public class ReservationService : BaseService, IReservationService
     {
         private readonly IMapper _mapper;
         private readonly IRepository<TblReservation> _reservationsRepository;
+        private readonly IRepository<TblTableInfo> _tablesRepository;
+        private readonly IReservationRepository _reservationRepository;
+        
         public ReservationService(
             AppSettings appSettings,
             IMapper mapper,
-            IRepository<TblReservation> reservationRepository
+            IRepository<TblReservation> reservationsRepository,
+            IRepository<TblTableInfo> tablesRepository,
+            IReservationRepository reservationRepository
             ) : base(appSettings, mapper)
         {
+            _reservationsRepository = reservationsRepository;
+            _tablesRepository = tablesRepository;
+            _reservationRepository = reservationRepository;
             _mapper = mapper;
-            _reservationsRepository = reservationRepository;
         }
 
-        public async Task<ReservationDto> CreateReservationAsync(ReservationDto reservationDto)
+        public async Task<List<AvailableTableDto>> GetAvailableTablesAsync(CheckAvailabilityRequestDto request)
         {
-            // Map từ DTO sang entity
-            var reservationEntity = _mapper.Map<TblReservation>(reservationDto);
+            var startTime = request.ResDate;
+            var endTime = request.ResEndDate;
+            
+            var allTables = await _tablesRepository.ActiveRecordsAsync();
+            var overlappingReservations = await _reservationRepository.GetOverlappingReservationsAsync(startTime, endTime);
+            var occupiedTableIds = overlappingReservations.Select(r => r.TbiId).Distinct().ToList();
 
-            // Có thể thiết lập thêm các trường mặc định (CreatedBy, …) nếu cần
-            await _reservationsRepository.InsertAsync(reservationEntity);
+            var availableTables = allTables
+                .Where(t => !occupiedTableIds.Contains(t.TbiId))
+                .ToList();
 
-            // Map lại từ entity sang DTO để trả về
-            return _mapper.Map<ReservationDto>(reservationEntity);
+            return _mapper.Map<List<AvailableTableDto>>(availableTables);
         }
 
-        public async Task<ReservationDto> GetReservationByIdAsync(Guid id)
+        public async Task<ReservationResponseDto> CreateReservationAsync(CreateReservationRequestDto request)
         {
-            var reservationEntity = await _reservationsRepository.FindByIdAsync(id);
-            if (reservationEntity == null)
-                return null;
+            var startTime = request.ResDate;
+            var endTime = request.ResEndTime;
 
-            return _mapper.Map<ReservationDto>(reservationEntity);
+            if (startTime > endTime)
+            {
+                throw new ErrorException(StatusCodeEnum.C02);
+            }
+            if (request.TempCustomerPhone.Length != 10)
+            {
+                throw new ErrorException(StatusCodeEnum.C03);
+            }
+           
+            var overlappingReservations = await _reservationRepository.GetOverlappingReservationsAsync(startTime, endTime);
+            if (overlappingReservations.Any(r => r.TbiId == request.TbiId))
+            {
+                throw new ErrorException(StatusCodeEnum.C01);
+            }
+
+            var reservation = new TblReservation
+            {
+                ResId = Guid.NewGuid(),
+                TbiId = request.TbiId,
+                TempCustomerName = request.TempCustomerName,
+                TempCustomerPhone = request.TempCustomerPhone,
+                ResDate = request.ResDate,
+                ResEndTime = request.ResEndTime,
+                ResNumber = request.ResNumber,
+                ResStatus = ReservationStatus.Pending.ToString(),
+                IsDeleted = false,
+                CreatedAt = DateTime.Now,
+                CreatedBy = Guid.Empty // Giả định tạm thời, có thể thay đổi
+            };
+
+            await _reservationsRepository.InsertAsync(reservation);
+            return _mapper.Map<ReservationResponseDto>(reservation);
         }
     }
 }

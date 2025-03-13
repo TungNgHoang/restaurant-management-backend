@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.AuthDto;
 using RestaurantManagement.Service.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;

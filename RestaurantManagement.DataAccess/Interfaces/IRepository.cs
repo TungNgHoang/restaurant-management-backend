@@ -19,7 +19,7 @@ namespace RestaurantManagement.DataAccess.Interfaces
         Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> FilterAsync(Expression<Func<T, bool>> predicate);
         Task<IEnumerable<T>> FindElementAsync(Expression<Func<T, bool>> predicate);
-        Task<IEnumerable<object>> GetDistinctColumnAsync(string columnName);
+        //Task<IEnumerable<object>> GetDistinctColumnAsync(string columnName);
         Task<IEnumerable<T>> GetListAsync();
         Task<T> FindByIdAsync(Guid id);
         Task<T> FindAsync(Expression<Func<T, bool>> predicate);

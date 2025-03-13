@@ -32,16 +32,16 @@ namespace RestaurantManagement.Core.Enums
         [Description("{{Object}} not found")]
         A02,
 
-        [Description("Stale Dated Days must be from 60 to 365.")]
+        [Description("Bàn đã được đặt trong khoảng thời gian này.")]
         C01,
 
-        [Description("This Client Number is already active in the system.")]
+        [Description("Thời gian đặt bàn không hợp lệ.")]
         C02,
 
-        [Description("This Account Number is already active in the system.")]
+        [Description("Số điện thoại không hợp lệ.")]
         C03,
 
-        [Description("{{Client_Name}} has been created successfully.")]
+        [Description("Id bàn không hợp lệ.")]
         C04,
 
         [Description("Download Interrupted. Please check your internet connection and try again.")]
