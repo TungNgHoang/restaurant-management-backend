@@ -1,6 +1,26 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Remove="Models\**" />
+    <EmbeddedResource Remove="Models\**" />
+    <None Remove="Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="Models\RestaurantDBContext.cs" />
+    <Compile Include="Models\TblBlackListToken.cs" />
+    <Compile Include="Models\TblCustomer.cs" />
+    <Compile Include="Models\TblMenu.cs" />
+    <Compile Include="Models\TblOrderDetail.cs" />
+    <Compile Include="Models\TblOrderInfo.cs" />
+    <Compile Include="Models\TblPayment.cs" />
+    <Compile Include="Models\TblReservation.cs" />
+    <Compile Include="Models\TblStaff.cs" />
+    <Compile Include="Models\TblTableInfo.cs" />
+    <Compile Include="Models\TblUserAccount.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RestaurantManagement.Core\RestaurantManagement.Core.csproj" />
   </ItemGroup>
 

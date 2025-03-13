@@ -1,6 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Identity.Client;
+using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.Service.Dtos;
 using RestaurantManagement.Service.Dtos.AuthDto;
+using RestaurantManagement.Service.Implementation;
 using RestaurantManagement.Service.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -12,9 +19,14 @@ namespace RestaurantManagement.Api.Controllers
     public class AuthController : BaseApiController
     {
         private readonly IUserAccountService _userAccountService;
-        public AuthController(IServiceProvider serviceProvider, IUserAccountService userAccountService) : base(serviceProvider)
+        private readonly IAuthService _authService;
+        private readonly ILogger<AuthController> _logger;
+
+        public AuthController(IServiceProvider serviceProvider, IUserAccountService userAccountService, IAuthService authService, ILogger<AuthController> logger) : base(serviceProvider)
         {    
             _userAccountService = userAccountService;
+            _authService = authService;
+            _logger = logger;
         }
 
         [HttpPost("login")]
@@ -30,7 +42,24 @@ namespace RestaurantManagement.Api.Controllers
 
             // Trả về token và role trong response
             return Success(new { token, role = roleClaim });
-            
+
+        }
+
+        [Authorize]
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            var authHeader = HttpContext.Request.Headers["Authorization"].FirstOrDefault();
+            _logger.LogInformation("Auth header: " + authHeader);
+            if (string.IsNullOrEmpty(authHeader) || !authHeader.StartsWith("Bearer "))
+            {
+                return BadRequest(new { message = "Token not provided." });
+            }
+
+            var token = authHeader.Substring("Bearer ".Length).Trim();
+            _logger.LogInformation("Extracted token: " + token);
+            await _authService.LogoutAsync(token);
+            return Ok(new { message = "Logout successful. Token has been revoked." });
         }
     }
 }

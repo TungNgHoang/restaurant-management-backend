@@ -59,5 +59,8 @@ namespace RestaurantManagement.Core.Enums
 
         [Description("Unmatched columns found.")]
         UnmatchedColumns,
+
+        [Description("Logout failed")]
+        LogoutFailed,
     }
 }
