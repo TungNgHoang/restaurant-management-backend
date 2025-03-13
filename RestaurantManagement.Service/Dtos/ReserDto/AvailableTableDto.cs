@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace RestaurantManagement.Service.Dtos
+namespace RestaurantManagement.Service.Dtos.ReserDto
 {
     public class AvailableTableDto
     {
         public Guid TbiId { get; set; }
-        public int TableNumber { get; set; }
-        public int Capacity { get; set; }
+        public int TbiTableNumber { get; set; }
     }
 }

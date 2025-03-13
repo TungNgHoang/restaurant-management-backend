@@ -363,3 +363,8 @@ D:\CMCUniversity\third_year\DuAnQuanLyNH\RestaurantManagement\RestaurantManageme
 D:\CMCUniversity\third_year\DuAnQuanLyNH\RestaurantManagement\RestaurantManagement.Api\obj\Debug\net8.0\RestaurantManagement.Api.genruntimeconfig.cache
 D:\CMCUniversity\third_year\DuAnQuanLyNH\RestaurantManagement\RestaurantManagement.Api\obj\Debug\net8.0\ref\RestaurantManagement.Api.dll
 D:\CMCUniversity\third_year\DuAnQuanLyNH\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\bin\Debug\net8.0\RestaurantManagement.Api.staticwebassets.endpoints.json
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\obj\Debug\net8.0\staticwebassets.build.endpoints.json
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\obj\Debug\net8.0\staticwebassets\msbuild.RestaurantManagement.Api.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt

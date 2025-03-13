@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.DataAccess.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;

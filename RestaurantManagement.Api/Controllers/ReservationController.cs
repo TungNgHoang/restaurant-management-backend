@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Service.Dtos;
 using RestaurantManagement.Service.Interfaces;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Core.Enums;
 using System.Runtime.CompilerServices;
+using RestaurantManagement.Service.Dtos.ReserDto;
 
 namespace RestaurantManagement.Api.Controllers
 {
@@ -12,7 +12,7 @@ namespace RestaurantManagement.Api.Controllers
     [ApiController]
     public class ReservationController : BaseApiController
     {
-        public IReservationService _reservationService {  get; set; }
+        public IReservationService _reservationService { get; set; }
 
         public ReservationController(IServiceProvider serviceProvider, IReservationService reservationService) : base(serviceProvider)
         {
@@ -49,5 +49,6 @@ namespace RestaurantManagement.Api.Controllers
                 return StatusCode(500, new { Success = false, Message = ex.Message });
             }
         }
+
     }
 }

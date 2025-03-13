@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Service.Interfaces;
 using System;

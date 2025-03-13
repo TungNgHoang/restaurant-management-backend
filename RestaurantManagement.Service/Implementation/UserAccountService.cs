@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.AuthDto;
 using RestaurantManagement.Service.Interfaces;
 using System;
 using System.Collections.Generic;

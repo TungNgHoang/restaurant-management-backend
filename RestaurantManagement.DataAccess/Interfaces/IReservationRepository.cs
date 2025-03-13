@@ -1,4 +1,4 @@
-﻿using RestaurantManagement.Api.Models;
+﻿using RestaurantManagement.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +9,6 @@ namespace RestaurantManagement.DataAccess.Interfaces
 {
     public interface IReservationRepository
     {
-        Task<List<TblReservation>> GetReservationsByTimeRange(DateTime date, TimeOnly startTime, TimeOnly endTime);
+        Task<List<TblReservation>> GetOverlappingReservationsAsync(DateTime start, DateTime? end);
     }
 }

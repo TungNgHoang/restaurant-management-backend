@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.DataAccess.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,11 @@ namespace RestaurantManagement.DataAccess.Implementation
         {
             _context = context;
         }
-        public async Task<List<TblReservation>> GetReservationsByTimeRange(DateTime date, TimeOnly startTime, TimeOnly endTime)
+        public async Task<List<TblReservation>> GetOverlappingReservationsAsync(DateTime start, DateTime? end)
         {
-            var reservations = await _context.TblReservations
-                .Where(r => r.ResDate.Date == date.Date // Lọc theo ngày
-                    && r.ResTime >= startTime           // Thời gian bắt đầu
-                    && r.ResTime < endTime              // Thời gian kết thúc
-                    && !r.IsDeleted)                    // Chỉ lấy reservation chưa bị xóa
+            return await _context.TblReservations
+                .Where(r => r.ResDate < end && r.ResEndTime > start && !r.IsDeleted)
                 .ToListAsync();
-
-            return reservations.ToList();
         }
     }
 }

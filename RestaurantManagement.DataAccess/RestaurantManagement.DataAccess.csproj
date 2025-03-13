@@ -21,10 +21,6 @@
     <PackageReference Include="Twilio" Version="7.8.5" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="DbContexts\" />
-  </ItemGroup>
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

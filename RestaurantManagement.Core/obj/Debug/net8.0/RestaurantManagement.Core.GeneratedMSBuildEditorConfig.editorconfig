@@ -19,3 +19,5 @@ build_property.RootNamespace = RestaurantManagement.Core
 build_property.ProjectDir = D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
