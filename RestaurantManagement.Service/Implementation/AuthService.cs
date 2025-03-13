@@ -6,8 +6,7 @@ using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.Service.Dtos;
-
-//using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.DataAccess.DbContexts;
 using RestaurantManagement.Service.Interfaces;
 using System;
 using System.Collections.Concurrent;
@@ -88,7 +87,7 @@ namespace RestaurantManagement.Service.Implementation
         // Kiểm tra token có trong blacklist không
         public async Task<bool> IsTokenBlacklisted(string token)
         {
-            return await _dbContext.TblBlackListedTokens.AnyAsync(t => t.Token == token);
+            return await _dbContext.TblBlackListTokens.AnyAsync(t => t.Token == token);
         }
 
         

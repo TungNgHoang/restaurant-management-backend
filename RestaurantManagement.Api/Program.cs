@@ -104,7 +104,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 var token = context.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
 
                 // Kiểm tra token có tồn tại trong database không
-                var isValid = await dbContext.TblBlackListedTokens.AnyAsync(t => t.Token == token);
+                var isValid = await dbContext.TblBlackListTokens.AnyAsync(t => t.Token == token);
                 if (isValid)
                 {
                     context.Fail("Token is invalid.");
@@ -129,7 +129,7 @@ builder.Configuration
        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
        .AddEnvironmentVariables();
 
-app.UseStaticFiles();
+//app.UseStaticFiles();
 //Khai báo DataSeeder
 using (var scope = app.Services.CreateScope())
 {

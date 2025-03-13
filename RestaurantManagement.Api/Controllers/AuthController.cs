@@ -6,6 +6,7 @@ using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.AuthDto;
 using RestaurantManagement.Service.Implementation;
 using RestaurantManagement.Service.Interfaces;
 using System.IdentityModel.Tokens.Jwt;
