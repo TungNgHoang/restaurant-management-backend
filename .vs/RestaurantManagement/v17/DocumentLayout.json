@@ -11,24 +11,16 @@
       "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\implementation\\reservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{104D3E11-CF35-4E0C-8F66-893B02A96EAB}|Solution Items{104D3E11-CF35-4E0C-8F66-893B02A96EAB}|D:\\FinalProject\\RestaurantManagement\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{104D3E11-CF35-4E0C-8F66-893B02A96EAB}|Solution Items{104D3E11-CF35-4E0C-8F66-893B02A96EAB}|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.core\\enums\\statuscodeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|solutionrelative:restaurantmanagement.core\\enums\\statuscodeenum.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\interfaces\\ireservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\interfaces\\ireservationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\models\\tblmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\models\\tblmenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\dtos\\reserdto\\reservationresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\dtos\\reserdto\\reservationresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\dtos\\reserdto\\createreservationrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\dtos\\reserdto\\createreservationrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\implementation\\repository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -43,60 +35,16 @@
       "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\models\\tblreservation.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\implementation\\reservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\implementation\\reservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\RestaurantDBContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:RestaurantManagement.DataAccess\\Models\\RestaurantDBContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.core\\apimodels\\pagingbasemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DD591499-ED15-4F37-9C8C-788B69AE01EC}|RestaurantManagement.Core\\RestaurantManagement.Core.csproj|solutionrelative:restaurantmanagement.core\\apimodels\\pagingbasemodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\dtos\\reserdto\\availabletabledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\dtos\\reserdto\\availabletabledto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.api\\automapperprofile\\projectprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\automapperprofile\\projectprofile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\implementation\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\implementation\\useraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\implementation\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\implementation\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\interfaces\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\interfaces\\iuseraccountservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\interfaces\\iauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\infrastructure\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\infrastructure\\dataseeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\dbcontexts\\restaurantdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\dbcontexts\\restaurantdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.dataaccess\\interfaces\\ireservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2536C2CA-9925-4FD6-81A5-34AD1501ACD2}|RestaurantManagement.DataAccess\\RestaurantManagement.DataAccess.csproj|solutionrelative:restaurantmanagement.dataaccess\\interfaces\\ireservationrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|solutionrelative:restaurantmanagement.api\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.service\\dtos\\reserdto\\checkavailabilityrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}|RestaurantManagement.Service\\RestaurantManagement.Service.csproj|solutionrelative:restaurantmanagement.service\\dtos\\reserdto\\checkavailabilityrequestdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{C01F4666-0F0A-42F1-B3D8-483150C39AE4}|RestaurantManagement.Api\\RestaurantManagement.Api.csproj|d:\\finalproject\\restaurantmanagement\\restaurantmanagement.api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
@@ -110,28 +58,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "ReservationController.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\ReservationController.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\Controllers\\ReservationController.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\ReservationController.cs*",
-              "RelativeToolTip": "RestaurantManagement.Api\\Controllers\\ReservationController.cs*",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAmwCsAAAANAAAAAAAAAA==",
+              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\Controllers\\ReservationController.cs",
+              "RelativeToolTip": "RestaurantManagement.Api\\Controllers\\ReservationController.cs",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAawCoAAAANAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T01:59:17.861Z",
+              "WhenOpened": "2025-03-13T01:17:01.532Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 1,
+              "Title": "ReservationService.cs",
+              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\ReservationService.cs",
+              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\ReservationService.cs",
+              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\ReservationService.cs",
+              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\ReservationService.cs",
+              "ViewState": "AgIAACoAAAAAAAAAAAAYwEoAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-13T01:16:40.256Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": ".gitignore",
+              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAACcAAAAAAAAAAAAQwDUAAAALAAAAAAAAAA==",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAG/SURBVDhPrZRNTgIxFMerDIaEhHgU97JxwUKGGaNeQJdyCY0XUBDWGhg4AB\u002BuvQk7OQCRFTP1fXWmMxUMCT94ee177eu/LVQdFK31kTSJ0WgEIa0SMJ2A6QTHcF9iicQqlYpa/6zv2\u002B2HD5nuEkWR/l4udRzHZBtjGzFor1YrPR6P9WKx0MNhpN96vTuZThyLJ1AJLK/iJFFxjBanBsXIozqkWq2qev1c1Wq19063e0ZBwBNP4JaQ6WRC/i8ajQb5wWBAvnxyghpOqQPkC8L5IEEQKjgxaqOTFsCd65tb6nmlkur1\u002BxwXCgX58KfT7QptwvCK52wrSLcJvtUKOABkQ6HFXwbGsmMRBkchzpjNphLZDSrEn5G1qnsp\u002BPEtheloXouRnXDTTjhb5tXmeyg0IgzuliHp\u002By0OANbiOCDXp1IYo3mMUxBT8/mMA/8QhGH6ZzC4Zwi5ZqoQB9M3h62I/\u002B/SAQpniBmtPvdQyGeYUdgyX8pl05eIBSxmTzQYEYbc42AuJQWLGJNQEcrJG4A4BTHneSW2sqfKOyybkxXMPbAvrx3IsyLzkPJFmUcWYtDntjG6lIvnp8cvKXNIlPoFvstpJRlQPIAAAAAASUVORK5CYII=",
+              "WhenOpened": "2025-03-13T01:06:29.328Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "IRepository.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Interfaces\\IRepository.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Interfaces\\IRepository.cs",
@@ -143,71 +113,31 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "CreateReservationRequestDto.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\CreateReservationRequestDto.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Dtos\\ReserDto\\CreateReservationRequestDto.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\CreateReservationRequestDto.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Dtos\\ReserDto\\CreateReservationRequestDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAcAAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T02:31:18.386Z"
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
               "Title": "TblMenu.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\TblMenu.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Models\\TblMenu.cs",
               "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\TblMenu.cs",
               "RelativeToolTip": "RestaurantManagement.DataAccess\\Models\\TblMenu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T03:00:09.658Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-07T03:00:09.658Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "IReservationService.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IReservationService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Interfaces\\IReservationService.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IReservationService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Interfaces\\IReservationService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAuwA4AAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T01:48:54.952Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "StatusCodeEnum.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
               "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
               "RelativeToolTip": "RestaurantManagement.Core\\Enums\\StatusCodeEnum.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAAACgAAAA0AAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAAACgAAABNAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-12T03:41:28.546Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-12T03:41:28.546Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ReservationService.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\ReservationService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\ReservationService.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\ReservationService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\ReservationService.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAuwEUAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T01:42:35.843Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 5,
               "Title": "Repository.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Implementation\\Repository.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Implementation\\Repository.cs",
@@ -219,19 +149,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ReservationResponseDto.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\ReservationResponseDto.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Dtos\\ReserDto\\ReservationResponseDto.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\ReservationResponseDto.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Dtos\\ReserDto\\ReservationResponseDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABEAAAAqAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T04:39:18.555Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "TblReservation.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\TblReservation.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Models\\TblReservation.cs",
@@ -243,31 +161,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ReservationRepository.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Implementation\\ReservationRepository.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Implementation\\ReservationRepository.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Implementation\\ReservationRepository.cs",
-              "RelativeToolTip": "RestaurantManagement.DataAccess\\Implementation\\ReservationRepository.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAuwBgAAABUAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T01:55:48.899Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "PagingBaseModel.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\ApiModels\\PagingBaseModel.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Core\\ApiModels\\PagingBaseModel.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Core\\ApiModels\\PagingBaseModel.cs",
-              "RelativeToolTip": "RestaurantManagement.Core\\ApiModels\\PagingBaseModel.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAvAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T04:12:12.884Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 8,
               "Title": "RestaurantDBContext.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Models\\RestaurantDBContext.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Models\\RestaurantDBContext.cs",
@@ -279,91 +173,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "AvailableTableDto.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\AvailableTableDto.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Dtos\\ReserDto\\AvailableTableDto.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\AvailableTableDto.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Dtos\\ReserDto\\AvailableTableDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAgAAAAiAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T04:36:39.163Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "ProjectProfile.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\AutoMapperProfile\\ProjectProfile.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Api\\AutoMapperProfile\\ProjectProfile.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\AutoMapperProfile\\ProjectProfile.cs",
-              "RelativeToolTip": "RestaurantManagement.Api\\AutoMapperProfile\\ProjectProfile.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T02:00:45.034Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "IAuthService.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IAuthService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Interfaces\\IAuthService.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IAuthService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Interfaces\\IAuthService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T00:57:20.08Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "UserAccountService.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\UserAccountService.cs",
-              "ViewState": "AQIAACsAAAAAAAAAAAAjwD0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T00:57:12.404Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "IUserAccountService.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Interfaces\\IUserAccountService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAlAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T00:57:27.76Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Implementation\\AuthService.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAAsAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T00:56:56.517Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "DataSeeder.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Infrastructure\\DataSeeder.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Infrastructure\\DataSeeder.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Infrastructure\\DataSeeder.cs",
-              "RelativeToolTip": "RestaurantManagement.DataAccess\\Infrastructure\\DataSeeder.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-10T00:55:29.218Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 9,
               "Title": "RestaurantDBContext.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\DbContexts\\RestaurantDBContext.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\DbContexts\\RestaurantDBContext.cs",
@@ -375,19 +185,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
-              "Title": "IReservationRepository.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Interfaces\\IReservationRepository.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.DataAccess\\Interfaces\\IReservationRepository.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.DataAccess\\Interfaces\\IReservationRepository.cs",
-              "RelativeToolTip": "RestaurantManagement.DataAccess\\Interfaces\\IReservationRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAABcAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-07T01:56:11.268Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 11,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\appsettings.json",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\appsettings.json",
@@ -399,7 +197,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Api\\Program.cs",
               "RelativeDocumentMoniker": "RestaurantManagement.Api\\Program.cs",
@@ -410,16 +208,8 @@
               "WhenOpened": "2025-03-07T02:45:28.981Z"
             },
             {
-              "$type": "Document",
-              "DocumentIndex": 23,
-              "Title": "CheckAvailabilityRequestDto.cs",
-              "DocumentMoniker": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\CheckAvailabilityRequestDto.cs",
-              "RelativeDocumentMoniker": "RestaurantManagement.Service\\Dtos\\ReserDto\\CheckAvailabilityRequestDto.cs",
-              "ToolTip": "D:\\FinalProject\\RestaurantManagement\\RestaurantManagement.Service\\Dtos\\ReserDto\\CheckAvailabilityRequestDto.cs",
-              "RelativeToolTip": "RestaurantManagement.Service\\Dtos\\ReserDto\\CheckAvailabilityRequestDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAuwAsAAAAYAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-06T04:36:35.837Z"
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             }
           ]
         }
