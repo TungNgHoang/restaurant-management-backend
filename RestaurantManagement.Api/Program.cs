@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Api.AutoMapperProfile;
-using RestaurantManagement.Api.Models;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.Service.Interfaces;
@@ -12,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using RestaurantManagement.DataAccess.Infrastructure;
 using RestaurantManagement.Api.Middlewares;
+using RestaurantManagement.DataAccess.DbContexts;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.OpenApi.Models;
 
@@ -30,6 +30,7 @@ builder.Services.AddDbContext<RestaurantDBContext>(
 
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IAuthService, AuthService>();

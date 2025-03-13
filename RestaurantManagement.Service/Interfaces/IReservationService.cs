@@ -1,4 +1,6 @@
-﻿using RestaurantManagement.Service.Dtos;
+﻿using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.ReserDto;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +11,7 @@ namespace RestaurantManagement.Service.Interfaces
 {
     public interface IReservationService
     {
-        Task<ReservationDto> CreateReservationAsync(ReservationDto reservationDto);
-        Task<ReservationDto> GetReservationByIdAsync(Guid id);
-        // Thêm các phương thức khác vào đây
+        Task<List<AvailableTableDto>> GetAvailableTablesAsync(CheckAvailabilityRequestDto request);
+        Task<ReservationResponseDto> CreateReservationAsync(CreateReservationRequestDto request);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.ReserDto;
 
 namespace RestaurantManagement.Api.AutoMapperProfile
 {
@@ -8,7 +9,8 @@ namespace RestaurantManagement.Api.AutoMapperProfile
     {
         public ProjectProfile() 
         {
-            CreateMap<TblReservation, ReservationDto>();
+            CreateMap<TblReservation, ReservationResponseDto>();
+            CreateMap<TblTableInfo, AvailableTableDto>();
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Api.Models;
+using RestaurantManagement.DataAccess.Models;
 
-namespace RestaurantManagement.Api.Models;
+namespace RestaurantManagement.DataAccess.DbContexts;
 
 public partial class RestaurantDBContext : DbContext
 {
@@ -16,7 +16,7 @@ public partial class RestaurantDBContext : DbContext
     {
     }
 
-    public virtual DbSet<TblBlackListToken> TblBlackListedTokens { get; set; }
+    public virtual DbSet<TblBlackListToken> TblBlackListTokens { get; set; }
 
     public virtual DbSet<TblCustomer> TblCustomers { get; set; }
 
@@ -38,7 +38,7 @@ public partial class RestaurantDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn,10000;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
+        => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn, 10000;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -199,10 +199,11 @@ public partial class RestaurantDBContext : DbContext
                 .IsRowVersion()
                 .IsConcurrencyToken();
             entity.Property(e => e.TbiId).HasColumnName("TbiID");
+            entity.Property(e => e.TempCustomerName).HasMaxLength(255);
+            entity.Property(e => e.TempCustomerPhone).HasMaxLength(50);
 
             entity.HasOne(d => d.Cus).WithMany(p => p.TblReservations)
                 .HasForeignKey(d => d.CusId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tblReservation_tblCustomer");
 
             entity.HasOne(d => d.Tbi).WithMany(p => p.TblReservations)

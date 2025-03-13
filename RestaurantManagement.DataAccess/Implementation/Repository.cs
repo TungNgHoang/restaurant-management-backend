@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Api.Models;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
 using System;
@@ -9,6 +8,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.DataAccess.DbContexts;
 
 namespace RestaurantManagement.DataAccess.Implementation
 {
@@ -74,14 +74,14 @@ namespace RestaurantManagement.DataAccess.Implementation
         public async Task<IEnumerable<T>> FindElementAsync(Expression<Func<T, bool>> predicate) =>
             await _dbSet.AsNoTracking().Where(predicate).ToListAsync();
 
-        public async Task<IEnumerable<object>> GetDistinctColumnAsync(string columnName)
-        {
-            var list = await _dbSet.AsNoTracking().ToListAsync();
-            return list
-                .Select(x => x.GetType().GetProperty(columnName)?.GetValue(x))
-                .Where(value => value != null)
-                .Distinct();
-        }
+        //public async Task<IEnumerable<object>> GetDistinctColumnAsync(string columnName)
+        //{
+        //    var list = await _dbSet.AsNoTracking().ToListAsync();
+        //    return list
+        //        .Select(x => x.GetType().GetProperty(columnName)?.GetValue(x))
+        //        .Where(value => value != null)
+        //        .Distinct();
+        //}
 
         public async Task<IEnumerable<T>> GetListAsync()
         {

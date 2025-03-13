@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RestaurantManagement.Api.Models;
+namespace RestaurantManagement.DataAccess.Models;
 
 public partial class TblOrderInfo
 {

@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace RestaurantManagement.Api.Models;
+namespace RestaurantManagement.DataAccess.Models;
 
 public partial class TblReservation
 {
     public Guid ResId { get; set; }
 
-    public Guid CusId { get; set; }
+    public Guid? CusId { get; set; }
 
     public Guid TbiId { get; set; }
 
@@ -33,7 +33,11 @@ public partial class TblReservation
 
     public string? Note { get; set; }
 
-    public virtual TblCustomer Cus { get; set; } = null!;
+    public string? TempCustomerName { get; set; }
+
+    public string? TempCustomerPhone { get; set; }
+
+    public virtual TblCustomer? Cus { get; set; }
 
     public virtual TblTableInfo Tbi { get; set; } = null!;
 
