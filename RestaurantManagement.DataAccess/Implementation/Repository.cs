@@ -183,5 +183,11 @@ namespace RestaurantManagement.DataAccess.Implementation
             }
             await _dbContext.SaveChangesAsync();
         }
+
+        public async Task InsertManyAsync(IEnumerable<T> objs)
+        {
+            await _dbContext.Set<T>().AddRangeAsync(objs);
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }
