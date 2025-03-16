@@ -14,6 +14,7 @@ using RestaurantManagement.Api.Middlewares;
 using RestaurantManagement.DataAccess.DbContexts;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.OpenApi.Models;
+using RestaurantManagement.DataAccess.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -34,6 +35,10 @@ builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
 builder.Services.AddScoped<IReservationService, ReservationService>();
 builder.Services.AddScoped<IUserAccountService, UserAccountService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IRepository<TblOrderInfo>, Repository<TblOrderInfo>>();
+builder.Services.AddScoped<IRepository<TblOrderDetail>, Repository<TblOrderDetail>>();
+builder.Services.AddScoped<IRepository<TblMenu>, Repository<TblMenu>>();
 ////Addcors
 builder.Services.AddCors(options =>
 {

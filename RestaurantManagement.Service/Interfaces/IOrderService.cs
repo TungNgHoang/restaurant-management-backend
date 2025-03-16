@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestaurantManagement.Service.Dtos.OrdersDto;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,6 @@ namespace RestaurantManagement.Service.Interfaces
 {
     public interface IOrderService
     {
-
+        Task<OrderDTO> CreateOrderAsync(CreateOrderRequestDto request);
     }
 }

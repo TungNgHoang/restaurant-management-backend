@@ -8,13 +8,16 @@ namespace RestaurantManagement.Service.Dtos.OrdersDto
 {
     public class CreateOrderRequestDto
     {
-        public Guid CustomerId { get; set; }
-        public List<OrderItemDto> Items { get; set; }
+        public Guid CusId { get; set; }
+        public Guid TbiId { get; set; }
+        public Guid? ResId { get; set; }
+        public List<OrderDetailDto> OrderDetails { get; set; }
+        public Guid CreatedBy { get; set; }
     }
 
-    public class OrderItemDto
+    public class OrderDetailDto
     {
-        public Guid MenuItemId { get; set; }
-        public int Quantity { get; set; }
+        public Guid MnuId { get; set; }  // Mã món ăn
+        public int OdtQuantity { get; set; }  // Số lượng món
     }
 }
