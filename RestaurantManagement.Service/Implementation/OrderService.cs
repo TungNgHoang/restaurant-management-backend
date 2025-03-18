@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Service.Dtos.OrdersDto;
@@ -54,7 +56,7 @@ namespace RestaurantManagement.Service.Implementation
             {
                 var menuItem = await _menuRepository.FindByIdAsync(item.MnuId);
                 if (menuItem == null)
-                    throw new Exception($"Món ăn với ID {item.MnuId} không tồn tại.");
+                    throw new ErrorException(StatusCodeEnum.D01);
 
                 var orderDetail = new TblOrderDetail
                 {
@@ -78,10 +80,41 @@ namespace RestaurantManagement.Service.Implementation
             return _mapper.Map<OrderDTO>(order);
         }
 
-        public async Task<OrderDTO> GetOrderByIdAsync(Guid orderId)
+        public async Task<OrderDetailsDto> GetOrderByIdAsync(Guid orderId)
         {
-            var order = await _orderRepository.GetOrderByIdAsync(orderId);
-            return _mapper.Map<OrderDTO>(order);
+            var order = await _orderDetailsRepository.FindListAsync(od => od.OrdId == orderId);
+            if (order == null || !order.Any())
+                throw new ErrorException(StatusCodeEnum.D02);
+            var orderItemDtos = new List<OrderItem>();
+            foreach (var detail in order)
+            {
+                // Nếu navigation property không được load, bạn có thể lấy từ repository:
+                TblMenu menuItem;
+                if (detail.Mnu == null)
+                {
+                    menuItem = await _menuRepository.FindByIdAsync(detail.MnuId);
+                }
+                else
+                {
+                    menuItem = detail.Mnu;
+                }
+
+                if (menuItem == null)
+                {
+                    // Nếu không tìm thấy thông tin món ăn, ném exception
+                    throw new ErrorException(StatusCodeEnum.D01);
+                }
+
+                orderItemDtos.Add(new OrderItem
+                {
+                    MnuId = detail.MnuId,
+                    MnuName = menuItem.MnuName,
+                    MnuPrice = menuItem.MnuPrice,
+                    OdtQuantity = detail.OdtQuantity
+                });
+            }
+
+            return new OrderDetailsDto { Items = orderItemDtos };
         }
     }
 }

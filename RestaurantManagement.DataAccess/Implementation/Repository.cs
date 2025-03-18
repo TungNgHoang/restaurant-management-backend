@@ -97,6 +97,10 @@ namespace RestaurantManagement.DataAccess.Implementation
         public async Task<T> FindAsync(Expression<Func<T, bool>> predicate) =>
             await _dbSet.FirstOrDefaultAsync(predicate);
 
+        public async Task<List<T>> FindListAsync(Expression<Func<T, bool>> predicate) =>
+            //await _dbSet.FirstOrDefaultAsync(predicate);
+            await _dbSet.Where(predicate).ToListAsync();
+
         // 3. Thêm, Cập nhật và Xóa Dữ liệu
         public async Task InsertAsync(T obj)
         {

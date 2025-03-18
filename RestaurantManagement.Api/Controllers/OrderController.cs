@@ -4,7 +4,7 @@ using RestaurantManagement.Service.Interfaces;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Route("api/orders")]
+    [Route("api/Orders")]
     [ApiController]
     public class OrderController : ControllerBase
     {
@@ -28,17 +28,17 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(new { Message = "Tạo đơn hàng thành công!", OrderId = order.OrdID });
         }
 
-        //// 2. Xem đơn hàng vừa tạo
-        //[HttpGet("{orderId}")]
-        //public async Task<IActionResult> GetOrderById(Guid orderId)
-        //{
-        //    var result = await _orderService.GetOrderByIdAsync(orderId);
-        //    if (result == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok(result);
-        //}
+        // 2. Xem đơn hàng vừa tạo
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> GetOrderById(Guid orderId)
+        {
+            var order = await _orderService.GetOrderByIdAsync(orderId);
+
+            if (order == null)
+                return NotFound("Đơn hàng không tồn tại.");
+
+            return Ok(order);
+        }
 
         //// 3. Cập nhật thêm món vào đơn hàng
         //[HttpPost("{orderId}/add-item")]

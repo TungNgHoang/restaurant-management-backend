@@ -22,10 +22,11 @@ using System.Threading.Tasks;
             //Task<IEnumerable<object>> GetDistinctColumnAsync(string columnName);
             Task<IEnumerable<T>> GetListAsync();
             Task<T> FindByIdAsync(Guid id);
+            Task<List<T>> FindListAsync(Expression<Func<T, bool>> predicate);
             Task<T> FindAsync(Expression<Func<T, bool>> predicate);
 
-            // 3. Thêm, Cập nhật và Xóa Dữ liệu
-            Task InsertAsync(T obj);
+        // 3. Thêm, Cập nhật và Xóa Dữ liệu
+        Task InsertAsync(T obj);
             Task UpdateAsync(T obj);
             Task UpdateManyAsync(IEnumerable<T> objs);
             Task DeleteAsync(T obj); // Soft delete nếu có cột IsDeleted
