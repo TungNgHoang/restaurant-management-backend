@@ -9,8 +9,8 @@ namespace RestaurantManagement.Service.Interfaces
 {
     public interface IOrderService
     {
-        Task<OrderDTO> CreateOrderAsync(CreateOrderRequestDto request);
         Task<OrderDetailsDto> GetOrderByIdAsync(Guid orderId);
+        Task<OrderDTO> ProcessOrderAsync(CreateOrderRequestDto request);
 
     }
 }

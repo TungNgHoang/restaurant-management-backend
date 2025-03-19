@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Service.Dtos.OrdersDto;
 using RestaurantManagement.Service.Interfaces;
 
@@ -15,17 +17,19 @@ namespace RestaurantManagement.Api.Controllers
             _orderService = orderService;
         }
 
-        // 1. Tạo đơn hàng
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderRequestDto request)
+        // 1. Lựa chọn Tạo mới Hay Cập nhật
+        [HttpPost("process-order")]
+        public async Task<IActionResult> ProcessOrder([FromBody] CreateOrderRequestDto request)
         {
-            if (request == null || request.OrderDetails == null || !request.OrderDetails.Any())
+            try
             {
-                return BadRequest("Thông tin đơn hàng không hợp lệ.");
+                var result = await _orderService.ProcessOrderAsync(request);
+                return Ok(result);
             }
-
-            var order = await _orderService.CreateOrderAsync(request);
-            return Ok(new { Message = "Tạo đơn hàng thành công!", OrderId = order.OrdID });
+            catch (Exception ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         // 2. Xem đơn hàng vừa tạo
@@ -35,17 +39,9 @@ namespace RestaurantManagement.Api.Controllers
             var order = await _orderService.GetOrderByIdAsync(orderId);
 
             if (order == null)
-                return NotFound("Đơn hàng không tồn tại.");
+                throw new ErrorException(StatusCodeEnum.A02); // Đơn hàng không tồn tại
 
             return Ok(order);
         }
-
-        //// 3. Cập nhật thêm món vào đơn hàng
-        //[HttpPost("{orderId}/add-item")]
-        //public async Task<IActionResult> AddItemToOrder(Guid orderId, [FromBody] AddItemToOrderRequestDto request)
-        //{
-        //    var result = await _orderService.AddItemToOrderAsync(orderId, request);
-        //    return Ok(result);
-        //}
     }
 }

@@ -47,6 +47,13 @@ namespace RestaurantManagement.Core.Enums
         [Description("Download Interrupted. Please check your internet connection and try again.")]
         C05,
 
+        //This message is used in BE, not display to FE screen 
+        [Description("At least one creation type must be selected is CREATE EXCEPTIONS.")]
+        C06,
+
+        [Description("Không tìm thấy Reservation hợp lệ")]
+        C07,
+
         //StatusCode cho Order
         [Description("Món ăn không tồn tại")]
         D01,
@@ -54,9 +61,6 @@ namespace RestaurantManagement.Core.Enums
         [Description("Không tìm thấy chi tiết đơn hàng với OrdId chỉ định")]
         D02,
 
-        //This message is used in BE, not display to FE screen 
-        [Description("At least one creation type must be selected is CREATE EXCEPTIONS.")]
-        C06,
 
         [Description("Bad request.")]
         BadRequest,
