@@ -1,4 +1,5 @@
 ﻿using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.ApiModels;
 using RestaurantManagement.Service.Dtos;
 using RestaurantManagement.Service.Dtos.ReserDto;
 using System;
@@ -13,5 +14,6 @@ namespace RestaurantManagement.Service.Interfaces
     {
         Task<List<AvailableTableDto>> GetAvailableTablesAsync(CheckAvailabilityRequestDto request);
         Task<ReservationResponseDto> CreateReservationAsync(CreateReservationRequestDto request);
+        Task<IEnumerable<ReserDto>> GetAllReservationsAsync(ReserModel pagingModel);
     }
 }
