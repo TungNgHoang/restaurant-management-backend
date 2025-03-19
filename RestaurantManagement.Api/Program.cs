@@ -139,7 +139,7 @@ builder.Configuration
 //Khai báo DataSeeder
 using (var scope = app.Services.CreateScope())
 {
-    DataSeeder.SeedDataAsync(scope.ServiceProvider);
+    await DataSeeder.SeedDataAsync(scope.ServiceProvider);
 }
 
 app.UseMiddleware<ExceptionMiddleware>();

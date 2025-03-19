@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.Core.Exceptions;
+using RestaurantManagement.Service.ApiModels;
 
 namespace RestaurantManagement.Service.Implementation
 {
@@ -91,6 +92,54 @@ namespace RestaurantManagement.Service.Implementation
 
             await _reservationsRepository.InsertAsync(reservation);
             return _mapper.Map<ReservationResponseDto>(reservation);
+        }
+
+        public async Task<IEnumerable<ReserDto>> GetAllReservationsAsync(ReserModel pagingModel)
+        {
+            // Validate PageIndex and PageSize
+            ValidatePagingModel(pagingModel);
+
+            var reservations = await _reservationsRepository.AsNoTrackingAsync();
+            var tables = await _tablesRepository.AsNoTrackingAsync();
+
+            // Join Reservation và Table
+            var data = from reservation in reservations
+                       join table in tables on reservation.TbiId equals table.TbiId
+                       select new
+                       {
+                           reservation.TempCustomerName,
+                           reservation.TempCustomerPhone,
+                           reservation.ResDate,
+                           reservation.ResEndTime,
+                           reservation.ResStatus,
+                           reservation.ResNumber,
+                           table.TbiTableNumber
+                       };
+
+            // Ánh xạ sang ReserDto với tách ngày và giờ
+            var reserDto = data.Select(x => new ReserDto
+            {
+                TableNumber = x.TbiTableNumber,
+                CustomerName = x.TempCustomerName,
+                ContactPhone = x.TempCustomerPhone,
+                ReservationDate = x.ResDate.Date,
+                TimeIn = x.ResDate.TimeOfDay,
+                TimeOut = x.ResEndTime?.TimeOfDay ?? TimeSpan.Zero,
+                NumberOfPeople = x.ResNumber,
+                Status = x.ResStatus
+            }).ToList();
+            // Apply search filter on the DTOs
+            var result = AdvancedFilter(reserDto.AsEnumerable(), pagingModel, nameof(ReserDto.ReservationDate));
+
+            return result;
+        }
+
+        private void ValidatePagingModel(ReserModel pagingModel)
+        {
+            if (pagingModel.PageIndex < 1)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.PageIndexInvalid);
+            if (pagingModel.PageSize < 1)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.PageSizeInvalid);
         }
     }
 }

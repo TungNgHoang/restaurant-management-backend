@@ -1,0 +1,20 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Service.Dtos.ReserDto
+{
+    public class ReserDto
+    {
+        public int TableNumber { get; set; }       // Số bàn từ Table.TbiTableNumber
+        public string CustomerName { get; set; }   // Tên khách từ Reservation.TempCustomerName
+        public string ContactPhone { get; set; }   // Số điện thoại từ Reservation.TempCustomerPhone
+        public DateTime ReservationDate { get; set; } // Ngày đến từ ResDate
+        public TimeSpan TimeIn { get; set; }       // Giờ đến từ ResDate
+        public TimeSpan TimeOut { get; set; }      // Giờ đi từ ResEndTime
+        public int NumberOfPeople { get; set; }    // Số người từ Reservation.ResNumber
+        public string Status { get; set; }         // Trạng thái từ Reservation.ResStatus
+    }
+}

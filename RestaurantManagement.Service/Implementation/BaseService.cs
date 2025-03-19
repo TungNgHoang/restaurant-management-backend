@@ -239,7 +239,8 @@ namespace RestaurantManagement.Service.Implementation
                 return data;
             }
 
-            return data.OrderBy(x => propertyInfo.GetValue(x, null));
+            return data.OrderByDescending(x => propertyInfo.GetValue(x, null));
+            //OrderBy(x => propertyInfo.GetValue(x, null));
 
         }
 

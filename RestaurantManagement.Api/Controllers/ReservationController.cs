@@ -5,6 +5,9 @@ using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Core.Enums;
 using System.Runtime.CompilerServices;
 using RestaurantManagement.Service.Dtos.ReserDto;
+using RestaurantManagement.Service.ApiModels;
+using Microsoft.AspNetCore.Http.HttpResults;
+using RestaurantManagement.Core.ApiModels;
 
 namespace RestaurantManagement.Api.Controllers
 {
@@ -50,5 +53,13 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
+        //API get all my reservation from database
+        [HttpPost("get-reservation")]
+        public async Task<IActionResult> GetReservations([FromBody] ReserModel pagingModel)
+        {
+            var reservations = await _reservationService.GetAllReservationsAsync(pagingModel);
+            var listResult = new PaginatedList<ReserDto>(reservations.ToList(), reservations.Count(), pagingModel.PageIndex, pagingModel.PageSize);
+            return Success(listResult);
+        }
     }
 }
