@@ -51,6 +51,17 @@ namespace RestaurantManagement.Core.Enums
         [Description("At least one creation type must be selected is CREATE EXCEPTIONS.")]
         C06,
 
+        [Description("Không tìm thấy Reservation hợp lệ")]
+        C07,
+
+        //StatusCode cho Order
+        [Description("Món ăn không tồn tại")]
+        D01,
+
+        [Description("Không tìm thấy chi tiết đơn hàng với OrdId chỉ định")]
+        D02,
+
+
         [Description("Bad request.")]
         BadRequest,
 

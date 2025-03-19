@@ -143,7 +143,7 @@ namespace RestaurantManagement.Api.Middlewares
             context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
 
-            await context.Response.WriteAsync("An error occurred. Please contact AmericanBank support.");
+            await context.Response.WriteAsync("An error occurred. Please contact 22IT1-22SE1.2 to support.");
             await context.Response.WriteAsync(exception.Message + exception.StackTrace);
         }
 

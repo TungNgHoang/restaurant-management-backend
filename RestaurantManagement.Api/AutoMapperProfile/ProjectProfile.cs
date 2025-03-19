@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.OrdersDto;
 using RestaurantManagement.Service.Dtos.ReserDto;
 
 namespace RestaurantManagement.Api.AutoMapperProfile
@@ -11,6 +12,7 @@ namespace RestaurantManagement.Api.AutoMapperProfile
         {
             CreateMap<TblReservation, ReservationResponseDto>();
             CreateMap<TblTableInfo, AvailableTableDto>();
+            CreateMap<TblOrderInfo, OrderDTO>();
         }
     }
 }
