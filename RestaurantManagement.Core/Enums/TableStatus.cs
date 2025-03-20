@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace RestaurantManagement.Core.Enums
 {
-    public enum ReservationStatus
+    public enum TableStatus
     {
-        Pending = 0,
-        Serving = 1,
-        Finished = 2,
-        Canceled = 3
+        [Description("Empty")]
+        Empty = 0,
+        [Description("Occupied")]
+        Occupied = 1
     }
 }

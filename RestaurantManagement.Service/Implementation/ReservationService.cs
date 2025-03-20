@@ -15,28 +15,36 @@ using System.Threading.Tasks;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Service.ApiModels;
+using Microsoft.EntityFrameworkCore;
+using RestaurantManagement.DataAccess.DbContexts;
 
 namespace RestaurantManagement.Service.Implementation
 {
     public class ReservationService : BaseService, IReservationService
     {
         private readonly IMapper _mapper;
+        protected readonly RestaurantDBContext _dbContext;
+        private readonly IRepository<TblCustomer> _customerRepository;
         private readonly IRepository<TblReservation> _reservationsRepository;
         private readonly IRepository<TblTableInfo> _tablesRepository;
         private readonly IReservationRepository _reservationRepository;
         
         public ReservationService(
             AppSettings appSettings,
+            RestaurantDBContext dbContext,
             IMapper mapper,
             IRepository<TblReservation> reservationsRepository,
             IRepository<TblTableInfo> tablesRepository,
+            IRepository<TblCustomer> customerRepository,
             IReservationRepository reservationRepository
             ) : base(appSettings, mapper)
         {
             _reservationsRepository = reservationsRepository;
             _tablesRepository = tablesRepository;
+            _customerRepository = customerRepository;
             _reservationRepository = reservationRepository;
             _mapper = mapper;
+            _dbContext = dbContext;
         }
 
         public async Task<List<AvailableTableDto>> GetAvailableTablesAsync(CheckAvailabilityRequestDto request)
@@ -134,6 +142,75 @@ namespace RestaurantManagement.Service.Implementation
             return result;
         }
 
+        public async Task CheckInReservationAsync(Guid resId)
+        {
+            // Sử dụng transaction để đảm bảo tính nhất quán
+            using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    // Tìm reservation theo ResID
+                    var reservation = await _reservationsRepository.FindByIdAsync(resId);
+                    if (reservation == null)
+                        throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
+
+                    // Kiểm tra trạng thái reservation phải là "Pending"
+                    if (reservation.ResStatus != ReservationStatus.Pending.ToString())
+                        throw new ErrorException(StatusCodeEnum.A01);
+
+                    // Nếu chưa có CusID, tạo mới customer
+                    if (reservation.CusId == null)
+                    {
+                        var customer = new TblCustomer
+                        {
+                            CusId = Guid.NewGuid(),
+                            CusName = reservation.TempCustomerName,
+                            CusContact = reservation.TempCustomerPhone,
+                            CusEmail = null, // Có thể để null hoặc giá trị mặc định
+                            IsDeleted = false,
+                            CreatedAt = DateTime.Now,
+                            CreatedBy = Guid.Empty // Giả định tạm thời
+                        };
+                        await _customerRepository.InsertAsync(customer);
+
+                        // Cập nhật CusID vào reservation
+                        reservation.CusId = customer.CusId;
+                    }
+
+                    // Cập nhật trạng thái reservation thành "Serving"
+                    reservation.ResStatus = ReservationStatus.Serving.ToString();
+                    reservation.UpdatedAt = DateTime.Now;
+                    reservation.UpdatedBy = Guid.Empty; // Giả định tạm thời
+
+                    // Lấy thông tin bàn
+                    var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
+                    if (table == null)
+                        throw new ErrorException(StatusCodeEnum.C04);
+
+                    // Kiểm tra trạng thái bàn phải là "Empty"
+                    if (table.TbiStatus != TableStatus.Empty.ToString())
+                        throw new ErrorException(StatusCodeEnum.A02);
+
+                    // Cập nhật trạng thái bàn thành "Occupied"
+                    table.TbiStatus = TableStatus.Occupied.ToString();
+                    table.UpdatedAt = DateTime.Now;
+                    table.UpdatedBy = Guid.Empty; // Giả định tạm thời
+
+                    // Lưu thay đổi vào database
+                    await _reservationsRepository.UpdateAsync(reservation);
+                    await _tablesRepository.UpdateAsync(table);
+
+                    // Commit transaction nếu mọi thứ thành công
+                    await transaction.CommitAsync();
+                }
+                catch (Exception ex)
+                {
+                    // Rollback transaction nếu có lỗi
+                    await transaction.RollbackAsync();
+                    throw new Exception($"Lỗi khi check-in: {ex.Message}");
+                }
+            }
+        }
         private void ValidatePagingModel(ReserModel pagingModel)
         {
             if (pagingModel.PageIndex < 1)
