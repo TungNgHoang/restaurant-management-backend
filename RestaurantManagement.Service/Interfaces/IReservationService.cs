@@ -16,5 +16,6 @@ namespace RestaurantManagement.Service.Interfaces
         Task<ReservationResponseDto> CreateReservationAsync(CreateReservationRequestDto request);
         Task<IEnumerable<ReserDto>> GetAllReservationsAsync(ReserModel pagingModel);
         Task CheckInReservationAsync(Guid resId);
+        Task<ReserDto> GetReservationByIdAsync(Guid resId);
     }
 }

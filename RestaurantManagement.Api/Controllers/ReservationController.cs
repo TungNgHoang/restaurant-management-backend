@@ -68,11 +68,25 @@ namespace RestaurantManagement.Api.Controllers
             try
             {
                 await _reservationService.CheckInReservationAsync(resId);
-                return Ok(new { Success = true, Message = "Check-in thành công" });
+                return Ok();
+            }
+            catch 
+            {
+                throw new ErrorException(StatusCodeEnum.Error);
+            }
+        }
+
+        [HttpGet("{resId}")]
+        public async Task<IActionResult> GetReservationById(Guid resId)
+        {
+            try
+            {
+                var reservation = await _reservationService.GetReservationByIdAsync(resId);
+                return Ok(reservation);
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+                return StatusCode(500, new { Success = false, Message = ex.Message });
             }
         }
     }

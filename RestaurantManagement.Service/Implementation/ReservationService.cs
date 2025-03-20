@@ -115,6 +115,7 @@ namespace RestaurantManagement.Service.Implementation
                        join table in tables on reservation.TbiId equals table.TbiId
                        select new
                        {
+                           reservation.ResId,
                            reservation.TempCustomerName,
                            reservation.TempCustomerPhone,
                            reservation.ResDate,
@@ -127,6 +128,7 @@ namespace RestaurantManagement.Service.Implementation
             // Ánh xạ sang ReserDto với tách ngày và giờ
             var reserDto = data.Select(x => new ReserDto
             {
+                ResId = x.ResId,
                 TableNumber = x.TbiTableNumber,
                 CustomerName = x.TempCustomerName,
                 ContactPhone = x.TempCustomerPhone,
@@ -211,12 +213,53 @@ namespace RestaurantManagement.Service.Implementation
                 }
             }
         }
+
         private void ValidatePagingModel(ReserModel pagingModel)
         {
             if (pagingModel.PageIndex < 1)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.PageIndexInvalid);
             if (pagingModel.PageSize < 1)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.PageSizeInvalid);
+        }
+
+        public async Task<ReserDto> GetReservationByIdAsync(Guid resId)
+        {
+            // Tìm reservation theo resid
+            var reservation = await _reservationsRepository.FindByIdAsync(resId);
+            if (reservation == null)
+                throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
+
+            // Lấy thông tin bàn
+            var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
+            if (table == null)
+                throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
+
+            // Tạo đối tượng ReserDto
+            var reserDto = new ReserDto
+            {
+                ResId = reservation.ResId,
+                TableNumber = table.TbiTableNumber,
+                CustomerName = reservation.TempCustomerName,
+                ContactPhone = reservation.TempCustomerPhone,
+                ReservationDate = reservation.ResDate.Date,
+                TimeIn = reservation.ResDate.TimeOfDay,
+                TimeOut = reservation.ResEndTime?.TimeOfDay ?? TimeSpan.Zero,
+                NumberOfPeople = reservation.ResNumber,
+                Status = reservation.ResStatus
+            };
+
+            // Nếu có CusId, lấy thông tin khách hàng từ TblCustomer
+            if (reservation.CusId.HasValue)
+            {
+                var customer = await _customerRepository.FindByIdAsync(reservation.CusId.Value);
+                if (customer != null)
+                {
+                    reserDto.CustomerName = customer.CusName;
+                    reserDto.ContactPhone = customer.CusContact;
+                }
+            }
+
+            return reserDto;
         }
     }
 }
