@@ -14,8 +14,8 @@ namespace RestaurantManagement.Core.Enums
         [Description("System Error.")]
         Error = 1,
 
-        [Description("Concurrency Conflict")]
-        ConcurrencyConflict = 2,
+        [Description("Reservation not found.")]
+        ReservatioNotFound = 2,
 
         [Description("Not Found")]
         PageIndexInvalid = 3,
@@ -23,13 +23,13 @@ namespace RestaurantManagement.Core.Enums
         [Description("Page Size Invalid")]
         PageSizeInvalid = 4,
 
-        [Description("{Required Field} is required.")]
+        [Description("Trạng thái reservation không hợp lệ để check-in.")]
         A01,
 
         [Description("Incorrect username or password. Please try again.")]
         B01,
 
-        [Description("{{Object}} not found")]
+        [Description("Bàn không khả dụng để check-in.")]
         A02,
 
         [Description("Bàn đã được đặt trong khoảng thời gian này.")]

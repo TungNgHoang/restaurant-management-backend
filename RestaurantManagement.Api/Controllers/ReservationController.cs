@@ -61,5 +61,19 @@ namespace RestaurantManagement.Api.Controllers
             var listResult = new PaginatedList<ReserDto>(reservations.ToList(), reservations.Count(), pagingModel.PageIndex, pagingModel.PageSize);
             return Success(listResult);
         }
+
+        [HttpPut("{resId}/check-in")]
+        public async Task<IActionResult> CheckInReservation(Guid resId)
+        {
+            try
+            {
+                await _reservationService.CheckInReservationAsync(resId);
+                return Ok(new { Success = true, Message = "Check-in thành công" });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = $"Lỗi: {ex.Message}" });
+            }
+        }
     }
 }
