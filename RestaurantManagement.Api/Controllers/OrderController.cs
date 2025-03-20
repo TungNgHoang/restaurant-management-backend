@@ -19,17 +19,28 @@ namespace RestaurantManagement.Api.Controllers
 
         // 1. Lựa chọn Tạo mới Hay Cập nhật
         [HttpPost("process-order")]
-        public async Task<IActionResult> ProcessOrder([FromBody] CreateOrderRequestDto request)
+        public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
+            if (request == null || request.TbiId == Guid.Empty || request.NewOrderItems == null || !request.NewOrderItems.Any())
+            {
+                return BadRequest("Invalid request data.");
+            }
+
             try
             {
-                var result = await _orderService.ProcessOrderAsync(request);
+                var result = await _orderService.ProcessAndUpdateOrderAsync(request.TbiId, request.NewOrderItems);
                 return Ok(result);
             }
-            catch (Exception ex)
+            catch (ErrorException ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode((int)ex.StatusCode, ex.Message);
             }
+        }
+
+        public class ProcessOrderRequest
+        {
+            public Guid TbiId { get; set; }
+            public List<OrderItemDto> NewOrderItems { get; set; }
         }
 
         // 2. Xem đơn hàng vừa tạo

@@ -7,7 +7,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Include="Models\RestaurantDBContext.cs" />
     <Compile Include="Models\TblBlackListToken.cs" />
     <Compile Include="Models\TblCustomer.cs" />
     <Compile Include="Models\TblMenu.cs" />

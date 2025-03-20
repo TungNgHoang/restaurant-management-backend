@@ -10,7 +10,7 @@ namespace RestaurantManagement.Service.Interfaces
     public interface IOrderService
     {
         Task<OrderDetailsDto> GetOrderByIdAsync(Guid orderId);
-        Task<OrderDTO> ProcessOrderAsync(CreateOrderRequestDto request);
+        Task<OrderDTO> ProcessAndUpdateOrderAsync(Guid tbiId, List<OrderItemDto> newOrderItems);
 
     }
 }
