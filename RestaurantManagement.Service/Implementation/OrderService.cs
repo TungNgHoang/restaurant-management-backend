@@ -36,72 +36,84 @@ namespace RestaurantManagement.Service.Implementation
             _mapper = mapper;
             _reservationRepository = reservationRepository;
         }
-        public async Task<OrderDTO> ProcessOrderAsync(CreateOrderRequestDto request)
+        public async Task<OrderDTO> ProcessAndUpdateOrderAsync(Guid tbiId, List<OrderItemDto> newOrderItems)
         {
-            // Tìm đơn hàng dựa trên ResId và TbiId
-            var order = await _orderInfoRepository.FindAsync(o => o.ResId == request.ResId && o.TbiId == request.TbiId && !o.IsDeleted);
+            // Tìm Reservation có trạng thái "Serving" cho TableID
+            var reservation = await _reservationRepository
+                .FindAsync(r => r.TbiId == tbiId && r.ResStatus == "Serving");
 
-            if (order == null)
+            if (reservation == null)
+                throw new ErrorException(StatusCodeEnum.D02); // Không tìm thấy bàn đang phục vụ
+
+            // Tìm OrderInfo theo ResId
+            var existingOrder = await _orderInfoRepository.FindAsync(o => o.ResId == reservation.ResId);
+
+            // Nếu chưa có order, tạo mới
+            if (existingOrder == null)
             {
-                // Trường hợp chưa có đơn hàng: Tạo mới
-                order = new TblOrderInfo
+                var order = new TblOrderInfo
                 {
                     OrdId = Guid.NewGuid(),
-                    CusId = request.CusId,
-                    TbiId = request.TbiId,
-                    ResId = request.ResId,
-                    CreatedBy = request.CreatedBy,
+                    CusId = (Guid)reservation.CusId,
+                    TbiId = reservation.TbiId,
+                    ResId = reservation.ResId,
+                    CreatedBy = Guid.Empty, // Hoặc lấy từ người dùng hiện tại
                     CreatedAt = DateTime.UtcNow,
                     TotalPrice = 0,
                     IsDeleted = false
                 };
+
                 await _orderInfoRepository.InsertAsync(order);
+                existingOrder = order;
             }
 
-            // Lấy danh sách chi tiết đơn hàng hiện có (nếu có)
-            var existingOrderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == order.OrdId);
-            var existingOrderDict = existingOrderDetails.ToDictionary(od => od.MnuId); // Tạo dictionary để tra cứu nhanh
+            // Lấy danh sách món ăn trong đơn hàng
+            var existingOrderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == existingOrder.OrdId);
+            var existingOrderDict = existingOrderDetails.ToDictionary(od => od.MnuId);
 
-            decimal totalPrice = order.TotalPrice; // Bắt đầu từ tổng giá hiện tại
+            decimal totalPrice = existingOrder.TotalPrice;
 
-            // Duyệt qua từng món trong request
-            foreach (var item in request.OrderDetails)
+            // Xử lý danh sách món mới
+            foreach (var item in newOrderItems)
             {
-                var menuItem = await _menuRepository.FindByIdAsync(item.MnuId);
+                var menuItem = await _menuRepository.FindByIdAsync(item.MnuID);
                 if (menuItem == null)
                     throw new ErrorException(StatusCodeEnum.D01); // Món không tồn tại
 
-                if (existingOrderDict.TryGetValue(item.MnuId, out var existingOrderDetail))
+                if (existingOrderDict.TryGetValue(item.MnuID, out var existingOrderDetail))
                 {
-                    // Nếu món đã tồn tại, cộng dồn số lượng
+                    // Nếu món đã có, cộng dồn số lượng
                     existingOrderDetail.OdtQuantity += item.OdtQuantity;
-                    totalPrice += menuItem.MnuPrice * item.OdtQuantity; // Cộng thêm vào tổng giá
                     await _orderDetailsRepository.UpdateAsync(existingOrderDetail);
                 }
                 else
                 {
-                    // Nếu món chưa tồn tại, tạo mới chi tiết đơn hàng
+                    // Nếu món chưa có, thêm mới vào danh sách
                     var newOrderDetail = new TblOrderDetail
                     {
                         OdtId = Guid.NewGuid(),
-                        OrdId = order.OrdId,
-                        MnuId = item.MnuId,
+                        OrdId = existingOrder.OrdId,
+                        MnuId = item.MnuID,
                         OdtQuantity = item.OdtQuantity,
-                        CreatedBy = request.CreatedBy,
+                        CreatedBy = existingOrder.CreatedBy,
                         CreatedAt = DateTime.UtcNow,
                         IsDeleted = false
                     };
+
                     await _orderDetailsRepository.InsertAsync(newOrderDetail);
-                    totalPrice += menuItem.MnuPrice * item.OdtQuantity; // Cộng vào tổng giá
                 }
+
+                // Cập nhật tổng tiền
+                totalPrice += menuItem.MnuPrice * item.OdtQuantity;
             }
 
-            // Cập nhật tổng giá cho đơn hàng
-            order.TotalPrice = totalPrice;
-            await _orderInfoRepository.UpdateAsync(order);
+            // Cập nhật tổng tiền đơn hàng
+            existingOrder.TotalPrice = totalPrice;
+            await _orderInfoRepository.UpdateAsync(existingOrder);
 
-            return _mapper.Map<OrderDTO>(order);
+            return _mapper.Map<OrderDTO>(existingOrder);
         }
+
 
         public async Task<OrderDetailsDto> GetOrderByIdAsync(Guid orderId)
         {
