@@ -13,13 +13,13 @@ namespace RestaurantManagement.Core.ApiModels
     {
         [DefaultValue(1)]
         public int PageIndex { get; set; } = 1;
-        [DefaultValue(50)]
-        public int PageSize { get; set; } = 50;
+        [DefaultValue(10)]
+        public int PageSize { get; set; } = 10;
         public IList<FilterColumn> FilterColumns { get; set; }
         public IDictionary<string, string> SortColumnsDictionary { get; set; }
         public IList<FilterRangeColumn> FilterRangeColumns { get; set; }
 
-        [Required]
+        //[Required]
         public FilterOptionEnum FilterOption { get; set; }
         public ExportRequestBaseModel Export { get; set; }
     }
@@ -42,10 +42,10 @@ namespace RestaurantManagement.Core.ApiModels
 
     public class ExportRequestBaseModel
     {
-        [Required]
+        //[Required]
         public required Dictionary<string, string> ChosenColumnNameList { get; set; }
 
-        [Required]
+        //[Required]
         public string PageName { get; set; }
     }
 }
