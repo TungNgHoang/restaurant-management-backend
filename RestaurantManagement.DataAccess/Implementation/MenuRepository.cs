@@ -12,16 +12,18 @@ namespace RestaurantManagement.DataAccess.Implementation
 {
     public class MenuRepository : Repository<TblMenu>, IMenuRepository
     {
-            private readonly RestaurantDBContext _context;
+        private readonly RestaurantDBContext _context;
 
-    public MenuRepository(RestaurantDBContext context) : base(context)
-    {
-        _context = context;
-    }
+        public MenuRepository(RestaurantDBContext context) : base(context)
+        {
+            _context = context;
+        }
 
-    public async Task<IEnumerable<TblMenu>> GetAllMenuAsync()
-    {
-        return await ActiveRecordsAsync(); // Lấy danh sách món có trạng thái Active
+        public async Task<IEnumerable<TblMenu>> GetAllMenuAsync()
+        {
+            return await ActiveRecordsAsync(); // Lấy danh sách món có trạng thái Active
+        }
+
+
     }
-}
 }
