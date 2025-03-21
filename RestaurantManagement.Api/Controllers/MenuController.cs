@@ -17,7 +17,7 @@ namespace RestaurantManagement.Api.Controllers
             _menuService = menuService;
         }
 
-        [HttpPost("get_all")]
+        [HttpPost("get-all-menu")]
         public async Task<IActionResult> GetAllMenu([FromBody] MenuModels pagingModel)
         {
             var menus = await _menuService.GetAllMenuAsync(pagingModel);
@@ -35,7 +35,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
 
-        [HttpPost("add_item_to_menu")]
+        [HttpPost("add-item-to-menu")]
         public async Task<IActionResult> AddMenu([FromBody] MenuDto menuDto)
         {
             if (menuDto == null)
@@ -53,7 +53,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(updatedMenu);
         }
 
-        [HttpDelete("softdelete_item/{id}")]
+        [HttpDelete("softdelete-item/{id}")]
         public async Task<IActionResult> DeleteMenu(Guid id)
         {
             var result = await _menuService.DeleteMenuAsync(id);
