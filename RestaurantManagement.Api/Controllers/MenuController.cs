@@ -8,11 +8,11 @@ namespace RestaurantManagement.Api.Controllers
 {
     [Route("api/Menu")]
     [ApiController]
-    public class MenuController : ControllerBase
+    public class MenuController : BaseApiController
     {
         private readonly IMenuService _menuService;
 
-        public MenuController(IMenuService menuService)
+        public MenuController(IServiceProvider serviceProvider, IMenuService menuService) : base(serviceProvider)
         {
             _menuService = menuService;
         }
