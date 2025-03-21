@@ -42,7 +42,7 @@ namespace RestaurantManagement.Api.Controllers
                 return BadRequest("Dữ liệu không hợp lệ.");
 
             var newMenu = await _menuService.AddMenuAsync(menuDto);
-            return CreatedAtAction(nameof(GetAllMenu), new { id = newMenu.MnuId }, newMenu);
+            return Ok(newMenu);
         }
 
         [HttpPut("update/{id}")]
