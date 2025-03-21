@@ -42,6 +42,8 @@ builder.Services.AddScoped<IRepository<TblOrderDetail>, Repository<TblOrderDetai
 builder.Services.AddScoped<IRepository<TblMenu>, Repository<TblMenu>>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<IMenuService, MenuService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
+builder.Services.AddScoped<IRepository<TblPayment>, Repository<TblPayment>>();
 ////Addcors
 builder.Services.AddCors(options =>
 {

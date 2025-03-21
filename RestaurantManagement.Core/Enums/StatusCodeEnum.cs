@@ -32,6 +32,14 @@ namespace RestaurantManagement.Core.Enums
         [Description("Bàn không khả dụng để check-in.")]
         A02,
 
+        [Description("Reservation không tồn tại hoặc không ở trạng thái Serving.")]
+        A03,
+
+        [Description("Bàn không tồn tại hoặc không ở trạng thái Occupied.")]
+        A04,
+        
+
+
         [Description("Bàn đã được đặt trong khoảng thời gian này.")]
         C01,
 
