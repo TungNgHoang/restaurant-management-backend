@@ -72,6 +72,9 @@ namespace RestaurantManagement.Core.Enums
         [Description("Xoá món ăn thành công!")]
         D03,
 
+        //Validation
+        [Description("Tên món không được để trống")]
+        V01,
 
         [Description("Bad request.")]
         BadRequest,
