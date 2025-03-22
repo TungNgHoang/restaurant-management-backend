@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Service.Dtos.OrdersDto;
@@ -8,11 +9,11 @@ namespace RestaurantManagement.Api.Controllers
 {
     [Route("api/Orders")]
     [ApiController]
-    public class OrderController : ControllerBase
+    public class OrderController : BaseApiController
     {
-        private readonly IOrderService _orderService;
+        public IOrderService _orderService { get; set; }
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IServiceProvider serviceProvider, IOrderService orderService) : base(serviceProvider)
         {
             _orderService = orderService;
         }

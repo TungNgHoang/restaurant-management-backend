@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantManagement.UnitTest", "RestaurantManagement.UnitTest\RestaurantManagement.UnitTest.csproj", "{90BBD761-83A9-44E1-87D4-AB170DCB4018}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,10 @@ Global
 		{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90BBD761-83A9-44E1-87D4-AB170DCB4018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90BBD761-83A9-44E1-87D4-AB170DCB4018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90BBD761-83A9-44E1-87D4-AB170DCB4018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90BBD761-83A9-44E1-87D4-AB170DCB4018}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{DD591499-ED15-4F37-9C8C-788B69AE01EC} = {8B1C051A-F3D1-4DD6-8716-96B67B546B06}
 		{2536C2CA-9925-4FD6-81A5-34AD1501ACD2} = {8B1C051A-F3D1-4DD6-8716-96B67B546B06}
 		{A14AAEDD-0F7C-4FCA-8BFA-C55F5FDF0AA1} = {8B1C051A-F3D1-4DD6-8716-96B67B546B06}
+		{90BBD761-83A9-44E1-87D4-AB170DCB4018} = {80E9EAE2-DD86-43E2-9EB7-07BB159AAEA1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {52DE5F1C-DDA6-4C67-978E-F72BF3441825}

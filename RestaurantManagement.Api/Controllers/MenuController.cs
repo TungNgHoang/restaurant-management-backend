@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Service.ApiModels;
 using RestaurantManagement.Service.Dtos.MenusDto;
 using RestaurantManagement.Service.Interfaces;
@@ -8,16 +9,16 @@ namespace RestaurantManagement.Api.Controllers
 {
     [Route("api/Menu")]
     [ApiController]
-    public class MenuController : ControllerBase
+    public class MenuController : BaseApiController
     {
         private readonly IMenuService _menuService;
 
-        public MenuController(IMenuService menuService)
+        public MenuController(IServiceProvider serviceProvider, IMenuService menuService) : base(serviceProvider)
         {
             _menuService = menuService;
         }
 
-        [HttpPost("get_all")]
+        [HttpPost("get-all-menu")]
         public async Task<IActionResult> GetAllMenu([FromBody] MenuModels pagingModel)
         {
             var menus = await _menuService.GetAllMenuAsync(pagingModel);
@@ -35,11 +36,11 @@ namespace RestaurantManagement.Api.Controllers
         }
 
 
-        [HttpPost("add_item_to_menu")]
+        [HttpPost("add-item-to-menu")]
         public async Task<IActionResult> AddMenu([FromBody] MenuDto menuDto)
         {
             if (menuDto == null)
-                return BadRequest("Dữ liệu không hợp lệ.");
+                return BadRequest(StatusCodeEnum.BadRequest);
 
             var newMenu = await _menuService.AddMenuAsync(menuDto);
             return Ok(newMenu);
@@ -53,13 +54,13 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(updatedMenu);
         }
 
-        [HttpDelete("softdelete_item/{id}")]
+        [HttpDelete("softdelete-item/{id}")]
         public async Task<IActionResult> DeleteMenu(Guid id)
         {
             var result = await _menuService.DeleteMenuAsync(id);
-            if (!result) return NotFound(new { message = "Menu not found" });
+            if (!result) return NotFound(new { message = StatusCodeEnum.D01});
 
-            return Ok(new { message = "Deleted successfully" });
+            return Ok(new { message = StatusCodeEnum.D03 });
         }
     }
 }

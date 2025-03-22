@@ -69,6 +69,12 @@ namespace RestaurantManagement.Core.Enums
         [Description("Không tìm thấy chi tiết đơn hàng với OrdId chỉ định")]
         D02,
 
+        [Description("Xoá món ăn thành công!")]
+        D03,
+
+        //Validation
+        [Description("Tên món không được để trống")]
+        V01,
 
         [Description("Bad request.")]
         BadRequest,
