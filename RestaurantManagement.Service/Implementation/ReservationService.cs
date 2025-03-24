@@ -27,6 +27,7 @@ namespace RestaurantManagement.Service.Implementation
         private readonly IRepository<TblCustomer> _customerRepository;
         private readonly IRepository<TblReservation> _reservationsRepository;
         private readonly IRepository<TblTableInfo> _tablesRepository;
+        private readonly IRepository<TblOrderInfo> _ordersRepository;
         private readonly IReservationRepository _reservationRepository;
         
         public ReservationService(
@@ -36,6 +37,7 @@ namespace RestaurantManagement.Service.Implementation
             IRepository<TblReservation> reservationsRepository,
             IRepository<TblTableInfo> tablesRepository,
             IRepository<TblCustomer> customerRepository,
+            IRepository<TblOrderInfo> ordersRepository,
             IReservationRepository reservationRepository
             ) : base(appSettings, mapper)
         {
@@ -45,6 +47,7 @@ namespace RestaurantManagement.Service.Implementation
             _reservationRepository = reservationRepository;
             _mapper = mapper;
             _dbContext = dbContext;
+            _ordersRepository = ordersRepository;
         }
 
         public async Task<List<AvailableTableDto>> GetAvailableTablesAsync(CheckAvailabilityRequestDto request)
@@ -109,13 +112,16 @@ namespace RestaurantManagement.Service.Implementation
 
             var reservations = await _reservationsRepository.AsNoTrackingAsync();
             var tables = await _tablesRepository.AsNoTrackingAsync();
+            var orders = await _ordersRepository.AsNoTrackingAsync();
 
             // Join Reservation và Table
             var data = from reservation in reservations
                        join table in tables on reservation.TbiId equals table.TbiId
+                       join order in orders on reservation.ResId equals order.ResId
                        select new
                        {
                            reservation.ResId,
+                           order.OrdId,
                            reservation.TempCustomerName,
                            reservation.TempCustomerPhone,
                            reservation.ResDate,
@@ -129,6 +135,7 @@ namespace RestaurantManagement.Service.Implementation
             var reserDto = data.Select(x => new ReserDto
             {
                 ResId = x.ResId,
+                OrdId = x.OrdId,
                 TableNumber = x.TbiTableNumber,
                 CustomerName = x.TempCustomerName,
                 ContactPhone = x.TempCustomerPhone,
