@@ -46,6 +46,7 @@ builder.Services.AddScoped<ITableService, TableService>();
 builder.Services.AddScoped<IRepository<TblTableInfo>, Repository<TblTableInfo>>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IRepository<TblPayment>, Repository<TblPayment>>();
+builder.Services.AddScoped<IInvoiceService, InvoiceService>();
 ////Addcors
 builder.Services.AddCors(options =>
 {
