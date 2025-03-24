@@ -117,11 +117,12 @@ namespace RestaurantManagement.Service.Implementation
             // Join Reservation và Table
             var data = from reservation in reservations
                        join table in tables on reservation.TbiId equals table.TbiId
-                       join order in orders on reservation.ResId equals order.ResId
+                       join order in orders on reservation.ResId equals order.ResId into orderGroup
+                       from order in orderGroup.DefaultIfEmpty() // Left join
                        select new
                        {
                            reservation.ResId,
-                           order.OrdId,
+                           OrdId = order?.OrdId,
                            reservation.TempCustomerName,
                            reservation.TempCustomerPhone,
                            reservation.ResDate,

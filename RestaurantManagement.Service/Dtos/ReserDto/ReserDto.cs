@@ -9,7 +9,7 @@ namespace RestaurantManagement.Service.Dtos.ReserDto
     public class ReserDto
     {
         public Guid ResId { get; set; }            // Id từ Reservation.ResId
-        public Guid OrdId { get; set; }             // Lấy OrderID
+        public Guid? OrdId { get; set; }             // Lấy OrderID
         public int TableNumber { get; set; }       // Số bàn từ Table.TbiTableNumber
         public string CustomerName { get; set; }   // Tên khách từ Reservation.TempCustomerName
         public string ContactPhone { get; set; }   // Số điện thoại từ Reservation.TempCustomerPhone
