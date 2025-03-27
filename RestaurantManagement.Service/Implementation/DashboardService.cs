@@ -80,76 +80,35 @@ namespace RestaurantManagement.Service.Implementation
                 .Where(c => c.CreatedAt.Date == previousDate.Date)
                 .CountAsync();
 
-            // 7. Tính toán phần trăm thay đổi
-            decimal revenueChange = 0; // Khởi tạo giá trị mặc định
+            // Hàm tính phần trăm thay đổi
+            decimal CalculatePercentageChange(decimal todayValue, decimal yesterdayValue)
+            {
+                decimal change = 0;
 
-            if (totalRevenueYesterday > 0)
-            {
-                if (totalRevenueToday == 0)
+                if (yesterdayValue > 0)
                 {
-                    revenueChange = -100; // Hôm nay = 0, hôm qua > 0 → giảm 100%
+                    if (todayValue == 0)
+                    {
+                        change = -100; // Hôm nay = 0, hôm qua > 0 → giảm 100%
+                    }
+                    else
+                    {
+                        change = ((todayValue - yesterdayValue) / yesterdayValue) * 100;
+                    }
                 }
-                else
+                else if (yesterdayValue == 0)
                 {
-                    revenueChange = ((totalRevenueToday - totalRevenueYesterday) / totalRevenueYesterday) * 100;
+                    change = (todayValue > 0) ? 100 : 0;
                 }
-            }
-            else if (totalRevenueYesterday == 0)
-            {
-                revenueChange = (totalRevenueToday > 0) ? 100 : 0;
+
+                return change;
             }
 
-            decimal reservationsChange = 0; // Khởi tạo giá trị mặc định
-
-            if (reservationCountYesterday > 0)
-            {
-                if (reservationCountToday == 0)
-                {
-                    reservationsChange = -100; // Hôm nay = 0, hôm qua > 0 → giảm 100%
-                }
-                else
-                {
-                    reservationsChange = ((reservationCountToday - reservationCountYesterday) / (decimal)reservationCountYesterday) * 100;
-                }
-            }
-            else if (reservationCountYesterday == 0)
-            {
-                reservationsChange = (reservationCountToday > 0) ? 100 : 0;
-            }
-            decimal dishesChange = 0; // Khởi tạo giá trị mặc định
-
-            if (dishesCountYesterday > 0)
-            {
-                if (dishesCountToday == 0)
-                {
-                    dishesChange = -100; // Hôm nay = 0, hôm qua > 0 → giảm 100%
-                }
-                else
-                {
-                    dishesChange = ((dishesCountToday - dishesCountYesterday) / (decimal)dishesCountYesterday) * 100;
-                }
-            }
-            else if (dishesCountYesterday == 0)
-            {
-                dishesChange = (dishesCountToday > 0) ? 100 : 0;
-            }
-            decimal customersChange = 0; // Khởi tạo giá trị mặc định
-
-            if (newCustomersYesterday > 0)
-            {
-                if (newCustomersToday == 0)
-                {
-                    customersChange = -100; // Hôm nay = 0, hôm qua > 0 → giảm 100%
-                }
-                else
-                {
-                    customersChange = ((newCustomersToday - newCustomersYesterday) / (decimal)newCustomersYesterday) * 100;
-                }
-            }
-            else if (newCustomersYesterday == 0)
-            {
-                customersChange = (newCustomersToday > 0) ? 100 : 0;
-            }
+            // Sử dụng hàm cho 4 trường hợp
+            decimal revenueChange = CalculatePercentageChange(totalRevenueToday, totalRevenueYesterday);
+            decimal reservationsChange = CalculatePercentageChange(reservationCountToday, reservationCountYesterday);
+            decimal dishesChange = CalculatePercentageChange(dishesCountToday, dishesCountYesterday);
+            decimal customersChange = CalculatePercentageChange(newCustomersToday, newCustomersYesterday);
 
 
             // 8. Trả về dữ liệu dashboard
