@@ -111,8 +111,9 @@ namespace RestaurantManagement.Service.Implementation
             decimal customersChange = CalculatePercentageChange(newCustomersToday, newCustomersYesterday);
 
 
+
             // 8. Trả về dữ liệu dashboard
-            return new DashboardDto
+            var dashboard = new DashboardDto
             {
                 TotalRevenue = totalRevenueToday,
                 RevenueChangePercentage = revenueChange,
@@ -123,6 +124,8 @@ namespace RestaurantManagement.Service.Implementation
                 TotalCustomers = newCustomersToday,
                CustomersChangePercentage = customersChange
             };
+
+            return dashboard;
 
         }
     }
