@@ -10,7 +10,7 @@ namespace RestaurantManagement.Service.Dtos.OrdersDto
     {
         public Guid OrdID { get; set; }
         public Guid CusID { get; set; }
-        public Guid TblID { get; set; }
+        public Guid TbiID { get; set; }
         public decimal TotalPrice { get; set; }
         public List<OrderDetailDTO> OrderDetails { get; set; }
     }
