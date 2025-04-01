@@ -37,7 +37,9 @@ namespace RestaurantManagement.Core.Enums
 
         [Description("Bàn không tồn tại hoặc không ở trạng thái Occupied.")]
         A04,
-        
+        [Description("Bàn đã được huỷ thành công.")]
+        A05,
+
 
 
         [Description("Bàn đã được đặt trong khoảng thời gian này.")]

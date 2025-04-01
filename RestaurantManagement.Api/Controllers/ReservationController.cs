@@ -89,5 +89,12 @@ namespace RestaurantManagement.Api.Controllers
                 return StatusCode(500, new { Success = false, Message = ex.Message });
             }
         }
+
+        [HttpPost("{resId}/cancel-reservation")]
+        public async Task<IActionResult> CancelReservation(Guid resId)
+        {
+            await _reservationService.CancelReservationAsync(resId);
+            return Ok(StatusCodeEnum.A05);
+        }
     }
 }
