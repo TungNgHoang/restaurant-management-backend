@@ -13,7 +13,7 @@ namespace RestaurantManagement.Api.Controllers
             _dashboardService = dashboardService;
         }
 
-        [HttpGet("dashboard")]
+        [HttpGet("daily-report")]
         public async Task<IActionResult> GetDashboardData([FromQuery] DateTime selectedDate)
         {
             var result = await _dashboardService.GetDashboardDataAsync(selectedDate);
