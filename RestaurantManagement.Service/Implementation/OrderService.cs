@@ -68,7 +68,7 @@ namespace RestaurantManagement.Service.Implementation
             }
 
             // Lấy danh sách món ăn trong đơn hàng
-            var existingOrderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == existingOrder.OrdId);
+            var existingOrderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == existingOrder.OrdId) ?? new List<TblOrderDetail>();
             var existingOrderDict = existingOrderDetails.ToDictionary(od => od.MnuId);
 
             decimal totalPrice = existingOrder.TotalPrice;
