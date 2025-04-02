@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestaurantManagement.DataAccess.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -39,5 +40,6 @@ using System.Threading.Tasks;
 
             // 5. Xóa Nhiều Bản Ghi
             Task DeleteManyAsync(Expression<Func<T, bool>> predicate);
-        }
+        void FindAsync(Func<TblReservation, bool> func);
+    }
     }
