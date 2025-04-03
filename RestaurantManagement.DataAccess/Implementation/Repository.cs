@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.DbContexts;
+using RestaurantManagement.DataAccess.Models;
 
 namespace RestaurantManagement.DataAccess.Implementation
 {

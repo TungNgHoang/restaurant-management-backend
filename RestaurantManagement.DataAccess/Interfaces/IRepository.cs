@@ -26,8 +26,8 @@ using System.Threading.Tasks;
             Task<List<T>> FindListAsync(Expression<Func<T, bool>> predicate);
             Task<T> FindAsync(Expression<Func<T, bool>> predicate);
 
-        // 3. Thêm, Cập nhật và Xóa Dữ liệu
-        Task InsertAsync(T obj);
+            // 3. Thêm, Cập nhật và Xóa Dữ liệu
+            Task InsertAsync(T obj);
             Task UpdateAsync(T obj);
             Task UpdateManyAsync(IEnumerable<T> objs);
             Task DeleteAsync(T obj); // Soft delete nếu có cột IsDeleted
@@ -35,11 +35,10 @@ using System.Threading.Tasks;
             Task<T> CreateAsync(T obj);
             Task InsertManyAsync(IEnumerable<T> objs);
 
-        // 4. Phân Trang
-        Task<(IEnumerable<T> Items, int TotalCount)> GetPagedListAsync(Expression<Func<T, bool>> predicate = null, int pageIndex = 0, int pageSize = 20);
+            // 4. Phân Trang
+            Task<(IEnumerable<T> Items, int TotalCount)> GetPagedListAsync(Expression<Func<T, bool>> predicate = null, int pageIndex = 0, int pageSize = 20);
 
             // 5. Xóa Nhiều Bản Ghi
             Task DeleteManyAsync(Expression<Func<T, bool>> predicate);
-        void FindAsync(Func<TblReservation, bool> func);
-    }
+        }
     }
