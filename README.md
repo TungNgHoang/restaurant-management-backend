@@ -3,6 +3,7 @@
 Hệ thống quản lý nhà hàng là một ứng dụng web API được xây dựng trên nền tảng **ASP.NET Core (.NET 8)** với cơ sở dữ liệu **SQL Server**. Ứng dụng hỗ trợ quản lý đặt bàn, đặt món, thanh toán, báo cáo doanh thu, cùng với các tính năng quản lý thực đơn, nhân viên và khách hàng.
 ### Đây là phần xử lý Backend cho hệ thống, để truy cập sourcecode Frontend, truy cập repo [sau](https://github.com/baonhi12/pizza-restaurant-system-frontend).
 ### Để theo dõi tiến trình của nhóm, truy cập link Jira [sau](https://nguyendminh025.atlassian.net/jira/software/projects/SCRUM/boards/1/backlog?selectedIssue=SCRUM-3&atlOrigin=eyJpIjoiNWNkYTRhMGVmZjBkNGQ2OGI3YmE5MzA0MWYzZDU1YWIiLCJwIjoiaiJ9).
+### Để xem thêm các báo cáo yêu cầu, thiết kế và kiểm thử phần mềm, truy cập link [sau](https://drive.google.com/drive/folders/1oYuZufJPoggj7VS6KTqJn-v1M_nsZUhw).
 ## Mục Lục
 - [Tính Năng](#tính-năng)
 - [Kiến Trúc](#kiến-trúc)
