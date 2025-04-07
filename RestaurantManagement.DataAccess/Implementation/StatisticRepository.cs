@@ -42,7 +42,7 @@ namespace RestaurantManagement.DataAccess.Implementation
         public async Task<List<TblReservation>> GetReservationsAsync(DateTime startDate, DateTime endDate)
         {
             return await _context.TblReservations
-                .Where(r => r.ResStatus != ReservationStatus.Canceled.ToString() && !r.IsDeleted && r.ResDate >= startDate && r.ResDate < endDate)
+                .Where(r => r.ResStatus != ReservationStatus.Cancelled.ToString() && !r.IsDeleted && r.ResDate >= startDate && r.ResDate < endDate)
                 .ToListAsync();
         }
 

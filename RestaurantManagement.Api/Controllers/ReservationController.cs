@@ -94,7 +94,7 @@ namespace RestaurantManagement.Api.Controllers
         public async Task<IActionResult> CancelReservation(Guid resId)
         {
             await _reservationService.CancelReservationAsync(resId);
-            return Ok();
+            return Success();
         }
     }
 }
