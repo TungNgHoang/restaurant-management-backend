@@ -11,6 +11,6 @@ namespace RestaurantManagement.Core.Enums
         Pending = 0,
         Serving = 1,
         Finished = 2,
-        Canceled = 3
+        Cancelled = 3
     }
 }

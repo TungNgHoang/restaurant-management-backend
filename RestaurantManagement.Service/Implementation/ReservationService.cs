@@ -278,11 +278,11 @@ namespace RestaurantManagement.Service.Implementation
                 throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
 
             // Kiểm tra trạng thái phải là "Pending" hoặc "Serving"
-            if (reservation.ResStatus == ReservationStatus.Canceled.ToString())
+            if (reservation.ResStatus == ReservationStatus.Cancelled.ToString())
                 throw new ErrorException(StatusCodeEnum.A03);
 
             // Cập nhật trạng thái thành "Cancelled"
-            reservation.ResStatus = ReservationStatus.Canceled.ToString();
+            reservation.ResStatus = ReservationStatus.Cancelled.ToString();
             reservation.UpdatedAt = DateTime.Now;
             reservation.UpdatedBy = Guid.Empty; // Giả định tạm thời
 
