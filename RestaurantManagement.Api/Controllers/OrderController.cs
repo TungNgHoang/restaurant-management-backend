@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
@@ -19,6 +20,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         // 1. Lựa chọn Tạo mới Hay Cập nhật
+        [Authorize]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
@@ -45,6 +47,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         // 2. Xem đơn hàng vừa tạo
+        [Authorize]
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {

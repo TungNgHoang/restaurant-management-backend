@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Service.ApiModels;
 using RestaurantManagement.Service.Dtos.MenusDto;
@@ -18,6 +19,7 @@ namespace RestaurantManagement.Api.Controllers
             _tableService = tableService;
         }
 
+        [Authorize]
         [HttpPost("get-all-table")]
         public async Task<IActionResult> GetAllTable([FromBody] TableModels pagingModel)
         {

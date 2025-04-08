@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Service.ApiModels;
@@ -18,6 +19,7 @@ namespace RestaurantManagement.Api.Controllers
             _menuService = menuService;
         }
 
+        [Authorize]
         [HttpPost("get-all-menu")]
         public async Task<IActionResult> GetAllMenu([FromBody] MenuModels pagingModel)
         {
@@ -27,6 +29,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         // Lấy thông tin món theo ID
+        [Authorize]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMenuById(Guid id)
         {
@@ -35,7 +38,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(menu);
         }
 
-
+        [Authorize]
         [HttpPost("add-item-to-menu")]
         public async Task<IActionResult> AddMenu([FromBody] MenuDto menuDto)
         {
@@ -46,6 +49,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(newMenu);
         }
 
+        [Authorize]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateMenu(Guid id, [FromBody] MenuDto menuDto)
         {
@@ -54,6 +58,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(updatedMenu);
         }
 
+        [Authorize]
         [HttpDelete("softdelete-item/{id}")]
         public async Task<IActionResult> DeleteMenu(Guid id)
         {

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Service.ApiModels;
 using RestaurantManagement.Service.Dtos.ReportsDto;
@@ -18,6 +19,7 @@ namespace RestaurantManagement.Api.Controllers
             _invoiceService = invoiceService;
         }
 
+        [Authorize]
         [HttpPost("get-invoice")]
         public async Task<IActionResult> GetInvoice([FromBody] InvoiceModels pagingModel)
         {
