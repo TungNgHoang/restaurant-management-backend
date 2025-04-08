@@ -144,6 +144,7 @@ namespace RestaurantManagement.Service.Implementation
                 {
                     MnuId = detail.MnuId,
                     MnuName = menuItem.MnuName,
+                    MnuImage = menuItem.MnuImage,
                     MnuPrice = menuItem.MnuPrice,
                     OdtQuantity = detail.OdtQuantity
                 });
