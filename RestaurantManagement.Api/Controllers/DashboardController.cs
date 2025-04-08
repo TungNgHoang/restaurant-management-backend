@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Service.Interfaces;
 
 namespace RestaurantManagement.Api.Controllers
@@ -13,6 +14,7 @@ namespace RestaurantManagement.Api.Controllers
             _dashboardService = dashboardService;
         }
 
+        [Authorize]
         [HttpGet("daily-report")]
         public async Task<IActionResult> GetDashboardData([FromQuery] DateTime selectedDate)
         {

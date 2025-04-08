@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Service.Dtos.PaymentDto;
@@ -18,6 +19,7 @@ namespace RestaurantManagement.Api.Controllers
 
         }
 
+        [Authorize]
         [HttpPost("checkout/{resId}")]
         public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, [FromBody] PaymentRequestDto request)
         {
