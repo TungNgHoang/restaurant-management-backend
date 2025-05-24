@@ -20,7 +20,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         // 1. Lựa chọn Tạo mới Hay Cập nhật
-        [Authorize]
+        
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
@@ -47,7 +47,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         // 2. Xem đơn hàng vừa tạo
-        [Authorize]
+        
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {

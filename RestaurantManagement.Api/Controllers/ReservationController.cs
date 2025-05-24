@@ -23,7 +23,7 @@ namespace RestaurantManagement.Api.Controllers
             _reservationService = reservationService;
         }
 
-        [Authorize]
+        
         [HttpPost("check-availability")]
         public async Task<IActionResult> CheckAvailability([FromBody] CheckAvailabilityRequestDto request)
         {
@@ -38,7 +38,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize]
+        
         [HttpPost("create-reservation")]
         public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequestDto request)
         {
@@ -57,7 +57,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //API get all my reservation from database
-        [Authorize]
+        
         [HttpPost("get-reservation")]
         public async Task<IActionResult> GetReservations([FromBody] ReserModel pagingModel)
         {
@@ -66,7 +66,7 @@ namespace RestaurantManagement.Api.Controllers
             return Success(listResult);
         }
 
-        [Authorize]
+        
         [HttpPut("{resId}/check-in")]
         public async Task<IActionResult> CheckInReservation(Guid resId)
         {
@@ -81,7 +81,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize]
+        
         [HttpGet("{resId}")]
         public async Task<IActionResult> GetReservationById(Guid resId)
         {
@@ -96,7 +96,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize]
+        
         [HttpPost("{resId}/cancel-reservation")]
         public async Task<IActionResult> CancelReservation(Guid resId)
         {

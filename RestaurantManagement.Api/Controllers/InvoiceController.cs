@@ -19,7 +19,7 @@ namespace RestaurantManagement.Api.Controllers
             _invoiceService = invoiceService;
         }
 
-        [Authorize]
+        
         [HttpPost("get-invoice")]
         public async Task<IActionResult> GetInvoice([FromBody] InvoiceModels pagingModel)
         {

@@ -15,7 +15,7 @@ namespace RestaurantManagement.Api.Controllers
             _statisticService = statisticService;
         }
 
-        [Authorize]
+        
         [HttpPost("get-statistic")]
         public async Task<IActionResult> GetStatistics([FromBody] StatisticsRequest request)
         {

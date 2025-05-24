@@ -45,7 +45,7 @@ namespace RestaurantManagement.Api.Controllers
 
         }
 
-        [Authorize]
+        
         [HttpPost("logout")]
         public async Task<IActionResult> Logout()
         {
