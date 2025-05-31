@@ -194,5 +194,15 @@ namespace RestaurantManagement.DataAccess.Implementation
             await _dbContext.Set<T>().AddRangeAsync(objs);
             await _dbContext.SaveChangesAsync();
         }
+
+        public Task SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public object GetAll()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

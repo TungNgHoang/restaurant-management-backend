@@ -8,8 +8,17 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Service.Interfaces
 {
+
+    public class StatisticService : IStatisticService
+    {
+        public async Task<StatisticsResponse> GetStatisticsAsync(StatisticsRequest request, string userEmail, string userRole)
+        {
+            // Implementation logic here  
+            throw new NotImplementedException();
+        }
+    }
     public interface IStatisticService
     {
-        Task<StatisticsResponse> GetStatisticsAsync([FromBody] StatisticsRequest request);
+        Task<StatisticsResponse> GetStatisticsAsync(StatisticsRequest request, string userEmail, string userRole);
     }
 }

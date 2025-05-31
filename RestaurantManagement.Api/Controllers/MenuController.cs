@@ -8,7 +8,8 @@ using RestaurantManagement.Service.Interfaces;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Route("api/Menu")]
+    [Authorize]
+    [Route("api/[controller]")]
     [ApiController]
     public class MenuController : BaseApiController
     {
@@ -19,7 +20,8 @@ namespace RestaurantManagement.Api.Controllers
             _menuService = menuService;
         }
 
-        [Authorize]
+        //Cho phép user và admin xem menu
+        [Authorize(Roles = "user,admin")]
         [HttpPost("get-all-menu")]
         public async Task<IActionResult> GetAllMenu([FromBody] MenuModels pagingModel)
         {
@@ -28,8 +30,8 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
 
-        // Lấy thông tin món theo ID
-        [Authorize]
+        //Cho phép user và admin xem chi tiết món
+        [Authorize(Roles = "user,admin")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMenuById(Guid id)
         {
@@ -38,7 +40,8 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(menu);
         }
 
-        [Authorize]
+        //Chỉ admin được thêm món
+        [Authorize(Roles = "admin")]
         [HttpPost("add-item-to-menu")]
         public async Task<IActionResult> AddMenu([FromBody] MenuDto menuDto)
         {
@@ -49,7 +52,8 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(newMenu);
         }
 
-        [Authorize]
+        //Chỉ admin được cập nhật món
+        [Authorize(Roles = "admin")]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateMenu(Guid id, [FromBody] MenuDto menuDto)
         {
@@ -58,12 +62,13 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(updatedMenu);
         }
 
-        [Authorize]
+        //Chỉ admin được xoá mềm món
+        [Authorize(Roles = "admin")]
         [HttpDelete("softdelete-item/{id}")]
         public async Task<IActionResult> DeleteMenu(Guid id)
         {
             var result = await _menuService.DeleteMenuAsync(id);
-            if (!result) return NotFound(new { message = StatusCodeEnum.D01});
+            if (!result) return NotFound(new { message = StatusCodeEnum.D01 });
 
             return Ok(new { message = StatusCodeEnum.D03 });
         }

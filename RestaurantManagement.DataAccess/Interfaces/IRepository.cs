@@ -40,5 +40,7 @@ using System.Threading.Tasks;
 
             // 5. Xóa Nhiều Bản Ghi
             Task DeleteManyAsync(Expression<Func<T, bool>> predicate);
-        }
+        Task SaveChangesAsync();
+        object GetAll();
+    }
     }

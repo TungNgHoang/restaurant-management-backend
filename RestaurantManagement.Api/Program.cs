@@ -15,6 +15,7 @@ using RestaurantManagement.DataAccess.DbContexts;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.OpenApi.Models;
 using RestaurantManagement.DataAccess.Models;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -42,12 +43,12 @@ builder.Services.AddScoped<IRepository<TblOrderDetail>, Repository<TblOrderDetai
 builder.Services.AddScoped<IRepository<TblMenu>, Repository<TblMenu>>();
 builder.Services.AddScoped<IMenuRepository, MenuRepository>();
 builder.Services.AddScoped<IMenuService, MenuService>();
-builder.Services.AddScoped<ITableService, TableService>();
+builder.Services.AddScoped<ITableService, RestaurantManagement.Service.Implementation.TableService>();
 builder.Services.AddScoped<IRepository<TblTableInfo>, Repository<TblTableInfo>>();
 builder.Services.AddScoped<IPaymentService, PaymentService>();
 builder.Services.AddScoped<IRepository<TblPayment>, Repository<TblPayment>>();
-builder.Services.AddScoped<IInvoiceService, InvoiceService>();
-builder.Services.AddScoped<IStatisticService, StatisticService>();
+builder.Services.AddScoped<IInvoiceService, RestaurantManagement.Service.Implementation.InvoiceService>();
+builder.Services.AddScoped<IStatisticService, RestaurantManagement.Service.Implementation.StatisticService>();
 builder.Services.AddScoped<IStatisticRepository, StatisticRepository>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IReportService, ReportService>();
@@ -110,7 +111,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = jwtSettings["Issuer"],
             ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(key)
+            IssuerSigningKey = new SymmetricSecurityKey(key),
+            RoleClaimType = ClaimTypes.Role
         };
 
         options.Events = new JwtBearerEvents
@@ -130,7 +132,20 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorizationBuilder()
+    .AddPolicy("AdminManagerUserPolicy", options => {
+        options.RequireAuthenticatedUser();
+        options.RequireRole("admin", "user");
+    })
+    .AddPolicy("AdminManagerPolicy", options => {
+        options.RequireAuthenticatedUser();
+        options.RequireRole("admin");
+    })
+    .AddPolicy("UserPolicy", options => {
+        options.RequireAuthenticatedUser();
+        options.RequireRole("user");
+    });
+
 builder.Services.AddControllers();
 
 var app = builder.Build();

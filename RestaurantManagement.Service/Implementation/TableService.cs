@@ -40,6 +40,11 @@ namespace RestaurantManagement.Service.Implementation
             return result;
         }
 
+        public Task<IEnumerable<TableDto>> GetAllTableAsync(TableModels pagingModel, string userEmail, string userRole)
+        {
+            throw new NotImplementedException();
+        }
+
         private void ValidatePagingModel(TableModels pagingModel)
         {
             if (pagingModel.PageIndex < 1)

@@ -267,5 +267,10 @@ namespace RestaurantManagement.Service.Implementation
                 Reservations = reservationsByQuarter.TryGetValue(quarter, out var res) ? res : 0
             }).ToList();
         }
+
+        public Task<StatisticsResponse> GetStatisticsAsync(StatisticsRequest request, string userEmail, string userRole)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
