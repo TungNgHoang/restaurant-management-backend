@@ -32,9 +32,21 @@ namespace RestaurantManagement.Service.Implementation
             _authService = authService;
         }
 
-        public Task<UserAccountDto> CreateUserAccountAsync(UserAccountDto userAccountDto)
+        public async Task<UserAccountDto> CreateUserAccountAsync(UserAccountDto userAccountDto)
         {
-            throw new NotImplementedException();
+            var user = _mapper.Map<TblUserAccount>(userAccountDto);
+
+            var passwordHasher = new PasswordHasher<TblUserAccount>();
+            user.UacPassword = passwordHasher.HashPassword(user, userAccountDto.UacPassword);
+
+            user.UacId = Guid.NewGuid();
+            user.CreatedAt = DateTime.Now;
+            user.UacRole = userAccountDto.UacRole;
+
+            await _userAccountRepository.InsertAsync(user);
+
+            return _mapper.Map<UserAccountDto>(user);
+
         }
 
         public Task<UserAccountDto> GetUserAccountByIdAsync(Guid id)
