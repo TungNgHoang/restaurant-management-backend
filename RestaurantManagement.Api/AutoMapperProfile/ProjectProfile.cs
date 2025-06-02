@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using RestaurantManagement.DataAccess.Models;
 using RestaurantManagement.Service.Dtos;
+using RestaurantManagement.Service.Dtos.AuthDto;
 using RestaurantManagement.Service.Dtos.MenusDto;
 using RestaurantManagement.Service.Dtos.OrdersDto;
 using RestaurantManagement.Service.Dtos.PaymentDto;
@@ -19,6 +20,7 @@ namespace RestaurantManagement.Api.AutoMapperProfile
             CreateMap<TblMenu, MenuDto>();
             CreateMap<TblTableInfo, TableDto>();
             CreateMap<TblPayment, PaymentRequestDto>();
+            CreateMap<UserAccountDto, TblUserAccount > ();
         }
     }
 }

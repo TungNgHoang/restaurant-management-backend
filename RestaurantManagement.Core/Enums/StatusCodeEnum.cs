@@ -26,8 +26,11 @@ namespace RestaurantManagement.Core.Enums
         [Description("Trạng thái reservation không hợp lệ để check-in.")]
         A01,
 
-        [Description("Incorrect username or password. Please try again.")]
+        [Description("Username not found. Please try again.")]
         B01,
+
+        [Description("Incorrect password. Please try again.")]
+        B02,
 
         [Description("Bàn không khả dụng để check-in.")]
         A02,
