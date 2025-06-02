@@ -55,7 +55,7 @@ namespace RestaurantManagement.Service.Implementation
             var passwordHasher = new PasswordHasher<TblUserAccount>();
             var result = passwordHasher.VerifyHashedPassword(user, user.UacPassword, loginRequest.Password);
 
-            if (result != PasswordVerificationResult.Failed)
+            if (result != PasswordVerificationResult.Success)
             {
                 //throw new UnauthorizedAccessException("Invalid password.");
                 throw new ErrorException(Core.Enums.StatusCodeEnum.B02);
