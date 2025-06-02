@@ -32,21 +32,9 @@ namespace RestaurantManagement.Service.Implementation
             _authService = authService;
         }
 
-        public async Task<UserAccountDto> CreateUserAccountAsync(UserAccountDto userAccountDto)
+        public Task<UserAccountDto> CreateUserAccountAsync(UserAccountDto userAccountDto)
         {
-            var user = _mapper.Map<TblUserAccount>(userAccountDto);
-
-            var passwordHasher = new PasswordHasher<TblUserAccount>();
-            user.UacPassword = passwordHasher.HashPassword(user, userAccountDto.UacPassword);
-
-            user.UacId = Guid.NewGuid();
-            user.CreatedAt = DateTime.Now;
-            user.UacRole = userAccountDto.UacRole;
-
-            await _userAccountRepository.InsertAsync(user);
-
-            return _mapper.Map<UserAccountDto>(user);
-
+            throw new NotImplementedException();
         }
 
         public Task<UserAccountDto> GetUserAccountByIdAsync(Guid id)
@@ -70,7 +58,7 @@ namespace RestaurantManagement.Service.Implementation
             if (result != PasswordVerificationResult.Failed)
             {
                 //throw new UnauthorizedAccessException("Invalid password.");
-                throw new ErrorException(Core.Enums.StatusCodeEnum.B01);
+                throw new ErrorException(Core.Enums.StatusCodeEnum.B02);
             }
             // 3. Gọi AuthService để tạo token
             //    Role được lấy từ DB: user.UacRole

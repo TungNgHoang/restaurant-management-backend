@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 
 namespace RestaurantManagement.DataAccess.Infrastructure
 {
@@ -13,36 +14,35 @@ namespace RestaurantManagement.DataAccess.Infrastructure
     {
         public static async Task SeedDataAsync(IServiceProvider serviceProvider)
         {
-            // Tạo scope mới để lấy DbContext
             using var scope = serviceProvider.CreateScope();
             var context = scope.ServiceProvider.GetRequiredService<RestaurantDBContext>();
-
-            // Đảm bảo DB đã được tạo (nếu dùng EnsureCreated)
-            // hoặc bạn có thể dùng context.Database.Migrate() nếu sử dụng Migration
             context.Database.EnsureCreated();
 
-            // Kiểm tra xem bảng TblUserAccount đã có dữ liệu chưa
             if (!context.TblUserAccounts.Any())
             {
-                // Nếu chưa có, thêm 2 tài khoản (Admin, Manager)
+                var hasher = new PasswordHasher<TblUserAccount>();
+
                 var adminAccount = new TblUserAccount
                 {
+                    UacId = Guid.NewGuid(),
                     UacEmail = "admin@example.com",
-                    UacPassword = "admin123", // Thực tế nên băm mật khẩu
-                    UacRole = "Admin"
+                    UacRole = "Admin",
+                    CreatedAt = DateTime.Now,
+                    IsDeleted = false
                 };
+                adminAccount.UacPassword = hasher.HashPassword(adminAccount, "admin123");
 
                 var managerAccount = new TblUserAccount
                 {
+                    UacId = Guid.NewGuid(),
                     UacEmail = "manager@example.com",
-                    UacPassword = "manager123", // Thực tế nên băm mật khẩu
-                    UacRole = "Manager"
+                    UacRole = "Manager",
+                    CreatedAt = DateTime.Now,
+                    IsDeleted = false
                 };
+                managerAccount.UacPassword = hasher.HashPassword(managerAccount, "manager123");
 
-                // Thêm vào DbSet
                 context.TblUserAccounts.AddRange(adminAccount, managerAccount);
-
-                // Lưu thay đổi vào DB
                 await context.SaveChangesAsync();
             }
         }
