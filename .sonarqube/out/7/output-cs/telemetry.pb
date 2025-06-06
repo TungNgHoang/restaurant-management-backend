@@ -1,0 +1,1 @@
+{ReD:\FinalProject\RestaurantManagement\RestaurantManagement.Service\RestaurantManagement.Service.csproj¢net8.0òCSharp12

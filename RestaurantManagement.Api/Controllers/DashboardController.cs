@@ -29,6 +29,13 @@ namespace RestaurantManagement.Api.Controllers
             var result = await _dashboardService.GetDashboardDataAsync(selectedDate);
             return Ok(result);
         }
+        [Authorize]
+        [HttpGet("get-best-seller")]
+        public async Task<IActionResult> GetBestSeller()
+        {
+            var result = await _dashboardService.GetTopDishesAsync();
+            return Ok(result);
+        }
 
         [Authorize]
         [HttpPost("get-all-report")]
