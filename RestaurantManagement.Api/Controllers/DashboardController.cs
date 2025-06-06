@@ -16,20 +16,25 @@ namespace RestaurantManagement.Api.Controllers
     {
         public IDashboardService _dashboardService { get; set; }
         public IReportService _reportService { get; set; }
-        public DashboardController(IServiceProvider serviceProvider, IDashboardService dashboardService, IReportService reportService) : base(serviceProvider)
+
+        public DashboardController(IServiceProvider serviceProvider, IDashboardService dashboardService, IReportService reportService)
+            : base(serviceProvider)
         {
             _dashboardService = dashboardService;
             _reportService = reportService;
         }
 
-        [Authorize(Roles = "AdminManagerPolicy")]
+        // Chỉ người có role "admin" hoặc "ThuNgan" mới được truy cập
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpGet("daily-report")]
         public async Task<IActionResult> GetDashboardData([FromQuery] DateTime selectedDate)
         {
             var result = await _dashboardService.GetDashboardDataAsync(selectedDate);
             return Ok(result);
         }
-        [Authorize]
+
+        // Bất kỳ user đã login nào (role admin/user/ThuNgan…) đều được truy cập
+        [Authorize(Policy = "AdminManagerUserPolicy")]
         [HttpGet("get-best-seller")]
         public async Task<IActionResult> GetBestSeller()
         {
@@ -37,7 +42,8 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "AdminManagerPolicy")]
+        // Chỉ admin + ThuNgan mới được gọi endpoint này để lấy tất cả báo cáo
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("get-all-report")]
         public async Task<IActionResult> GetAllReport([FromBody] ReportModels model)
         {

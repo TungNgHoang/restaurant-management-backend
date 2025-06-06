@@ -133,22 +133,22 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddAuthorizationBuilder()
-    // Cho cả admin + manager + user (ví dụ: endpoints mà cả 3 role đều được phép)
+
     .AddPolicy("AdminManagerUserPolicy", options => {
         options.RequireAuthenticatedUser();
-        options.RequireRole("admin", "ThuNgan", "user");
+        options.RequireRole("Admin", "ThuNgan", "user");
     })
-    // Cho admin + manager (ví dụ: endpoints mà chỉ admin hoặc manager được phép)
+
     .AddPolicy("AdminManagerPolicy", options => {
         options.RequireAuthenticatedUser();
-        options.RequireRole("admin", "ThuNgan");
+        options.RequireRole("Admin");
     })
-    // Chỉ user
+
     .AddPolicy("UserPolicy", options => {
         options.RequireAuthenticatedUser();
         options.RequireRole("user");
     })
-    // (Nếu muốn cho riêng manager cũng có policy riêng thì thêm)
+
     .AddPolicy("ThuNganPolicy", options => {
         options.RequireAuthenticatedUser();
         options.RequireRole("ThuNgan");
@@ -183,7 +183,7 @@ app.UseCors(MyAllowSpecificOrigins);
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
-app.UseAuthorization(); 
+app.UseAuthorization();
 
 app.MapControllers();
 app.Run();
