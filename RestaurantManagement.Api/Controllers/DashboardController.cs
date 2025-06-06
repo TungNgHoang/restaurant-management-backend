@@ -22,7 +22,7 @@ namespace RestaurantManagement.Api.Controllers
             _reportService = reportService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "AdminManagerPolicy")]
         [HttpGet("daily-report")]
         public async Task<IActionResult> GetDashboardData([FromQuery] DateTime selectedDate)
         {
@@ -37,7 +37,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        [Authorize(Roles = "AdminManagerPolicy")]
         [HttpPost("get-all-report")]
         public async Task<IActionResult> GetAllReport([FromBody] ReportModels model)
         {
