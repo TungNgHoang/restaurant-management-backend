@@ -21,7 +21,7 @@ namespace RestaurantManagement.Api.Controllers
             _invoiceService = invoiceService ?? throw new ArgumentNullException(nameof(invoiceService));
         }
 
-        [Authorize(Roles = "AdminManagerPolicy")] // Giới hạn cho admin, hoặc điều chỉnh theo nhu cầu
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("get-invoice")]
         public async Task<IActionResult> GetInvoice([FromBody] InvoiceModels pagingModel)
         {

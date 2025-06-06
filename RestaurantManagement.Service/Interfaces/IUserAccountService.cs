@@ -13,5 +13,6 @@ namespace RestaurantManagement.DataAccess.Interfaces
         Task<UserAccountDto> CreateUserAccountAsync(UserAccountDto userAccountDto);
         Task<UserAccountDto> GetUserAccountByIdAsync(Guid id);
         Task<string> LoginAsync(LoginRequestDto loginRequest);
+
     }
 }

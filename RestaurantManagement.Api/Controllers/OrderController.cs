@@ -20,7 +20,7 @@ namespace RestaurantManagement.Api.Controllers
             _orderService = orderService;
         }
 
-        [Authorize(Roles = "UserPolicy")]
+        [Authorize(Policy = "UserPolicy")]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
@@ -40,7 +40,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerUserPolicy")]
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {

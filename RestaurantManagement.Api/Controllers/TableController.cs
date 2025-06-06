@@ -21,7 +21,7 @@ namespace RestaurantManagement.Api.Controllers
             _tableService = tableService ?? throw new ArgumentNullException(nameof(tableService));
         }
 
-        [Authorize(Roles = "AdminManagerPolicy")] // Giới hạn cho admin, hoặc điều chỉnh theo nhu cầu
+        [Authorize(Policy = "AdminManagerPolicy")] // Giới hạn cho admin, hoặc điều chỉnh theo nhu cầu
         [HttpPost("get-all-table")]
         public async Task<IActionResult> GetAllTable([FromBody] TableModels pagingModel)
         {

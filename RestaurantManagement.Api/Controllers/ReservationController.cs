@@ -24,7 +24,7 @@ namespace RestaurantManagement.Api.Controllers
             _reservationService = reservationService;
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("check-availability")]
         public async Task<IActionResult> CheckAvailability([FromBody] CheckAvailabilityRequestDto request)
         {
@@ -39,7 +39,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("create-reservation")]
         public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequestDto request)
         {
@@ -57,7 +57,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("get-reservation")]
         public async Task<IActionResult> GetReservations([FromBody] ReserModel pagingModel)
         {
@@ -66,7 +66,7 @@ namespace RestaurantManagement.Api.Controllers
             return Success(listResult);
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPut("{resId}/check-in")]
         public async Task<IActionResult> CheckInReservation(Guid resId)
         {
@@ -81,7 +81,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpGet("{resId}")]
         public async Task<IActionResult> GetReservationById(Guid resId)
         {
@@ -96,7 +96,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Roles = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("{resId}/cancel-reservation")]
         public async Task<IActionResult> CancelReservation(Guid resId)
         {
