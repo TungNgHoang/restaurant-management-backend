@@ -1,0 +1,1 @@
+sR]D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\RestaurantManagement.Api.csproj¢net8.0òCSharp12

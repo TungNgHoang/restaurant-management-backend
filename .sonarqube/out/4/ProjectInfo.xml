@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ProjectInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sonarsource.com/msbuild/integration/2015/1">
+  <ProjectName>RestaurantManagement.Api</ProjectName>
+  <ProjectLanguage>C#</ProjectLanguage>
+  <ProjectType>Test</ProjectType>
+  <ProjectGuid>c01f4666-0f0a-42f1-b3d8-483150c39ae4</ProjectGuid>
+  <FullPath>D:\FinalProject\RestaurantManagement\RestaurantManagement.Api\RestaurantManagement.Api.csproj</FullPath>
+  <IsExcluded>false</IsExcluded>
+  <AnalysisResults>
+    <AnalysisResult Id="FilesToAnalyze" Location="D:\FinalProject\RestaurantManagement\.sonarqube\conf\4\FilesToAnalyze.txt" />
+  </AnalysisResults>
+  <AnalysisSettings>
+    <Property Name="sonar.cs.roslyn.reportFilePaths">D:\FinalProject\RestaurantManagement\.sonarqube\out\4\Issues.json</Property>
+    <Property Name="sonar.cs.analyzer.projectOutPaths">D:\FinalProject\RestaurantManagement\.sonarqube\out\4</Property>
+  </AnalysisSettings>
+  <Configuration>Debug</Configuration>
+  <Platform>AnyCPU</Platform>
+  <TargetFramework>net8.0</TargetFramework>
+</ProjectInfo>

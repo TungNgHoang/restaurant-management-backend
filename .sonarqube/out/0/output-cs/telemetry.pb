@@ -1,0 +1,1 @@
+uR_D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\RestaurantManagement.Core.csproj¢net8.0òCSharp12

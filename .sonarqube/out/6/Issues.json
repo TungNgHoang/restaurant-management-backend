@@ -1,0 +1,999 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.12.0.0",
+        "fileVersion": "4.12.0-3.24631.1 (da7c6c42)",
+        "semanticVersion": "4.12.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS1030",
+          "level": "warning",
+          "message": "#warning: 'To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 10,
+                  "endLine": 40,
+                  "endColumn": 380
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Interfaces/IRepository.cs",
+                "region": {
+                  "startLine": 39,
+                  "startColumn": 114,
+                  "endLine": 39,
+                  "endColumn": 118
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Implementation/Repository.cs",
+                "region": {
+                  "startLine": 159,
+                  "startColumn": 123,
+                  "endLine": 159,
+                  "endColumn": 127
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblBlackListTokens' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 45,
+                  "endLine": 19,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblCustomers' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 39,
+                  "endLine": 21,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblMenus' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 35,
+                  "endLine": 23,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblOrderDetails' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 42,
+                  "endLine": 25,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblOrderInfos' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 40,
+                  "endLine": 27,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblPayments' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 38,
+                  "endLine": 29,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblReservations' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 42,
+                  "endLine": 31,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblStaffs' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 36,
+                  "endLine": 33,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblTableInfos' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 40,
+                  "endLine": 35,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblUserAccounts' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 12,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 42,
+                  "endLine": 37,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblBlackListTokens' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 19,
+                  "startColumn": 45,
+                  "endLine": 19,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblCustomers' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 39,
+                  "endLine": 21,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblMenus' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 23,
+                  "startColumn": 35,
+                  "endLine": 23,
+                  "endColumn": 43
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblOrderDetails' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 42,
+                  "endLine": 25,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblOrderInfos' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 40,
+                  "endLine": 27,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblPayments' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 29,
+                  "startColumn": 38,
+                  "endLine": 29,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblReservations' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 42,
+                  "endLine": 31,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblStaffs' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 36,
+                  "endLine": 33,
+                  "endColumn": 45
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblTableInfos' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 40,
+                  "endLine": 35,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TblUserAccounts' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "suppressionStates": [
+            "suppressedInSource"
+          ],
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 12,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 42,
+                  "endLine": 37,
+                  "endColumn": 57
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Possible null reference return.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Implementation/OrderRepository.cs",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 20,
+                  "endLine": 40,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Possible null reference return.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Implementation/Repository.cs",
+                "region": {
+                  "startLine": 96,
+                  "startColumn": 13,
+                  "endLine": 96,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Possible null reference return.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Implementation/Repository.cs",
+                "region": {
+                  "startLine": 99,
+                  "startColumn": 13,
+                  "endLine": 99,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'HasSoftDelete' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Implementation/Repository.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 22,
+                  "endLine": 28,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetIsNotDeletedExpression' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.DataAccess/Implementation/Repository.cs",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 43,
+                  "endLine": 32,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "CA1822": {
+          "id": "CA1822",
+          "shortDescription": "Mark members as static",
+          "fullDescription": "Members that do not access instance data or call instance methods can be marked as static. After you mark the methods as static, the compiler will emit nonvirtual call sites to these members. This can give you a measurable performance gain for performance-sensitive code.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1822",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS1030": {
+          "id": "CS1030",
+          "shortDescription": "#warning directive",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1030)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8603": {
+          "id": "CS8603",
+          "shortDescription": "Possible null reference return.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8603)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8625": {
+          "id": "CS8625",
+          "shortDescription": "Cannot convert null literal to non-nullable reference type.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8625)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

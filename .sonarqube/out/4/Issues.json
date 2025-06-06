@@ -1,0 +1,520 @@
+{
+  "$schema": "http://json.schemastore.org/sarif-1.0.0",
+  "version": "1.0.0",
+  "runs": [
+    {
+      "tool": {
+        "name": "Microsoft (R) Visual C# Compiler",
+        "version": "4.12.0.0",
+        "fileVersion": "4.12.0-3.24631.1 (da7c6c42)",
+        "semanticVersion": "4.12.0",
+        "language": "en-US"
+      },
+      "results": [
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'data' in 'ApiResponseModel.ApiResponseModel(object data)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/BaseApiController.cs",
+                "region": {
+                  "startLine": 21,
+                  "startColumn": 48,
+                  "endLine": 21,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'data' in 'ApiResponseModel<T>.ApiResponseModel(T data)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/BaseApiController.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 47,
+                  "endLine": 28,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'NewOrderItems' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 39,
+                  "endLine": 44,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 39,
+                  "endLine": 44,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 's' in 'byte[] Encoding.GetBytes(string s)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 34,
+                  "endLine": 100,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
+                "region": {
+                  "startLine": 25,
+                  "startColumn": 101,
+                  "endLine": 25,
+                  "endColumn": 128
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/AuthController.cs",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 36,
+                  "endLine": 53,
+                  "endColumn": 64
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/AuthController.cs",
+                "region": {
+                  "startLine": 60,
+                  "startColumn": 36,
+                  "endLine": 60,
+                  "endColumn": 63
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "ASP0015",
+          "level": "note",
+          "message": "The header 'Authorization' can be accessed using the Authorization property",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/AuthController.cs",
+                "region": {
+                  "startLine": 52,
+                  "startColumn": 30,
+                  "endLine": 52,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "HeaderName": "Authorization",
+              "ResolvedPropertyName": "Authorization"
+            }
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 175,
+                  "startColumn": 36,
+                  "endLine": 175,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1835",
+          "level": "note",
+          "message": "Change the 'ReadAsync' method call to use the 'Stream.ReadAsync(Memory<byte>, CancellationToken)' overload",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 167,
+                  "startColumn": 23,
+                  "endLine": 167,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogError(ILogger, string?, params object?[])'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 139,
+                  "startColumn": 30,
+                  "endLine": 139,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1835",
+          "level": "note",
+          "message": "Change the 'ReadAsync' method call to use the 'Stream.ReadAsync(Memory<byte>, CancellationToken)' overload",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 89,
+                  "startColumn": 23,
+                  "endLine": 89,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1835",
+          "level": "note",
+          "message": "Change the 'ReadAsync' method call to use the 'Stream.ReadAsync(Memory<byte>, CancellationToken)' overload",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 128,
+                  "startColumn": 23,
+                  "endLine": 128,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "ASP0015",
+          "level": "note",
+          "message": "The header 'Authorization' can be accessed using the Authorization property",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 120,
+                  "startColumn": 29,
+                  "endLine": 120,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "HeaderName": "Authorization",
+              "ResolvedPropertyName": "Authorization"
+            }
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 209,
+                  "startColumn": 36,
+                  "endLine": 209,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1835",
+          "level": "note",
+          "message": "Change the 'ReadAsync' method call to use the 'Stream.ReadAsync(Memory<byte>, CancellationToken)' overload",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 198,
+                  "startColumn": 23,
+                  "endLine": 198,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'HandleUnauthorizedExceptionAsync' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 104,
+                  "startColumn": 28,
+                  "endLine": 104,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'HandleCustomExceptionAsync' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 62,
+                  "startColumn": 28,
+                  "endLine": 62,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        }
+      ],
+      "rules": {
+        "ASP0015": {
+          "id": "ASP0015",
+          "shortDescription": "Suggest using IHeaderDictionary properties",
+          "defaultLevel": "note",
+          "helpUri": "https://aka.ms/aspnet/analyzers",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true
+          }
+        },
+        "CA1822": {
+          "id": "CA1822",
+          "shortDescription": "Mark members as static",
+          "fullDescription": "Members that do not access instance data or call instance methods can be marked as static. After you mark the methods as static, the compiler will emit nonvirtual call sites to these members. This can give you a measurable performance gain for performance-sensitive code.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1822",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1835": {
+          "id": "CA1835",
+          "shortDescription": "Prefer the 'Memory'-based overloads for 'ReadAsync' and 'WriteAsync'",
+          "fullDescription": "'Stream' has a 'ReadAsync' overload that takes a 'Memory<Byte>' as the first argument, and a 'WriteAsync' overload that takes a 'ReadOnlyMemory<Byte>' as the first argument. Prefer calling the memory based overloads, which are more efficient.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1835",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1860": {
+          "id": "CA1860",
+          "shortDescription": "Avoid using 'Enumerable.Any()' extension method",
+          "fullDescription": "Prefer using 'IsEmpty', 'Count' or 'Length' properties whichever available, rather than calling 'Enumerable.Any()'. The intent is clearer and it is more performant than using 'Enumerable.Any()' extension method.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1860",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA2254": {
+          "id": "CA2254",
+          "shortDescription": "Template should be a static expression",
+          "fullDescription": "The logging message template should not vary between calls.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2254",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8604": {
+          "id": "CS8604",
+          "shortDescription": "Possible null reference argument.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8604)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        }
+      }
+    }
+  ]
+}

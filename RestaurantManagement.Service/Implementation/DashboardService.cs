@@ -128,5 +128,51 @@ namespace RestaurantManagement.Service.Implementation
             return dashboard;
 
         }
+
+        public async Task<List<TopDishDto>> GetTopDishesAsync()
+        {
+            DateTime today = DateTime.UtcNow.Date;
+            DateTime monthAgo = today.AddDays(-30);
+            DateTime twoMonthsAgo = monthAgo.AddDays(-30);
+
+            // Lấy dữ liệu bán hàng trong 7 ngày gần nhất
+            var recentSales = await _dbContext.TblOrderDetails
+                .Where(od => od.CreatedAt >= monthAgo && od.CreatedAt < today)
+                .GroupBy(od => od.MnuId)
+                .Select(g => new { MnuId = g.Key, Quantity = g.Sum(od => od.OdtQuantity) })
+                .ToListAsync();
+
+            // Lấy dữ liệu bán hàng trong 7 ngày trước đó
+            var previousSales = await _dbContext.TblOrderDetails
+                .Where(od => od.CreatedAt >= twoMonthsAgo && od.CreatedAt < monthAgo)
+                .GroupBy(od => od.MnuId)
+                .Select(g => new { MnuId = g.Key, Quantity = g.Sum(od => od.OdtQuantity) })
+                .ToListAsync();
+
+            // Lấy tên món ăn
+            var menuItems = await _dbContext.TblMenus.ToListAsync();
+
+            // Tính toán phần trăm tăng trưởng và chọn top 5
+            var topDishes = recentSales
+                .Select(rs => {
+                    var prevQuantity = previousSales.FirstOrDefault(ps => ps.MnuId == rs.MnuId)?.Quantity ?? 0;
+                    decimal growth = prevQuantity == 0 ? (rs.Quantity > 0 ? 100 : 0) : ((decimal)(rs.Quantity - prevQuantity) / prevQuantity) * 100;
+                    var menuItem = menuItems.FirstOrDefault(m => m.MnuId == rs.MnuId);
+                    return new TopDishDto
+                    {
+                        MnuId = rs.MnuId,
+                        MnuName = menuItem?.MnuName ?? "Unknown",
+                        MnuImage = menuItem?.MnuImage ?? "No Image",
+                        MnuPrice = menuItem?.MnuPrice ?? 0,
+                        QuantitySold = rs.Quantity,
+                        GrowthPercentage = growth
+                    };
+                })
+                .OrderByDescending(d => d.QuantitySold)
+                .Take(5)
+                .ToList();
+
+            return topDishes;
+        }
     }
 }

@@ -1,0 +1,1 @@
+RkD:\FinalProject\RestaurantManagement\RestaurantManagement.DataAccess\RestaurantManagement.DataAccess.csproj¢net8.0òCSharp12
