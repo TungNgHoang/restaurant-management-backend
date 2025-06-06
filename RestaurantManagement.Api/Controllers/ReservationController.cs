@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantManagement.Api.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ReservationController : BaseApiController
@@ -23,7 +24,7 @@ namespace RestaurantManagement.Api.Controllers
             _reservationService = reservationService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpPost("check-availability")]
         public async Task<IActionResult> CheckAvailability([FromBody] CheckAvailabilityRequestDto request)
         {
@@ -38,7 +39,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpPost("create-reservation")]
         public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequestDto request)
         {
@@ -56,8 +57,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        //API get all my reservation from database
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpPost("get-reservation")]
         public async Task<IActionResult> GetReservations([FromBody] ReserModel pagingModel)
         {
@@ -66,7 +66,7 @@ namespace RestaurantManagement.Api.Controllers
             return Success(listResult);
         }
 
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpPut("{resId}/check-in")]
         public async Task<IActionResult> CheckInReservation(Guid resId)
         {
@@ -75,13 +75,13 @@ namespace RestaurantManagement.Api.Controllers
                 await _reservationService.CheckInReservationAsync(resId);
                 return Ok();
             }
-            catch 
+            catch
             {
                 throw new ErrorException(StatusCodeEnum.Error);
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpGet("{resId}")]
         public async Task<IActionResult> GetReservationById(Guid resId)
         {
@@ -96,7 +96,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpPost("{resId}/cancel-reservation")]
         public async Task<IActionResult> CancelReservation(Guid resId)
         {

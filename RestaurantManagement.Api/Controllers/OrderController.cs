@@ -8,19 +8,19 @@ using RestaurantManagement.Service.Interfaces;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Route("api/Orders")]
+    [Authorize]
+    [Route("api/[controller]")]
     [ApiController]
     public class OrderController : BaseApiController
     {
-        public IOrderService _orderService { get; set; }
+        private readonly IOrderService _orderService;
 
         public OrderController(IServiceProvider serviceProvider, IOrderService orderService) : base(serviceProvider)
         {
             _orderService = orderService;
         }
 
-        // 1. Lựa chọn Tạo mới Hay Cập nhật
-        [Authorize]
+        [Authorize(Roles = "user")]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
@@ -40,14 +40,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        public class ProcessOrderRequest
-        {
-            public Guid TbiId { get; set; }
-            public List<OrderItemDto> NewOrderItems { get; set; }
-        }
-
-        // 2. Xem đơn hàng vừa tạo
-        [Authorize]
+        [Authorize(Roles = "user,admin")]
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {
@@ -57,6 +50,12 @@ namespace RestaurantManagement.Api.Controllers
                 throw new ErrorException(StatusCodeEnum.A02); // Đơn hàng không tồn tại
 
             return Ok(order);
+        }
+
+        public class ProcessOrderRequest
+        {
+            public Guid TbiId { get; set; }
+            public List<OrderItemDto> NewOrderItems { get; set; }
         }
     }
 }
