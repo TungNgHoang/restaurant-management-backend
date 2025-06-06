@@ -19,7 +19,7 @@ namespace RestaurantManagement.Api.Controllers
 
         }
 
-        [Authorize(Roles = "user")]
+        [Authorize(Roles = "UserPolicy")]
         [HttpPost("checkout/{resId}")]
         public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, [FromBody] PaymentRequestDto request)
         {
