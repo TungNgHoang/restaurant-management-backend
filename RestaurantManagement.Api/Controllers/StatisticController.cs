@@ -18,25 +18,12 @@ namespace RestaurantManagement.Api.Controllers
             _statisticService = statisticService ?? throw new ArgumentNullException(nameof(statisticService));
         }
 
-        [Authorize(Policy = "AdminManagerPolicy")] // Giới hạn cho admin, hoặc điều chỉnh theo nhu cầu
+        [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("get-statistic")]
         public async Task<IActionResult> GetStatistics([FromBody] StatisticsRequest request)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(new { Success = false, Message = "Dữ liệu đầu vào không hợp lệ" });
-
-            try
-            {
-                var userEmail = User.FindFirst(ClaimTypes.Name)?.Value;
-                var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
-                // Gửi userEmail và userRole để lọc dữ liệu nếu cần
-                var result = await _statisticService.GetStatisticsAsync(request, userEmail, userRole);
-                return Success(new { Success = true, Data = result, Message = "Lấy thống kê thành công" });
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Success = false, Message = ex.Message });
-            }
+            var result = await _statisticService.GetStatisticsAsync(request);
+            return Ok(result);
         }
     }
 }

@@ -97,7 +97,6 @@ namespace RestaurantManagement.Service.Implementation
             };
 
             await _blackListTokenRepository.InsertAsync(blacklistedToken);
-            await _blackListTokenRepository.SaveChangesAsync(); // Lưu thay đổi vào DB
             return true;
         }
 
@@ -114,7 +113,7 @@ namespace RestaurantManagement.Service.Implementation
                 return true; // Token không hợp lệ hoặc đã hết hạn
 
             // Sửa lỗi: Ép kiểu _blackListTokenRepository.GetAll() về IQueryable<TblBlackListToken>
-            var isBlacklisted = await ((IQueryable<TblBlackListToken>)_blackListTokenRepository.GetAll())
+            var isBlacklisted = await ((IQueryable<TblBlackListToken>)_blackListTokenRepository.AsNoTrackingAsync())
                 .AnyAsync(t => t.Token == token);
             return isBlacklisted;
         }

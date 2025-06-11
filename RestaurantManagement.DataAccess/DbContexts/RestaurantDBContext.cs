@@ -36,6 +36,9 @@ public partial class RestaurantDBContext : DbContext
 
     public virtual DbSet<TblUserAccount> TblUserAccounts { get; set; }
 
+    public DbSet<TblPromotion> Promotions { get; set; }
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn, 10000;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
@@ -273,6 +276,55 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.UacPassword).HasMaxLength(255);
             entity.Property(e => e.UacRole).HasMaxLength(50);
         });
+
+        modelBuilder.Entity<TblPromotion>(entity =>
+        {
+            entity.HasKey(e => e.PromotionId);
+            entity.ToTable("tblPromotion");
+
+            entity.Property(e => e.PromotionId)
+                  .HasDefaultValueSql("(newid())")
+                  .HasColumnName("PromotionID");
+
+            entity.Property(e => e.PromotionName)
+                  .IsRequired()
+                  .HasMaxLength(255);
+
+            entity.Property(e => e.Quantity);
+
+            entity.Property(e => e.Description)
+                  .HasMaxLength(500);
+
+            entity.Property(e => e.Condition)
+                  .HasMaxLength(500);
+
+            entity.Property(e => e.ExpirationDate)
+                  .HasColumnType("datetime");
+
+            entity.Property(e => e.DiscountValue)
+                  .HasColumnType("float");
+
+            entity.Property(e => e.IsDeleted)
+                  .HasDefaultValue(false);
+
+            entity.Property(e => e.CreatedAt)
+                  .HasDefaultValueSql("(getutcdate())");
+
+            entity.Property(e => e.UpdatedAt)
+                  .HasColumnType("datetime")
+                  .IsRequired(false);
+
+            entity.Property(e => e.CreatedBy);
+
+            entity.Property(e => e.UpdatedBy)
+                  .IsRequired(false);
+
+            entity.Property(e => e.RowVersion)
+                  .IsRowVersion()
+                  .IsConcurrencyToken();
+        });
+
+
 
         OnModelCreatingPartial(modelBuilder);
     }
