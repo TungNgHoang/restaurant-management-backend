@@ -36,7 +36,6 @@ public partial class RestaurantDBContext : DbContext
 
     public virtual DbSet<TblUserAccount> TblUserAccounts { get; set; }
 
-    public DbSet<TblPromotion> Promotions { get; set; }
 
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -276,54 +275,6 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.UacPassword).HasMaxLength(255);
             entity.Property(e => e.UacRole).HasMaxLength(50);
         });
-
-        modelBuilder.Entity<TblPromotion>(entity =>
-        {
-            entity.HasKey(e => e.PromotionId);
-            entity.ToTable("tblPromotion");
-
-            entity.Property(e => e.PromotionId)
-                  .HasDefaultValueSql("(newid())")
-                  .HasColumnName("PromotionID");
-
-            entity.Property(e => e.PromotionName)
-                  .IsRequired()
-                  .HasMaxLength(255);
-
-            entity.Property(e => e.Quantity);
-
-            entity.Property(e => e.Description)
-                  .HasMaxLength(500);
-
-            entity.Property(e => e.Condition)
-                  .HasMaxLength(500);
-
-            entity.Property(e => e.ExpirationDate)
-                  .HasColumnType("datetime");
-
-            entity.Property(e => e.DiscountValue)
-                  .HasColumnType("float");
-
-            entity.Property(e => e.IsDeleted)
-                  .HasDefaultValue(false);
-
-            entity.Property(e => e.CreatedAt)
-                  .HasDefaultValueSql("(getutcdate())");
-
-            entity.Property(e => e.UpdatedAt)
-                  .HasColumnType("datetime")
-                  .IsRequired(false);
-
-            entity.Property(e => e.CreatedBy);
-
-            entity.Property(e => e.UpdatedBy)
-                  .IsRequired(false);
-
-            entity.Property(e => e.RowVersion)
-                  .IsRowVersion()
-                  .IsConcurrencyToken();
-        });
-
 
 
         OnModelCreatingPartial(modelBuilder);
