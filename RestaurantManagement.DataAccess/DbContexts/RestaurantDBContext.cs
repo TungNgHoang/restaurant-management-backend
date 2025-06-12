@@ -36,6 +36,8 @@ public partial class RestaurantDBContext : DbContext
 
     public virtual DbSet<TblUserAccount> TblUserAccounts { get; set; }
 
+
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn, 10000;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
@@ -273,6 +275,7 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.UacPassword).HasMaxLength(255);
             entity.Property(e => e.UacRole).HasMaxLength(50);
         });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

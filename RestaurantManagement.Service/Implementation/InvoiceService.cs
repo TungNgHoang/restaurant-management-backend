@@ -74,10 +74,5 @@ namespace RestaurantManagement.Service.Implementation
             var result = AdvancedFilter(invoiceDto.AsEnumerable(), pagingModel, nameof(InvoiceDto.TimeOut));
             return result;
         }
-
-        public Task<IEnumerable<InvoiceDto>> GetAllInvoiceAsync(InvoiceModels pagingModel, string userEmail, string userRole)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
