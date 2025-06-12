@@ -27,6 +27,8 @@ public partial class TblOrderInfo
 
     public byte[] RowVersion { get; set; } = null!;
 
+    public string OrdStatus { get; set; } = null!;
+
     public virtual TblCustomer Cus { get; set; } = null!;
 
     public virtual TblReservation? Res { get; set; }
@@ -36,4 +38,6 @@ public partial class TblOrderInfo
     public virtual ICollection<TblOrderDetail> TblOrderDetails { get; set; } = new List<TblOrderDetail>();
 
     public virtual ICollection<TblPayment> TblPayments { get; set; } = new List<TblPayment>();
+
+    public virtual ICollection<TblPromotion> Pros { get; set; } = new List<TblPromotion>();
 }

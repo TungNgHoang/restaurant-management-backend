@@ -25,6 +25,10 @@ public partial class TblCustomer
 
     public byte[] RowVersion { get; set; } = null!;
 
+    public int CusPoints { get; set; }
+
+    public string? CusTier { get; set; }
+
     public virtual ICollection<TblOrderInfo> TblOrderInfos { get; set; } = new List<TblOrderInfo>();
 
     public virtual ICollection<TblPayment> TblPayments { get; set; } = new List<TblPayment>();
