@@ -10,4 +10,10 @@ public partial class TblBlackListToken
     public string Token { get; set; } = null!;
 
     public DateTime ExpiryDate { get; set; }
+
+    public Guid? UacId { get; set; }
+
+    public DateTime RevokedAt { get; set; }
+
+    public virtual TblUserAccount? Uac { get; set; }
 }

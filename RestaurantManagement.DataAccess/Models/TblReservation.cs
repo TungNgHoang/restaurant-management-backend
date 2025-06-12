@@ -37,9 +37,15 @@ public partial class TblReservation
 
     public string? TempCustomerPhone { get; set; }
 
+    public int? ResActualNumber { get; set; }
+
+    public DateTime? ResAutoCancelAt { get; set; }
+
     public virtual TblCustomer? Cus { get; set; }
 
     public virtual TblTableInfo Tbi { get; set; } = null!;
+
+    public virtual ICollection<TblNotification> TblNotifications { get; set; } = new List<TblNotification>();
 
     public virtual ICollection<TblOrderInfo> TblOrderInfos { get; set; } = new List<TblOrderInfo>();
 }

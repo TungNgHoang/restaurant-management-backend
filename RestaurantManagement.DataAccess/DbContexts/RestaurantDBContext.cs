@@ -22,11 +22,15 @@ public partial class RestaurantDBContext : DbContext
 
     public virtual DbSet<TblMenu> TblMenus { get; set; }
 
+    public virtual DbSet<TblNotification> TblNotifications { get; set; }
+
     public virtual DbSet<TblOrderDetail> TblOrderDetails { get; set; }
 
     public virtual DbSet<TblOrderInfo> TblOrderInfos { get; set; }
 
     public virtual DbSet<TblPayment> TblPayments { get; set; }
+
+    public virtual DbSet<TblPromotion> TblPromotions { get; set; }
 
     public virtual DbSet<TblReservation> TblReservations { get; set; }
 
@@ -36,11 +40,9 @@ public partial class RestaurantDBContext : DbContext
 
     public virtual DbSet<TblUserAccount> TblUserAccounts { get; set; }
 
-
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn, 10000;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
+        => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn,10000;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,8 +52,16 @@ public partial class RestaurantDBContext : DbContext
 
             entity.ToTable("tblBlackListToken");
 
+            entity.HasIndex(e => e.ExpiryDate, "IX_tblBlackListToken_Expiry");
+
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
             entity.Property(e => e.ExpiryDate).HasColumnType("datetime");
+            entity.Property(e => e.RevokedAt).HasDefaultValueSql("(sysutcdatetime())");
+            entity.Property(e => e.UacId).HasColumnName("UacID");
+
+            entity.HasOne(d => d.Uac).WithMany(p => p.TblBlackListTokens)
+                .HasForeignKey(d => d.UacId)
+                .HasConstraintName("FK_BlackListToken_UserAccount");
         });
 
         modelBuilder.Entity<TblCustomer>(entity =>
@@ -67,6 +77,7 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.CusContact).HasMaxLength(50);
             entity.Property(e => e.CusEmail).HasMaxLength(255);
             entity.Property(e => e.CusName).HasMaxLength(255);
+            entity.Property(e => e.CusTier).HasMaxLength(20);
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
                 .IsConcurrencyToken();
@@ -92,6 +103,29 @@ public partial class RestaurantDBContext : DbContext
                 .IsConcurrencyToken();
         });
 
+        modelBuilder.Entity<TblNotification>(entity =>
+        {
+            entity.HasKey(e => e.NotiId);
+
+            entity.ToTable("tblNotification");
+
+            entity.HasIndex(e => new { e.IsRead, e.CreatedAt }, "IX_tblNotification_IsRead").IsDescending(false, true);
+
+            entity.Property(e => e.NotiId)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("NotiID");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(sysutcdatetime())");
+            entity.Property(e => e.Message).HasMaxLength(255);
+            entity.Property(e => e.ResId).HasColumnName("ResID");
+            entity.Property(e => e.RowVersion)
+                .IsRowVersion()
+                .IsConcurrencyToken();
+
+            entity.HasOne(d => d.Res).WithMany(p => p.TblNotifications)
+                .HasForeignKey(d => d.ResId)
+                .HasConstraintName("FK_tblNotification_tblReservation");
+        });
+
         modelBuilder.Entity<TblOrderDetail>(entity =>
         {
             entity.HasKey(e => e.OdtId);
@@ -103,6 +137,9 @@ public partial class RestaurantDBContext : DbContext
                 .HasColumnName("OdtID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getutcdate())");
             entity.Property(e => e.MnuId).HasColumnName("MnuID");
+            entity.Property(e => e.OdtStatus)
+                .HasMaxLength(20)
+                .HasDefaultValue("Normal");
             entity.Property(e => e.OrdId).HasColumnName("OrdID");
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
@@ -125,11 +162,16 @@ public partial class RestaurantDBContext : DbContext
 
             entity.ToTable("tblOrderInfo");
 
+            entity.HasIndex(e => e.OrdStatus, "IX_tblOrderInfo_Status");
+
             entity.Property(e => e.OrdId)
                 .HasDefaultValueSql("(newid())")
                 .HasColumnName("OrdID");
             entity.Property(e => e.CreatedAt).HasDefaultValueSql("(getutcdate())");
             entity.Property(e => e.CusId).HasColumnName("CusID");
+            entity.Property(e => e.OrdStatus)
+                .HasMaxLength(20)
+                .HasDefaultValue("Active");
             entity.Property(e => e.ResId).HasColumnName("ResID");
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
@@ -150,6 +192,25 @@ public partial class RestaurantDBContext : DbContext
                 .HasForeignKey(d => d.TbiId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tblOrderInfo_tblTableInfo");
+
+            entity.HasMany(d => d.Pros).WithMany(p => p.Ords)
+                .UsingEntity<Dictionary<string, object>>(
+                    "TblOrderPromotion",
+                    r => r.HasOne<TblPromotion>().WithMany()
+                        .HasForeignKey("ProId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_tblOrderPromotion_tblPromotion"),
+                    l => l.HasOne<TblOrderInfo>().WithMany()
+                        .HasForeignKey("OrdId")
+                        .OnDelete(DeleteBehavior.ClientSetNull)
+                        .HasConstraintName("FK_tblOrderPromotion_tblOrderInfo"),
+                    j =>
+                    {
+                        j.HasKey("OrdId", "ProId").HasName("PK__tblOrder__7182AA4966BB4BB2");
+                        j.ToTable("tblOrderPromotion");
+                        j.IndexerProperty<Guid>("OrdId").HasColumnName("OrdID");
+                        j.IndexerProperty<Guid>("ProId").HasColumnName("ProID");
+                    });
         });
 
         modelBuilder.Entity<TblPayment>(entity =>
@@ -182,11 +243,35 @@ public partial class RestaurantDBContext : DbContext
                 .HasConstraintName("FK_tblPayment_tblOrderInfo");
         });
 
+        modelBuilder.Entity<TblPromotion>(entity =>
+        {
+            entity.HasKey(e => e.ProId);
+
+            entity.ToTable("tblPromotion");
+
+            entity.HasIndex(e => e.ProCode, "UX_tblPromotion_ProCode").IsUnique();
+
+            entity.Property(e => e.ProId)
+                .HasDefaultValueSql("(newid())")
+                .HasColumnName("ProID");
+            entity.Property(e => e.ConditionVal).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("(sysutcdatetime())");
+            entity.Property(e => e.Description).HasMaxLength(255);
+            entity.Property(e => e.DiscountType).HasMaxLength(20);
+            entity.Property(e => e.DiscountVal).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.ProCode).HasMaxLength(50);
+            entity.Property(e => e.RowVersion)
+                .IsRowVersion()
+                .IsConcurrencyToken();
+        });
+
         modelBuilder.Entity<TblReservation>(entity =>
         {
             entity.HasKey(e => e.ResId);
 
             entity.ToTable("tblReservation");
+
+            entity.HasIndex(e => e.ResStatus, "IX_tblReservation_Status");
 
             entity.Property(e => e.ResId)
                 .HasDefaultValueSql("(newid())")
@@ -227,7 +312,9 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
                 .IsConcurrencyToken();
+            entity.Property(e => e.StaBaseSalary).HasColumnType("decimal(12, 2)");
             entity.Property(e => e.StaName).HasMaxLength(255);
+            entity.Property(e => e.StaPhone).HasMaxLength(20);
             entity.Property(e => e.StaRole).HasMaxLength(50);
             entity.Property(e => e.UacId).HasColumnName("UacID");
 
@@ -250,6 +337,7 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.RowVersion)
                 .IsRowVersion()
                 .IsConcurrencyToken();
+            entity.Property(e => e.TbiCapacity).HasDefaultValue(4);
             entity.Property(e => e.TbiQrcode)
                 .HasMaxLength(255)
                 .HasColumnName("TbiQRCode");
@@ -275,7 +363,6 @@ public partial class RestaurantDBContext : DbContext
             entity.Property(e => e.UacPassword).HasMaxLength(255);
             entity.Property(e => e.UacRole).HasMaxLength(50);
         });
-
 
         OnModelCreatingPartial(modelBuilder);
     }
