@@ -52,8 +52,6 @@ builder.Services.AddScoped<IStatisticService, RestaurantManagement.Service.Imple
 builder.Services.AddScoped<IStatisticRepository, StatisticRepository>();
 builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IReportService, ReportService>();
-builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
-builder.Services.AddScoped<IPromotionService, PromotionService>();
 
 ////Addcors
 builder.Services.AddCors(options =>
