@@ -25,6 +25,8 @@ public partial class TblOrderDetail
 
     public byte[] RowVersion { get; set; } = null!;
 
+    public string OdtStatus { get; set; } = null!;
+
     public virtual TblMenu Mnu { get; set; } = null!;
 
     public virtual TblOrderInfo Ord { get; set; } = null!;

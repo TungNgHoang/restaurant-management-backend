@@ -25,5 +25,7 @@ public partial class TblUserAccount
 
     public byte[] RowVersion { get; set; } = null!;
 
+    public virtual ICollection<TblBlackListToken> TblBlackListTokens { get; set; } = new List<TblBlackListToken>();
+
     public virtual ICollection<TblStaff> TblStaffs { get; set; } = new List<TblStaff>();
 }

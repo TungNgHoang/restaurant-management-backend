@@ -25,5 +25,9 @@ public partial class TblStaff
 
     public byte[] RowVersion { get; set; } = null!;
 
+    public string? StaPhone { get; set; }
+
+    public decimal? StaBaseSalary { get; set; }
+
     public virtual TblUserAccount Uac { get; set; } = null!;
 }

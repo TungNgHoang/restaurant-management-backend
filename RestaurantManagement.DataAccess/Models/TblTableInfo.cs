@@ -25,6 +25,8 @@ public partial class TblTableInfo
 
     public int TbiTableNumber { get; set; }
 
+    public int TbiCapacity { get; set; }
+
     public virtual ICollection<TblOrderInfo> TblOrderInfos { get; set; } = new List<TblOrderInfo>();
 
     public virtual ICollection<TblReservation> TblReservations { get; set; } = new List<TblReservation>();
