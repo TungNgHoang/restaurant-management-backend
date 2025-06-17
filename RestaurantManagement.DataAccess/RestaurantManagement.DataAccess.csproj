@@ -10,9 +10,11 @@
     <Compile Include="Models\TblBlackListToken.cs" />
     <Compile Include="Models\TblCustomer.cs" />
     <Compile Include="Models\TblMenu.cs" />
+    <Compile Include="Models\TblNotification.cs" />
     <Compile Include="Models\TblOrderDetail.cs" />
     <Compile Include="Models\TblOrderInfo.cs" />
     <Compile Include="Models\TblPayment.cs" />
+    <Compile Include="Models\TblPromotion.cs" />
     <Compile Include="Models\TblReservation.cs" />
     <Compile Include="Models\TblStaff.cs" />
     <Compile Include="Models\TblTableInfo.cs" />
