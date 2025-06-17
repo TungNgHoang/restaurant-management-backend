@@ -52,9 +52,34 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(order);
         }
 
+        [HttpPost("process-preorder")]
+        public async Task<IActionResult> ProcessPreOrder([FromBody] ProcessPreOrderRequest request)
+        {
+            if (request == null || request.ResId == Guid.Empty || request.NewOrderItems == null || !request.NewOrderItems.Any())
+            {
+                return BadRequest("Invalid request data.");
+            }
+
+            try
+            {
+                var result = await _orderService.PreOrderOrUpdateAsync(request.ResId, request.NewOrderItems);
+                return Ok(result);
+            }
+            catch (ErrorException ex)
+            {
+                return StatusCode((int)ex.StatusCode, ex.Message);
+            }
+        }
+
         public class ProcessOrderRequest
         {
             public Guid TbiId { get; set; }
+            public List<OrderItemDto> NewOrderItems { get; set; }
+        }
+
+        public class ProcessPreOrderRequest
+        {
+            public Guid ResId { get; set; }
             public List<OrderItemDto> NewOrderItems { get; set; }
         }
     }
