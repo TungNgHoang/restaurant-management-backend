@@ -2,12 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Service.ApiModels;
 using RestaurantManagement.Service.Dtos.MenusDto;
 using RestaurantManagement.Service.Dtos.PromotionDto;
 using RestaurantManagement.Service.Implementation;
 using RestaurantManagement.Service.Interfaces;
 using Twilio.Jwt.Taskrouter;
+using Twilio.TwiML.Messaging;
 
 namespace RestaurantManagement.Api.Controllers
 {
@@ -36,7 +38,8 @@ namespace RestaurantManagement.Api.Controllers
         public async Task<IActionResult> GetPromotionById(Guid id)
         {
             var promotion = await _promotionService.GetPromotionByIdAsync(id);
-            if (promotion == null) return NotFound();
+            if (promotion == null)
+                throw new ErrorException(StatusCodeEnum.D04);
             return Ok(promotion);
         }
 
@@ -45,7 +48,7 @@ namespace RestaurantManagement.Api.Controllers
         public async Task<IActionResult> AddPromotion([FromBody] PromotionDto promotionDto)
         {
             if (promotionDto == null)
-                return BadRequest(StatusCodeEnum.BadRequest);
+                return BadRequest(StatusCodeEnum.D04);
             var newPromotion = await _promotionService.AddPromotionAsync(promotionDto);
             return Ok(newPromotion);
         }
@@ -55,7 +58,7 @@ namespace RestaurantManagement.Api.Controllers
         public async Task<IActionResult> UpdatePromotion(Guid id, [FromBody] PromotionDto promotionDto)
         {
             var updatedPromotion = await _promotionService.UpdatePromotionAsync(id, promotionDto);
-            if (updatedPromotion == null) return NotFound();
+            if (updatedPromotion == null) throw new ErrorException(StatusCodeEnum.D04);
             return Ok(updatedPromotion);
         }
 
@@ -64,7 +67,7 @@ namespace RestaurantManagement.Api.Controllers
         public async Task<IActionResult> DeletePromotion(Guid id)
         {
             var result = await _promotionService.DeletePromotionAsync(id);
-            if (!result) return NotFound(new { message = StatusCodeEnum.D04 });
+            if (!result) throw new ErrorException(StatusCodeEnum.D04);
             return Ok(new { message = StatusCodeEnum.D05 });
 
         }

@@ -78,7 +78,7 @@ namespace RestaurantManagement.Core.Enums
         D03,
 
         //StatusCode cho Promotion
-        [Description("Không tìm thấy khuyến mãi với ProId chỉ định")]
+        [Description("Không tìm thấy khuyến mãi")]
         D04,
         [Description("Xóa Voucher thành công")]
         D05,
