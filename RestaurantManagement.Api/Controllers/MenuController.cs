@@ -8,7 +8,6 @@ using RestaurantManagement.Service.Interfaces;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class MenuController : BaseApiController
@@ -21,7 +20,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //Cho phép user và admin xem menu
-        [Authorize(Policy = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("get-all-menu")]
         public async Task<IActionResult> GetAllMenu([FromBody] MenuModels pagingModel)
         {
@@ -31,7 +30,7 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //Cho phép user và admin xem chi tiết món
-        [Authorize(Policy = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetMenuById(Guid id)
         {

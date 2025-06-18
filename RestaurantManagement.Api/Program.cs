@@ -134,26 +134,38 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services.AddAuthorizationBuilder()
+builder.Services
+    .AddAuthorizationBuilder()
 
-    .AddPolicy("AdminManagerUserPolicy", options => {
-        options.RequireAuthenticatedUser();
-        options.RequireRole("Admin", "ThuNgan", "user");
+    // Policy cho phép mọi request, kể cả anonymous
+    .AddPolicy("PublicAccess", policy =>
+    {
+        // Không gọi RequireAuthenticatedUser(), và ép luôn true
+        policy.RequireAssertion(_ => true);
     })
 
-    .AddPolicy("AdminManagerPolicy", options => {
-        options.RequireAuthenticatedUser();
-        options.RequireRole("Admin");
+    .AddPolicy("AdminManagerUserPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("admin", "ThuNgan", "user");
     })
 
-    .AddPolicy("UserPolicy", options => {
-        options.RequireAuthenticatedUser();
-        options.RequireRole("user");
+    .AddPolicy("AdminManagerPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("admin", "ThuNgan");
     })
 
-    .AddPolicy("ThuNganPolicy", options => {
-        options.RequireAuthenticatedUser();
-        options.RequireRole("ThuNgan");
+    .AddPolicy("UserPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("user");
+    })
+
+    .AddPolicy("ThuNganPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("ThuNgan");
     });
 
 
