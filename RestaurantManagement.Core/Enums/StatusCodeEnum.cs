@@ -80,6 +80,11 @@ namespace RestaurantManagement.Core.Enums
         [Description("Xoá món ăn thành công!")]
         D03,
 
+        //StatusCode cho Promotion
+        [Description("Không tìm thấy khuyến mãi")]
+        D04,
+        [Description("Xóa Voucher thành công")]
+        D05,
         //Validation
         [Description("Tên món không được để trống")]
         V01,
