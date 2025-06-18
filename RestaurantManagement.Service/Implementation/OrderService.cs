@@ -160,6 +160,10 @@ namespace RestaurantManagement.Service.Implementation
             var reservation = await _reservationRepository.FindAsync(r => r.ResId == ResId);
             if (reservation == null)
                 throw new ErrorException(StatusCodeEnum.C07); // Không tìm thấy Reservation hợp lệ
+            // Nếu ResId không phải là PreOrder, ném lỗi
+            var alreadyOrder = await _orderInfoRepository.FindAsync(o => o.ResId == ResId && o.OrdStatus == OrderStatusEnum.Order.ToString());
+            if (alreadyOrder != null)
+                throw new ErrorException(StatusCodeEnum.C08); // Đã có đơn hàng với ResId này, không thể tạo PreOrder
             //Tìm trong bảng OrderInfo xem có đơn hàng nào với ResId này không
             var existingOrder = await _orderInfoRepository.FindAsync(o => o.ResId == ResId && o.OrdStatus == OrderStatusEnum.PreOrder.ToString());
 
