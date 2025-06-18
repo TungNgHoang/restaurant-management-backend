@@ -31,11 +31,11 @@ namespace RestaurantManagement.Api.Controllers
             try
             {
                 var availableTables = await _reservationService.GetAvailableTablesAsync(request);
-                return Success(new { Success = true, Data = availableTables });
+                return Ok(new { Success = true, Data = availableTables });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Success = false, Message = ex.Message });
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 
@@ -49,11 +49,11 @@ namespace RestaurantManagement.Api.Controllers
             try
             {
                 var reservation = await _reservationService.CreateReservationAsync(request);
-                return Success(new { Success = true, Data = reservation, Message = "Đặt bàn thành công" });
+                return Success(new { Success = true, Data = reservation, StatusCodeEnum.A06});
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Success = false, Message = ex.Message });
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 
@@ -92,7 +92,7 @@ namespace RestaurantManagement.Api.Controllers
             }
             catch (Exception ex)
             {
-                return StatusCode(500, new { Success = false, Message = ex.Message });
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 

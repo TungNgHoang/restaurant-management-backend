@@ -26,7 +26,7 @@ namespace RestaurantManagement.Api.Controllers
         {
             if (request == null || request.TbiId == Guid.Empty || request.NewOrderItems == null || !request.NewOrderItems.Any())
             {
-                return BadRequest("Invalid request data.");
+                return BadRequest(StatusCodeEnum.BadRequest);
             }
 
             try
@@ -36,7 +36,7 @@ namespace RestaurantManagement.Api.Controllers
             }
             catch (ErrorException ex)
             {
-                return StatusCode((int)ex.StatusCode, ex.Message);
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 
@@ -57,7 +57,7 @@ namespace RestaurantManagement.Api.Controllers
         {
             if (request == null || request.ResId == Guid.Empty || request.NewOrderItems == null || !request.NewOrderItems.Any())
             {
-                return BadRequest("Invalid request data.");
+                return BadRequest(StatusCodeEnum.BadRequest);
             }
 
             try
@@ -67,7 +67,7 @@ namespace RestaurantManagement.Api.Controllers
             }
             catch (ErrorException ex)
             {
-                return StatusCode((int)ex.StatusCode, ex.Message);
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 
