@@ -237,11 +237,11 @@ namespace RestaurantManagement.Service.Implementation
             if (order == null)
                 throw new ErrorException(StatusCodeEnum.D02); // Không tìm thấy đơn hàng
 
-            // Đánh dấu đơn hàng là đã xóa
+            // Đánh dấu đơn hàng là đã xóa trong bảng OrderInfo
             order.IsDeleted = true;
             await _orderInfoRepository.UpdateAsync(order);
 
-            // Xoá các chi tiết đơn hàng liên quan
+            // Xoá các món ăn chứa ID đơn hàng trong bảng OrderDetails
             var orderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == orderId);
             foreach (var detail in orderDetails)
             {

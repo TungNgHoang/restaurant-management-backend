@@ -4,7 +4,9 @@ using Microsoft.Extensions.DependencyInjection;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Service.Dtos.OrdersDto;
+using RestaurantManagement.Service.Implementation;
 using RestaurantManagement.Service.Interfaces;
+using static RestaurantManagement.Service.ApiModels.OrderRequest;
 
 namespace RestaurantManagement.Api.Controllers
 {
@@ -52,6 +54,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(order);
         }
 
+        [Authorize(Policy = "UserPolicy")]
         [HttpPost("process-preorder")]
         public async Task<IActionResult> ProcessPreOrder([FromBody] ProcessPreOrderRequest request)
         {
@@ -71,16 +74,15 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        public class ProcessOrderRequest
+        //Xoá mềm đơn hàng
+        [Authorize(Policy = "UserPolicy")]
+        [HttpDelete("softdelete-order/{orderId}")]
+        public async Task<bool> DeleteOrder(Guid orderId)
         {
-            public Guid TbiId { get; set; }
-            public List<OrderItemDto> NewOrderItems { get; set; }
-        }
+            var result = await _orderService.SoftDeleteOrderAsync(orderId);
+            if (!result) throw new ErrorException(StatusCodeEnum.D01); // Đơn hàng không tồn tại
 
-        public class ProcessPreOrderRequest
-        {
-            public Guid ResId { get; set; }
-            public List<OrderItemDto> NewOrderItems { get; set; }
+            return true;
         }
     }
 }
