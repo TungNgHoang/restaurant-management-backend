@@ -75,14 +75,14 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //Xoá mềm đơn hàng
-        [Authorize(Policy = "UserPolicy")]
+        //[Authorize(Policy = "UserPolicy")]
         [HttpDelete("softdelete-order/{orderId}")]
-        public async Task<bool> DeleteOrder(Guid orderId)
+        public async Task<IActionResult> DeleteOrder(Guid orderId)
         {
             var result = await _orderService.SoftDeleteOrderAsync(orderId);
-            if (!result) throw new ErrorException(StatusCodeEnum.D01); // Đơn hàng không tồn tại
+            if (!result) return NotFound(new { message = StatusCodeEnum.D02 });
 
-            return true;
+            return Ok(new { message = StatusCodeEnum.D04 });
         }
     }
 }
