@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ReservationController : BaseApiController
@@ -24,7 +24,7 @@ namespace RestaurantManagement.Api.Controllers
             _reservationService = reservationService;
         }
 
-        //[Authorize(Policy = "AdminManagerPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("check-availability")]
         public async Task<IActionResult> CheckAvailability([FromBody] CheckAvailabilityRequestDto request)
         {
@@ -39,7 +39,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Policy = "AdminManagerPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("create-reservation")]
         public async Task<IActionResult> CreateReservation([FromBody] CreateReservationRequestDto request)
         {
