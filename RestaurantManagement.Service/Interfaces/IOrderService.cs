@@ -11,6 +11,7 @@ namespace RestaurantManagement.Service.Interfaces
     {
         Task<OrderDetailsDto> GetOrderByIdAsync(Guid orderId);
         Task<OrderDTO> ProcessAndUpdateOrderAsync(Guid tbiId, List<OrderItemDto> newOrderItems);
+        Task<OrderDTO> PreOrderOrUpdateAsync(Guid ResId, List<OrderItemDto> newOrderItems);
 
     }
 }

@@ -185,10 +185,10 @@ namespace RestaurantManagement.Service.Implementation
 
                             // Cập nhật CusID vào reservation
                             reservation.CusId = customer.CusId;
-                        }
+                        } 
 
-                        // Cập nhật trạng thái reservation thành "Serving"
-                        reservation.ResStatus = ReservationStatus.Serving.ToString();
+                    // Cập nhật trạng thái reservation thành "Serving"
+                    reservation.ResStatus = ReservationStatus.Serving.ToString();
                         reservation.UpdatedAt = DateTime.Now;
                         reservation.UpdatedBy = Guid.Empty; // Giả định tạm thời
 

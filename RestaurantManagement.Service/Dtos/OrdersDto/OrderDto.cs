@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RestaurantManagement.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,8 @@ namespace RestaurantManagement.Service.Dtos.OrdersDto
         public Guid OrdID { get; set; }
         public Guid CusID { get; set; }
         public Guid TbiID { get; set; }
+        public Guid ResID { get; set; }
+        public OrderStatusEnum OrdStatus { get; set; }
         public decimal TotalPrice { get; set; }
         public List<OrderDetailDTO> OrderDetails { get; set; }
     }
