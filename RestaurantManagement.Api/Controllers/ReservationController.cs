@@ -24,7 +24,7 @@ namespace RestaurantManagement.Api.Controllers
             _reservationService = reservationService;
         }
 
-        [Authorize(Policy = "AdminManagerPolicy")]
+        //[Authorize(Policy = "AdminManagerPolicy")]
         [HttpPost("check-availability")]
         public async Task<IActionResult> CheckAvailability([FromBody] CheckAvailabilityRequestDto request)
         {

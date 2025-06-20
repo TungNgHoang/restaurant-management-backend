@@ -10,5 +10,6 @@ namespace RestaurantManagement.Service.Dtos.ReserDto
     {
         public Guid TbiId { get; set; }
         public int TbiTableNumber { get; set; }
+        public int TbiCapacity { get; set; }
     }
 }

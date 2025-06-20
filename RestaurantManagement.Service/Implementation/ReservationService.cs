@@ -1,28 +1,31 @@
 ﻿using AutoMapper;
-using RestaurantManagement.DataAccess.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
+using RestaurantManagement.DataAccess.DbContexts;
+using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.ApiModels;
 using RestaurantManagement.Service.Dtos;
 using RestaurantManagement.Service.Dtos.ReserDto;
 using RestaurantManagement.Service.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-
-using RestaurantManagement.DataAccess.Implementation;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.Service.ApiModels;
-using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.DataAccess.DbContexts;
 
 namespace RestaurantManagement.Service.Implementation
 {
         public class ReservationService : BaseService, IReservationService
         {
             private readonly IMapper _mapper;
+            private readonly IHttpContextAccessor _httpContextAccessor;
             protected readonly RestaurantDBContext _dbContext;
             private readonly IRepository<TblCustomer> _customerRepository;
             private readonly IRepository<TblReservation> _reservationsRepository;
@@ -31,6 +34,7 @@ namespace RestaurantManagement.Service.Implementation
             private readonly IReservationRepository _reservationRepository;
         
             public ReservationService(
+                IHttpContextAccessor httpContextAccessor,
                 AppSettings appSettings,
                 RestaurantDBContext dbContext,
                 IMapper mapper,
@@ -41,6 +45,7 @@ namespace RestaurantManagement.Service.Implementation
                 IReservationRepository reservationRepository
                 ) : base(appSettings, mapper)
             {
+                _httpContextAccessor = httpContextAccessor;
                 _reservationsRepository = reservationsRepository;
                 _tablesRepository = tablesRepository;
                 _customerRepository = customerRepository;
@@ -54,13 +59,15 @@ namespace RestaurantManagement.Service.Implementation
             {
                 var startTime = request.ResDate;
                 var endTime = request.ResEndDate;
-            
+                var capacity = request.ResNumber;
+
+
                 var allTables = await _tablesRepository.ActiveRecordsAsync();
                 var overlappingReservations = await _reservationRepository.GetOverlappingReservationsAsync(startTime, endTime);
                 var occupiedTableIds = overlappingReservations.Select(r => r.TbiId).Distinct().ToList();
 
                 var availableTables = allTables
-                    .Where(t => !occupiedTableIds.Contains(t.TbiId))
+                    .Where(t => !occupiedTableIds.Contains(t.TbiId) && t.TbiCapacity >= capacity)
                     .ToList();
 
                 return _mapper.Map<List<AvailableTableDto>>(availableTables);
@@ -70,23 +77,25 @@ namespace RestaurantManagement.Service.Implementation
             {
                 var startTime = request.ResDate;
                 var endTime = request.ResEndTime;
+                Guid? createdBy = null;
 
-                if (startTime > endTime)
-                {
+            if (startTime > endTime)
                     throw new ErrorException(StatusCodeEnum.C02);
-                }
-                if (request.TempCustomerPhone.Length != 10)
-                {
+                if (!string.IsNullOrEmpty(request.TempCustomerPhone) && request.TempCustomerPhone.Length != 10)
                     throw new ErrorException(StatusCodeEnum.C03);
-                }
-           
+
                 var overlappingReservations = await _reservationRepository.GetOverlappingReservationsAsync(startTime, endTime);
                 if (overlappingReservations.Any(r => r.TbiId == request.TbiId))
                 {
                     throw new ErrorException(StatusCodeEnum.C01);
                 }
 
-                var reservation = new TblReservation
+                var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                if (!string.IsNullOrEmpty(userIdClaim))
+                {
+                   createdBy = Guid.Parse(userIdClaim);
+                }
+            var reservation = new TblReservation
                 {
                     ResId = Guid.NewGuid(),
                     TbiId = request.TbiId,
@@ -96,10 +105,11 @@ namespace RestaurantManagement.Service.Implementation
                     ResEndTime = request.ResEndTime,
                     ResNumber = request.ResNumber,
                     ResStatus = ReservationStatus.Pending.ToString(),
+                    Note = request.Note,
                     IsDeleted = false,
                     CreatedAt = DateTime.Now,
-                    CreatedBy = Guid.Empty // Giả định tạm thời, có thể thay đổi
-                };
+                    CreatedBy = createdBy ?? Guid.Empty
+            };
 
                 await _reservationsRepository.InsertAsync(reservation);
                 return _mapper.Map<ReservationResponseDto>(reservation);

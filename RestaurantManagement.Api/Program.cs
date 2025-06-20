@@ -97,6 +97,7 @@ builder.Services.AddSwaggerGen(c =>
         }
     });
 });
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(typeof(ProjectProfile));
 // Lấy key từ cấu hình
 var jwtSettings = builder.Configuration.GetSection("AppSettings:Jwt");
