@@ -148,19 +148,19 @@ builder.Services
     .AddPolicy("AdminManagerUserPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("admin", "ThuNgan", "user");
+        policy.RequireRole("Admin", "ThuNgan", "User");
     })
 
     .AddPolicy("AdminManagerPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("admin", "ThuNgan");
+        policy.RequireRole("Admin", "ThuNgan");
     })
 
     .AddPolicy("UserPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("user");
+        policy.RequireRole("User");
     })
 
     .AddPolicy("ThuNganPolicy", policy =>
