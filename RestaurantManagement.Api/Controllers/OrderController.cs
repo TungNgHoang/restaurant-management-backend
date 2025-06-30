@@ -22,7 +22,7 @@ namespace RestaurantManagement.Api.Controllers
             _orderService = orderService;
         }
 
-        [Authorize(Policy = "UserPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
