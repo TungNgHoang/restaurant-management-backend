@@ -147,13 +147,13 @@ builder.Services
     .AddPolicy("AdminManagerUserPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("admin", "ThuNgan", "user");
+        policy.RequireRole("Admin", "ThuNgan", "user");
     })
 
     .AddPolicy("AdminManagerPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("admin", "ThuNgan");
+        policy.RequireRole("Admin", "ThuNgan");
     })
 
     .AddPolicy("UserPolicy", policy =>
