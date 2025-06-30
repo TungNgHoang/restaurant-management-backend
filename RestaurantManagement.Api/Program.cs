@@ -159,7 +159,7 @@ builder.Services
 
     .AddPolicy("UserPolicy", options => {
         options.RequireAuthenticatedUser();
-        options.RequireRole("user");
+        options.RequireRole("User");
     })
 
     .AddPolicy("ThuNganPolicy", policy =>
