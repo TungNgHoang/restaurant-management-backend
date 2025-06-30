@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.DataAccess.Models;
 
 namespace RestaurantManagement.DataAccess.DbContexts;
-
+//file của bạn ở đường dẫn RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs
 public partial class RestaurantDBContext : DbContext
 {
     public RestaurantDBContext()

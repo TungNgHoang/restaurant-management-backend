@@ -14,5 +14,6 @@ namespace RestaurantManagement.Service.Dtos.ReserDto
         public DateTime ResDate { get; set; } // Ngày và giờ đến
         public DateTime ResEndTime { get; set; } // Khoảng thời gian ở lại
         public int ResNumber { get; set; }
+        public string Note { get; set; }
     }
 }

@@ -43,6 +43,8 @@ namespace RestaurantManagement.Core.Enums
         [Description("Bàn đã được huỷ thành công.")]
         A05,
 
+        [Description("Đặt bàn thành công.")]
+        A06,
 
 
         [Description("Bàn đã được đặt trong khoảng thời gian này.")]
@@ -67,6 +69,9 @@ namespace RestaurantManagement.Core.Enums
         [Description("Không tìm thấy Reservation hợp lệ")]
         C07,
 
+        [Description("Reservation đã order rồi, ko thể preorder")]
+        C08,
+
         //StatusCode cho Order
         [Description("Món ăn không tồn tại")]
         D01,
@@ -76,6 +81,9 @@ namespace RestaurantManagement.Core.Enums
 
         [Description("Xoá món ăn thành công!")]
         D03,
+
+        [Description("Xoá đơn hàng thành công!")]
+        D06,
 
         //StatusCode cho Promotion
         [Description("Không tìm thấy khuyến mãi")]
