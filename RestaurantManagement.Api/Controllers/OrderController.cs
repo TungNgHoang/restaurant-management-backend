@@ -10,7 +10,6 @@ using static RestaurantManagement.Service.ApiModels.OrderRequest;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : BaseApiController
