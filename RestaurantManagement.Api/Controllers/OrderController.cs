@@ -22,7 +22,7 @@ namespace RestaurantManagement.Api.Controllers
             _orderService = orderService;
         }
 
-        [Authorize(Policy = "PublicAccess")]
+        [Authorize(Policy = "UserPolicy")]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
@@ -54,7 +54,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(order);
         }
 
-        [Authorize(Policy = "UserPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("process-preorder")]
         public async Task<IActionResult> ProcessPreOrder([FromBody] ProcessPreOrderRequest request)
         {
