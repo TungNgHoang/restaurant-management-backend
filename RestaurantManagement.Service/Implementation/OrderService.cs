@@ -1,14 +1,4 @@
-﻿using AutoMapper;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.DataAccess.Implementation;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.DataAccess.Models;
-using RestaurantManagement.Service.Dtos.OrdersDto;
-using RestaurantManagement.Service.Interfaces;
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class OrderService : BaseService, IOrderService
     {
@@ -174,7 +164,8 @@ namespace RestaurantManagement.Service.Implementation
                 {
                     OrdId = Guid.NewGuid(),
                     ResId = ResId,
-                    CusId = (Guid)reservation.CusId,
+                    CusId = Guid.Parse("00000000-1234-1234-1234-123456789abc"),
+                    //CusId = new Guid("00000000-1234-1234-1234-123456789abc"),
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.PreOrder.ToString(),
                     CreatedAt = DateTime.UtcNow,

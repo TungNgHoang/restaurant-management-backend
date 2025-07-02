@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.DataAccess.Models;
 
 namespace RestaurantManagement.DataAccess.DbContexts;
-//file của bạn ở đường dẫn RestaurantManagement.DataAccess/DbContexts/RestaurantDBContext.cs
+
 public partial class RestaurantDBContext : DbContext
 {
     public RestaurantDBContext()
@@ -286,6 +286,7 @@ public partial class RestaurantDBContext : DbContext
                 .IsRowVersion()
                 .IsConcurrencyToken();
             entity.Property(e => e.TbiId).HasColumnName("TbiID");
+            entity.Property(e => e.TempCustomerMail).HasMaxLength(255);
             entity.Property(e => e.TempCustomerName).HasMaxLength(255);
             entity.Property(e => e.TempCustomerPhone).HasMaxLength(50);
 

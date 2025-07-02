@@ -1,18 +1,4 @@
-﻿using AutoMapper;
-using RestaurantManagement.DataAccess.Models;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Dtos.AuthDto;
-using RestaurantManagement.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class UserAccountService : BaseService, IUserAccountService
     {

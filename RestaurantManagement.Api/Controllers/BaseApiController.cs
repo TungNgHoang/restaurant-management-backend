@@ -1,7 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
+﻿using RestaurantManagement.Core.ApiModels;
 
 namespace RestaurantManagement.Api.Controllers
 {

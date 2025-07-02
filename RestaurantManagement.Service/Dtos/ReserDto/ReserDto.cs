@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestaurantManagement.Service.Dtos.ReserDto
+﻿namespace RestaurantManagement.Service.Dtos.ReserDto
 {
     public class ReserDto
     {
         public Guid ResId { get; set; }            // Id từ Reservation.ResId
         public Guid? OrdId { get; set; }             // Lấy OrderID
         public int TableNumber { get; set; }       // Số bàn từ Table.TbiTableNumber
+        public string CustomerMail { get; set; }    
         public string CustomerName { get; set; }   // Tên khách từ Reservation.TempCustomerName
         public string ContactPhone { get; set; }   // Số điện thoại từ Reservation.TempCustomerPhone
         public DateTime ReservationDate { get; set; } // Ngày đến từ ResDate
