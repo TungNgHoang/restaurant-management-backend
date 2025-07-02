@@ -174,7 +174,7 @@ namespace RestaurantManagement.Service.Implementation
                 {
                     OrdId = Guid.NewGuid(),
                     ResId = ResId,
-                    CusId = (Guid)reservation.CusId,
+                    CusId = new Guid("00000000-1234-1234-1234-123456789abc"),
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.PreOrder.ToString(),
                     CreatedAt = DateTime.UtcNow,
