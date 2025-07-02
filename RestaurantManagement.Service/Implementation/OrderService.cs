@@ -221,5 +221,26 @@
             return _mapper.Map<OrderDTO>(existingOrder);
         }
 
+        //Xoá mềm Order (đổi trường IsDelete thành true)
+        public async Task<bool> SoftDeleteOrderAsync(Guid orderId)
+        {
+            var order = await _orderInfoRepository.FindByIdAsync(orderId);
+            if (order == null)
+                throw new ErrorException(StatusCodeEnum.D02); // Không tìm thấy đơn hàng
+
+            // Đánh dấu đơn hàng là đã xóa trong bảng OrderInfo
+            order.IsDeleted = true;
+            await _orderInfoRepository.UpdateAsync(order);
+
+            // Xoá các món ăn chứa ID đơn hàng trong bảng OrderDetails
+            var orderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == orderId);
+            foreach (var detail in orderDetails)
+            {
+                detail.IsDeleted = true;
+                await _orderDetailsRepository.UpdateAsync(detail);
+            }
+
+            return true;
+        }
     }
 }
