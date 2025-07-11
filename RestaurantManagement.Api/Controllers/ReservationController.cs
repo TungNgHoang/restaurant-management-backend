@@ -66,20 +66,20 @@ namespace RestaurantManagement.Api.Controllers
             return Success(listResult);
         }
 
-        //[Authorize(Policy = "AdminManagerPolicy")]
-        //[HttpPut("{resId}/check-in")]
-        //public async Task<IActionResult> CheckInReservation(Guid resId)
-        //{
-        //    try
-        //    {
-        //        await _reservationService.CheckInReservationAsync(resId);
-        //        return Ok();
-        //    }
-        //    catch
-        //    {
-        //        throw new ErrorException(StatusCodeEnum.Error);
-        //    }
-        //}
+        [Authorize(Policy = "AdminManagerPolicy")]
+        [HttpPut("{resId}/check-in")]
+        public async Task<IActionResult> CheckInReservation(Guid resId, int actualNumber)
+        {
+            try
+            {
+                await _reservationService.CheckInReservationAsync(resId, actualNumber);
+                return Ok();
+            }
+            catch
+            {
+                throw new ErrorException(StatusCodeEnum.Error);
+            }
+        }
 
         [Authorize(Policy = "AdminManagerPolicy")]
         [HttpGet("{resId}")]
