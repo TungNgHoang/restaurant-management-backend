@@ -46,6 +46,7 @@
                     OrdId = Guid.NewGuid(),
                     CusId = (Guid)reservation.CusId,
                     TbiId = reservation.TbiId,
+                    OrdStatus = OrderStatusEnum.Order.ToString(),
                     ResId = reservation.ResId,
                     CreatedBy = Guid.Empty, // Hoặc lấy từ người dùng hiện tại
                     CreatedAt = DateTime.UtcNow,
