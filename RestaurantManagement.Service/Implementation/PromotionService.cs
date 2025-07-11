@@ -1,15 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.DataAccess.Models;
-using RestaurantManagement.Service.ApiModels;
-using RestaurantManagement.Service.Dtos.PromotionDto;
-using RestaurantManagement.Service.Interfaces;
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class PromotionService : BaseService, IPromotionService
     {

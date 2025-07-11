@@ -1,24 +1,5 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.DataAccess.DbContexts;
-using RestaurantManagement.DataAccess.Implementation;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
 using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.DataAccess.Models;
-using RestaurantManagement.Service.ApiModels;
-using RestaurantManagement.Service.Dtos;
-using RestaurantManagement.Service.Dtos.ReserDto;
-using RestaurantManagement.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RestaurantManagement.Service.Implementation
 {
@@ -105,6 +86,7 @@ namespace RestaurantManagement.Service.Implementation
                 TbiId = request.TbiId,
                 TempCustomerName = request.TempCustomerName,
                 TempCustomerPhone = request.TempCustomerPhone,
+                TempCustomerMail = request.TempCustomerEmail,
                 ResDate = request.ResDate,
                 ResEndTime = request.ResEndTime,
                 ResNumber = request.ResNumber,
@@ -139,6 +121,7 @@ namespace RestaurantManagement.Service.Implementation
                            OrdId = order?.OrdId,
                            reservation.TempCustomerName,
                            reservation.TempCustomerPhone,
+                           reservation.TempCustomerMail,
                            reservation.ResDate,
                            reservation.ResEndTime,
                            reservation.ResStatus,
@@ -166,45 +149,60 @@ namespace RestaurantManagement.Service.Implementation
             return result;
         }
 
-        public async Task CheckInReservationAsync(Guid resId)
+        public async Task CheckInReservationAsync(Guid resId, int actualNumber)
         {
-            // Sử dụng transaction để đảm bảo tính nhất quán
+            // Sử dụng transaction
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
                 try
                 {
                     // Tìm reservation theo ResID
                     var reservation = await _reservationsRepository.FindByIdAsync(resId);
-                    if (reservation == null)
+                    if (reservation == null || reservation.IsDeleted)
                         throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
 
                     // Kiểm tra trạng thái reservation phải là "Pending"
                     if (reservation.ResStatus != ReservationStatus.Pending.ToString())
                         throw new ErrorException(StatusCodeEnum.A01);
 
-                    // Nếu chưa có CusID, tạo mới customer
-                    if (reservation.CusId == null)
+                    var customer = await _customerRepository.FindAsync(
+                        c => c.CusEmail == reservation.TempCustomerMail && !c.IsDeleted);
+
+                    Guid? createdBy = null;
+                    var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+                    if (!string.IsNullOrEmpty(userIdClaim))
                     {
-                        var customer = new TblCustomer
+                        createdBy = Guid.Parse(userIdClaim);
+                    }
+                    if (customer == null)
+                    {
+                        customer = new TblCustomer
                         {
                             CusId = Guid.NewGuid(),
                             CusName = reservation.TempCustomerName,
                             CusContact = reservation.TempCustomerPhone,
-                            CusEmail = null, // Có thể để null hoặc giá trị mặc định
+                            CusEmail = reservation.TempCustomerMail,
                             IsDeleted = false,
                             CreatedAt = DateTime.Now,
-                            CreatedBy = Guid.Empty // Giả định tạm thời
+                            CreatedBy = createdBy ?? Guid.Empty // Giả định tạm thời
                         };
                         await _customerRepository.InsertAsync(customer);
-
-                        // Cập nhật CusID vào reservation
-                        reservation.CusId = customer.CusId;
                     }
+                    else
+                    {
+                        // Cập nhật thông tin khách hàng nếu cần thiết
+                        customer.CusName = reservation.TempCustomerName;
+                        customer.CusContact = reservation.TempCustomerPhone;
+                        customer.UpdatedAt = DateTime.Now;
+                        customer.UpdatedBy = createdBy ??  Guid.Empty; // Giả định tạm thời
+                        await _customerRepository.UpdateAsync(customer);
+                        reservation.ResActualNumber = actualNumber;
 
-                    // Cập nhật trạng thái reservation thành "Serving"
-                    reservation.ResStatus = ReservationStatus.Serving.ToString();
-                    reservation.UpdatedAt = DateTime.Now;
-                    reservation.UpdatedBy = Guid.Empty; // Giả định tạm thời
+                        // Cập nhật trạng thái reservation thành "Serving"
+                        reservation.ResStatus = ReservationStatus.Serving.ToString();
+                        reservation.UpdatedAt = DateTime.Now;
+                        reservation.UpdatedBy = createdBy ?? Guid.Empty; // Giả định tạm thời
+                    }
 
                     // Lấy thông tin bàn
                     var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
@@ -218,7 +216,19 @@ namespace RestaurantManagement.Service.Implementation
                     // Cập nhật trạng thái bàn thành "Occupied"
                     table.TbiStatus = TableStatus.Occupied.ToString();
                     table.UpdatedAt = DateTime.Now;
-                    table.UpdatedBy = Guid.Empty; // Giả định tạm thời
+                    table.UpdatedBy = createdBy ?? Guid.Empty; // Giả định tạm thời
+
+                    // Tìm đơn đặt món trước (nếu có) để cập nhật trạng thái
+                    var preOrder = await _ordersRepository.FindAsync(
+                        o => o.ResId == reservation.ResId && o.OrdStatus == OrderStatusEnum.PreOrder.ToString() && !o.IsDeleted);
+
+                    if (preOrder != null)
+                    {
+                        preOrder.OrdStatus = OrderStatusEnum.Order.ToString();
+                        preOrder.UpdatedAt = DateTime.Now;
+                        preOrder.UpdatedBy = createdBy ?? Guid.Empty;
+                        await _ordersRepository.UpdateAsync(preOrder);
+                    }
 
                     // Lưu thay đổi vào database
                     await _reservationsRepository.UpdateAsync(reservation);
@@ -227,6 +237,7 @@ namespace RestaurantManagement.Service.Implementation
                     // Commit transaction nếu mọi thứ thành công
                     await transaction.CommitAsync();
                 }
+
                 catch (Exception ex)
                 {
                     // Rollback transaction nếu có lỗi

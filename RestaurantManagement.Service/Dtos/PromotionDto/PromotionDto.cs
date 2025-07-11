@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestaurantManagement.Service.Dtos.PromotionDto
+﻿namespace RestaurantManagement.Service.Dtos.PromotionDto
 {
     public class PromotionDto
     {

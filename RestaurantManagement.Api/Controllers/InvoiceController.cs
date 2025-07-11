@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Core.ApiModels;
+﻿using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Service.ApiModels;
-using RestaurantManagement.Service.Dtos; 
 using RestaurantManagement.Service.Dtos.ReportsDto;
-using RestaurantManagement.Service.Interfaces;
-using System.Security.Claims;
 
 namespace RestaurantManagement.Api.Controllers
 {

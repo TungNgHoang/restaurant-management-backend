@@ -68,11 +68,11 @@ namespace RestaurantManagement.Api.Controllers
 
         [Authorize(Policy = "AdminManagerPolicy")]
         [HttpPut("{resId}/check-in")]
-        public async Task<IActionResult> CheckInReservation(Guid resId)
+        public async Task<IActionResult> CheckInReservation(Guid resId, int actualNumber)
         {
             try
             {
-                await _reservationService.CheckInReservationAsync(resId);
+                await _reservationService.CheckInReservationAsync(resId, actualNumber);
                 return Ok();
             }
             catch

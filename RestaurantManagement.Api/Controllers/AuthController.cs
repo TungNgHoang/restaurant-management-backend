@@ -1,18 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.Identity.Client;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Dtos;
-using RestaurantManagement.Service.Dtos.AuthDto;
-using RestaurantManagement.Service.Implementation;
-using RestaurantManagement.Service.Interfaces;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-
-namespace RestaurantManagement.Api.Controllers
+﻿namespace RestaurantManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

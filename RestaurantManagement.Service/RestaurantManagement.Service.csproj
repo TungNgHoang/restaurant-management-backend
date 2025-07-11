@@ -1,6 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <Compile Include="..\RestaurantManagement.Api\GlobalUsings.cs" Link="GlobalUsings.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RestaurantManagement.Core\RestaurantManagement.Core.csproj" />
     <ProjectReference Include="..\RestaurantManagement.DataAccess\RestaurantManagement.DataAccess.csproj" />
   </ItemGroup>
