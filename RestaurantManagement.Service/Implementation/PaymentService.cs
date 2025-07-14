@@ -21,6 +21,7 @@ namespace RestaurantManagement.Service.Implementation
         private readonly IRepository<TblTableInfo> _tablesRepository;
         private readonly IOrderRepository _orderRepository;
         private readonly IRepository<TblPayment> _paymentRepository;
+        private readonly IRepository<TblPromotion> _promotionRepository;
         protected readonly RestaurantDBContext _dbContext;
         public PaymentService(
             AppSettings appSettings,
@@ -29,6 +30,7 @@ namespace RestaurantManagement.Service.Implementation
             IRepository<TblTableInfo> tablesRepository,
             IOrderRepository orderRepository,
             IRepository<TblPayment> paymentRepositor,
+            IRepository<TblPromotion> promotionRepository,
             RestaurantDBContext dbContext
             ) : base(appSettings, mapper)
         {
@@ -37,9 +39,10 @@ namespace RestaurantManagement.Service.Implementation
             _tablesRepository = tablesRepository;
             _orderRepository = orderRepository;
             _paymentRepository = paymentRepositor;
+            _promotionRepository = promotionRepository;
         }
 
-        public async Task CheckoutAndPayAsync(Guid resId, Guid ordId, string payMethod)
+        public async Task CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
         {
             // 1. Lấy thông tin đơn hàng
             var order = await _orderRepository.GetOrderByIdAsync(ordId);

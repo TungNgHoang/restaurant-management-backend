@@ -41,6 +41,8 @@ public partial class TblReservation
 
     public DateTime? ResAutoCancelAt { get; set; }
 
+    public string? TempCustomerMail { get; set; }
+
     public virtual TblCustomer? Cus { get; set; }
 
     public virtual TblTableInfo Tbi { get; set; } = null!;
