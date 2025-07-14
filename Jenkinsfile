@@ -1,5 +1,5 @@
 /* groovylint-disable LineLength, NoDef, VariableTypeRequired */
-def version = "v0.${BUILD_NUMBER}"
+def version = "0.${BUILD_NUMBER}"
 
 pipeline {
     agent any
