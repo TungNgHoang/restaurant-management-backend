@@ -57,7 +57,7 @@ namespace RestaurantManagement.Service.Implementation
                     CusId = (Guid)reservation.CusId,
                     TbiId = reservation.TbiId,
                     ResId = reservation.ResId,
-                    CreatedBy = Guid.Empty, // Hoặc lấy từ người dùng hiện tại
+                    CreatedBy = Guid.Empty, 
                     CreatedAt = DateTime.UtcNow,
                     TotalPrice = 0,
                     IsDeleted = false
