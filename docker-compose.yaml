@@ -1,0 +1,15 @@
+version: "1"
+services:
+  api.test:
+    container_name: api-test
+    image: api:1.0.0
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:5075
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5075:5075
+    restart: always
+    networks:
+      - k1-network
+networks:
+  k1-network:
