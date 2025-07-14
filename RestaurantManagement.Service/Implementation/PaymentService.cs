@@ -59,6 +59,8 @@ namespace RestaurantManagement.Service.Implementation
             if (table == null || table.TbiStatus != TableStatus.Occupied.ToString())
                 throw new ErrorException(StatusCodeEnum.A04);
 
+            // 3. Kiểm tra mã khuyến mãi
+
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
                 try

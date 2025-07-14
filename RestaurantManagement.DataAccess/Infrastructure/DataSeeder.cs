@@ -42,7 +42,27 @@ namespace RestaurantManagement.DataAccess.Infrastructure
                 };
                 managerAccount.UacPassword = hasher.HashPassword(managerAccount, "manager123");
 
-                context.TblUserAccounts.AddRange(adminAccount, managerAccount);
+                var cashierAccount = new TblUserAccount
+                {
+                    UacId = Guid.NewGuid(),
+                    UacEmail = "cashier@example.com",
+                    UacRole = "Cashier",
+                    CreatedAt = DateTime.Now,
+                    IsDeleted = false
+                };
+                cashierAccount.UacPassword = hasher.HashPassword(cashierAccount, "cashier123");
+
+                var staffAccount = new TblUserAccount
+                {
+                    UacId = Guid.NewGuid(),
+                    UacEmail = "staff@example.com",
+                    UacRole = "Staff",
+                    CreatedAt = DateTime.Now,
+                    IsDeleted = false
+                };
+                staffAccount.UacPassword = hasher.HashPassword(staffAccount, "staff123");
+
+                context.TblUserAccounts.AddRange(adminAccount, managerAccount, cashierAccount, staffAccount);
                 await context.SaveChangesAsync();
             }
         }
