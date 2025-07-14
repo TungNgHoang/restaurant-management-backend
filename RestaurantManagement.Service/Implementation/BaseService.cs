@@ -1,23 +1,8 @@
-﻿using AutoMapper;
-using Microsoft.VisualBasic;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using static Twilio.Rest.Numbers.V2.RegulatoryCompliance.BundleResource;
-
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class BaseService
     {
-        protected AppSettings _appSettings {  get; set; }
+        protected AppSettings _appSettings { get; set; }
         protected IMapper _mapper { get; set; }
 
         public BaseService(AppSettings appSettings, IMapper mapper)

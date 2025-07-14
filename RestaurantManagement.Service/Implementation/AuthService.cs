@@ -1,22 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using RestaurantManagement.DataAccess.Models;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Dtos;
-using RestaurantManagement.DataAccess.DbContexts;
-using RestaurantManagement.Service.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class AuthService : BaseService, IAuthService
     {

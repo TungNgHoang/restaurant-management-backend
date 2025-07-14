@@ -1,14 +1,4 @@
-﻿using AutoMapper;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.DataAccess.Implementation;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.DataAccess.Models;
-using RestaurantManagement.Service.Dtos.OrdersDto;
-using RestaurantManagement.Service.Interfaces;
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class OrderService : BaseService, IOrderService
     {
@@ -56,6 +46,7 @@ namespace RestaurantManagement.Service.Implementation
                     OrdId = Guid.NewGuid(),
                     CusId = (Guid)reservation.CusId,
                     TbiId = reservation.TbiId,
+                    OrdStatus = OrderStatusEnum.Order.ToString(),
                     ResId = reservation.ResId,
                     CreatedBy = Guid.Empty, 
                     CreatedAt = DateTime.UtcNow,
@@ -174,7 +165,8 @@ namespace RestaurantManagement.Service.Implementation
                 {
                     OrdId = Guid.NewGuid(),
                     ResId = ResId,
-                    CusId = (Guid)reservation.CusId,
+                    CusId = Guid.Parse("00000000-1234-1234-1234-123456789abc"),
+                    //CusId = new Guid("00000000-1234-1234-1234-123456789abc"),
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.PreOrder.ToString(),
                     CreatedAt = DateTime.UtcNow,
@@ -230,5 +222,26 @@ namespace RestaurantManagement.Service.Implementation
             return _mapper.Map<OrderDTO>(existingOrder);
         }
 
+        //Xoá mềm Order (đổi trường IsDelete thành true)
+        public async Task<bool> SoftDeleteOrderAsync(Guid orderId)
+        {
+            var order = await _orderInfoRepository.FindByIdAsync(orderId);
+            if (order == null)
+                throw new ErrorException(StatusCodeEnum.D02); // Không tìm thấy đơn hàng
+
+            // Đánh dấu đơn hàng là đã xóa trong bảng OrderInfo
+            order.IsDeleted = true;
+            await _orderInfoRepository.UpdateAsync(order);
+
+            // Xoá các món ăn chứa ID đơn hàng trong bảng OrderDetails
+            var orderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == orderId);
+            foreach (var detail in orderDetails)
+            {
+                detail.IsDeleted = true;
+                await _orderDetailsRepository.UpdateAsync(detail);
+            }
+
+            return true;
+        }
     }
 }

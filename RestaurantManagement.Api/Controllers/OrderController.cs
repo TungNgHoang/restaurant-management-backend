@@ -4,11 +4,12 @@ using Microsoft.Extensions.DependencyInjection;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
 using RestaurantManagement.Service.Dtos.OrdersDto;
+using RestaurantManagement.Service.Implementation;
 using RestaurantManagement.Service.Interfaces;
+using static RestaurantManagement.Service.ApiModels.OrderRequest;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class OrderController : BaseApiController
@@ -26,7 +27,7 @@ namespace RestaurantManagement.Api.Controllers
         {
             if (request == null || request.TbiId == Guid.Empty || request.NewOrderItems == null || !request.NewOrderItems.Any())
             {
-                return BadRequest("Invalid request data.");
+                return BadRequest(StatusCodeEnum.BadRequest);
             }
 
             try
@@ -36,7 +37,7 @@ namespace RestaurantManagement.Api.Controllers
             }
             catch (ErrorException ex)
             {
-                return StatusCode((int)ex.StatusCode, ex.Message);
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 
@@ -52,12 +53,13 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(order);
         }
 
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("process-preorder")]
         public async Task<IActionResult> ProcessPreOrder([FromBody] ProcessPreOrderRequest request)
         {
             if (request == null || request.ResId == Guid.Empty || request.NewOrderItems == null || !request.NewOrderItems.Any())
             {
-                return BadRequest("Invalid request data.");
+                return BadRequest(StatusCodeEnum.BadRequest);
             }
 
             try
@@ -67,20 +69,19 @@ namespace RestaurantManagement.Api.Controllers
             }
             catch (ErrorException ex)
             {
-                return StatusCode((int)ex.StatusCode, ex.Message);
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
             }
         }
 
-        public class ProcessOrderRequest
+        //Xoá mềm đơn hàng
+        //[Authorize(Policy = "UserPolicy")]
+        [HttpDelete("softdelete-order/{orderId}")]
+        public async Task<IActionResult> DeleteOrder(Guid orderId)
         {
-            public Guid TbiId { get; set; }
-            public List<OrderItemDto> NewOrderItems { get; set; }
-        }
+            var result = await _orderService.SoftDeleteOrderAsync(orderId);
+            if (!result) return NotFound(new { message = StatusCodeEnum.D02 });
 
-        public class ProcessPreOrderRequest
-        {
-            public Guid ResId { get; set; }
-            public List<OrderItemDto> NewOrderItems { get; set; }
+            return Ok(new { message = StatusCodeEnum.D04 });
         }
     }
 }

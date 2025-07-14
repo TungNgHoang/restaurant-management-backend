@@ -1,6 +1,4 @@
-﻿
-
-namespace RestaurantManagement.Service.Dtos.ReportsDto
+﻿namespace RestaurantManagement.Service.Dtos.ReportsDto
 {
     public class InvoiceDto
     {
