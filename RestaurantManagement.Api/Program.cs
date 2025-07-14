@@ -1,21 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Api.AutoMapperProfile;
-using RestaurantManagement.DataAccess.Implementation;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Interfaces;
-using RestaurantManagement.Service.Implementation;
-using RestaurantManagement.Core.ApiModels;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using RestaurantManagement.DataAccess.Infrastructure;
-using RestaurantManagement.Api.Middlewares;
-using RestaurantManagement.DataAccess.DbContexts;
-using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using RestaurantManagement.DataAccess.Models;
-using System.Security.Claims;
+using RestaurantManagement.Api.AutoMapperProfile;
+using RestaurantManagement.Api.Middlewares;
+using RestaurantManagement.DataAccess.Implementation;
+using RestaurantManagement.DataAccess.Infrastructure;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
