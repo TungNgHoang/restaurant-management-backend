@@ -27,11 +27,11 @@ pipeline {
             steps {
                 script {
                     withSonarQubeEnv("${SONARQUBE_ENV}") {
-                        sh 'dotnet tool install --global dotnet-sonarscanner'
-                        sh 'export PATH="$PATH:$HOME/.dotnet/tools"'
-                        sh 'dotnet sonarscanner begin /k:"${SONAR_PROJECT_KEY}" /d:sonar.host.url=$SONAR_HOST_URL /d:sonar.login=$SONAR_AUTH_TOKEN'
-                        sh 'dotnet build'
-                        sh 'dotnet sonarscanner end /d:sonar.login=$SONAR_AUTH_TOKEN'
+                        bat 'dotnet tool install --global dotnet-sonarscanner'
+                        bat 'set PATH=%PATH%;%USERPROFILE%\.dotnet\tools'
+                        bat 'dotnet sonarscanner begin /k:"${SONAR_PROJECT_KEY}" /d:sonar.host.url=$SONAR_HOST_URL /d:sonar.login=$SONAR_AUTH_TOKEN'
+                        bat 'dotnet build'
+                        bat 'dotnet sonarscanner end /d:sonar.login=$SONAR_AUTH_TOKEN'
                     }
                 }
             }
@@ -56,9 +56,9 @@ pipeline {
             steps {
                 script {
                     withDockerRegistry(credentialsId: 'gitlab-registry-token', toolName: 'docker', url: "https://${REGISTRY_URL}") {
-                        sh 'dotnet publish -c Release -o out'
-                        sh "docker build -t ${IMAGE_NAME}:${VERSION} ."
-                        sh "docker push ${IMAGE_NAME}:${VERSION}"
+                        bat 'dotnet publish -c Release -o out'
+                        bat "docker build -t ${IMAGE_NAME}:${VERSION} ."
+                        bat "docker push ${IMAGE_NAME}:${VERSION}"
                     }
                 }
             }
