@@ -19,13 +19,13 @@ namespace RestaurantManagement.Api.Controllers
 
         }
 
-        [Authorize(Policy = "UserPolicy")]
+        [Authorize(Policy = "BillingPolicy")]
         [HttpPost("checkout/{resId}")]
-        public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, [FromBody] PaymentRequestDto request)
+        public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, string proCode, [FromBody] PaymentRequestDto request)
         {
             try
             {
-                await _paymentService.CheckoutAndPayAsync(resId, ordId, request.PayMethod);
+                await _paymentService.CheckoutAndPayAsync(resId, ordId, proCode, request.PayMethod);
                 return Ok();
             }
             catch (Exception ex)
