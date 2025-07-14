@@ -33,5 +33,8 @@ public partial class TblPromotion
 
     public byte[] RowVersion { get; set; } = null!;
 
+    public int ProQuantity { get; set; }
+
     public virtual ICollection<TblOrderInfo> Ords { get; set; } = new List<TblOrderInfo>();
+
 }

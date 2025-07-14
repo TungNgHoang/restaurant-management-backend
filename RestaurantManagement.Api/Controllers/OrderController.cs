@@ -41,7 +41,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Policy = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "StaffPolicy")]
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {
