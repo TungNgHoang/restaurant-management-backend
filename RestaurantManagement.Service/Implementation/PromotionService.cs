@@ -48,7 +48,8 @@
                 DiscountVal = promotionDto.DiscountVal,
                 ConditionVal = promotionDto.ConditionVal,
                 StartDate = promotionDto.StartDate,
-                EndDate = promotionDto.EndDate
+                EndDate = promotionDto.EndDate,
+                ProQuantity = promotionDto.ProQuantity
             };
             await _promotionRepository.InsertAsync(promotion);
             return promotionDto;
@@ -68,6 +69,7 @@
             promotion.EndDate = promotionDto.EndDate;
             promotion.UpdatedAt = DateTime.UtcNow;
             promotion.UpdatedBy = Guid.NewGuid();
+            promotion.ProQuantity = promotionDto.ProQuantity;
 
             await _promotionRepository.UpdateAsync(promotion);
             return promotionDto;

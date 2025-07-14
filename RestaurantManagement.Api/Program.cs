@@ -176,10 +176,10 @@ builder.Services
     })
 
     // Policy: Nhân viên lễ tân hoặc thu ngân (xử lý thanh toán)
-    .AddPolicy("BillingPolicy", policy =>
+    .AddPolicy("BillingPolicy", async policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Receptionist", "Cashier"); // Thay "ThuNgan" bằng "Cashier" nếu bạn dùng tiếng Anh
+        policy.RequireRole("Receptionist", "Cashier");
     });
 
 
