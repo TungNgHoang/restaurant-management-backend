@@ -138,34 +138,59 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services
     .AddAuthorizationBuilder()
 
-    // Policy cho phép mọi request, kể cả anonymous
+    // Policy: Cho phép tất cả, kể cả người dùng chưa đăng nhập
     .AddPolicy("PublicAccess", policy =>
     {
-        // Không gọi RequireAuthenticatedUser(), và ép luôn true
-        policy.RequireAssertion(_ => true);
+        policy.RequireAssertion(_ => true); // Luôn true
     })
 
-    .AddPolicy("AdminManagerUserPolicy", policy =>
+    // Policy: Dành cho tất cả vai trò có đăng nhập (Admin, Manager, User)
+    .AddPolicy("StaffPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Admin", "ThuNgan", "User");
+        policy.RequireRole("Admin", "Manager", "User");
     })
 
-    .AddPolicy("AdminManagerPolicy", policy =>
+    // Policy: Admin hoặc Manager
+    .AddPolicy("AdminOrManagerPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Admin", "ThuNgan");
+        policy.RequireRole("Admin", "Manager");
     })
 
-    .AddPolicy("UserPolicy", options => {
-        options.RequireAuthenticatedUser();
-        options.RequireRole("User");
-    })
-
-    .AddPolicy("ThuNganPolicy", policy =>
+    // Policy: Chỉ User
+    .AddPolicy("UserPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("ThuNgan");
+        policy.RequireRole("User");
+    })
+
+    // Policy: Chỉ Manager
+    .AddPolicy("ManagerPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Manager");
+    })
+
+    // Policy: Nhân viên phục vụ
+    .AddPolicy("WaiterPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Waiter");
+    })
+
+    // Policy: Nhân viên lễ tân
+    .AddPolicy("ReceptionistPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Receptionist");
+    })
+
+    // Policy: Nhân viên lễ tân hoặc thu ngân (xử lý thanh toán)
+    .AddPolicy("BillingPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Receptionist", "Cashier"); // Thay "ThuNgan" bằng "Cashier" nếu bạn dùng tiếng Anh
     });
 
 
