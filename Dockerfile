@@ -6,7 +6,7 @@ COPY . .
 WORKDIR /app/RestaurantManagement.Api
 RUN dotnet restore RestaurantManagement.Api.csproj
 
-RUN dotnet public RestaurantManagement.Api.csproj -c Release -o out
+RUN dotnet publish RestaurantManagement.Api.csproj -c Release -o out
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /app

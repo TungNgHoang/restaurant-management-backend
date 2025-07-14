@@ -8,8 +8,7 @@ pipeline {
         GIT_REPO = 'https://github.com/TungNgHoang/restaurant-management-backend.git'
         GIT_BRANCH = 'main'
         GIT_CREDENTIAL = credentials('github-pat') // Thay bằng ID credential thực tế nếu cần
-        IMAGE_NAME = 'registry.gitlab.com/your-org/restaurant-management-backend'
-        REGISTRY_URL = 'registry.gitlab.com'
+        IMAGE_NAME = 'restaurant-backend'
         VERSION = "${version}"
         SONAR_PROJECT_KEY = 'restaurant-management-backend'
         SONAR_AUTH_TOKEN = credentials('sonar-token')
