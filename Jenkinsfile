@@ -30,7 +30,7 @@ pipeline {
                 withSonarQubeEnv("${SONARQUBE_ENV}") {
                     withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                         bat 'dotnet tool install --global dotnet-sonarscanner'
-                        bat "dotnet sonarscanner begin /k:\"${SONAR_PROJECT_KEY}\" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_TOKEN%"
+                        bat "dotnet sonarscanner begin /k:\"${SONAR_PROJECT_KEY}\" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_TOKEN% /d:sonar.scanner.scanAll=false /d:sonar.exclusions=\"**/obj/**,**/bin/**,**/Test/**,**/Tests/**\" /d:sonar.scanner.opts=\"-Xmx2g\""
                         bat 'dotnet build'
                         bat "dotnet sonarscanner end /d:sonar.login=%SONAR_TOKEN%"
                     }
