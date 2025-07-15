@@ -53,14 +53,32 @@ pipeline {
             }
         }
 
-        stage('Build & Push Docker Image') {
+        // stage('Build & Push Docker Image') {
+        //     steps {
+        //         withCredentials([usernamePassword(credentialsId: 'gitlab-registry-token', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
+        //             bat 'dotnet publish -c Release -o out'
+        //             bat "docker login -u %REGISTRY_USER% -p %REGISTRY_PASS% ${env.REGISTRY_URL}"
+        //             bat "docker build -t ${IMAGE_NAME}:${VERSION} ."
+        //             bat "docker push ${IMAGE_NAME}:${VERSION}"
+        //         }
+        //     }
+        // }
+        stage('Publish') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'gitlab-registry-token', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
-                    bat 'dotnet publish -c Release -o out'
-                    bat "docker login -u %REGISTRY_USER% -p %REGISTRY_PASS% ${env.REGISTRY_URL}"
-                    bat "docker build -t ${IMAGE_NAME}:${VERSION} ."
-                    bat "docker push ${IMAGE_NAME}:${VERSION}"
-                }
+                bat 'dotnet publish -c Release -o out'
+            }
+        }
+
+        stage('Deploy to IIS') {
+            steps {
+                bat """
+                    echo 🚀 Copying files to IIS folder...
+                    if not exist "${DEPLOY_DIR}" (
+                        echo ❌ Folder %DEPLOY_DIR% not found & exit 1
+                    )
+                    xcopy /y /s /e /i out\\* "${DEPLOY_DIR}\\"
+                    echo ✅ Deploy completed.
+                """
             }
         }
 
