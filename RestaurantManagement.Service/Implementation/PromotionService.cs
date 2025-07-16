@@ -39,6 +39,13 @@
 
         public async Task<PromotionDto> AddPromotionAsync(PromotionDto promotionDto)
         {
+            // Kiểm tra mã promotion đã tồn tại chưa (không phân biệt hoa thường)
+            var isExist = await _promotionRepository.AnyAsync(x => x.ProCode.ToLower() == promotionDto.ProCode.ToLower() && !x.IsDeleted);
+            if (isExist)
+            {
+                throw new ErrorException(StatusCodeEnum.D07, "Mã đã tồn tại");
+            }
+
             var promotion = new TblPromotion
             {
                 ProId = Guid.NewGuid(),
