@@ -90,6 +90,8 @@ namespace RestaurantManagement.Core.Enums
         D04,
         [Description("Xóa Voucher thành công")]
         D05,
+        [Description("Mã khuyến mãi đã tồn tại")]
+        D07,
         //Validation
         [Description("Tên món không được để trống")]
         V01,
