@@ -18,6 +18,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{104D3E11-CF35-4E0C-8F66-893B02A96EAB}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		docker-compose.yaml = docker-compose.yaml
+		Dockerfile = Dockerfile
+		Jenkinsfile = Jenkinsfile
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestaurantManagement.UnitTest", "RestaurantManagement.UnitTest\RestaurantManagement.UnitTest.csproj", "{90BBD761-83A9-44E1-87D4-AB170DCB4018}"

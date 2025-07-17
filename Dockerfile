@@ -1,18 +1,16 @@
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-WORKDIR /app
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 
+WORKDIR /
 COPY *.sln .
 COPY . .
-WORKDIR /app/RestaurantManagement.Api
-RUN dotnet restore RestaurantManagement.Api.csproj
+RUN dotnet restore -r linux-musl-x64 "RestaurantManagement.Api/RestaurantManagement.Api.csproj"
 
-RUN dotnet publish RestaurantManagement.Api.csproj -c Release -o out
+RUN dotnet publish -r linux-musl-x64 -c Release -o /app --no-restore --self-contained false --no-restore "RestaurantManagement.Api/RestaurantManagement.Api.csproj"
 
-FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+FROM mcr.microsoft.com/dotnet/aspnet:8.0
+ENV TZ=Asia/Ho_Chi_Minh
 WORKDIR /app
-COPY --from=build /app/RestaurantManagement.Api/out ./
-
-ENV ASPNETCORE_URLS=http://0.0.0.0:8000
-EXPOSE 8000
-
-ENTRYPOINT [ "dotnet", "RestaurantManagement.Api.dll" ]
+COPY --from=build /app .
+ENV ASPNETCORE_URLS="http://0.0.0.0:80/"
+EXPOSE 80
+ENTRYPOINT ["dotnet","RestaurantManagement.Api.dll"]

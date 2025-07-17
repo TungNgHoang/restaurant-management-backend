@@ -1,8 +1,8 @@
-version: "3.8"
+version: "1.0"
 services:
-  api.test:
-    container_name: api-test
-    image: api:1.0.0
+  test:
+    container_name: test
+    image: restaurant-management:0.0.1
     environment:
       - ASPNETCORE_URLS=http://0.0.0.0:5075
       - ASPNETCORE_ENVIRONMENT=Development
