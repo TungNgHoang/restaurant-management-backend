@@ -3,16 +3,19 @@ def version = "0.${BUILD_NUMBER}"
 
 pipeline {
     agent any
+    
+    options {
+        buildDiscarder(logRotator(numToKeepStr: '10'))
+        timeout(time: 30, unit: 'MINUTES')
+        skipStagesAfterUnstable()
+    }
 
     environment {
         GIT_REPO = 'https://github.com/TungNgHoang/restaurant-management-backend.git'
         GIT_BRANCH = 'main'
-        GIT_CREDENTIAL = 'github-pat' // Dùng ID trực tiếp, không gọi hàm credentials ở đây
-        IMAGE_NAME = 'restaurant-backend'
-        VERSION = "${version}"
-        SONAR_PROJECT_KEY = 'restaurant-management-backend'
-        SONARQUBE_ENV = 'SonarQube' // Tên cấu hình SonarQube trong Jenkins
+        GIT_CREDENTIAL = 'github-pat'
         DEPLOY_DIR = 'C:\\inetpub\\wwwroot\\Sinhvien\\pizzadaay\\api'
+        VERSION = "${version}"
     }
 
     stages {
@@ -23,79 +26,119 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
-            environment {
-                PATH = "${env.PATH};%USERPROFILE%\\.dotnet\\tools"
-            }
+        stage('Backup Current Version') {
             steps {
-                withSonarQubeEnv("${SONARQUBE_ENV}") {
-                    withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
-                        bat 'dotnet tool install --global dotnet-sonarscanner'
-                        bat "dotnet sonarscanner begin /k:\"${SONAR_PROJECT_KEY}\" /d:sonar.host.url=%SONAR_HOST_URL% /d:sonar.login=%SONAR_TOKEN% /d:sonar.exclusions=\"**/obj/**,**/bin/**,**/Test/**,**/Tests/**\" /d:sonar.scanner.opts=\"-Xmx2g\""
-                        bat 'dotnet build'
-                        bat "dotnet sonarscanner end /d:sonar.login=%SONAR_TOKEN%"
-                    }
+                script {
+                    def backupDir = "${DEPLOY_DIR}_backup_${BUILD_NUMBER}"
+                    bat """
+                        if exist "${DEPLOY_DIR}" (
+                            echo 💾 Creating backup...
+                            xcopy /y /s /e /i "${DEPLOY_DIR}" "${backupDir}"
+                            echo ✅ Backup created
+                        )
+                    """
                 }
             }
         }
 
-        stage('Quality Gate') {
-            steps {
-                timeout(time: 10, unit: 'MINUTES') {
-                    script {
-                        def qg = waitForQualityGate()
-                        if (qg.status != 'OK') {
-                            error("❌ Quality Gate failed: ${qg.status}")
-                        } else {
-                            echo '✅ Quality Gate passed.'
+        stage('Build & Test') {
+            parallel {
+                stage('Build & Publish') {
+                    steps {
+                        retry(2) {
+                            echo '🔨 Building and publishing application...'
+                            bat 'dotnet restore --verbosity minimal'
+                            bat 'dotnet build -c Release --no-restore'
+                            bat 'dotnet publish -c Release -o out --no-build'
+                        }
+                    }
+                }
+                stage('Unit Tests') {
+                    steps {
+                        bat 'dotnet test --no-build --logger trx'
+                    }
+                    post {
+                        always {
+                            publishTestResults testResultsPattern: '**/*.trx'
                         }
                     }
                 }
             }
         }
 
-        // stage('Build & Push Docker Image') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'gitlab-registry-token', usernameVariable: 'REGISTRY_USER', passwordVariable: 'REGISTRY_PASS')]) {
-        //             bat 'dotnet publish -c Release -o out'
-        //             bat "docker login -u %REGISTRY_USER% -p %REGISTRY_PASS% ${env.REGISTRY_URL}"
-        //             bat "docker build -t ${IMAGE_NAME}:${VERSION} ."
-        //             bat "docker push ${IMAGE_NAME}:${VERSION}"
-        //         }
-        //     }
-        // }
-        stage('Publish') {
-            steps {
-                bat 'dotnet publish -c Release -o out'
-            }
-        }
-
         stage('Deploy to IIS') {
+            options {
+                timeout(time: 5, unit: 'MINUTES')
+            }
             steps {
+                echo '🚀 Deploying to IIS...'
                 bat """
-                    echo 🚀 Copying files to IIS folder...
-                    if not exist "${DEPLOY_DIR}" (
-                        echo ❌ Folder %DEPLOY_DIR% not found & exit 1
-                    )
+                    echo [%DATE% %TIME%] Stopping IIS application pool...
+                    appcmd stop apppool /apppool.name:"DefaultAppPool" || echo "App pool already stopped"
+                    
+                    echo [%DATE% %TIME%] Copying files...
+                    if not exist "${DEPLOY_DIR}" mkdir "${DEPLOY_DIR}"
                     xcopy /y /s /e /i out\\* "${DEPLOY_DIR}\\"
-                    echo ✅ Deploy completed.
+                    
+                    echo [%DATE% %TIME%] Starting IIS application pool...
+                    appcmd start apppool /apppool.name:"DefaultAppPool"
                 """
             }
         }
 
-        // stage('Deploy on Server') {
-        //     steps {
-        //         echo '🚀 Deploying new image via SSH'
-        //         withCredentials([sshUserPrivateKey(credentialsId: 'your-ssh-key-id', keyFileVariable: 'KEYFILE')]) {
-        //             bat """
-        //                 powershell -Command \"
-        //                     ssh -i '%KEYFILE%' -o StrictHostKeyChecking=no -p 21022 it23@101.99.23.156 \\
-        //                         \\\"docker rm -f restaurant-backend || true && \\
-        //                         docker run -d --name restaurant-backend -p 5000:80 ${IMAGE_NAME}:${VERSION}\\\"
-        //                 \"
-        //             """
-        //         }
-        //     }
-        // }
+        stage('Health Check') {
+            steps {
+                script {
+                    echo '🔍 Performing health check...'
+                    sleep 20 // Wait for app to start
+                    bat """
+                        powershell -Command "
+                            try {
+                                \$response = Invoke-WebRequest -Uri 'http://localhost/api/health' -UseBasicParsing -TimeoutSec 30
+                                if (\$response.StatusCode -eq 200) {
+                                    Write-Host '✅ Health check passed'
+                                } else {
+                                    Write-Host '❌ Health check failed'
+                                    exit 1
+                                }
+                            } catch {
+                                Write-Host '❌ Health check failed: \$_'
+                                exit 1
+                            }
+                        "
+                    """
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo '🧹 Cleaning up workspace...'
+            archiveArtifacts artifacts: 'out/**/*', allowEmptyArchive: true
+            cleanWs()
+        }
+        success {
+            echo '✅ Pipeline completed successfully!'
+            // Add Slack notification here
+        }
+        failure {
+            echo '❌ Pipeline failed!'
+            emailext(
+            to: 'bit220163@st.cmcu.edu.vn',
+            subject: "Build Failed: ${env.JOB_NAME} - ${env.BUILD_NUMBER}",
+            body: "Build failed. Check console output at ${env.BUILD_URL}"
+        )
+            script {
+                def backupDir = "${DEPLOY_DIR}_backup_${BUILD_NUMBER}"
+                bat """
+                    if exist "${backupDir}" (
+                        echo 🔄 Rolling back to previous version...
+                        rmdir /s /q "${DEPLOY_DIR}" || echo "No deploy dir to remove"
+                        xcopy /y /s /e /i "${backupDir}" "${DEPLOY_DIR}" || echo "No backup to restore"
+                    )
+                """
+            }
+        }
     }
 }
