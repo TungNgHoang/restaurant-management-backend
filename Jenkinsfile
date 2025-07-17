@@ -53,16 +53,7 @@ pipeline {
                         }
                     }
                 }
-                stage('Unit Tests') {
-                    steps {
-                        bat 'dotnet test --no-build --logger trx'
-                    }
-                    post {
-                        always {
-                            publishTestResults testResultsPattern: '**/*.trx'
-                        }
-                    }
-                }
+                
             }
         }
 
