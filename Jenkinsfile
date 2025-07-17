@@ -47,7 +47,6 @@ pipeline {
                     steps {
                         retry(2) {
                             echo '🔨 Building and publishing application...'
-                            bat 'dotnet restore --verbosity minimal'
                             bat 'dotnet build -c Release --no-restore'
                             bat 'dotnet publish -c Release -o out --no-build'
                         }
