@@ -72,6 +72,9 @@ namespace RestaurantManagement.Core.Enums
         [Description("Reservation đã order rồi, ko thể preorder")]
         C08,
 
+        [Description("Không tìm thấy thông tin khách")]
+        C09,
+
         //StatusCode cho Order
         [Description("Món ăn không tồn tại")]
         D01,
@@ -90,6 +93,12 @@ namespace RestaurantManagement.Core.Enums
         D04,
         [Description("Xóa Voucher thành công")]
         D05,
+        [Description("Khuyến mãi không được áp dụng cho hạng khách hàng này.")]
+        D07,
+        [Description("Khuyến mãi không được áp dụng do không đủ điều kiện.")]
+        D08,
+        [Description("Khuyến mãi đã hết số lượng.")]
+        D09,
         //Validation
         [Description("Tên món không được để trống")]
         V01,
