@@ -13,6 +13,6 @@ namespace RestaurantManagement.Service.Dtos.StaffDto
         public string StaName { get; set; }
         public string StaRole { get; set; }
         public string StaPhone { get; set; }
-        public string StaBaseSalary { get; set; }
+        public decimal StaBaseSalary { get; set; }
     }
 }

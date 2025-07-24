@@ -45,5 +45,21 @@ namespace RestaurantManagement.Service.Implementation
                 throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
             return _mapper.Map<StaffDto>(staff);
         }
+        //Thêm nhân viên
+        public async Task<StaffDto> AddStaffAsync(StaffDto staffDto)
+        {
+            var staff = new TblStaff
+            {
+                StaId = Guid.NewGuid(),
+                UacId = staffDto.UacID,
+                StaName = staffDto.StaName,
+                StaRole = staffDto.StaRole,
+                StaPhone = staffDto.StaPhone,
+                StaBaseSalary = staffDto.StaBaseSalary
+            };
+
+            await _staffRepository.InsertAsync(staff);
+            return staffDto;
+        }
     }
 }
