@@ -95,6 +95,9 @@ namespace RestaurantManagement.Core.Enums
         //Validation
         [Description("Tên món không được để trống")]
         V01,
+        //StatusCode cho Staff
+        [Description("Không tìm thấy nhân viên với Id chỉ định")]
+        E01,
 
         [Description("Bad request.")]
         BadRequest,

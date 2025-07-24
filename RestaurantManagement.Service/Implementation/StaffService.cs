@@ -36,5 +36,14 @@ namespace RestaurantManagement.Service.Implementation
             if (pagingModel.PageSize < 1)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.PageSizeInvalid);
         }
+
+        //Get nhân viên bằng ID
+        public async Task<StaffDto> GetStaffByIdAsync(Guid id)
+        {
+            var staff = await _staffRepository.FindByIdAsync(id);
+            if (staff == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
+            return _mapper.Map<StaffDto>(staff);
+        }
     }
 }
