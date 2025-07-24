@@ -81,6 +81,10 @@ namespace RestaurantManagement.Service.Implementation
             var staff = await _staffRepository.FindByIdAsync(staffDto.StaID);
             if (staff == null)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
+            if (staffDto.StaBaseSalary <= 0)
+                throw new ErrorException(StatusCodeEnum.E04);
+            if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
+                throw new ErrorException(StatusCodeEnum.E05);
 
             staff.UacId = staffDto.UacID;
             staff.StaName = staffDto.StaName;
