@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using RestaurantManagement.Service.Dtos.StaffDto;
 
 namespace RestaurantManagement.Service.Interfaces
 {
     public interface IStaffService
     {
+        Task<IEnumerable<StaffDto>> GetAllStaffAsync(StaffModels pagingModel);
+
     }
 }
