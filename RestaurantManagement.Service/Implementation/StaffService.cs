@@ -1,20 +1,22 @@
 ﻿using RestaurantManagement.Service.Dtos.StaffDto;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace RestaurantManagement.Service.Implementation
 {
     public class StaffService : BaseService, IStaffService
     {
         public readonly IStaffRepository _staffRepository;
+        public readonly IRepository<TblUserAccount> _userAccountRepository;
         public readonly IMapper _mapper;
-        public StaffService(AppSettings appSettings, IStaffRepository staffRepository, IMapper mapper) : base(appSettings, mapper)
+        public StaffService(
+            AppSettings appSettings, 
+            IStaffRepository staffRepository, 
+            IRepository<TblUserAccount> userAccountRepository, 
+            IMapper mapper) : base(appSettings, mapper)
         {
             _staffRepository = staffRepository;
             _mapper = mapper;
+            _userAccountRepository = userAccountRepository;
         }
 
         public async Task<IEnumerable<StaffDto>> GetAllStaffAsync(StaffModels pagingModel)
@@ -48,18 +50,56 @@ namespace RestaurantManagement.Service.Implementation
         //Thêm nhân viên
         public async Task<StaffDto> AddStaffAsync(StaffDto staffDto)
         {
+            //Từ UacId lấy ra Role trong bảng TblUserAccount
+            var userAccount = await _userAccountRepository.FindByIdAsync(staffDto.UacID);
+            if (userAccount == null)
+                throw new ErrorException(StatusCodeEnum.E03);
+            if (staffDto.StaBaseSalary <= 0)
+                throw new ErrorException(StatusCodeEnum.E04);
+            if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
+                throw new ErrorException(StatusCodeEnum.E05);
             var staff = new TblStaff
             {
                 StaId = Guid.NewGuid(),
                 UacId = staffDto.UacID,
                 StaName = staffDto.StaName,
-                StaRole = staffDto.StaRole,
+                StaRole = userAccount.UacRole,
                 StaPhone = staffDto.StaPhone,
                 StaBaseSalary = staffDto.StaBaseSalary
             };
 
             await _staffRepository.InsertAsync(staff);
             return staffDto;
+        }
+        //Update thông tin nhân viên
+        public async Task<StaffDto> UpdateStaffAsync(StaffDto staffDto)
+        {
+            //Từ UacId lấy ra Role trong bảng TblUserAccount
+            var userAccount = await _userAccountRepository.FindByIdAsync(staffDto.UacID);
+            if (userAccount == null)
+                throw new ErrorException(StatusCodeEnum.E03);
+            var staff = await _staffRepository.FindByIdAsync(staffDto.StaID);
+            if (staff == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
+
+            staff.UacId = staffDto.UacID;
+            staff.StaName = staffDto.StaName;
+            staff.StaRole = userAccount.UacRole;
+            staff.StaPhone = staffDto.StaPhone;
+            staff.StaBaseSalary = staffDto.StaBaseSalary;
+
+            await _staffRepository.UpdateAsync(staff);
+            return _mapper.Map<StaffDto>(staff);
+        }
+        //Delete nhân viên
+        public async Task DeleteStaffAsync(Guid id)
+        {
+            var staff = await _staffRepository.FindByIdAsync(id);
+            if (staff == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
+
+            staff.IsDeleted = true; // Soft delete
+            await _staffRepository.UpdateAsync(staff);
         }
     }
 }

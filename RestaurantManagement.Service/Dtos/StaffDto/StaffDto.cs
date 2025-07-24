@@ -11,7 +11,6 @@ namespace RestaurantManagement.Service.Dtos.StaffDto
         public Guid StaID { get; set; }
         public Guid UacID { get; set; }
         public string StaName { get; set; }
-        public string StaRole { get; set; }
         public string StaPhone { get; set; }
         public decimal StaBaseSalary { get; set; }
     }

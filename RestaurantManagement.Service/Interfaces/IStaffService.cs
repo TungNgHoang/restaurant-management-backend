@@ -7,5 +7,7 @@ namespace RestaurantManagement.Service.Interfaces
         Task<IEnumerable<StaffDto>> GetAllStaffAsync(StaffModels pagingModel);
         Task<StaffDto> GetStaffByIdAsync(Guid id);
         Task<StaffDto> AddStaffAsync(StaffDto staffDto);
+        Task<StaffDto> UpdateStaffAsync(StaffDto staffDto);
+        Task DeleteStaffAsync(Guid id);
     }
 }

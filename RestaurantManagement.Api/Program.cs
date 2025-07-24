@@ -43,6 +43,8 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
+builder.Services.AddScoped<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<IStaffService, StaffService>();
 ////Addcors
 builder.Services.AddCors(options =>
 {
@@ -153,7 +155,12 @@ builder.Services
         policy.RequireAuthenticatedUser();
         policy.RequireRole("User");
     })
-
+    // Policy: Chỉ Admin
+    .AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin");
+    })
     // Policy: Chỉ Manager
     .AddPolicy("ManagerPolicy", policy =>
     {
