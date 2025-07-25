@@ -9,6 +9,7 @@ using RestaurantManagement.Service.Dtos.PaymentDto;
 using RestaurantManagement.Service.Dtos.PromotionDto;
 using RestaurantManagement.Service.Dtos.ReportsDto;
 using RestaurantManagement.Service.Dtos.ReserDto;
+using RestaurantManagement.Service.Dtos.StaffDto;
 
 namespace RestaurantManagement.Api.AutoMapperProfile
 {
@@ -24,6 +25,7 @@ namespace RestaurantManagement.Api.AutoMapperProfile
             CreateMap<TblPayment, PaymentRequestDto>();
             CreateMap<UserAccountDto, TblUserAccount > ();
             CreateMap<TblPromotion, PromotionDto>();
+            CreateMap<TblStaff, StaffDto>();
         }
     }
 }
