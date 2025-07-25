@@ -1,21 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Api.AutoMapperProfile;
-using RestaurantManagement.DataAccess.Implementation;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.Service.Interfaces;
-using RestaurantManagement.Service.Implementation;
-using RestaurantManagement.Core.ApiModels;
-using System.Text.Json.Serialization;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using RestaurantManagement.DataAccess.Infrastructure;
-using RestaurantManagement.Api.Middlewares;
-using RestaurantManagement.DataAccess.DbContexts;
-using System.IdentityModel.Tokens.Jwt;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using RestaurantManagement.DataAccess.Models;
-using System.Security.Claims;
+using RestaurantManagement.Api.AutoMapperProfile;
+using RestaurantManagement.Api.Middlewares;
+using RestaurantManagement.DataAccess.Implementation;
+using RestaurantManagement.DataAccess.Infrastructure;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -54,6 +43,8 @@ builder.Services.AddScoped<IDashboardService, DashboardService>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
+builder.Services.AddScoped<IStaffRepository, StaffRepository>();
+builder.Services.AddScoped<IStaffService, StaffService>();
 ////Addcors
 builder.Services.AddCors(options =>
 {
@@ -164,7 +155,12 @@ builder.Services
         policy.RequireAuthenticatedUser();
         policy.RequireRole("User");
     })
-
+    // Policy: Chỉ Admin
+    .AddPolicy("AdminPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin");
+    })
     // Policy: Chỉ Manager
     .AddPolicy("ManagerPolicy", policy =>
     {
@@ -187,10 +183,10 @@ builder.Services
     })
 
     // Policy: Nhân viên lễ tân hoặc thu ngân (xử lý thanh toán)
-    .AddPolicy("BillingPolicy", policy =>
+    .AddPolicy("BillingPolicy", async policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Receptionist", "Cashier"); // Thay "ThuNgan" bằng "Cashier" nếu bạn dùng tiếng Anh
+        policy.RequireRole("Receptionist", "Cashier");
     });
 
 

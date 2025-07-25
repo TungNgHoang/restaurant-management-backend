@@ -198,12 +198,13 @@ namespace RestaurantManagement.Service.Implementation
                         await _customerRepository.UpdateAsync(customer);
                         reservation.ResActualNumber = actualNumber;
 
-                        // Cập nhật trạng thái reservation thành "Serving"
-                        reservation.ResStatus = ReservationStatus.Serving.ToString();
-                        reservation.UpdatedAt = DateTime.Now;
-                        reservation.UpdatedBy = createdBy ?? Guid.Empty; // Giả định tạm thời
+                        
                     }
 
+                    // Cập nhật trạng thái reservation thành "Serving"
+                    reservation.ResStatus = ReservationStatus.Serving.ToString();
+                    reservation.UpdatedAt = DateTime.Now;
+                    reservation.UpdatedBy = createdBy ?? Guid.Empty; // Giả định tạm thời
                     // Lấy thông tin bàn
                     var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
                     if (table == null)

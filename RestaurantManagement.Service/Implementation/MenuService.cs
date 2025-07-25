@@ -36,7 +36,9 @@
         public async Task<MenuDto> GetMenuByIdAsync(Guid id)
         {
             var menu = await _menuRepository.FindByIdAsync(id);
-            return menu != null ? _mapper.Map<MenuDto>(menu) : null;
+            if (menu == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.D01);
+            return _mapper.Map<MenuDto>(menu);
         }
         //Thêm món vào Menu
         public async Task<MenuDto> AddMenuAsync(MenuDto menuDto)

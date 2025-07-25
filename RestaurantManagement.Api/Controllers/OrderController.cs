@@ -1,14 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.Service.Dtos.OrdersDto;
-using RestaurantManagement.Service.Implementation;
-using RestaurantManagement.Service.Interfaces;
-using static RestaurantManagement.Service.ApiModels.OrderRequest;
-
-namespace RestaurantManagement.Api.Controllers
+﻿namespace RestaurantManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -41,7 +31,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Policy = "AdminManagerUserPolicy")]
+        [Authorize(Policy = "StaffPolicy")]
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {

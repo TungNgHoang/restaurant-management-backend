@@ -36,4 +36,5 @@ public partial class TblPromotion
     public int ProQuantity { get; set; }
 
     public virtual ICollection<TblOrderInfo> Ords { get; set; } = new List<TblOrderInfo>();
+
 }
