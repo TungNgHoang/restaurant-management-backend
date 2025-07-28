@@ -18,7 +18,8 @@ namespace RestaurantManagement.Api.Controllers
             _statisticService = statisticService ?? throw new ArgumentNullException(nameof(statisticService));
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpPost("get-statistic")]
         public async Task<IActionResult> GetStatistics([FromBody] StatisticsRequest request)
         {

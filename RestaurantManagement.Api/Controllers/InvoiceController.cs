@@ -16,7 +16,8 @@ namespace RestaurantManagement.Api.Controllers
             _invoiceService = invoiceService;
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpPost("get-invoice")]
         public async Task<IActionResult> GetInvoice([FromBody] InvoiceModels pagingModel)
         {
