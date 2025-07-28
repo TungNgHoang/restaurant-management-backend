@@ -90,10 +90,6 @@ namespace RestaurantManagement.Core.Enums
         D04,
         [Description("Xóa Voucher thành công")]
         D05,
-<<<<<<< Updated upstream
-        [Description("Mã khuyến mãi đã tồn tại")]
-        D07,
-=======
         [Description("Khuyến mãi không được áp dụng cho hạng khách hàng này.")]
         D07,
         [Description("Khuyến mãi không được áp dụng do không đủ điều kiện.")]
@@ -102,7 +98,6 @@ namespace RestaurantManagement.Core.Enums
         D09,
         [Description("Mã khuyến mãi đã tồn tại")]
         D10,
->>>>>>> Stashed changes
         //Validation
         [Description("Tên món không được để trống")]
         V01,
