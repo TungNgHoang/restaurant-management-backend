@@ -22,8 +22,7 @@ namespace RestaurantManagement.Api.Controllers
 
         }
 
-        [Authorize(Policy = "AdminPolicy")]
-        [Authorize(Policy = "ManagerPolicy")]
+        [Authorize(Policy = "StaffPolicy")]
         [HttpPost("get-all-table")]
         public async Task<IActionResult> GetAllTable([FromBody] TableModels pagingModel)
         {
