@@ -40,7 +40,8 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //Chỉ admin được thêm món
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpPost("add-item-to-menu")]
         public async Task<IActionResult> AddMenu([FromBody] MenuDto menuDto)
         {
@@ -52,7 +53,8 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //Chỉ admin được cập nhật món
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpPut("update/{id}")]
         public async Task<IActionResult> UpdateMenu(Guid id, [FromBody] MenuDto menuDto)
         {
@@ -62,7 +64,8 @@ namespace RestaurantManagement.Api.Controllers
         }
 
         //Chỉ admin được xoá mềm món
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpDelete("softdelete-item/{id}")]
         public async Task<IActionResult> DeleteMenu(Guid id)
         {
