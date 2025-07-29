@@ -11,7 +11,7 @@
             _orderService = orderService;
         }
 
-        [Authorize(Policy = "CustomerPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
