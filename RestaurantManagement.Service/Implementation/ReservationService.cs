@@ -214,6 +214,10 @@ namespace RestaurantManagement.Service.Implementation
                     if (table.TbiStatus != TableStatus.Empty.ToString())
                         throw new ErrorException(StatusCodeEnum.A02);
 
+                    // Kiểm tra số người thực tế không vượt quá sức chứa của bàn
+                    if (actualNumber > table.TbiCapacity)
+                        throw new ErrorException(StatusCodeEnum.C09);
+
                     // Cập nhật trạng thái bàn thành "Occupied"
                     table.TbiStatus = TableStatus.Occupied.ToString();
                     table.UpdatedAt = DateTime.Now;
@@ -239,11 +243,11 @@ namespace RestaurantManagement.Service.Implementation
                     await transaction.CommitAsync();
                 }
 
-                catch (Exception ex)
+                catch (ErrorException ex)
                 {
                     // Rollback transaction nếu có lỗi
                     await transaction.RollbackAsync();
-                    throw new Exception($"Lỗi khi check-in: {ex.Message}");
+                    throw new ErrorException($"Lỗi khi check-in: {ex.Message}");
                 }
             }
         }

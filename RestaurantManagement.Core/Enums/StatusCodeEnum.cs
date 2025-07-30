@@ -72,6 +72,9 @@ namespace RestaurantManagement.Core.Enums
         [Description("Reservation đã order rồi, ko thể preorder")]
         C08,
 
+        [Description("Vượt quá số người của bàn đã order, không thể check-in, vui lòng chọn bàn khác.")]
+        C09,
+
         //StatusCode cho Order
         [Description("Món ăn không tồn tại")]
         D01,
