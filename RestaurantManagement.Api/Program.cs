@@ -196,6 +196,12 @@ builder.Services.AddAuthorizationBuilder()
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Cashier", "Receptionist");
+    })
+
+    .AddPolicy("ReservPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Manager", "Cashier");
     });
 
 
