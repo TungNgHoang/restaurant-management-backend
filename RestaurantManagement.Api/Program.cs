@@ -46,14 +46,17 @@ builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 ////Addcors
-var allowedFrontendOrigin = "https://pizzadaay.ric.vn";
+var allowedFrontendOrigins = new[] {
+    "https://pizzadaay.ric.vn",
+    "http://localhost:3000"
+};
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins(allowedFrontendOrigin)
+                          policy.WithOrigins(allowedFrontendOrigins)
                                 .AllowAnyHeader()
                                 .AllowAnyMethod()
                                 .AllowCredentials(); // Nếu dùng cookie hoặc JWT Auth
