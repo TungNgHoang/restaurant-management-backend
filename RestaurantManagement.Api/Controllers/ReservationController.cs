@@ -57,8 +57,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Policy = "AdminPolicy")]
-        [Authorize(Policy = "ManagerPolicy")]
+        [Authorize(Policy = "AdminOrManagerPolicy")]
         [HttpPost("get-reservation")]
         public async Task<IActionResult> GetReservations([FromBody] ReserModel pagingModel)
         {
@@ -82,8 +81,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Policy = "AdminPolicy")]
-        [Authorize(Policy = "ManagerPolicy")]
+        [Authorize(Policy = "AdminOrManagerPolicy")]
         [HttpGet("{resId}")]
         public async Task<IActionResult> GetReservationById(Guid resId)
         {
@@ -98,8 +96,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
-        [Authorize(Policy = "AdminPolicy")]
-        [Authorize(Policy = "ManagerPolicy")]
+        [Authorize(Policy = "AdminOrManagerPolicy")]
         [HttpPost("{resId}/cancel-reservation")]
         public async Task<IActionResult> CancelReservation(Guid resId)
         {
