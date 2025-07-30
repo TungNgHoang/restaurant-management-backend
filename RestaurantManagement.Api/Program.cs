@@ -204,11 +204,6 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-else
-{
     app.UseHsts(); // Tăng bảo mật HTTP
 }
 //Lấy thông tin từ app.JSON
@@ -236,6 +231,11 @@ app.UseCors(MyAllowSpecificOrigins); // PHẢI trước Auth
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<SwaggerAuthMiddleware>(); // 👈 CHẶN TRƯỚC
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 app.Run();

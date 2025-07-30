@@ -2,7 +2,7 @@
 
 namespace RestaurantManagement.Api.Middlewares
 {
-    public class SecurityHeadersMiddleware : Controller
+    public class SecurityHeadersMiddleware
     {
         private readonly RequestDelegate _next;
 
