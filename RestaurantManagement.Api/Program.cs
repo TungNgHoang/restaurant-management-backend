@@ -232,10 +232,10 @@ app.UseCors(MyAllowSpecificOrigins); // PHẢI trước Auth
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseMiddleware<SwaggerAuthMiddleware>(); // 👈 CHẶN TRƯỚC
-
 app.UseSwagger();
 app.UseSwaggerUI();
+
+app.UseMiddleware<SwaggerAuthMiddleware>();
 
 app.MapControllers();
 app.Run();
