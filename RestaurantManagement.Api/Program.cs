@@ -46,7 +46,7 @@ builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 ////Addcors
-var allowedFrontendOrigin = "https://pizzadaay.ric.vn/";
+var allowedFrontendOrigin = "https://pizzadaay.ric.vn";
 
 builder.Services.AddCors(options =>
 {
