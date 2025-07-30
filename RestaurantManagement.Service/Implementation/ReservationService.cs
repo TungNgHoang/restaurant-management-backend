@@ -240,7 +240,7 @@ namespace RestaurantManagement.Service.Implementation
                     await _tablesRepository.UpdateAsync(table);
 
                     // Commit transaction nếu mọi thứ thành công
-                    await transaction.CommitAsync();
+                    await transaction.CommitAsync();  
                 }
 
                 catch (ErrorException ex)
