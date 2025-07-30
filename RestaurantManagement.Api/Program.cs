@@ -46,14 +46,17 @@ builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 ////Addcors
+var allowedFrontendOrigin = "https://pizzadaay.ric.vn";
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("*")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          policy.WithOrigins(allowedFrontendOrigin)
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials(); // Nếu dùng cookie hoặc JWT Auth
                       });
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -161,6 +164,12 @@ builder.Services.AddAuthorizationBuilder()
         policy.RequireRole("Manager");
     })
 
+    .AddPolicy("AdminOrManagerPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin", "Manager");
+    })
+
     .AddPolicy("ReceptionistPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
@@ -195,14 +204,15 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseHsts(); // Tăng bảo mật HTTP
 }
 //Lấy thông tin từ app.JSON
 builder.Configuration
-       .SetBasePath(Directory.GetCurrentDirectory())
-       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-       .AddEnvironmentVariables();
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Luôn load file gốc
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true) // Ghi đè theo môi trường
+    .AddEnvironmentVariables();
+
 
 //app.UseStaticFiles();
 //Khai báo DataSeeder
@@ -212,11 +222,20 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(MyAllowSpecificOrigins);
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseMiddleware<SecurityHeadersMiddleware>();
+app.UseCors(MyAllowSpecificOrigins); // PHẢI trước Auth
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<SwaggerAuthMiddleware>(); // 👈 CHẶN TRƯỚC
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.MapControllers();
 app.Run();
