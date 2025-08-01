@@ -151,7 +151,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("StaffPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Admin", "Manager", "Receptionist", "Waiter", "Cashier");
+        policy.RequireRole("Staff");
     })
 
     // 4. Từng nhóm nhân viên cụ thể
@@ -173,31 +173,20 @@ builder.Services.AddAuthorizationBuilder()
         policy.RequireRole("Admin", "Manager");
     })
 
-    .AddPolicy("ReceptionistPolicy", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireRole("Receptionist");
-    })
-
-    .AddPolicy("WaiterPolicy", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireRole("Waiter");
-    })
-
     .AddPolicy("CashierPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Cashier");
     })
 
+    // 5. Nhóm ghép đặc biệt (ví dụ cho thanh toán)
     .AddPolicy("BillingPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Cashier", "Receptionist");
+        policy.RequireRole("Cashier");
     })
 
-    .AddPolicy("ReservPolicy", policy =>
+    .AddPolicy("MCPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Manager", "Cashier");
@@ -206,9 +195,12 @@ builder.Services.AddAuthorizationBuilder()
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Admin", "Manager", "Cashier");
+    })
+    .AddPolicy("AccessAllPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin", "Manager", "Cashier", "Staff");
     });
-
-
 
 
 builder.Services.AddControllers();

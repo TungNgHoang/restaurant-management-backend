@@ -64,7 +64,7 @@
         }
 
         //Xoá mềm đơn hàng
-        [Authorize(Policy = "WaiterPolicy")]
+        [Authorize(Policy = "StaffPolicy")]
         [HttpDelete("softdelete-order/{orderId}")]
         public async Task<IActionResult> DeleteOrder(Guid orderId)
         {
