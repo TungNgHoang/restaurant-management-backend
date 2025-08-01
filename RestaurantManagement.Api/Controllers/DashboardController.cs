@@ -24,7 +24,7 @@ namespace RestaurantManagement.Api.Controllers
             _reportService = reportService;
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "StaffPolicy")]
         [HttpGet("daily-report")]
         public async Task<IActionResult> GetDashboardData([FromQuery] DateTime selectedDate)
         {
@@ -40,8 +40,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
 
-        // Chỉ admin + ThuNgan mới được gọi endpoint này để lấy tất cả báo cáo
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "StaffPolicy")]
         [HttpPost("get-all-report")]
         public async Task<IActionResult> GetAllReport([FromBody] ReportModels model)
         {

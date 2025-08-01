@@ -191,7 +191,6 @@ builder.Services.AddAuthorizationBuilder()
         policy.RequireRole("Cashier");
     })
 
-    // 5. Nhóm ghép đặc biệt (ví dụ cho thanh toán)
     .AddPolicy("BillingPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
@@ -202,6 +201,11 @@ builder.Services.AddAuthorizationBuilder()
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Manager", "Cashier");
+    })
+    .AddPolicy("AMCPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin", "Manager", "Cashier");
     });
 
 
