@@ -66,7 +66,7 @@ namespace RestaurantManagement.Api.Controllers
             return Success(listResult);
         }
 
-        [Authorize(Policy = "StaffPolicy")]
+        [Authorize(Policy = "CashierPolicy")]
         [HttpPut("{resId}/check-in")]
         public async Task<IActionResult> CheckInReservation(Guid resId, int actualNumber)
         {

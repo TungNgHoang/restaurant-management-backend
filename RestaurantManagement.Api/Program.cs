@@ -183,7 +183,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("BillingPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Cashier");
+        policy.RequireRole("Cashier", "Manager");
     })
 
     .AddPolicy("MCPolicy", policy =>
