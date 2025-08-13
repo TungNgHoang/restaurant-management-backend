@@ -124,7 +124,8 @@
                     priceAfterVoucher -= rankDiscount;
                 }
             }
-
+            var vat = 0.08m; // Giả sử thuế VAT là 8%
+            var priceAfterVat = priceAfterVoucher * (1 + vat);
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
                 try
@@ -135,7 +136,7 @@
                         PayId = Guid.NewGuid(),
                         OrdId = order.OrdId,
                         CusId = order.CusId,
-                        Amount = priceAfterVoucher,
+                        Amount = priceAfterVat,
                         PayMethod = payMethod,
                         PayStatus = "Completed",
                         IsDeleted = false,
