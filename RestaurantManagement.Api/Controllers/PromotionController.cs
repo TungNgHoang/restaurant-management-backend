@@ -24,7 +24,7 @@ namespace RestaurantManagement.Api.Controllers
             _promotionService = promotionService;
         }
 
-        [Authorize(Policy = "StaffPolicy")]
+        [Authorize(Policy = "SaMPolicy")]
         [HttpPost("get-all-promotion")]
         public async Task<IActionResult> GetAllPromotions([FromBody] PromotionModels pagingModel)
         {
@@ -33,7 +33,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPromotionById(Guid id)
         {
@@ -43,7 +43,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(promotion);
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpPost("Add-promotion")]
         public async Task<IActionResult> AddPromotion([FromBody] PromotionDto promotionDto)
         {
@@ -53,7 +53,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(newPromotion);
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpPut("Update/{id}")]
         public async Task<IActionResult> UpdatePromotion(Guid id, [FromBody] PromotionDto promotionDto)
         {
@@ -62,7 +62,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(updatedPromotion);
         }
 
-        [Authorize(Policy = "AdminOrManagerPolicy")]
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletePromotion(Guid id)
         {
