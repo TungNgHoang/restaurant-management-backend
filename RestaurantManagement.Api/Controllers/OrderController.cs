@@ -11,7 +11,7 @@
             _orderService = orderService;
         }
 
-        [Authorize(Policy = "UserPolicy")]
+        [Authorize(Policy = "PublicAccess")]
         [HttpPost("process-order")]
         public async Task<IActionResult> ProcessOrder([FromBody] ProcessOrderRequest request)
         {
@@ -64,7 +64,7 @@
         }
 
         //Xoá mềm đơn hàng
-        //[Authorize(Policy = "UserPolicy")]
+        [Authorize(Policy = "WaiterPolicy")]
         [HttpDelete("softdelete-order/{orderId}")]
         public async Task<IActionResult> DeleteOrder(Guid orderId)
         {

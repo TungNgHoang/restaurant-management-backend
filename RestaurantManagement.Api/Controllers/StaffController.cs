@@ -13,8 +13,8 @@ namespace RestaurantManagement.Api.Controllers
         }
         // Cho phép admin xem danh sách nhân viên
         [Authorize(Policy = "AdminPolicy")]
-        [HttpGet("get-all-staff")]
-        public async Task<IActionResult> GetAllStaff([FromQuery] StaffModels pagingModel)
+        [HttpPost("get-all-staff")]
+        public async Task<IActionResult> GetAllStaff([FromBody] StaffModels pagingModel)
         {
             var staffService = _serviceProvider.GetRequiredService<IStaffService>();
             var staffList = await staffService.GetAllStaffAsync(pagingModel);

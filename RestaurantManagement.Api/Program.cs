@@ -46,14 +46,20 @@ builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
 ////Addcors
+var allowedFrontendOrigins = new[] {
+    "https://pizzadaay.ric.vn",
+    "http://localhost:3000"
+};
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
                       policy =>
                       {
-                          policy.WithOrigins("*")
-                          .AllowAnyHeader()
-                          .AllowAnyMethod();
+                          policy.WithOrigins(allowedFrontendOrigins)
+                                .AllowAnyHeader()
+                                .AllowAnyMethod()
+                                .AllowCredentials(); // Nếu dùng cookie hoặc JWT Auth
                       });
 });
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -126,68 +132,78 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-builder.Services
-    .AddAuthorizationBuilder()
+builder.Services.AddAuthorizationBuilder()
 
-    // Policy: Cho phép tất cả, kể cả người dùng chưa đăng nhập
+    // 1. Public
     .AddPolicy("PublicAccess", policy =>
     {
-        policy.RequireAssertion(_ => true); // Luôn true
+        policy.RequireAssertion(_ => true); // Ai cũng truy cập
     })
 
-    // Policy: Dành cho tất cả vai trò có đăng nhập (Admin, Manager, User)
-    .AddPolicy("StaffPolicy", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireRole("Admin", "Manager", "User");
-    })
-
-    // Policy: Admin hoặc Manager
-    .AddPolicy("AdminOrManagerPolicy", policy =>
-    {
-        policy.RequireAuthenticatedUser();
-        policy.RequireRole("Admin", "Manager");
-    })
-
-    // Policy: Chỉ User
-    .AddPolicy("UserPolicy", policy =>
+    // 2. Customer
+    .AddPolicy("CustomerPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("User");
     })
-    // Policy: Chỉ Admin
+
+    // 3. Staff chung (gồm tất cả nhân viên)
+    .AddPolicy("StaffPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Admin", "Manager", "Receptionist", "Waiter", "Cashier");
+    })
+
+    // 4. Từng nhóm nhân viên cụ thể
     .AddPolicy("AdminPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Admin");
     })
-    // Policy: Chỉ Manager
+
     .AddPolicy("ManagerPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Manager");
     })
 
-    // Policy: Nhân viên phục vụ
-    .AddPolicy("WaiterPolicy", policy =>
+    .AddPolicy("AdminOrManagerPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Waiter");
+        policy.RequireRole("Admin", "Manager");
     })
 
-    // Policy: Nhân viên lễ tân
     .AddPolicy("ReceptionistPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Receptionist");
     })
 
-    // Policy: Nhân viên lễ tân hoặc thu ngân (xử lý thanh toán)
-    .AddPolicy("BillingPolicy", async policy =>
+    .AddPolicy("WaiterPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Receptionist", "Cashier");
+        policy.RequireRole("Waiter");
+    })
+
+    .AddPolicy("CashierPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Cashier");
+    })
+
+    // 5. Nhóm ghép đặc biệt (ví dụ cho thanh toán)
+    .AddPolicy("BillingPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Cashier", "Receptionist");
+    })
+
+    .AddPolicy("ReservPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Manager", "Cashier");
     });
+
 
 
 
@@ -195,16 +211,17 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseHsts(); // Tăng bảo mật HTTP
 }
 //Lấy thông tin từ app.JSON
 builder.Configuration
-       .SetBasePath(Directory.GetCurrentDirectory())
-       .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-       .AddEnvironmentVariables();
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true) // Luôn load file gốc
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true) // Ghi đè theo môi trường
+    .AddEnvironmentVariables();
+
 
 //app.UseStaticFiles();
 //Khai báo DataSeeder
@@ -214,11 +231,20 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseMiddleware<ExceptionMiddleware>();
-app.UseCors(MyAllowSpecificOrigins);
+
 app.UseHttpsRedirection();
+
+app.UseRouting();
+app.UseMiddleware<SecurityHeadersMiddleware>();
+app.UseCors(MyAllowSpecificOrigins); // PHẢI trước Auth
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.UseMiddleware<SwaggerAuthMiddleware>();
 
 app.MapControllers();
 app.Run();

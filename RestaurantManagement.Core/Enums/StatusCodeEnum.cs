@@ -93,17 +93,14 @@ namespace RestaurantManagement.Core.Enums
         D04,
         [Description("Xóa Voucher thành công")]
         D05,
-<<<<<<< HEAD
         [Description("Khuyến mãi không được áp dụng cho hạng khách hàng này.")]
         D07,
         [Description("Khuyến mãi không được áp dụng do không đủ điều kiện.")]
         D08,
         [Description("Khuyến mãi đã hết số lượng.")]
         D09,
-=======
         [Description("Mã khuyến mãi đã tồn tại")]
-        D07,
->>>>>>> 4c6d5b14f564fa7ea9489a64f2138397d36e1347
+        D10,
         //Validation
         [Description("Tên món không được để trống")]
         V01,

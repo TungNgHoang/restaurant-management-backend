@@ -24,7 +24,6 @@ namespace RestaurantManagement.Api.Controllers
             _reportService = reportService;
         }
 
-        // Chỉ người có role "admin" hoặc "ThuNgan" mới được truy cập
         [Authorize(Policy = "AdminOrManagerPolicy")]
         [HttpGet("daily-report")]
         public async Task<IActionResult> GetDashboardData([FromQuery] DateTime selectedDate)
@@ -33,7 +32,6 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
 
-        // Bất kỳ user đã login nào (role admin/user/ThuNgan…) đều được truy cập
         [Authorize(Policy = "StaffPolicy")]
         [HttpGet("get-best-seller")]
         public async Task<IActionResult> GetBestSeller()
