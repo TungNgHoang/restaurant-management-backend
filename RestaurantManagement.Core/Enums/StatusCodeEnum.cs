@@ -87,6 +87,8 @@ namespace RestaurantManagement.Core.Enums
 
         [Description("Xoá đơn hàng thành công!")]
         D06,
+        [Description("Không được để trống ID đơn hàng")]
+        D11,
 
         //StatusCode cho Promotion
         [Description("Không tìm thấy khuyến mãi")]
