@@ -12,7 +12,7 @@ namespace RestaurantManagement.Api.Controllers
             _serviceProvider = serviceProvider;
         }
         // Cho phép admin xem danh sách nhân viên
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminOrManagerPolicy")]
         [HttpPost("get-all-staff")]
         public async Task<IActionResult> GetAllStaff([FromBody] StaffModels pagingModel)
         {
@@ -22,7 +22,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(result);
         }
         // Cho phép admin xem chi tiết nhân viên
-        [Authorize(Policy = "AdminPolicy")]
+        [Authorize(Policy = "AdminOrManagerPolicy")]
         [HttpGet("get-staff-by-id/{id}")]
         public async Task<IActionResult> GetStaffById(Guid id)
         {
