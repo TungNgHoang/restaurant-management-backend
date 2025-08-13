@@ -200,6 +200,11 @@ builder.Services.AddAuthorizationBuilder()
     {
         policy.RequireAuthenticatedUser();
         policy.RequireRole("Admin", "Manager", "Cashier", "Staff");
+    })
+    .AddPolicy("SaMPolicy", policy =>
+    {
+        policy.RequireAuthenticatedUser();
+        policy.RequireRole("Staff", "Manager");
     });
 
 
