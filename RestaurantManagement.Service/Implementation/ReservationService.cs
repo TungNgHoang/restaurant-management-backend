@@ -205,6 +205,7 @@ namespace RestaurantManagement.Service.Implementation
                     reservation.ResStatus = ReservationStatus.Serving.ToString();
                     reservation.UpdatedAt = DateTime.Now;
                     reservation.UpdatedBy = createdBy ?? Guid.Empty; // Giả định tạm thời
+                    reservation.CusId = customer.CusId; // Gán CusId vào reservation
                     // Lấy thông tin bàn
                     var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
                     if (table == null)

@@ -41,6 +41,10 @@
             // Tìm OrderInfo theo ResId
             var existingOrder = await _orderInfoRepository.FindAsync(o => o.ResId == reservation.ResId);
 
+            //if (!reservation.CusId.HasValue)
+            //{
+                //throw new ErrorException(StatusCodeEnum.D03); // Ví dụ: khách hàng chưa được gán cho reservation
+            //}
             // Nếu chưa có order, tạo mới
             if (existingOrder == null)
             {
