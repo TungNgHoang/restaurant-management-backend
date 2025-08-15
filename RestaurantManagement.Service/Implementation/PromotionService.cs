@@ -4,12 +4,14 @@
     {
         private readonly IPromotionRepository _promotionRepository;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public PromotionService(AppSettings appSettings, IPromotionRepository promotionRepository, IMapper mapper)
-            : base(appSettings, mapper)
+        public PromotionService(AppSettings appSettings, IPromotionRepository promotionRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+            : base(appSettings, mapper, httpContextAccessor)
         {
             _promotionRepository = promotionRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<PromotionDto>> GetAllPromotionsAsync(PromotionModels pagingModel)

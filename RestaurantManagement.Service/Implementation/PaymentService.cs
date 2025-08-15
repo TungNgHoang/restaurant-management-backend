@@ -2,6 +2,7 @@
 {
     public class PaymentService : BaseService, IPaymentService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<TblReservation> _reservationsRepository;
         private readonly IRepository<TblTableInfo> _tablesRepository;
         private readonly IOrderRepository _orderRepository;
@@ -11,15 +12,17 @@
         public PaymentService(
             AppSettings appSettings,
             IMapper mapper,
+            IHttpContextAccessor httpContextAccessor,
             IRepository<TblReservation> reservationsRepository,
             IRepository<TblTableInfo> tablesRepository,
             IOrderRepository orderRepository,
             IRepository<TblPayment> paymentRepositor,
             IRepository<TblPromotion> promotionRepository,
             RestaurantDBContext dbContext
-            ) : base(appSettings, mapper)
+            ) : base(appSettings, mapper, httpContextAccessor)
         {
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
             _reservationsRepository = reservationsRepository;
             _tablesRepository = tablesRepository;
             _orderRepository = orderRepository;

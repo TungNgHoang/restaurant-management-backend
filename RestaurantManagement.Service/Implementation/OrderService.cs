@@ -3,6 +3,7 @@
     public class OrderService : BaseService, IOrderService
     {
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<TblOrderInfo> _orderInfoRepository;
         private readonly IRepository<TblOrderDetail> _orderDetailsRepository;
         private readonly IRepository<TblReservation> _reservationRepository;
@@ -12,18 +13,20 @@
         public OrderService(
             AppSettings appSettings,
             IMapper mapper,
+            IHttpContextAccessor httpContextAccessor,
             IRepository<TblOrderInfo> orderInfoRepository,
             IRepository<TblOrderDetail> orderDetailsRepository,
             IRepository<TblMenu> menuRepository,
             IOrderRepository orderRepository,
             IRepository<TblReservation> reservationRepository
-        ) : base(appSettings, mapper) // Truyền xuống BaseService
+        ) : base(appSettings, mapper, httpContextAccessor) // Truyền xuống BaseService
         {
             _orderInfoRepository = orderInfoRepository;
             _orderDetailsRepository = orderDetailsRepository;
             _menuRepository = menuRepository;
             _orderRepository = orderRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
             _reservationRepository = reservationRepository;
         }
         public async Task<OrderDTO> ProcessAndUpdateOrderAsync(Guid tbiId, List<OrderItemDto> newOrderItems)
@@ -49,7 +52,7 @@
                     OrdStatus = OrderStatusEnum.Order.ToString(),
                     ResId = reservation.ResId,
                     CreatedBy = Guid.Empty, 
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = currentTime,
                     TotalPrice = 0,
                     IsDeleted = false
                 };
@@ -87,7 +90,7 @@
                         MnuId = item.MnuID,
                         OdtQuantity = item.OdtQuantity,
                         CreatedBy = existingOrder.CreatedBy,
-                        CreatedAt = DateTime.UtcNow,
+                        CreatedAt = currentTime,
                         IsDeleted = false
                     };
 
@@ -169,7 +172,7 @@
                     //CusId = new Guid("00000000-1234-1234-1234-123456789abc"),
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.PreOrder.ToString(),
-                    CreatedAt = DateTime.UtcNow,
+                    CreatedAt = currentTime,
                     CreatedBy = Guid.Empty, // Hoặc lấy từ người dùng hiện tại
                     TotalPrice = 0,
                     IsDeleted = false
@@ -206,7 +209,7 @@
                         MnuId = item.MnuID,
                         OdtQuantity = item.OdtQuantity,
                         CreatedBy = existingOrder.CreatedBy,
-                        CreatedAt = DateTime.UtcNow,
+                        CreatedAt = currentTime,
                         IsDeleted = false
                     };
 

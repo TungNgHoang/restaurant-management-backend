@@ -8,15 +8,18 @@ namespace RestaurantManagement.Service.Implementation
         public readonly IStaffRepository _staffRepository;
         public readonly IRepository<TblUserAccount> _userAccountRepository;
         public readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public StaffService(
             AppSettings appSettings, 
             IStaffRepository staffRepository, 
             IRepository<TblUserAccount> userAccountRepository, 
-            IMapper mapper) : base(appSettings, mapper)
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
         {
             _staffRepository = staffRepository;
             _mapper = mapper;
             _userAccountRepository = userAccountRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<StaffDto>> GetAllStaffAsync(StaffModels pagingModel)

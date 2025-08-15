@@ -3,6 +3,7 @@
     public class ReportService : BaseService, IReportService
     {
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         protected readonly RestaurantDBContext _dbContext;
         private readonly IRepository<TblOrderDetail> _orderDetailRepository;
         private readonly IRepository<TblReservation> _reservationRepository;
@@ -12,14 +13,16 @@
         public ReportService(
             AppSettings appSettings,
             IMapper mapper,
+            IHttpContextAccessor httpContextAccessor,
             RestaurantDBContext dbContext,
             IRepository<TblPayment> paymentRepository,
             IRepository<TblOrderDetail> orderDetailRepository,
             IRepository<TblReservation> reservationRepository,
             IRepository<TblCustomer> customerRepository
-            ) : base(appSettings, mapper)
+            ) : base(appSettings, mapper, httpContextAccessor)
         {
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
             _paymentRepository = paymentRepository;
             _orderDetailRepository = orderDetailRepository;
             _reservationRepository = reservationRepository;

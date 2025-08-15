@@ -24,7 +24,7 @@ namespace RestaurantManagement.Service.Implementation
             IRepository<TblCustomer> customerRepository,
             IRepository<TblOrderInfo> ordersRepository,
             IReservationRepository reservationRepository
-            ) : base(appSettings, mapper)
+            ) : base(appSettings, mapper, httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
             _reservationsRepository = reservationsRepository;

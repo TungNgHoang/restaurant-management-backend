@@ -3,9 +3,11 @@
     public class StatisticService : BaseService, IStatisticService
     {
         private readonly IStatisticRepository _statisticRepository;
-        public StatisticService(AppSettings appSettings, IMapper mapper, IStatisticRepository statisticRepository) : base(appSettings, mapper)
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        public StatisticService(AppSettings appSettings, IMapper mapper, IStatisticRepository statisticRepository, IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
         {
             _statisticRepository = statisticRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<StatisticsResponse> GetStatisticsAsync([FromBody] StatisticsRequest request)

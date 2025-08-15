@@ -1,10 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Service.ApiModels;
-using RestaurantManagement.Service.Interfaces;
-using System.Security.Claims;
-
-namespace RestaurantManagement.Api.Controllers
+﻿namespace RestaurantManagement.Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

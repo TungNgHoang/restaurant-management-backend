@@ -1,14 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Service.ApiModels;
-using RestaurantManagement.Service.Dtos.MenusDto;
-using RestaurantManagement.Service.Dtos.ReportsDto;
-using RestaurantManagement.Service.Interfaces;
-using System;
-
-namespace RestaurantManagement.Api.Controllers
+﻿namespace RestaurantManagement.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

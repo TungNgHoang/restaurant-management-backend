@@ -3,6 +3,7 @@
     public class InvoiceService : BaseService, IInvoiceService
     {
         private readonly IRepository<TblTableInfo> _tableRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<TblReservation> _reservationsRepository;
         private readonly IRepository<TblOrderInfo> _orderInfoRepository;
         private readonly IRepository<TblPayment> _paymentRepository;
@@ -12,13 +13,15 @@
             IRepository<TblTableInfo> tableRepository,
             IRepository<TblReservation> reservationsRepository,
             IRepository<TblOrderInfo> orderInfoRepository,
-            IRepository<TblPayment> paymentRepository
-            ) : base(appSettings, mapper)
+            IRepository<TblPayment> paymentRepository,
+            IHttpContextAccessor httpContextAccessor
+            ) : base(appSettings, mapper, httpContextAccessor)
         {
             _tableRepository = tableRepository;
             _reservationsRepository = reservationsRepository;
             _orderInfoRepository = orderInfoRepository;
             _paymentRepository = paymentRepository;
+            _httpContextAccessor = httpContextAccessor;
 
         }
 
