@@ -3,7 +3,7 @@ using Elastic.Clients.Elasticsearch;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Diagnostics;
 using System.Text;
-using RestaurantManagement.Core.Models.Logs;
+using RestaurantManagement.Core.Models;
 
 namespace RestaurantManagement.Api.Filters
 {
