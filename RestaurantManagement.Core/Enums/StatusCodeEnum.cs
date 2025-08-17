@@ -117,6 +117,8 @@ namespace RestaurantManagement.Core.Enums
         E04,
         [Description("Số điện thoại của nhân viên không hợp lệ")]
         E05,
+        [Description("Mật khẩu cũ không đúng")]
+        E06,
 
         [Description("Bad request.")]
         BadRequest,
