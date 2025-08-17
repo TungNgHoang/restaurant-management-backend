@@ -47,5 +47,33 @@
             await _authService.LogoutAsync(token);
             return Ok(new { message = "Logout successful. Token has been revoked." });
         }
+
+        [Authorize(Policy = "AdminPolicy")]
+        [HttpPost("change-password")]
+        public async Task<IActionResult> ChangePassword([FromBody] ChangePasswordDto dto)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                await _userAccountService.ChangePasswordAsync(dto);
+                return Ok(new { Message = "Đổi mật khẩu thành công" });
+            }
+            catch (ErrorException ex)
+            {
+                // Trả về thông tin lỗi cho client
+                return BadRequest(new
+                {
+                    
+                    ErrorMessage = ex.Message
+                });
+            }
+            catch (Exception ex)
+            {
+                // fallback cho lỗi không mong đợi
+                return StatusCode(500, new { Error = "Có lỗi hệ thống", Detail = ex.Message });
+            }
+        }
     }
 }

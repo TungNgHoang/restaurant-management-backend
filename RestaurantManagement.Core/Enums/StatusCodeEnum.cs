@@ -119,6 +119,8 @@ namespace RestaurantManagement.Core.Enums
         E05,
         [Description("Mật khẩu cũ không đúng")]
         E06,
+        [Description("Mật khẩu mới và xác nhận mật khẩu không khớp")]
+        E07,
 
         [Description("Bad request.")]
         BadRequest,

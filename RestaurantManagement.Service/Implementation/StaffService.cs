@@ -110,38 +110,6 @@ namespace RestaurantManagement.Service.Implementation
             await _staffRepository.InsertAsync(staff);
             return staffDto;
         }
-        ////Update thông tin nhân viên
-        //public async Task<StaffDto> UpdateStaffAsync(Guid id,StaffDto staffDto)
-        //{
-        //    var staff = await _staffRepository.FindByIdAsync(id);
-        //    if (staff == null)
-        //        throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
-        //    if (staffDto.StaBaseSalary <= 0)
-        //        throw new ErrorException(StatusCodeEnum.E04);
-        //    if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
-        //        throw new ErrorException(StatusCodeEnum.E05);
-
-        //    staff.StaName = staffDto.StaName;
-        //    staff.StaPhone = staffDto.StaPhone;
-        //    staff.StaBaseSalary = staffDto.StaBaseSalary;
-        //    staff.StaRole = staffDto.StaRole;
-        //    // Cập nhật thông tin ở bảng UserAccount
-        //    var userAccount = await _userAccountRepository.FindByIdAsync(staff.UacId);
-        //    //Đối Email, mật khẩu, vai trò
-        //    if (userAccount == null)
-        //        throw new ErrorException(Core.Enums.StatusCodeEnum.E03);
-        //    userAccount.UacEmail = staffDto.StaEmail;
-        //    userAccount.UacRole = staffDto.StaRole;
-        //    if (!string.IsNullOrWhiteSpace(staffDto.StaPassword))
-        //    {
-        //        var hasher = new PasswordHasher<TblUserAccount>();
-        //        userAccount.UacPassword = hasher.HashPassword(userAccount, staffDto.StaPassword);
-        //    }
-
-        //    await _userAccountRepository.UpdateAsync(userAccount);
-        //    await _staffRepository.UpdateAsync(staff);
-        //    return _mapper.Map<StaffDto>(staff);
-        //}
 
         public async Task<UpdateStaffProfileDto> UpdateStaffProfileAsync(Guid id, UpdateStaffProfileDto staffProfileDto)
         {
