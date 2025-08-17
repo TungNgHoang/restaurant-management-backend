@@ -84,6 +84,8 @@ namespace RestaurantManagement.Service.Implementation
         //Thêm nhân viên
         public async Task<StaffDto> AddStaffAsync(StaffDto staffDto)
         {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             if (staffDto.StaBaseSalary <= 0)
                 throw new ErrorException(StatusCodeEnum.E04);
             if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
@@ -96,7 +98,9 @@ namespace RestaurantManagement.Service.Implementation
                 StaName = staffDto.StaName,
                 StaPhone = staffDto.StaPhone,
                 StaRole = staffDto.StaRole,
-                StaBaseSalary = staffDto.StaBaseSalary
+                StaBaseSalary = staffDto.StaBaseSalary,
+                CreatedBy = currentUserId,
+                CreatedAt = currentTime
             };
 
             //Cập nhật thông tin ở bảng UserAccount
@@ -105,7 +109,9 @@ namespace RestaurantManagement.Service.Implementation
             {
                 UacId = staff.UacId,
                 UacEmail = staffDto.StaEmail,
-                UacRole = staffDto.StaRole
+                UacRole = staffDto.StaRole,
+                CreatedAt = currentTime,
+                CreatedBy = currentUserId,
             };
             userAccount.UacPassword = hasher.HashPassword(userAccount, staffDto.StaPassword);
 
@@ -125,11 +131,15 @@ namespace RestaurantManagement.Service.Implementation
 
             if (string.IsNullOrWhiteSpace(staffProfileDto.StaPhone) || !Regex.IsMatch(staffProfileDto.StaPhone, @"^\d{10}$"))
                 throw new ErrorException(StatusCodeEnum.E05);
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
 
             staff.StaName = staffProfileDto.StaName;
             staff.StaPhone = staffProfileDto.StaPhone;
             staff.StaBaseSalary = staffProfileDto.StaBaseSalary;
             staff.StaRole = staffProfileDto.StaRole;
+            staff.UpdatedBy = currentUserId;
+            staff.UpdatedAt = currentTime;
 
             // Update bảng UserAccount (email + role, KHÔNG update mật khẩu ở đây)
             var userAccount = await _userAccountRepository.FindByIdAsync(staff.UacId);
@@ -138,6 +148,8 @@ namespace RestaurantManagement.Service.Implementation
 
             userAccount.UacEmail = staffProfileDto.StaEmail;
             userAccount.UacRole = staffProfileDto.StaRole;
+            userAccount.UpdatedBy = currentUserId;
+            userAccount.UpdatedAt = currentTime;
 
             await _userAccountRepository.UpdateAsync(userAccount);
             await _staffRepository.UpdateAsync(staff);
@@ -157,8 +169,12 @@ namespace RestaurantManagement.Service.Implementation
             var staff = await _staffRepository.FindByIdAsync(id);
             if (staff == null)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
 
             staff.IsDeleted = true; // Soft delete
+            staff.UpdatedBy = currentUserId;
+            staff.UpdatedAt = currentTime;
             await _staffRepository.UpdateAsync(staff);
         }
     }

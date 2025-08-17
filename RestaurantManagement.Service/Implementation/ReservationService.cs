@@ -92,7 +92,7 @@ namespace RestaurantManagement.Service.Implementation
                 IsDeleted = false,
                 CreatedAt = currentTime,
                 CreatedBy = currentUserId,
-                ResAutoCancelAt = DateTime.Now.AddMinutes(1)
+                ResAutoCancelAt = DateTime.Now.AddMinutes(10)
             };
 
             await _reservationsRepository.InsertAsync(reservation);
@@ -328,30 +328,78 @@ namespace RestaurantManagement.Service.Implementation
         }
 
         //Update reservation cause customer changes customer's quantities when they check in
-        public async Task UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request)
+        public async Task<UpdateReservationRequestDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request)
         {
-            var currentUserId = GetCurrentUserId();
-            var currentTime = ToGmt7(DateTime.UtcNow);
-            // Tìm reservation theo ResID
-            var reservation = await _reservationsRepository.FindByIdAsync(resId);
-            if (reservation == null || reservation.IsDeleted)
-                throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
-            // Kiểm tra trạng thái reservation phải là "Pending"
-            if (reservation.ResStatus != ReservationStatus.Pending.ToString())
-                throw new ErrorException(StatusCodeEnum.A01);
-            // Cập nhật thông tin reservation
-            reservation.TempCustomerName = request.TempCustomerName;
-            reservation.TempCustomerPhone = request.TempCustomerPhone;
-            reservation.TempCustomerMail = request.TempCustomerEmail;
-            reservation.TbiId = request.TbiId;
-            reservation.ResDate = request.ResDate;
-            reservation.ResEndTime = request.ResEndTime;
-            reservation.ResNumber = request.ResNumber;
-            reservation.Note = request.Note;
-            reservation.UpdatedAt = currentTime;
-            reservation.UpdatedBy = currentUserId;
-            // Lưu thay đổi vào database
-            await _reservationsRepository.UpdateAsync(reservation);
+            using (var transaction = await _dbContext.Database.BeginTransactionAsync())
+            {
+                try
+                {
+                    var currentUserId = GetCurrentUserId();
+                    var currentTime = ToGmt7(DateTime.UtcNow);
+
+                    // Validate input data
+                    if (request.ResDate > request.ResEndTime)
+                        throw new ErrorException(StatusCodeEnum.C02);
+                    if (!string.IsNullOrEmpty(request.TempCustomerPhone) && request.TempCustomerPhone.Length != 10)
+                        throw new ErrorException(StatusCodeEnum.C03);
+
+                    // Tìm reservation theo ResID
+                    var reservation = await _reservationsRepository.FindByIdAsync(resId);
+                    if (reservation == null || reservation.IsDeleted)
+                        throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
+
+                    // Kiểm tra trạng thái reservation phải là "Pending"
+                    if (reservation.ResStatus != ReservationStatus.Pending.ToString())
+                        throw new ErrorException(StatusCodeEnum.A01);
+
+                    // Check if table exists and has sufficient capacity
+                    var table = await _tablesRepository.FindByIdAsync(request.TbiId);
+                    if (table == null || request.ResNumber > table.TbiCapacity)
+                        throw new ErrorException(StatusCodeEnum.A02);
+
+                    // Check table availability for the new time slot (if time or table changed)
+                    if (request.TbiId != reservation.TbiId || request.ResDate != reservation.ResDate || request.ResEndTime != reservation.ResEndTime)
+                    {
+                        var overlappingReservations = await _reservationRepository.GetOverlappingReservationsAsync(request.ResDate, request.ResEndTime);
+                        if (overlappingReservations.Any(r => r.TbiId == request.TbiId && r.ResId != resId))
+                        {
+                            throw new ErrorException(StatusCodeEnum.C01);
+                        }
+                    }
+
+                    // Cập nhật thông tin reservation
+                    reservation.TempCustomerName = request.TempCustomerName;
+                    reservation.TempCustomerPhone = request.TempCustomerPhone;
+                    reservation.TempCustomerMail = request.TempCustomerEmail;
+                    reservation.TbiId = request.TbiId;
+                    reservation.ResDate = request.ResDate;
+                    reservation.ResEndTime = request.ResEndTime;
+                    reservation.ResNumber = request.ResNumber;
+                    reservation.Note = request.Note;
+                    reservation.UpdatedAt = currentTime;
+                    reservation.UpdatedBy = currentUserId;
+
+                    // Lưu thay đổi vào database
+                    await _reservationsRepository.UpdateAsync(reservation);
+                    
+                    // Commit transaction if everything succeeds
+                    await transaction.CommitAsync();
+                    
+                    return _mapper.Map<UpdateReservationRequestDto>(reservation);
+                }
+                catch (ErrorException)
+                {
+                    // Rollback transaction for known errors
+                    await transaction.RollbackAsync();
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    // Rollback transaction for unexpected errors
+                    await transaction.RollbackAsync();
+                    throw new ErrorException($"Lỗi khi cập nhật reservation: {ex.Message}");
+                }
+            }
         }
     }
 }

@@ -95,9 +95,16 @@
         [HttpPut("update-reservation/{id}")]
         public async Task<IActionResult> UpdateMenu(Guid id, [FromBody] UpdateReservationRequestDto reserDto)
         {
-            var updatedReservation = await _reservationService.UpdateReservationAsync(id, reserDto);
-            if (updatedReservation == null) return NotFound();
-            return Ok(updatedReservation);
+            try
+            {
+                var updatedReservation = await _reservationService.UpdateReservationAsync(id, reserDto);
+                if (updatedReservation == null) return NotFound();
+                return Ok(updatedReservation);
+            }
+            catch (Exception ex)
+            {
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
+            }
         }
     }
 }
