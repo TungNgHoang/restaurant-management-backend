@@ -4,11 +4,13 @@
     {
         private readonly IMapper _mapper;
         private readonly IRepository<TblTableInfo> _tableRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TableService(AppSettings appSettings, IMapper mapper, IRepository<TblTableInfo> tableRepository) : base(appSettings, mapper)
+        public TableService(AppSettings appSettings, IMapper mapper, IRepository<TblTableInfo> tableRepository, IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
         {
             _mapper = mapper;
             _tableRepository = tableRepository;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<TableDto>> GetAllTableAsync(TableModels pagingModel)

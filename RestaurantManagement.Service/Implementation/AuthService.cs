@@ -10,8 +10,9 @@
             AppSettings appSettings,
             IMapper mapper,
             IConfiguration configuration,
+            IHttpContextAccessor httpContextAccessor,
             IRepository<TblBlackListToken> blackListTokenRepository,
-            RestaurantDBContext dbContext) : base(appSettings, mapper)
+            RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _blackListTokenRepository = blackListTokenRepository ?? throw new ArgumentNullException(nameof(blackListTokenRepository));
@@ -42,6 +43,7 @@
             {
                 new Claim(ClaimTypes.Name, user.UacEmail),
                 new Claim(ClaimTypes.Role, user.UacRole),
+                new Claim("UserId", user.UacId.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()) // Thêm JTI để định danh token
             };
 

@@ -1,15 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.DbContexts;
-using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.DataAccess.Interfaces;
+using System.Linq.Expressions;
 
 namespace RestaurantManagement.DataAccess.Implementation
 {

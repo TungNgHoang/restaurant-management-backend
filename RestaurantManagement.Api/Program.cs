@@ -8,11 +8,15 @@ using RestaurantManagement.Api.Middlewares;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Infrastructure;
 using System.Text.Json.Serialization;
+using RestaurantManagement.Api.BackgroundTask;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
+
+
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
 var appSettings = appSettingsSection?.Get<AppSettings>();
@@ -67,6 +71,10 @@ builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
+
+// Register background service
+builder.Services.AddHostedService<BackgroundTaskUpdate>();
+
 ////Addcors
 var allowedFrontendOrigins = new[] {
     "https://pizzadaay.ric.vn",
@@ -226,7 +234,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SaMPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Staff", "Manager");
+        policy.RequireRole("Staff", "Manager", "Cashier");
     });
 
 
