@@ -47,7 +47,8 @@
             {
                 throw new ErrorException(StatusCodeEnum.D07, "Mã đã tồn tại");
             }
-
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             var promotion = new TblPromotion
             {
                 ProId = Guid.NewGuid(),
@@ -58,7 +59,9 @@
                 ConditionVal = promotionDto.ConditionVal,
                 StartDate = promotionDto.StartDate,
                 EndDate = promotionDto.EndDate,
-                ProQuantity = promotionDto.ProQuantity
+                ProQuantity = promotionDto.ProQuantity,
+                CreatedAt = currentTime,
+                CreatedBy = currentUserId
             };
             await _promotionRepository.InsertAsync(promotion);
             return promotionDto;
@@ -66,6 +69,8 @@
 
         public async Task<PromotionDto> UpdatePromotionAsync(Guid id, PromotionDto promotionDto)
         {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             var promotion = await _promotionRepository.FindByIdAsync(id);
             if (promotion == null) throw new ErrorException(StatusCodeEnum.D04);
 
@@ -76,8 +81,8 @@
             promotion.ConditionVal = promotionDto.ConditionVal;
             promotion.StartDate = promotionDto.StartDate;
             promotion.EndDate = promotionDto.EndDate;
-            promotion.UpdatedAt = DateTime.UtcNow;
-            promotion.UpdatedBy = Guid.NewGuid();
+            promotion.UpdatedAt = currentTime;
+            promotion.UpdatedBy = currentUserId;
             promotion.ProQuantity = promotionDto.ProQuantity;
 
             await _promotionRepository.UpdateAsync(promotion);
@@ -88,8 +93,13 @@
         {
             var promotion = await _promotionRepository.FindByIdAsync(id);
             if (promotion == null) return false;
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
 
             await _promotionRepository.DeleteAsync(promotion);
+            promotion.UpdatedAt = currentTime;
+            promotion.UpdatedBy = currentUserId;
+            await _promotionRepository.UpdateAsync(promotion);
             return true;
         }
     }

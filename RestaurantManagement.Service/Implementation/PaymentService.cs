@@ -133,6 +133,8 @@
             {
                 try
                 {
+                    var currentUserId = GetCurrentUserId();
+                    var currentTime = ToGmt7(DateTime.UtcNow);
                     // 4. Tạo bản ghi thanh toán
                     var payment = new TblPayment
                     {
@@ -143,21 +145,21 @@
                         PayMethod = payMethod,
                         PayStatus = "Completed",
                         IsDeleted = false,
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = Guid.Empty // Thay bằng ID nhân viên nếu cần
+                        CreatedAt = currentTime,
+                        CreatedBy = currentUserId
                     };
                     await _paymentRepository.InsertAsync(payment);
 
                     // 5. Cập nhật trạng thái reservation
                     reservation.ResStatus = ReservationStatus.Finished.ToString() /*"Finished",*/;
-                    reservation.UpdatedAt = DateTime.Now;
-                    reservation.UpdatedBy = Guid.Empty; // Thay bằng ID nhân viên nếu cần
+                    reservation.UpdatedAt = currentTime;
+                    reservation.UpdatedBy = currentUserId;
                     await _reservationsRepository.UpdateAsync(reservation);
 
                     // 6. Cập nhật trạng thái bàn
                     table.TbiStatus = TableStatus.Empty.ToString(); //"Empty"
-                    table.UpdatedAt = DateTime.Now;
-                    table.UpdatedBy = Guid.Empty; // Thay bằng ID nhân viên nếu cần
+                    table.UpdatedAt = currentTime;
+                    table.UpdatedBy = currentUserId; // Thay bằng ID nhân viên nếu cần
                     await _tablesRepository.UpdateAsync(table);
 
                     // 7. Cập nhật trạng thái voucher (giảm số lượng đi 1)

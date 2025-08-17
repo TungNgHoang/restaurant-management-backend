@@ -31,7 +31,7 @@
             }
         }
 
-        [Authorize(Policy = "StaffPolicy")]
+        [Authorize(Policy = "SaMPolicy")]
         [HttpGet("{orderId}")]
         public async Task<IActionResult> GetOrderById(Guid orderId)
         {

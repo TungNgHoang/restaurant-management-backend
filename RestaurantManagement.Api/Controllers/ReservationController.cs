@@ -1,18 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Service.Interfaces;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.Core.Enums;
-using System.Runtime.CompilerServices;
-using RestaurantManagement.Service.Dtos.ReserDto;
-using RestaurantManagement.Service.ApiModels;
-using Microsoft.AspNetCore.Http.HttpResults;
-using RestaurantManagement.Core.ApiModels;
-using Microsoft.AspNetCore.Authorization;
-
-namespace RestaurantManagement.Api.Controllers
+﻿namespace RestaurantManagement.Api.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class ReservationController : BaseApiController
@@ -102,6 +89,15 @@ namespace RestaurantManagement.Api.Controllers
         {
             await _reservationService.CancelReservationAsync(resId);
             return Success();
+        }
+
+        [Authorize(Policy = "BillingPolicy")]
+        [HttpPut("update-reservation/{id}")]
+        public async Task<IActionResult> UpdateMenu(Guid id, [FromBody] UpdateReservationRequestDto reserDto)
+        {
+            var updatedReservation = await _reservationService.UpdateReservationAsync(id, reserDto);
+            if (updatedReservation == null) return NotFound();
+            return Ok(updatedReservation);
         }
     }
 }

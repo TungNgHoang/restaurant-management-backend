@@ -48,6 +48,8 @@
             // Nếu chưa có order, tạo mới
             if (existingOrder == null)
             {
+                var currentUserId = GetCurrentUserId();
+                var currentTime = ToGmt7(DateTime.UtcNow);
                 var order = new TblOrderInfo
                 {
                     OrdId = Guid.NewGuid(),
@@ -55,7 +57,7 @@
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.Order.ToString(),
                     ResId = reservation.ResId,
-                    CreatedBy = Guid.Empty, 
+                    CreatedBy = currentUserId, 
                     CreatedAt = currentTime,
                     TotalPrice = 0,
                     IsDeleted = false
@@ -86,6 +88,8 @@
                 }
                 else
                 {
+                    var currentUserId = GetCurrentUserId();
+                    var currentTime = ToGmt7(DateTime.UtcNow);
                     // Nếu món chưa có, thêm mới vào danh sách
                     var newOrderDetail = new TblOrderDetail
                     {
@@ -93,7 +97,7 @@
                         OrdId = existingOrder.OrdId,
                         MnuId = item.MnuID,
                         OdtQuantity = item.OdtQuantity,
-                        CreatedBy = existingOrder.CreatedBy,
+                        CreatedBy = currentUserId,
                         CreatedAt = currentTime,
                         IsDeleted = false
                     };
@@ -167,6 +171,8 @@
 
             if (existingOrder == null)
             {
+                var currentUserId = GetCurrentUserId();
+                var currentTime = ToGmt7(DateTime.UtcNow);
                 // Nếu không có đơn hàng, tạo mới
                 var order = new TblOrderInfo
                 {
@@ -177,7 +183,7 @@
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.PreOrder.ToString(),
                     CreatedAt = currentTime,
-                    CreatedBy = Guid.Empty, // Hoặc lấy từ người dùng hiện tại
+                    CreatedBy = currentUserId,
                     TotalPrice = 0,
                     IsDeleted = false
                 };
@@ -205,6 +211,8 @@
                 }
                 else
                 {
+                    var currentUserId = GetCurrentUserId();
+                    var currentTime = ToGmt7(DateTime.UtcNow);
                     // Nếu món chưa có, thêm mới vào danh sách
                     var newOrderDetail = new TblOrderDetail
                     {
@@ -212,7 +220,7 @@
                         OrdId = existingOrder.OrdId,
                         MnuId = item.MnuID,
                         OdtQuantity = item.OdtQuantity,
-                        CreatedBy = existingOrder.CreatedBy,
+                        CreatedBy = currentUserId,
                         CreatedAt = currentTime,
                         IsDeleted = false
                     };
@@ -242,9 +250,13 @@
 
             // Xoá các món ăn chứa ID đơn hàng trong bảng OrderDetails
             var orderDetails = await _orderDetailsRepository.FindListAsync(od => od.OrdId == orderId);
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             foreach (var detail in orderDetails)
             {
                 detail.IsDeleted = true;
+                detail.UpdatedBy = currentUserId;
+                detail.UpdatedAt = currentTime;
                 await _orderDetailsRepository.UpdateAsync(detail);
             }
 

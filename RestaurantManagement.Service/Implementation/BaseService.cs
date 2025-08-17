@@ -358,7 +358,6 @@
         {
             // Lấy từ claim
             var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst("UserId")?.Value;
-            //_httpContextAccessor.HttpContext?.User.FindFirst("UserId")?.Value;
 
             if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
             {
