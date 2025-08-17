@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using RestaurantManagement.Api.AutoMapperProfile;
+using RestaurantManagement.Api.Filters;
 using RestaurantManagement.Api.Middlewares;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Infrastructure;
@@ -23,6 +26,25 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Re
 builder.Services.AddDbContext<RestaurantDBContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+var esConfig = builder.Configuration.GetSection("Elasticsearch");
+if (!esConfig.Exists())
+{
+    throw new InvalidOperationException("Elasticsearch configuration is missing.");
+}
+var url = esConfig["Url"];
+var index = esConfig["Index"];
+var username = esConfig["Username"];
+var password = esConfig["Password"];
+Console.WriteLine($"Elasticsearch URL: {url}, Index: {index}");
+var elasticsearchSettings = new ElasticsearchClientSettings(new Uri(url))
+    .DefaultIndex(index)
+    .Authentication(new BasicAuthentication(username, password));
+builder.Services.AddSingleton<ElasticsearchClient>(new ElasticsearchClient(elasticsearchSettings));
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<LogActionFilter>();
+});
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();

@@ -53,5 +53,25 @@
             var token = await _authService.GenerateJwtTokenAsync(user);
             return token;
         }
+
+        public async Task ChangePasswordAsync(ChangePasswordDto dto)
+        {
+            var userAccount = await _userAccountRepository.FindByIdAsync(dto.UacId);
+            if (userAccount == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E03);
+
+            var hasher = new PasswordHasher<TblUserAccount>();
+
+            var result = hasher.VerifyHashedPassword(userAccount, userAccount.UacPassword, dto.CurrentPassword);
+            if (result == PasswordVerificationResult.Failed)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E06);
+
+            if (dto.NewPassword != dto.ConfirmPassword)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E07);
+
+            userAccount.UacPassword = hasher.HashPassword(userAccount, dto.NewPassword);
+
+            await _userAccountRepository.UpdateAsync(userAccount);
+        }
     }
 }

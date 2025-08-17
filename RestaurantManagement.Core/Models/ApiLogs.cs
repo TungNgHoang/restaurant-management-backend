@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Core.Models
+{
+    public class ApiLog
+    {
+        public string Id { get; set; } = Guid.NewGuid().ToString(); // ID duy nhất cho document
+        public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+        public string Controller { get; set; }
+        public string Action { get; set; }
+        public string HttpMethod { get; set; }
+        public string Path { get; set; }
+        public string QueryString { get; set; }
+        public string RequestBody { get; set; } // Nếu cần log body, nhưng cẩn thận với dữ liệu nhạy cảm
+        public string UserId { get; set; } // Nếu có auth, lấy từ claims
+        public int StatusCode { get; set; }
+        public double ExecutionTimeMs { get; set; }
+        public string Exception { get; set; } // Nếu có lỗi
+    }
+}
