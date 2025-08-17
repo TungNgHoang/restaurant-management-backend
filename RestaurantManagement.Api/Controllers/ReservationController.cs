@@ -103,7 +103,7 @@
             }
             catch (Exception ex)
             {
-                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
+                throw new ErrorException(StatusCodeEnum.Error, ex.Message); //trycatch để bắt lỗi và trả về thông báo lỗi
             }
         }
     }
