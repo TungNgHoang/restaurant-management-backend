@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Elastic.Clients.Elasticsearch;
 using Microsoft.AspNetCore.Mvc.Filters;
-using RestaurantManagement.Core.Model.Logs;
 using System.Diagnostics;
 using System.Text;
+using RestaurantManagement.Core.Models.Logs;
 
 namespace RestaurantManagement.Api.Filters
 {
