@@ -6,12 +6,11 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Service.Dtos.StaffDto
 {
-    public class StaffDto
+    public class UpdateStaffProfileDto
     {
         public string StaName { get; set; }
         public string StaRole { get; set; }
         public string StaEmail { get; set; }
-        public string StaPassword { get; set; }
         public string StaPhone { get; set; }
         public decimal StaBaseSalary { get; set; }
     }

@@ -18,7 +18,7 @@ namespace RestaurantManagement.Api.Controllers
         {
             var staffService = _serviceProvider.GetRequiredService<IStaffService>();
             var staffList = await staffService.GetAllStaffAsync(pagingModel);
-            var result = new PaginatedList<StaffDto>(staffList.ToList(), staffList.Count(), pagingModel.PageIndex, pagingModel.PageSize);
+            var result = new PaginatedList<GetStaffByIdDto>(staffList.ToList(), staffList.Count(), pagingModel.PageIndex, pagingModel.PageSize);
             return Ok(result);
         }
         // Cho phép admin xem chi tiết nhân viên
@@ -47,16 +47,16 @@ namespace RestaurantManagement.Api.Controllers
         // Chỉ admin được cập nhật thông tin nhân viên
         [Authorize(Policy = "AdminPolicy")]
         [HttpPut("update-staff")]
-        public async Task<IActionResult> UpdateStaff([FromBody] StaffDto staffDto)
+        public async Task<IActionResult> UpdateStaff(Guid id, [FromBody] UpdateStaffProfileDto staffProfileDto)
         {
-            if (staffDto == null)
+            if (staffProfileDto == null)
                 return BadRequest(StatusCodeEnum.BadRequest);
 
             var staffService = _serviceProvider.GetRequiredService<IStaffService>();
-            var updatedStaff = await staffService.UpdateStaffAsync(staffDto);
+            var updatedStaff = await staffService.UpdateStaffProfileAsync(id, staffProfileDto);
             if (updatedStaff == null)
                 throw new ErrorException(StatusCodeEnum.E01);
-            return Ok(updatedStaff);
+            return Ok();
         }
         // Chỉ admin được xoá nhân viên
         [Authorize(Policy = "AdminPolicy")]

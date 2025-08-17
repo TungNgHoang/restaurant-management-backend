@@ -8,6 +8,7 @@ namespace RestaurantManagement.Service.Implementation
         public readonly IStaffRepository _staffRepository;
         public readonly IRepository<TblUserAccount> _userAccountRepository;
         public readonly IMapper _mapper;
+
         public StaffService(
             AppSettings appSettings, 
             IStaffRepository staffRepository, 
@@ -19,15 +20,28 @@ namespace RestaurantManagement.Service.Implementation
             _userAccountRepository = userAccountRepository;
         }
 
-        public async Task<IEnumerable<StaffDto>> GetAllStaffAsync(StaffModels pagingModel)
+        public async Task<IEnumerable<GetStaffByIdDto>> GetAllStaffAsync(StaffModels pagingModel)
         {
             // Validate PageIndex and PageSize
             ValidatePagingModel(pagingModel);
 
-            var data = await _staffRepository.AsNoTrackingAsync();
+            var staffList = await _staffRepository.AsNoTrackingAsync();
+            var accountList = await _userAccountRepository.AsNoTrackingAsync();
+            var data = from s in staffList
+                       join u in accountList on s.UacId equals u.UacId
+                       select new GetStaffByIdDto
+                       {
+                           StaId = s.StaId,
+                           UacId = s.UacId,
+                           StaName = s.StaName,
+                           StaRole = s.StaRole,
+                           StaPhone = s.StaPhone,
+                           StaBaseSalary = (decimal)s.StaBaseSalary,
+                           StaEmail = u.UacEmail
+                       };
 
-            var staffDtos = _mapper.Map<List<StaffDto>>(data);
-            var result = AdvancedFilter(staffDtos.AsEnumerable(), pagingModel, nameof(StaffDto.StaName));
+            var staffDtos = _mapper.Map<List<GetStaffByIdDto>>(data);
+            var result = AdvancedFilter(staffDtos.AsEnumerable(), pagingModel, nameof(GetStaffByIdDto.StaName));
 
             return result;
         }
@@ -40,60 +54,99 @@ namespace RestaurantManagement.Service.Implementation
         }
 
         //Get nhân viên bằng ID
-        public async Task<StaffDto> GetStaffByIdAsync(Guid id)
+        public async Task<GetStaffByIdDto> GetStaffByIdAsync(Guid id)
         {
             var staff = await _staffRepository.FindByIdAsync(id);
             if (staff == null)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
-            return _mapper.Map<StaffDto>(staff);
+
+            var userAccount = await _userAccountRepository.FindByIdAsync(staff.UacId);
+            if (userAccount == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E03);
+
+            var result = new GetStaffByIdDto
+            {
+                StaId = staff.StaId,
+                UacId = staff.UacId,
+                StaName = staff.StaName,
+                StaPhone = staff.StaPhone,
+                StaBaseSalary = (decimal)staff.StaBaseSalary,
+                StaRole = staff.StaRole,
+                StaEmail = userAccount.UacEmail
+            };
+
+            return result;
         }
+
         //Thêm nhân viên
         public async Task<StaffDto> AddStaffAsync(StaffDto staffDto)
         {
-            //Từ UacId lấy ra Role trong bảng TblUserAccount
-            var userAccount = await _userAccountRepository.FindByIdAsync(staffDto.UacID);
-            if (userAccount == null)
-                throw new ErrorException(StatusCodeEnum.E03);
             if (staffDto.StaBaseSalary <= 0)
                 throw new ErrorException(StatusCodeEnum.E04);
             if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
                 throw new ErrorException(StatusCodeEnum.E05);
+            //Cập nhật thông tin ở bảng staff
             var staff = new TblStaff
             {
                 StaId = Guid.NewGuid(),
-                UacId = staffDto.UacID,
+                UacId = Guid.NewGuid(),
                 StaName = staffDto.StaName,
-                StaRole = userAccount.UacRole,
                 StaPhone = staffDto.StaPhone,
+                StaRole = staffDto.StaRole,
                 StaBaseSalary = staffDto.StaBaseSalary
             };
 
+            //Cập nhật thông tin ở bảng UserAccount
+            var hasher = new PasswordHasher<TblUserAccount>();
+            var userAccount = new TblUserAccount
+            {
+                UacId = staff.UacId,
+                UacEmail = staffDto.StaEmail,
+                UacRole = staffDto.StaRole
+            };
+            userAccount.UacPassword = hasher.HashPassword(userAccount, staffDto.StaPassword);
+
+            await _userAccountRepository.InsertAsync(userAccount);
             await _staffRepository.InsertAsync(staff);
             return staffDto;
         }
-        //Update thông tin nhân viên
-        public async Task<StaffDto> UpdateStaffAsync(StaffDto staffDto)
+
+        public async Task<UpdateStaffProfileDto> UpdateStaffProfileAsync(Guid id, UpdateStaffProfileDto staffProfileDto)
         {
-            //Từ UacId lấy ra Role trong bảng TblUserAccount
-            var userAccount = await _userAccountRepository.FindByIdAsync(staffDto.UacID);
-            if (userAccount == null)
-                throw new ErrorException(StatusCodeEnum.E03);
-            var staff = await _staffRepository.FindByIdAsync(staffDto.StaID);
+            var staff = await _staffRepository.FindByIdAsync(id);
             if (staff == null)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
-            if (staffDto.StaBaseSalary <= 0)
+
+            if (staffProfileDto.StaBaseSalary <= 0)
                 throw new ErrorException(StatusCodeEnum.E04);
-            if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
+
+            if (string.IsNullOrWhiteSpace(staffProfileDto.StaPhone) || !Regex.IsMatch(staffProfileDto.StaPhone, @"^\d{10}$"))
                 throw new ErrorException(StatusCodeEnum.E05);
 
-            staff.UacId = staffDto.UacID;
-            staff.StaName = staffDto.StaName;
-            staff.StaRole = userAccount.UacRole;
-            staff.StaPhone = staffDto.StaPhone;
-            staff.StaBaseSalary = staffDto.StaBaseSalary;
+            staff.StaName = staffProfileDto.StaName;
+            staff.StaPhone = staffProfileDto.StaPhone;
+            staff.StaBaseSalary = staffProfileDto.StaBaseSalary;
+            staff.StaRole = staffProfileDto.StaRole;
 
+            // Update bảng UserAccount (email + role, KHÔNG update mật khẩu ở đây)
+            var userAccount = await _userAccountRepository.FindByIdAsync(staff.UacId);
+            if (userAccount == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.E03);
+
+            userAccount.UacEmail = staffProfileDto.StaEmail;
+            userAccount.UacRole = staffProfileDto.StaRole;
+
+            await _userAccountRepository.UpdateAsync(userAccount);
             await _staffRepository.UpdateAsync(staff);
-            return _mapper.Map<StaffDto>(staff);
+
+            return new UpdateStaffProfileDto
+            {
+                StaName = staff.StaName,
+                StaRole = staff.StaRole,
+                StaPhone = staff.StaPhone,
+                StaBaseSalary = (decimal)staff.StaBaseSalary,
+                StaEmail = userAccount.UacEmail
+            };
         }
         //Delete nhân viên
         public async Task DeleteStaffAsync(Guid id)
