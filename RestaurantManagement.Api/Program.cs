@@ -1,15 +1,22 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using RestaurantManagement.Api.AutoMapperProfile;
+using RestaurantManagement.Api.Filters;
 using RestaurantManagement.Api.Middlewares;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Infrastructure;
 using System.Text.Json.Serialization;
+using RestaurantManagement.Api.BackgroundTask;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
+
+
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
 var appSettings = appSettingsSection?.Get<AppSettings>();
@@ -19,6 +26,25 @@ builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.Re
 builder.Services.AddDbContext<RestaurantDBContext>(
         options => options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
+var esConfig = builder.Configuration.GetSection("Elasticsearch");
+if (!esConfig.Exists())
+{
+    throw new InvalidOperationException("Elasticsearch configuration is missing.");
+}
+var url = esConfig["Url"];
+var index = esConfig["Index"];
+var username = esConfig["Username"];
+var password = esConfig["Password"];
+Console.WriteLine($"Elasticsearch URL: {url}, Index: {index}");
+var elasticsearchSettings = new ElasticsearchClientSettings(new Uri(url))
+    .DefaultIndex(index)
+    .Authentication(new BasicAuthentication(username, password));
+builder.Services.AddSingleton<ElasticsearchClient>(new ElasticsearchClient(elasticsearchSettings));
+
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<LogActionFilter>();
+});
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IReservationRepository, ReservationRepository>();
@@ -45,6 +71,10 @@ builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
+
+// Register background service
+builder.Services.AddHostedService<BackgroundTaskUpdate>();
+
 ////Addcors
 var allowedFrontendOrigins = new[] {
     "https://pizzadaay.ric.vn",
@@ -204,7 +234,7 @@ builder.Services.AddAuthorizationBuilder()
     .AddPolicy("SaMPolicy", policy =>
     {
         policy.RequireAuthenticatedUser();
-        policy.RequireRole("Staff", "Manager");
+        policy.RequireRole("Staff", "Manager", "Cashier");
     });
 
 

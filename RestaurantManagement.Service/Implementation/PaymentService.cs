@@ -2,6 +2,7 @@
 {
     public class PaymentService : BaseService, IPaymentService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<TblReservation> _reservationsRepository;
         private readonly IRepository<TblTableInfo> _tablesRepository;
         private readonly IOrderRepository _orderRepository;
@@ -12,6 +13,7 @@
         public PaymentService(
             AppSettings appSettings,
             IMapper mapper,
+            IHttpContextAccessor httpContextAccessor,
             IRepository<TblReservation> reservationsRepository,
             IRepository<TblTableInfo> tablesRepository,
             IOrderRepository orderRepository,
@@ -19,9 +21,10 @@
             IRepository<TblPromotion> promotionRepository,
             IRepository<TblCustomer> customerRepository,
             RestaurantDBContext dbContext
-            ) : base(appSettings, mapper)
+            ) : base(appSettings, mapper, httpContextAccessor)
         {
             _dbContext = dbContext;
+            _httpContextAccessor = httpContextAccessor;
             _reservationsRepository = reservationsRepository;
             _tablesRepository = tablesRepository;
             _orderRepository = orderRepository;
@@ -130,6 +133,8 @@
             {
                 try
                 {
+                    var currentUserId = GetCurrentUserId();
+                    var currentTime = ToGmt7(DateTime.UtcNow);
                     // 4. Tạo bản ghi thanh toán
                     var payment = new TblPayment
                     {
@@ -140,21 +145,21 @@
                         PayMethod = payMethod,
                         PayStatus = "Completed",
                         IsDeleted = false,
-                        CreatedAt = DateTime.Now,
-                        CreatedBy = Guid.Empty // Thay bằng ID nhân viên nếu cần
+                        CreatedAt = currentTime,
+                        CreatedBy = currentUserId
                     };
                     await _paymentRepository.InsertAsync(payment);
 
                     // 5. Cập nhật trạng thái reservation
                     reservation.ResStatus = ReservationStatus.Finished.ToString() /*"Finished",*/;
-                    reservation.UpdatedAt = DateTime.Now;
-                    reservation.UpdatedBy = Guid.Empty; // Thay bằng ID nhân viên nếu cần
+                    reservation.UpdatedAt = currentTime;
+                    reservation.UpdatedBy = currentUserId;
                     await _reservationsRepository.UpdateAsync(reservation);
 
                     // 6. Cập nhật trạng thái bàn
                     table.TbiStatus = TableStatus.Empty.ToString(); //"Empty"
-                    table.UpdatedAt = DateTime.Now;
-                    table.UpdatedBy = Guid.Empty; // Thay bằng ID nhân viên nếu cần
+                    table.UpdatedAt = currentTime;
+                    table.UpdatedBy = currentUserId; // Thay bằng ID nhân viên nếu cần
                     await _tablesRepository.UpdateAsync(table);
 
                     // 7. Cập nhật trạng thái voucher (giảm số lượng đi 1)

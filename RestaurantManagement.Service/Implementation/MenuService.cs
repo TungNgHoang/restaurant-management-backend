@@ -4,11 +4,13 @@
     {
         private readonly IMenuRepository _menuRepository;
         private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public MenuService(AppSettings appSettings, IMenuRepository menuRepository, IMapper mapper) : base(appSettings, mapper)
+        public MenuService(AppSettings appSettings, IMenuRepository menuRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
         {
             _menuRepository = menuRepository;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task<IEnumerable<MenuDto>> GetAllMenuAsync(MenuModels pagingModel)
@@ -43,6 +45,8 @@
         //Thêm món vào Menu
         public async Task<MenuDto> AddMenuAsync(MenuDto menuDto)
         {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             var menu = new TblMenu
             {
                 MnuId = Guid.NewGuid(),
@@ -50,7 +54,9 @@
                 MnuPrice = menuDto.MnuPrice,
                 MnuStatus = menuDto.MnuStatus,
                 MnuImage = menuDto.MnuImage,
-                MnuDescription = menuDto.MnuDescription
+                MnuDescription = menuDto.MnuDescription,
+                CreatedAt = currentTime,
+                CreatedBy = currentUserId
             };
 
             await _menuRepository.InsertAsync(menu);
@@ -60,6 +66,8 @@
         //Update thông tin món
         public async Task<MenuDto> UpdateMenuAsync(Guid id, MenuDto menuDto)
         {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             var menu = await _menuRepository.FindByIdAsync(id);
             if (menu == null) throw new ErrorException(StatusCodeEnum.D01);
 
@@ -68,6 +76,8 @@
             menu.MnuStatus = menuDto.MnuStatus;
             menu.MnuImage = menuDto.MnuImage;
             menu.MnuDescription = menuDto.MnuDescription;
+            menu.UpdatedAt = currentTime;
+            menu.UpdatedBy = currentUserId;
 
             await _menuRepository.UpdateAsync(menu);
             return menuDto;
@@ -75,10 +85,16 @@
         //Xoá món 
         public async Task<bool> DeleteMenuAsync(Guid id)
         {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
             var menu = await _menuRepository.FindByIdAsync(id);
             if (menu == null) return false;
 
             await _menuRepository.DeleteAsync(menu);
+            // Update the menu's deletion information
+            menu.UpdatedAt = currentTime;
+            menu.UpdatedBy = currentUserId;
+            await _menuRepository.UpdateAsync(menu);
             return true;
         }
     }

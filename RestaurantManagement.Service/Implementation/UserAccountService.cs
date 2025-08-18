@@ -5,15 +5,17 @@
         private readonly IRepository<TblUserAccount> _userAccountRepository;
         private readonly IAuthService _authService;
         private new readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
         public UserAccountService(
             AppSettings appSettings,
             IMapper mapper,
             IRepository<TblUserAccount> userAccountRepository,
-            IAuthService authService)
-            : base(appSettings, mapper)
+            IAuthService authService,
+            IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
         {
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
             _userAccountRepository = userAccountRepository;
             _authService = authService;
         }

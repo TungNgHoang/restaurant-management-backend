@@ -4,11 +4,13 @@
     {
         protected AppSettings _appSettings { get; set; }
         protected IMapper _mapper { get; set; }
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BaseService(AppSettings appSettings, IMapper mapper)
+        public BaseService(AppSettings appSettings, IMapper mapper, IHttpContextAccessor httpContextAccessor)
         {
             _appSettings = appSettings;
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public IEnumerable<T> AdvancedFilter<T>(IEnumerable<T> data, PagingBaseModel query, string defaultSortColumn)
@@ -349,6 +351,26 @@
             }
 
             return dataFormatted.ToList();
+        }
+
+        // 1. Hàm lấy thông tin người tạo/sửa
+        protected Guid GetCurrentUserId()
+        {
+            // Lấy từ claim
+            var userIdClaim = _httpContextAccessor.HttpContext?.User.FindFirst("UserId")?.Value;
+
+            if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
+            {
+                throw new UnauthorizedAccessException("Invalid user ID in token");
+            }
+            return userId;
+        }
+
+        // 2. Hàm chuyển thời gian về GMT+7
+        protected DateTime ToGmt7(DateTime utcDateTime)
+        {
+            var gmt7 = TimeZoneInfo.FindSystemTimeZoneById("SE Asia Standard Time");
+            return TimeZoneInfo.ConvertTimeFromUtc(utcDateTime, gmt7);
         }
 
         //public ExportExcelResponseModel ExportByEpPlus<T>(IEnumerable<T> datas, Dictionary<string, string?> chosenColumns, string pageName) where T : class

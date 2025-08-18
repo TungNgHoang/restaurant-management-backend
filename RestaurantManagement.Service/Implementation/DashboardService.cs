@@ -3,7 +3,8 @@
     public class DashboardService : BaseService, IDashboardService
     {
         private readonly IMapper _mapper;
-        protected readonly RestaurantDBContext _dbContext;
+        private readonly RestaurantDBContext _dbContext;
+        private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<TblOrderInfo> _orderRepository;
         private readonly IRepository<TblReservation> _reservationRepository;
         private readonly IRepository<TblCustomer> _customerRepository;
@@ -15,10 +16,12 @@
             IRepository<TblOrderInfo> orderRepository,
             IRepository<TblCustomer> customerRepository,
             IRepository<TblReservation> reservationRepository,
-            IRepository<TblPayment> paymentRepository
-            ) : base(appSettings, mapper)
+            IRepository<TblPayment> paymentRepository,
+            IHttpContextAccessor httpContextAccessor
+            ) : base(appSettings, mapper, httpContextAccessor)
         {
             _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
             _orderRepository = orderRepository;
             _reservationRepository = reservationRepository;
             _customerRepository = customerRepository;
