@@ -90,6 +90,11 @@ namespace RestaurantManagement.Service.Implementation
                 throw new ErrorException(StatusCodeEnum.E04);
             if (string.IsNullOrWhiteSpace(staffDto.StaPhone) || !Regex.IsMatch(staffDto.StaPhone, @"^\d{10}$"))
                 throw new ErrorException(StatusCodeEnum.E05);
+            // Kiểm tra email đã tồn tại chưa
+            var existingAccount = await _userAccountRepository
+                .FindAsync(u => u.UacEmail == staffDto.StaEmail);
+            if (existingAccount != null)
+                throw new ErrorException(StatusCodeEnum.E08); // tạo thêm mã lỗi cho "Email đã tồn tại"
             //Cập nhật thông tin ở bảng staff
             var staff = new TblStaff
             {
@@ -169,13 +174,17 @@ namespace RestaurantManagement.Service.Implementation
             var staff = await _staffRepository.FindByIdAsync(id);
             if (staff == null)
                 throw new ErrorException(Core.Enums.StatusCodeEnum.E01);
+            var userAccount = await _userAccountRepository.FindByIdAsync(staff.UacId);
             var currentUserId = GetCurrentUserId();
             var currentTime = ToGmt7(DateTime.UtcNow);
 
+            userAccount.IsDeleted = true;
+            staff.IsDeleted = true;
             staff.IsDeleted = true; // Soft delete
             staff.UpdatedBy = currentUserId;
             staff.UpdatedAt = currentTime;
             await _staffRepository.UpdateAsync(staff);
+            await _userAccountRepository.UpdateAsync(userAccount);
         }
     }
 }
