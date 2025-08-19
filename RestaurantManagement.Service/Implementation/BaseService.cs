@@ -361,7 +361,7 @@
 
             if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
             {
-                throw new UnauthorizedAccessException("Invalid user ID in token");
+                return Guid.Empty;
             }
             return userId;
         }

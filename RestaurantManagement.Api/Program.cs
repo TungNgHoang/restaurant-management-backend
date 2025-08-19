@@ -15,7 +15,8 @@ var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
-
+// Thêm SignalR
+builder.Services.AddSignalR();
 
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
@@ -71,7 +72,8 @@ builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
 builder.Services.AddScoped<IPromotionService, PromotionService>();
 builder.Services.AddScoped<IStaffRepository, StaffRepository>();
 builder.Services.AddScoped<IStaffService, StaffService>();
-
+builder.Services.AddScoped<INotificationService, NotificationService>();
+builder.Services.AddScoped<IRepository<TblNotification>, Repository<TblNotification>>();
 // Register background service
 builder.Services.AddHostedService<BackgroundTaskUpdate>();
 
@@ -268,10 +270,10 @@ app.UseHttpsRedirection();
 app.UseRouting();
 app.UseMiddleware<SecurityHeadersMiddleware>();
 app.UseCors(MyAllowSpecificOrigins); // PHẢI trước Auth
-
 app.UseAuthentication();
 app.UseAuthorization();
-
+// Map SignalR Hub
+app.MapHub<NotificationHub>("/notificationHub");
 app.UseSwagger();
 app.UseSwaggerUI();
 

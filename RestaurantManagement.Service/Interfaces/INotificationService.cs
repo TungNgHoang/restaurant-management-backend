@@ -1,0 +1,22 @@
+﻿namespace RestaurantManagement.Service.Interfaces
+{
+    public interface INotificationService
+    {
+        // Gửi thông báo
+        Task SendNotificationAsync(NotificationTypeEnum type, string message, Guid? resId = null, Guid? createdBy = null);
+        Task SendNewReservationNotificationAsync(Guid resId, string customerName, string tableName);
+        Task SendPaymentSuccessNotificationAsync(Guid resId, decimal amount, string customerName);
+        Task SendReservationExpiringSoonNotificationAsync(Guid resId, string customerName, DateTime expiryTime);
+        Task SendMonthlyRevenueReportNotificationAsync(decimal totalRevenue, int month, int year);
+        Task SendReservationAutoCancelledNotificationAsync(Guid resId, string customerName, bool hasPreOrder = false);
+
+        // Quản lý thông báo
+        Task<IEnumerable<TblNotification>> GetUnreadNotificationsAsync();
+        Task<IEnumerable<TblNotification>> GetAllNotificationsAsync(int pageNumber = 1, int pageSize = 20, bool? isRead = null);
+        Task<int> GetNotificationCountAsync(bool? isRead = null);
+        Task MarkNotificationAsReadAsync(Guid notificationId);
+        Task MarkAllNotificationsAsReadAsync();
+        Task DeleteNotificationAsync(Guid notificationId);
+        Task<int> DeleteAllReadNotificationsAsync();
+    }
+}
