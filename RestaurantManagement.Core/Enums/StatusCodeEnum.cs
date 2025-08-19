@@ -116,6 +116,8 @@ namespace RestaurantManagement.Core.Enums
         E06,
         [Description("Mật khẩu mới và xác nhận mật khẩu không khớp")]
         E07,
+        [Description("Email đã tồn tại")]
+        E08,
 
         //StatusCode cho Notification
         [Description("Gửi thông báo thành công")]

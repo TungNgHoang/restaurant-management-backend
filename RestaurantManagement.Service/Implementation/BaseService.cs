@@ -361,7 +361,7 @@
 
             if (string.IsNullOrEmpty(userIdClaim) || !Guid.TryParse(userIdClaim, out var userId))
             {
-                return Guid.Empty;
+                return Guid.Empty; // Hoặc ném ngoại lệ nếu không tìm thấy UserId
             }
             return userId;
         }

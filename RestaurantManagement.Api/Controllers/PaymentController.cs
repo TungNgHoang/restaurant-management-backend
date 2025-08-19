@@ -21,7 +21,7 @@ namespace RestaurantManagement.Api.Controllers
 
         [Authorize(Policy = "BillingPolicy")]
         [HttpPost("checkout/{resId}")]
-        public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, string proCode, [FromBody] PaymentRequestDto request)
+        public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, string? proCode, [FromBody] PaymentRequestDto request)
         {
             try
             {

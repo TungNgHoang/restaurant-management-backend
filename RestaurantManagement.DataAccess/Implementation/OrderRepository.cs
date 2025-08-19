@@ -39,5 +39,13 @@ namespace RestaurantManagement.DataAccess.Implementation
                 .ThenInclude(d => d.Mnu)
                 .FirstOrDefaultAsync(o => o.OrdId == orderId);
         }
+
+        public async Task<TblOrderInfo> GetOrderByResIdAsync(Guid resId)
+        {
+            return await _context.TblOrderInfos
+                .Include(o => o.TblOrderDetails)
+                .ThenInclude(d => d.Mnu)
+                .FirstOrDefaultAsync(o => o.ResId == resId);
+        }
     }
 }
