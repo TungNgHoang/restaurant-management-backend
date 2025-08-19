@@ -51,7 +51,7 @@ namespace RestaurantManagement.Api.Filters
             if (executed.Exception != null)
             {
                 log.Exception = executed.Exception.Message;
-                executed.ExceptionHandled = true; // Optional: Handle exception nếu cần
+                //executed.ExceptionHandled = true; // Optional: Handle exception nếu cần
             }
 
             // Index log vào Elasticsearch asynchronously
