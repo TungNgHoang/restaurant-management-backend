@@ -5,13 +5,24 @@
         private readonly IPromotionRepository _promotionRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRepository<TblReservation> _reservationRepository;
+        private readonly IOrderRepository _orderRepository;
+        private readonly IRepository<TblCustomer> _customerRepository;
 
-        public PromotionService(AppSettings appSettings, IPromotionRepository promotionRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public PromotionService(AppSettings appSettings, 
+            IRepository<TblReservation> reservationRepository, 
+            IOrderRepository orderRepository, 
+            IRepository<TblCustomer> customerRepository,
+            IPromotionRepository promotionRepository, 
+            IMapper mapper, IHttpContextAccessor httpContextAccessor)
             : base(appSettings, mapper, httpContextAccessor)
         {
             _promotionRepository = promotionRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _reservationRepository = reservationRepository;
+            _orderRepository = orderRepository;
+            _customerRepository = customerRepository;
         }
 
         public async Task<IEnumerable<PromotionDto>> GetAllPromotionsAsync(PromotionModels pagingModel)
@@ -101,6 +112,54 @@
             promotion.UpdatedBy = currentUserId;
             await _promotionRepository.UpdateAsync(promotion);
             return true;
+        }
+
+        public async Task<List<PromotionDto>> GetAvailablePromotionAsync(Guid id)
+        {
+            //Lấy thông tin đơn hàng
+            var reservation = await _reservationRepository.FindByIdAsync(id);
+            if (reservation == null)
+            {
+                throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
+            }
+
+            //Lấy thông tin khách hàng từ reservation
+            if (!reservation.CusId.HasValue)
+            {
+                throw new ErrorException(StatusCodeEnum.C09);
+            }
+            var customer = await _customerRepository.FindByIdAsync(reservation.CusId.Value);
+            if (customer == null)
+            {
+                throw new ErrorException(StatusCodeEnum.C09);
+            }
+            //Lấy thông tin đơn hàng, tìm trong bảng tblOrderInfo, bản ghi nào có ResId trùng với reservation.Id
+            var order = await _orderRepository.GetOrderByResIdAsync(reservation.ResId);
+            if (order == null)
+            {
+                throw new ErrorException(StatusCodeEnum.C07);
+            }
+            var currentTime = ToGmt7(DateTime.UtcNow);
+            //Lấy danh sách khuyến mãi còn hiệu lực
+            var promotionDb = await _promotionRepository.FilterAsync(p => 
+                !p.IsDeleted && 
+                p.StartDate <= currentTime && 
+                p.EndDate >= currentTime && 
+                p.ProQuantity > 0 &&
+                p.ConditionVal <= order.TotalPrice);
+
+            if (!Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var cusTier))
+            {
+                throw new ErrorException(StatusCodeEnum.C09);
+            }
+
+            var promotions = promotionDb
+                .Where(p =>
+                    Enum.TryParse<CustomerTierEnum>(p.DiscountType, out var promoTier) &&
+                    cusTier >= promoTier
+                )
+                .ToList();
+            return _mapper.Map<List<PromotionDto>>(promotions);
         }
     }
 }

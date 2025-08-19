@@ -6,6 +6,7 @@
         Task<PromotionDto> GetPromotionByIdAsync(Guid id);
         Task<PromotionDto> AddPromotionAsync(PromotionDto promotionDto);
         Task<PromotionDto> UpdatePromotionAsync(Guid id, PromotionDto promotionDto);
+        Task<List<PromotionDto>> GetAvailablePromotionAsync(Guid id);
         Task<bool> DeletePromotionAsync(Guid id);
     }
 }

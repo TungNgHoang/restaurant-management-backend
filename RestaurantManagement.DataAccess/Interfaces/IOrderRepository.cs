@@ -11,5 +11,6 @@ namespace RestaurantManagement.DataAccess.Interfaces
     {
         Task<TblOrderInfo> CreateOrderAsync(TblOrderInfo order, List<TblOrderDetail> orderDetails);
         Task<TblOrderInfo> GetOrderByIdAsync(Guid orderId);
+        Task<TblOrderInfo> GetOrderByResIdAsync(Guid resId);
     }
 }

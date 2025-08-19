@@ -71,5 +71,37 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(new { message = StatusCodeEnum.D05 });
 
         }
+
+        [Authorize(Policy = "BillingPolicy")]
+        [HttpGet("available/{reservationId}")]
+        public async Task<IActionResult> GetAvailablePromotions(Guid reservationId)
+        {
+            try
+            {
+                var promotions = await _promotionService.GetAvailablePromotionAsync(reservationId);
+                return Ok(new
+                {
+                    Success = true,
+                    Data = promotions
+                });
+            }
+            catch (ErrorException ex)
+            {
+                return BadRequest(new
+                {
+                    Success = false,
+                    Code = ex.StatusCode,
+                    Message = StatusCodeEnum.BadRequest
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new
+                {
+                    Success = false,
+                    Message = ex.Message
+                });
+            }
+        }
     }
 }
