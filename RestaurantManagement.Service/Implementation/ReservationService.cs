@@ -176,6 +176,8 @@ namespace RestaurantManagement.Service.Implementation
                             CusName = reservation.TempCustomerName,
                             CusContact = reservation.TempCustomerPhone,
                             CusEmail = reservation.TempCustomerMail,
+                            CusTier = CustomerTierEnum.Unranked.ToString(),
+                            CusPoints = 0,
                             IsDeleted = false,
                             CreatedAt = currentTime,
                             CreatedBy = currentUserId // Giả định tạm thời

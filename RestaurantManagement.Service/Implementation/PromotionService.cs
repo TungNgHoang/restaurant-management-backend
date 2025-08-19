@@ -139,13 +139,14 @@
             {
                 throw new ErrorException(StatusCodeEnum.C07);
             }
+            var currentTime = ToGmt7(DateTime.UtcNow);
             //Lấy danh sách khuyến mãi còn hiệu lực
             var promotionDb = await _promotionRepository.FilterAsync(p => 
                 !p.IsDeleted && 
-                p.StartDate <= DateTime.Now && 
-                p.EndDate >= DateTime.Now && 
+                p.StartDate <= currentTime && 
+                p.EndDate >= currentTime && 
                 p.ProQuantity > 0 &&
-                p.ConditionVal >= order.TotalPrice);
+                p.ConditionVal <= order.TotalPrice);
 
             if (!Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var cusTier))
             {
