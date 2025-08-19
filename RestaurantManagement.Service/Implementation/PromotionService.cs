@@ -114,7 +114,7 @@
             return true;
         }
 
-        public async Task<PromotionDto> GetAvailablePromotionAsync(Guid id)
+        public async Task<List<PromotionDto>> GetAvailablePromotionAsync(Guid id)
         {
             //Lấy thông tin đơn hàng
             var reservation = await _reservationRepository.FindByIdAsync(id);
@@ -135,7 +135,30 @@
             }
             //Lấy thông tin đơn hàng, tìm trong bảng tblOrderInfo, bản ghi nào có ResId trùng với reservation.Id
             var order = await _orderRepository.GetOrderByResIdAsync(reservation.ResId);
+            if (order == null)
+            {
+                throw new ErrorException(StatusCodeEnum.C07);
+            }
+            //Lấy danh sách khuyến mãi còn hiệu lực
+            var promotionDb = await _promotionRepository.FilterAsync(p => 
+                !p.IsDeleted && 
+                p.StartDate <= DateTime.Now && 
+                p.EndDate >= DateTime.Now && 
+                p.ProQuantity > 0 &&
+                p.ConditionVal >= order.TotalPrice);
 
+            if (!Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var cusTier))
+            {
+                throw new ErrorException(StatusCodeEnum.C09);
+            }
+
+            var promotions = promotionDb
+                .Where(p =>
+                    Enum.TryParse<CustomerTierEnum>(p.DiscountType, out var promoTier) &&
+                    cusTier >= promoTier
+                )
+                .ToList();
+            return _mapper.Map<List<PromotionDto>>(promotions);
         }
     }
 }
