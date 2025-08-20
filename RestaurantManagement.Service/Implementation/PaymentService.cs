@@ -1,4 +1,7 @@
-﻿namespace RestaurantManagement.Service.Implementation
+﻿
+using Microsoft.Extensions.Logging;
+
+namespace RestaurantManagement.Service.Implementation
 {
     public class PaymentService : BaseService, IPaymentService
     {
@@ -9,7 +12,9 @@
         private readonly IRepository<TblPayment> _paymentRepository;
         private readonly IRepository<TblPromotion> _promotionRepository;
         private readonly IRepository<TblCustomer> _customerRepository;
+        private readonly INotificationService _notificationService;
         protected readonly RestaurantDBContext _dbContext;
+        private readonly ILogger<PaymentService> _logger;
         public PaymentService(
             AppSettings appSettings,
             IMapper mapper,
@@ -20,7 +25,9 @@
             IRepository<TblPayment> paymentRepositor,
             IRepository<TblPromotion> promotionRepository,
             IRepository<TblCustomer> customerRepository,
-            RestaurantDBContext dbContext
+            INotificationService notificationService,
+            RestaurantDBContext dbContext,
+            ILogger<PaymentService> logger
             ) : base(appSettings, mapper, httpContextAccessor)
         {
             _dbContext = dbContext;
@@ -31,6 +38,8 @@
             _paymentRepository = paymentRepositor;
             _promotionRepository = promotionRepository;
             _customerRepository = customerRepository;
+            _notificationService = notificationService;
+            _logger = logger;
         }
 
         public async Task CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
@@ -159,7 +168,7 @@
                     // 6. Cập nhật trạng thái bàn
                     table.TbiStatus = TableStatus.Empty.ToString(); //"Empty"
                     table.UpdatedAt = currentTime;
-                    table.UpdatedBy = currentUserId; // Thay bằng ID nhân viên nếu cần
+                    table.UpdatedBy = currentUserId; 
                     await _tablesRepository.UpdateAsync(table);
 
                     // 7. Cập nhật trạng thái voucher (giảm số lượng đi 1)
@@ -194,6 +203,19 @@
 
                     // Nếu cả hai thành công, commit transaction
                     await transaction.CommitAsync();
+
+                    // Send payment success notification
+                    try
+                    {
+                        await _notificationService.SendPaymentSuccessNotificationAsync(
+                            resId, priceAfterVat, customer.CusName ?? reservation.TempCustomerName ?? "Khách hàng");
+
+                        _logger.LogInformation("Đã gửi thông báo thanh toán thành công cho ResId: {ResId}", resId);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogWarning(ex, "Lỗi khi gửi thông báo thanh toán thành công cho ResId: {ResId}", resId);
+                    }
                 }
                 catch (Exception ex)
                 {

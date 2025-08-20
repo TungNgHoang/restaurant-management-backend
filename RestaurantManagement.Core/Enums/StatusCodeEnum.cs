@@ -119,6 +119,14 @@ namespace RestaurantManagement.Core.Enums
         [Description("Email đã tồn tại")]
         E08,
 
+        //StatusCode cho Notification
+        [Description("Gửi thông báo thành công")]
+        F01,
+        [Description("Không tìm thấy thông báo")]
+        F02,
+        [Description("Đánh dấu đã đọc thông báo thành công")]
+        F03,
+
         [Description("Bad request.")]
         BadRequest,
 

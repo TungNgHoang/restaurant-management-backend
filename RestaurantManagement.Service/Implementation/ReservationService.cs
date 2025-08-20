@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Logging;
 using RestaurantManagement.DataAccess.Interfaces;
 
 namespace RestaurantManagement.Service.Implementation
@@ -13,6 +14,8 @@ namespace RestaurantManagement.Service.Implementation
         private readonly IRepository<TblTableInfo> _tablesRepository;
         private readonly IRepository<TblOrderInfo> _ordersRepository;
         private readonly IReservationRepository _reservationRepository;
+        private readonly INotificationService _notificationService;
+        private readonly ILogger<ReservationService> _logger;
 
         public ReservationService(
             IHttpContextAccessor httpContextAccessor,
@@ -23,7 +26,9 @@ namespace RestaurantManagement.Service.Implementation
             IRepository<TblTableInfo> tablesRepository,
             IRepository<TblCustomer> customerRepository,
             IRepository<TblOrderInfo> ordersRepository,
-            IReservationRepository reservationRepository
+            IReservationRepository reservationRepository,
+            INotificationService notificationService,
+            ILogger<ReservationService> logger
             ) : base(appSettings, mapper, httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -34,6 +39,8 @@ namespace RestaurantManagement.Service.Implementation
             _mapper = mapper;
             _dbContext = dbContext;
             _ordersRepository = ordersRepository;
+            _notificationService = notificationService;
+            _logger = logger;
         }
 
         public async Task<List<AvailableTableDto>> GetAvailableTablesAsync(CheckAvailabilityRequestDto request)
@@ -58,7 +65,6 @@ namespace RestaurantManagement.Service.Implementation
         {
             var startTime = request.ResDate;
             var endTime = request.ResEndTime;
-            Guid? createdBy = null;
 
             if (startTime > endTime)
                 throw new ErrorException(StatusCodeEnum.C02);
@@ -92,10 +98,23 @@ namespace RestaurantManagement.Service.Implementation
                 IsDeleted = false,
                 CreatedAt = currentTime,
                 CreatedBy = currentUserId,
-                ResAutoCancelAt = DateTime.Now.AddMinutes(10)
+                ResAutoCancelAt = request.ResDate.AddMinutes(20)
             };
 
             await _reservationsRepository.InsertAsync(reservation);
+            // Send notification for new reservation
+            try
+            {
+                await _notificationService.SendNewReservationNotificationAsync(
+                    reservation.ResId,
+                    request.TempCustomerName ?? "Khách hàng",
+                    table.TbiTableNumber.ToString() ?? "Bàn");
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Failed to send new reservation notification for ResId: {ResId}", reservation.ResId);
+            }
+
             return _mapper.Map<ReservationResponseDto>(reservation);
         }
 
@@ -330,7 +349,7 @@ namespace RestaurantManagement.Service.Implementation
         }
 
         //Update reservation cause customer changes customer's quantities when they check in
-        public async Task<UpdateReservationRequestDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request)
+        public async Task<ReserDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request)
         {
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
@@ -364,8 +383,8 @@ namespace RestaurantManagement.Service.Implementation
                     
                     // Commit transaction if everything succeeds
                     await transaction.CommitAsync();
-                    
-                    return _mapper.Map<UpdateReservationRequestDto>(reservation);
+                    var reservationDetails = await GetReservationByIdAsync(resId);
+                    return reservationDetails;
                 }
                 catch (ErrorException)
                 {

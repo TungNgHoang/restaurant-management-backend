@@ -1,0 +1,51 @@
+﻿namespace RestaurantManagement.Service.Hubs
+{
+    [Authorize]
+    public class NotificationHub : Hub
+    {
+        private readonly ILogger<NotificationHub> _logger;
+        private readonly INotificationService _notificationService;
+
+        public NotificationHub(ILogger<NotificationHub> logger, INotificationService notificationService)
+        {
+            _logger = logger;
+            _notificationService = notificationService;
+        }
+
+        public override async Task OnConnectedAsync()
+        {
+            _logger.LogInformation("Client connected: {ConnectionId}", Context.ConnectionId);
+
+            // Gửi số lượng thông báo chưa đọc khi client kết nối
+            try
+            {
+                var unreadCount = await _notificationService.GetNotificationCountAsync(false);
+                await Clients.Caller.SendAsync("UnreadCountUpdated", unreadCount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi gửi unread count cho client mới kết nối");
+            }
+
+            await base.OnConnectedAsync();
+        }
+
+        public override async Task OnDisconnectedAsync(Exception exception)
+        {
+            _logger.LogInformation("Client disconnected: {ConnectionId}", Context.ConnectionId);
+            await base.OnDisconnectedAsync(exception);
+        }
+
+        public async Task JoinGroup(string groupName)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            _logger.LogInformation("Client {ConnectionId} joined group {GroupName}", Context.ConnectionId, groupName);
+        }
+
+        public async Task LeaveGroup(string groupName)
+        {
+            await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
+            _logger.LogInformation("Client {ConnectionId} left group {GroupName}", Context.ConnectionId, groupName);
+        }
+    }
+}

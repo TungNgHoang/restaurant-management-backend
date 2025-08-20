@@ -1,0 +1,8 @@
+﻿namespace RestaurantManagement.Service.Dtos.NotificationDto
+{
+    public class NotificationCountResponseDto
+    {
+        public int UnreadCount { get; set; }
+        public int TotalCount { get; set; }
+    }
+}
