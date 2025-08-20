@@ -18,7 +18,7 @@
             try
             {
                 var availableTables = await _reservationService.GetAvailableTablesAsync(request);
-                return Ok(new { Success = true, Data = availableTables });
+                return Success(new { Success = true, Data = availableTables });
             }
             catch (Exception ex)
             {
@@ -60,7 +60,7 @@
             try
             {
                 await _reservationService.CheckInReservationAsync(resId, actualNumber);
-                return Ok();
+                return Success();
             }
             catch
             {
@@ -75,7 +75,7 @@
             try
             {
                 var reservation = await _reservationService.GetReservationByIdAsync(resId);
-                return Ok(reservation);
+                return Success(reservation);
             }
             catch (Exception ex)
             {
@@ -99,7 +99,7 @@
             {
                 var updatedReservation = await _reservationService.UpdateReservationAsync(id, reserDto);
                 if (updatedReservation == null) return NotFound();
-                return Ok(updatedReservation);
+                return Success(updatedReservation);
             }
             catch (Exception ex)
             {

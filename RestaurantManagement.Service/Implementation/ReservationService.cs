@@ -90,15 +90,15 @@ namespace RestaurantManagement.Service.Implementation
                 TempCustomerName = request.TempCustomerName,
                 TempCustomerPhone = request.TempCustomerPhone,
                 TempCustomerMail = request.TempCustomerEmail,
-                ResDate = ToGmt7(request.ResDate),
-                ResEndTime = ToGmt7(request.ResEndTime),
+                ResDate = request.ResDate,
+                ResEndTime = request.ResEndTime,
                 ResNumber = request.ResNumber,
                 ResStatus = ReservationStatus.Pending.ToString(),
                 Note = request.Note,
                 IsDeleted = false,
                 CreatedAt = currentTime,
                 CreatedBy = currentUserId,
-                ResAutoCancelAt = ToGmt7(request.ResDate).AddMinutes(20)
+                ResAutoCancelAt = request.ResDate.AddMinutes(20)
             };
 
             await _reservationsRepository.InsertAsync(reservation);
@@ -349,7 +349,7 @@ namespace RestaurantManagement.Service.Implementation
         }
 
         //Update reservation cause customer changes customer's quantities when they check in
-        public async Task<UpdateReservationRequestDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request)
+        public async Task<ReserDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request)
         {
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
@@ -383,8 +383,8 @@ namespace RestaurantManagement.Service.Implementation
                     
                     // Commit transaction if everything succeeds
                     await transaction.CommitAsync();
-                    
-                    return _mapper.Map<UpdateReservationRequestDto>(reservation);
+                    var reservationDetails = await GetReservationByIdAsync(resId);
+                    return reservationDetails;
                 }
                 catch (ErrorException)
                 {

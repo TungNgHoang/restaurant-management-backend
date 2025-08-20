@@ -263,7 +263,7 @@ using (var scope = app.Services.CreateScope())
     await DataSeeder.SeedDataAsync(scope.ServiceProvider);
 }
 
-app.UseMiddleware<ExceptionMiddleware>();
+//app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
@@ -278,7 +278,7 @@ app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseMiddleware<SwaggerAuthMiddleware>();
-
+app.UseMiddleware<ExceptionMiddleware>();
 app.MapControllers();
 app.Run();
 

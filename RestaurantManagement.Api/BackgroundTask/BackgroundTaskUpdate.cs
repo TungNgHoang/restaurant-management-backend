@@ -1,4 +1,7 @@
-﻿namespace RestaurantManagement.Api.BackgroundTask
+﻿using AutoMapper;
+using Elastic.Clients.Elasticsearch.QueryDsl;
+
+namespace RestaurantManagement.Api.BackgroundTask
 {
     public class BackgroundTaskUpdate(IServiceProvider serviceProvider,
                               ILogger<BackgroundTaskUpdate> logger,
@@ -12,7 +15,7 @@
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             _logger.LogInformation("BackgroundTaskUpdate service đang hoạt động");
-
+            var intervalMinutes = _configuration.GetValue<int>("BackgroundTasks:CleanupIntervalMinutes", 1);
             while (!stoppingToken.IsCancellationRequested)
             {
                 try
@@ -26,17 +29,27 @@
                     //Xử lý báo cáo doanh thu hàng tháng
                     await ProcessMonthlyRevenueReport(stoppingToken);
                 }
-                catch (Exception ex) when (ex is not OperationCanceledException)
+                catch (OperationCanceledException oce) when (!stoppingToken.IsCancellationRequested)
                 {
-                    _logger.LogError(ex, "Lỗi khi xử lý đặt bàn quá hạn");
-                    // Tiếp tục chạy thay vì crash toàn bộ service
+                    // ngoại lệ hủy “ngoài ý muốn”
+                    _logger.LogWarning(oce, "Tác vụ bị huỷ sớm, sẽ lặp lại sau {Interval} phút", intervalMinutes);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Lỗi không mong muốn, service vẫn tiếp tục");
                 }
 
-                var intervalMinutes = _configuration.GetValue<int>("BackgroundTasks:CleanupIntervalMinutes", 1);
-                await Task.Delay(TimeSpan.FromMinutes(intervalMinutes), stoppingToken);
+                try
+                {
+                    await Task.Delay(intervalMinutes, stoppingToken);
+                }
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+                {
+                    // ứng dụng đang shutdown ⇒ thoát vòng lặp
+                }
             }
 
-            _logger.LogInformation("BackgroundTaskUpdate service dừng");
+            _logger.LogInformation("BackgroundTaskUpdate STOPPED");
         }
 
         private async Task ProcessExpiredReservations(CancellationToken stoppingToken)
@@ -64,10 +77,10 @@
             {
                 // Query expired reservations
                 var expiredReservations = await reservationRepo
-                    .FilterAsync(r => r.ResAutoCancelAt != null &&
-                                     r.ResAutoCancelAt < nowGmt7 &&
-                                     r.IsDeleted == false &&
-                                     r.ResStatus == ReservationStatus.Pending.ToString());
+            .FindElementAsync(r => r.ResAutoCancelAt != null &&
+                            r.ResAutoCancelAt < nowGmt7 &&
+                            r.IsDeleted == false &&
+                            r.ResStatus == ReservationStatus.Pending.ToString()); // ✅ Materialize ngay
 
                 if (!expiredReservations.Any())
                 {
@@ -93,7 +106,7 @@
                         var customerName = reservation.TempCustomerName ?? "Khách hàng";
 
                         // Xử lý hủy đặt bàn
-                        await ProcessSingleReservation(reservation, orderRepo, orderDetailRepo, stoppingToken);
+                        await ProcessSingleReservation(reservation.ResId, stoppingToken);
 
                         // Gửi thông báo hủy tự động
                         await notificationService.SendReservationAutoCancelledNotificationAsync(
@@ -115,7 +128,6 @@
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi xảy ra khi truy vấn đặt bàn quá hạn");
-                throw;
             }
         }
 
@@ -123,6 +135,7 @@
         {
             using var scope = _serviceProvider.CreateScope();
             var reservationRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblReservation>>();
+            var notiRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblNotification>>();
             var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
 
             var timeZone = _configuration.GetValue<string>("Application:TimeZone", "SE Asia Standard Time");
@@ -152,9 +165,15 @@
                 {
                     try
                     {
-                        var customerName = reservation.TempCustomerName ?? "Khách hàng";
-                        await notificationService.SendReservationExpiringSoonNotificationAsync(
-                            reservation.ResId, customerName, reservation.ResAutoCancelAt.Value);
+                        bool alreadySent = await notiRepo.AnyAsync(n =>
+                                                    n.ResId == reservation.ResId &&
+                                                    n.Message.Contains("[Đơn đặt bàn sắp quá hạn]"));
+                        if (!alreadySent)
+                        {
+                            var customerName = reservation.TempCustomerName ?? "Khách hàng";
+                            await notificationService.SendReservationExpiringSoonNotificationAsync(
+                                reservation.ResId, customerName, reservation.ResAutoCancelAt.Value);
+                        }
 
                         _logger.LogDebug("Đã gửi thông báo sắp quá hạn cho đặt bàn: {ReservationId}", reservation.ResId);
                     }
@@ -214,9 +233,7 @@
             }
         }
 
-        private async Task ProcessSingleReservation(TblReservation reservation,
-                                                  IRepository<TblOrderInfo> orderRepo,
-                                                  IRepository<TblOrderDetail> orderDetailRepo,
+        private async Task ProcessSingleReservation(Guid reservationId,
                                                   CancellationToken stoppingToken)
         {
             // Sử dụng transaction scope để đảm bảo consistency
@@ -227,30 +244,58 @@
 
             try
             {
+                // Query lại entity trong scope hiện tại
+                var reservation = await dbContext.TblReservations
+                    .FirstOrDefaultAsync(r => r.ResId == reservationId && !r.IsDeleted, stoppingToken);
 
-                var orders = await orderRepo.FilterAsync(o => o.ResId == reservation.ResId);
+                if (reservation == null)
+                {
+                    _logger.LogWarning("Reservation {ResId} not found or already deleted", reservationId);
+                    return;
+                }
+
+                // Double-check status để tránh race condition
+                if (reservation.ResStatus != ReservationStatus.Pending.ToString())
+                {
+                    _logger.LogInformation("Reservation {ResId} status changed to {Status}, skipping",
+                                         reservationId, reservation.ResStatus);
+                    return;
+                }
+
+                // Soft Delete cascade: OrderDetails → Orders → Reservation
+                var orders = await dbContext.TblOrderInfos
+                    .Where(o => o.ResId == reservationId && !o.IsDeleted)
+                    .ToListAsync(stoppingToken);
                 var orderIds = orders.Select(o => o.OrdId).ToList();
-                var orderDetails = await orderDetailRepo.FilterAsync(od => orderIds.Contains(od.OrdId));
-                // Delete related order details first
-                foreach (var orderDetail in orderDetails)
+
+                if (orderIds.Any())
                 {
-                    await orderDetailRepo.DeleteAsync(orderDetail);
+                    // Update IsDeleted = true cho OrderDetails
+                    await dbContext.TblOrderDetails
+                        .Where(od => orderIds.Contains(od.OrdId) && !od.IsDeleted)
+                        .ExecuteUpdateAsync(setters => setters
+                            .SetProperty(od => od.IsDeleted, true),
+                        stoppingToken);
+
+                    // Update IsDeleted = true cho Orders
+                    await dbContext.TblOrderInfos
+                        .Where(o => o.ResId == reservationId && !o.IsDeleted)
+                        .ExecuteUpdateAsync(setters => setters
+                            .SetProperty(o => o.IsDeleted, true),
+                        stoppingToken);
                 }
-                // Delete related orders first
-                foreach (var order in orders)
-                {
-                    await orderRepo.DeleteAsync(order);
-                }
 
-                // Delete the reservation itself
-                await scope.ServiceProvider.GetRequiredService<IRepository<TblReservation>>()
-                    .DeleteAsync(reservation);
+                // Update IsDeleted = true cho Reservation
+                await dbContext.TblReservations
+                    .Where(r => r.ResId == reservationId && !r.IsDeleted)
+                    .ExecuteUpdateAsync(setters => setters
+                        .SetProperty(r => r.IsDeleted, true),
+                    stoppingToken);
 
-
+                await dbContext.SaveChangesAsync(stoppingToken);
                 await transaction.CommitAsync(stoppingToken);
 
-                _logger.LogInformation("Successfully deleted expired reservation {ReservationId} and {OrderCount} orders and {OrderDetailCount} order details",
-                                     reservation.ResId, orders.Count(), orderDetails.Count());
+                _logger.LogInformation("Successfully deleted expired reservation {ResId}", reservationId);
             }
             catch (Exception)
             {

@@ -8,6 +8,6 @@
         Task CheckInReservationAsync(Guid resId, int actualNumber);
         Task<ReserDto> GetReservationByIdAsync(Guid resId);
         Task CancelReservationAsync(Guid resId);
-        Task<UpdateReservationRequestDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request);
+        Task<ReserDto> UpdateReservationAsync(Guid resId, UpdateReservationRequestDto request);
     }
 }

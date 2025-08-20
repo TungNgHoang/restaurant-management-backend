@@ -25,8 +25,7 @@ namespace RestaurantManagement.Service.Implementation
                     Message = $"[{type.GetDescription()}] {message}",
                     IsRead = false,
                     CreatedAt = DateTime.Now,
-                    CreatedBy = createdBy,
-                    RowVersion = new byte[8]
+                    CreatedBy = createdBy
                 };
 
                 await _notificationRepository.InsertAsync(notification);
@@ -53,11 +52,19 @@ namespace RestaurantManagement.Service.Implementation
                 _logger.LogInformation("Đã gửi thông báo real-time: Type={NotificationType}, Message={Message}, ResId={ResId}",
                     type, message, resId);
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                // Handle concurrency exception specifically
+                _logger.LogWarning(ex, "Concurrency conflict when inserting notification: Type={NotificationType}, Message={Message}", type, message);
+
+                
+                return;
+            }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Lỗi khi gửi thông báo: Type={NotificationType}, Message={Message}",
                     type, message);
-                throw;
+                return;
             }
         }
 

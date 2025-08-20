@@ -26,6 +26,7 @@ namespace RestaurantManagement.Api.AutoMapperProfile
             CreateMap<UserAccountDto, TblUserAccount > ();
             CreateMap<TblPromotion, PromotionDto>();
             CreateMap<TblStaff, StaffDto>();
+            CreateMap<TblReservation, UpdateReservationRequestDto>();
         }
     }
 }
