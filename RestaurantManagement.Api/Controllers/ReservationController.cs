@@ -53,7 +53,7 @@
             return Success(listResult);
         }
 
-        [Authorize(Policy = "CashierPolicy")]
+        [Authorize(Policy = "MCPolicy")]
         [HttpPut("{resId}/check-in")]
         public async Task<IActionResult> CheckInReservation(Guid resId, int actualNumber)
         {
