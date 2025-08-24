@@ -1,4 +1,7 @@
-﻿namespace RestaurantManagement.DataAccess.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace RestaurantManagement.DataAccess.Models;
 
 public partial class TblNotification
 {

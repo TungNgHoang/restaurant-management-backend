@@ -40,7 +40,7 @@
             }
             catch (Exception ex)
             {
-                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
+                return StatusCode(500, new { Success = false, Message = ex.Message });
             }
         }
 
@@ -53,7 +53,7 @@
             return Success(listResult);
         }
 
-        [Authorize(Policy = "CashierPolicy")]
+        [Authorize(Policy = "MCPolicy")]
         [HttpPut("{resId}/check-in")]
         public async Task<IActionResult> CheckInReservation(Guid resId, int actualNumber)
         {

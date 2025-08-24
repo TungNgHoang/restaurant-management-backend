@@ -43,7 +43,7 @@
 
             //if (!reservation.CusId.HasValue)
             //{
-                //throw new ErrorException(StatusCodeEnum.D03); // Ví dụ: khách hàng chưa được gán cho reservation
+            //throw new ErrorException(StatusCodeEnum.D03); // Ví dụ: khách hàng chưa được gán cho reservation
             //}
             // Nếu chưa có order, tạo mới
             if (existingOrder == null)
@@ -57,7 +57,7 @@
                     TbiId = reservation.TbiId,
                     OrdStatus = OrderStatusEnum.Order.ToString(),
                     ResId = reservation.ResId,
-                    CreatedBy = currentUserId, 
+                    CreatedBy = currentUserId,
                     CreatedAt = currentTime,
                     TotalPrice = 0,
                     IsDeleted = false
