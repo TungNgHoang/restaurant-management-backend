@@ -40,7 +40,7 @@
             }
             catch (Exception ex)
             {
-                throw new ErrorException(StatusCodeEnum.Error, ex.Message);
+                return StatusCode(500, new { Success = false, Message = ex.Message });
             }
         }
 
