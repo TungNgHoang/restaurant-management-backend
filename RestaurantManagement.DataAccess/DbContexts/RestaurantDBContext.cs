@@ -56,7 +56,7 @@ public partial class RestaurantDBContext : DbContext
     {
         modelBuilder.Entity<TblAttendance>(entity =>
         {
-            entity.HasKey(e => e.AttendanceId).HasName("PK__tblAtten__8B69261CCDCF5379");
+            entity.HasKey(e => e.AttendanceId).HasName("PK__tblAtten__8B69261C868252B8");
 
             entity.ToTable("tblAttendance");
 

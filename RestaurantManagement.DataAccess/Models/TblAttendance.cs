@@ -9,9 +9,7 @@ public partial class TblAttendance
 
     public Guid StaId { get; set; }
 
-    public Guid ShiftId { get; set; }
-
-    public DateOnly WorkDate { get; set; }
+    public Guid AssignmentId { get; set; }
 
     public DateTime? CheckIn { get; set; }
 
