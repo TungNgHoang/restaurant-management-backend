@@ -165,7 +165,7 @@ namespace RestaurantManagement.Api.Controllers
                     description: orderCode.ToString(),
                     items: items,
                     cancelUrl: "https://6fd09fa701c4.ngrok-free.app/payment/cancel",
-                    returnUrl: "https://6fd09fa701c4.ngrok-free.app/payment/success"
+                    returnUrl: "https://jw2rdsbh-3000.asse.devtunnels.ms/payment/success"
                 );
 
                 // Gọi service tạo payment link
