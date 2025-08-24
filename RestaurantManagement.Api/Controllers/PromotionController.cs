@@ -1,17 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.Core.ApiModels;
-using RestaurantManagement.Core.Enums;
-using RestaurantManagement.Core.Exceptions;
-using RestaurantManagement.Service.ApiModels;
-using RestaurantManagement.Service.Dtos.MenusDto;
-using RestaurantManagement.Service.Dtos.PromotionDto;
-using RestaurantManagement.Service.Implementation;
-using RestaurantManagement.Service.Interfaces;
-using Twilio.Jwt.Taskrouter;
-using Twilio.TwiML.Messaging;
-
-namespace RestaurantManagement.Api.Controllers
+﻿namespace RestaurantManagement.Api.Controllers
 {
     [Authorize]
     [Route("api/[controller]")]

@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using Elastic.Clients.Elasticsearch.QueryDsl;
-
-namespace RestaurantManagement.Api.BackgroundTask
+﻿namespace RestaurantManagement.Api.BackgroundTask
 {
     public class BackgroundTaskUpdate(IServiceProvider serviceProvider,
                               ILogger<BackgroundTaskUpdate> logger,

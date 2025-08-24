@@ -1,0 +1,11 @@
+﻿using Newtonsoft.Json;
+
+namespace RestaurantManagement.Service.Dtos.PaymentDto
+{
+    public class CancelPaymentLinkRequest
+    {
+        [JsonProperty("paymentOrderCode")]
+        public int PaymentOrderCode { get; set; }
+        public string Reason { get; set; }
+    }
+}
