@@ -16,6 +16,8 @@ public partial class RestaurantDBContext : DbContext
     {
     }
 
+    public virtual DbSet<TblAttendance> TblAttendances { get; set; }
+
     public virtual DbSet<TblBlackListToken> TblBlackListTokens { get; set; }
 
     public virtual DbSet<TblCustomer> TblCustomers { get; set; }
@@ -30,9 +32,15 @@ public partial class RestaurantDBContext : DbContext
 
     public virtual DbSet<TblPayment> TblPayments { get; set; }
 
+    public virtual DbSet<TblPayroll> TblPayrolls { get; set; }
+
     public virtual DbSet<TblPromotion> TblPromotions { get; set; }
 
     public virtual DbSet<TblReservation> TblReservations { get; set; }
+
+    public virtual DbSet<TblShift> TblShifts { get; set; }
+
+    public virtual DbSet<TblShiftAssignment> TblShiftAssignments { get; set; }
 
     public virtual DbSet<TblStaff> TblStaffs { get; set; }
 
@@ -42,10 +50,23 @@ public partial class RestaurantDBContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn,22956;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True");
+        => optionsBuilder.UseSqlServer("Data Source=cmcsv.ric.vn,22956;Initial Catalog=TKTKPM_NHOM5;Persist Security Info=True;User ID=cmcsvtkpm;Password=cMc!@#$2025;Trust Server Certificate=True;encrypt=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TblAttendance>(entity =>
+        {
+            entity.HasKey(e => e.AttendanceId).HasName("PK__tblAtten__8B69261CCDCF5379");
+
+            entity.ToTable("tblAttendance");
+
+            entity.Property(e => e.AttendanceId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CheckIn).HasColumnType("datetime");
+            entity.Property(e => e.CheckOut).HasColumnType("datetime");
+            entity.Property(e => e.StaId).HasColumnName("StaID");
+            entity.Property(e => e.Status).HasMaxLength(20);
+        });
+
         modelBuilder.Entity<TblBlackListToken>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__tblBlack__3214EC07228DA9ED");
@@ -243,6 +264,21 @@ public partial class RestaurantDBContext : DbContext
                 .HasConstraintName("FK_tblPayment_tblOrderInfo");
         });
 
+        modelBuilder.Entity<TblPayroll>(entity =>
+        {
+            entity.HasKey(e => e.PayrollId).HasName("PK__tblPayro__99DFC6720CABE126");
+
+            entity.ToTable("tblPayroll");
+
+            entity.Property(e => e.PayrollId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.StaId).HasColumnName("StaID");
+            entity.Property(e => e.TotalHours).HasColumnType("decimal(5, 2)");
+            entity.Property(e => e.TotalSalary).HasColumnType("decimal(18, 2)");
+        });
+
         modelBuilder.Entity<TblPromotion>(entity =>
         {
             entity.HasKey(e => e.ProId);
@@ -298,6 +334,30 @@ public partial class RestaurantDBContext : DbContext
                 .HasForeignKey(d => d.TbiId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_tblReservation_tblTableInfo");
+        });
+
+        modelBuilder.Entity<TblShift>(entity =>
+        {
+            entity.HasKey(e => e.ShiftId).HasName("PK__tblShift__C0A838817BBE8795");
+
+            entity.ToTable("tblShift");
+
+            entity.Property(e => e.ShiftId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            entity.Property(e => e.ShiftName).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TblShiftAssignment>(entity =>
+        {
+            entity.HasKey(e => e.AssignmentId).HasName("PK__tblShift__32499E77A4E18497");
+
+            entity.ToTable("tblShiftAssignment");
+
+            entity.Property(e => e.AssignmentId).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.StaId).HasColumnName("StaID");
         });
 
         modelBuilder.Entity<TblStaff>(entity =>
