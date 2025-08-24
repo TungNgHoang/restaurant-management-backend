@@ -1,9 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using RestaurantManagement.DataAccess.Interfaces;
-using RestaurantManagement.DataAccess.Models;
+﻿using Net.payOS.Types;
 using RestaurantManagement.Service.Dtos.PaymentDto;
-using RestaurantManagement.Service.Interfaces;
+using System.Threading.Tasks;
 
 namespace RestaurantManagement.Api.Controllers
 {
@@ -12,11 +9,13 @@ namespace RestaurantManagement.Api.Controllers
     public class PaymentController : BaseApiController
     {
         public IPaymentService _paymentService { get; set; }
-     
-        public PaymentController(IServiceProvider serviceProvider, IPaymentService paymentService) : base(serviceProvider)
+
+        private readonly ILogger<PaymentController> _logger;
+
+        public PaymentController(IServiceProvider serviceProvider, IPaymentService paymentService, ILogger<PaymentController> logger) : base(serviceProvider)
         {
             _paymentService = paymentService;
-
+            _logger = logger;
         }
 
         [Authorize(Policy = "BillingPolicy")]
@@ -34,6 +33,29 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
+        //[Authorize(Policy = "BillingPolicy")]
+        //[HttpPost("payos/create/{resId}")]
+        //public async Task<IActionResult> CreatePayOSPayment(Guid resId, Guid ordId, string? proCode)
+        //{
+        //    try
+        //    {
+        //        var result = await _paymentService.CreatePayOSPaymentAsync(resId, ordId, proCode);
+        //        return Ok(new { Success = true, Data = result });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, new { Success = false, Message = ex.Message });
+        //    }
+        //}
 
+        [HttpGet("success")]
+        [AllowAnonymous]
+        public IActionResult PaymentSuccess([FromQuery] string orderCode, [FromQuery] string paymentLinkId)
+        {
+            // Redirect to success page hoặc return success response
+            return Ok(new { Success = true, Message = "Thanh toán thành công", OrderCode = orderCode });
+        }
+
+        
     }
 }

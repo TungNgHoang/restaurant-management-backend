@@ -2,14 +2,15 @@
 using Elastic.Transport;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
+using Net.payOS;
 using RestaurantManagement.Api.AutoMapperProfile;
+using RestaurantManagement.Api.BackgroundTask;
 using RestaurantManagement.Api.Filters;
 using RestaurantManagement.Api.Middlewares;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Infrastructure;
-using System.Text.Json.Serialization;
-using RestaurantManagement.Api.BackgroundTask;
 using Serilog;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -76,6 +77,12 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<IRepository<TblNotification>, Repository<TblNotification>>();
 // Register background service
 builder.Services.AddHostedService<BackgroundTaskUpdate>();
+// Add PayOS settings
+builder.Services.Configure<PayOSConfiguration>(builder.Configuration.GetSection("PayOS"));
+
+// Register PayOS service
+builder.Services.AddScoped<IPayOSService, PayOSService>();
+builder.Services.AddScoped<IPaymentService, PaymentService>();
 
 ////Addcors
 var allowedFrontendOrigins = new[] {
@@ -129,6 +136,17 @@ builder.Services.AddSwaggerGen(c =>
 });
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddAutoMapper(typeof(ProjectProfile));
+var payOSConfig = builder.Configuration.GetSection("PayOS");
+// Lấy credentials với fallback cho development
+builder.Services.AddSingleton(provider =>
+{
+    var payOSConfig = builder.Configuration.GetSection("PayOS");
+    var clientId = payOSConfig["ClientId"] ?? Environment.GetEnvironmentVariable("PAYOS_CLIENT_ID") ?? "demo-client-id";
+    var apiKey = payOSConfig["ApiKey"] ?? Environment.GetEnvironmentVariable("PAYOS_API_KEY") ?? "demo-api-key";
+    var checksumKey = payOSConfig["ChecksumKey"] ?? Environment.GetEnvironmentVariable("PAYOS_CHECKSUM_KEY") ?? "demo-checksum-key";
+
+    return new PayOS(clientId, apiKey, checksumKey);
+});
 // Lấy key từ cấu hình
 var jwtSettings = builder.Configuration.GetSection("AppSettings:Jwt");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Key"]);

@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Logging;
-using RestaurantManagement.DataAccess.Interfaces;
-
-namespace RestaurantManagement.Service.Implementation
+﻿namespace RestaurantManagement.Service.Implementation
 {
     public class ReservationService : BaseService, IReservationService
     {

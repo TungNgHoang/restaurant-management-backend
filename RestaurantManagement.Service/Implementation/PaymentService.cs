@@ -1,5 +1,7 @@
-﻿
-using Microsoft.Extensions.Logging;
+﻿using Net.payOS.Types;
+using RestaurantManagement.Service.Dtos.PaymentDto;
+using RestaurantManagement.Service.Interfaces;
+using System.Security.Cryptography;
 
 namespace RestaurantManagement.Service.Implementation
 {
@@ -15,6 +17,7 @@ namespace RestaurantManagement.Service.Implementation
         private readonly INotificationService _notificationService;
         protected readonly RestaurantDBContext _dbContext;
         private readonly ILogger<PaymentService> _logger;
+        private readonly IPayOSService _payOSService;
         public PaymentService(
             AppSettings appSettings,
             IMapper mapper,
@@ -27,7 +30,8 @@ namespace RestaurantManagement.Service.Implementation
             IRepository<TblCustomer> customerRepository,
             INotificationService notificationService,
             RestaurantDBContext dbContext,
-            ILogger<PaymentService> logger
+            ILogger<PaymentService> logger,
+            IPayOSService payOSService
             ) : base(appSettings, mapper, httpContextAccessor)
         {
             _dbContext = dbContext;
@@ -40,6 +44,7 @@ namespace RestaurantManagement.Service.Implementation
             _customerRepository = customerRepository;
             _notificationService = notificationService;
             _logger = logger;
+            _payOSService = payOSService;
         }
 
         public async Task CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
@@ -116,7 +121,6 @@ namespace RestaurantManagement.Service.Implementation
                 {
                     throw new ErrorException(StatusCodeEnum.D07);
                 }
-
             }
 
             // 2. Giảm thêm theo hạng khách hàng
@@ -224,5 +228,228 @@ namespace RestaurantManagement.Service.Implementation
                 }
             }
         }
+        //public async Task<PayOSPaymentResponseDto> CreatePayOSPaymentAsync(Guid resId, Guid ordId, string? proCode)
+        //{
+        //    // 1. Lấy thông tin đơn hàng
+        //    var order = await _orderRepository.GetOrderByIdAsync(ordId);
+        //    if (order == null)
+        //        throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
+
+        //    // 2. Kiểm tra reservation
+        //    var reservation = await _reservationsRepository.FindByIdAsync(resId);
+        //    if (reservation == null || reservation.ResStatus != ReservationStatus.Serving.ToString())
+        //        throw new ErrorException(StatusCodeEnum.A03);
+
+        //    // 3. Lấy thông tin khách hàng
+        //    if (!reservation.CusId.HasValue)
+        //        throw new ErrorException(StatusCodeEnum.C09);
+
+        //    var customer = await _customerRepository.FindByIdAsync(reservation.CusId.Value);
+        //    if (customer == null)
+        //        throw new ErrorException(StatusCodeEnum.C09);
+
+        //    // 4. Tính toán giá sau giảm giá (sử dụng logic hiện tại)
+        //    decimal originalPrice = order.TotalPrice;
+        //    decimal priceAfterVoucher = originalPrice;
+        //    decimal voucherDiscount = 0;
+
+        //    // Logic giảm giá giống như trong CheckoutAndPayAsync
+        //    if (!string.IsNullOrEmpty(proCode))
+        //    {
+        //        var promotionList = await _promotionRepository.FilterAsync(p => p.ProCode == proCode && !p.IsDeleted && p.StartDate <= DateTime.Now && p.EndDate >= DateTime.Now);
+        //        var promotion = promotionList.FirstOrDefault();
+        //        if (promotion != null)
+        //        {
+        //            if (Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var customerTier) &&
+        //                Enum.TryParse<CustomerTierEnum>(promotion.DiscountType, out var requiredTier) &&
+        //                customerTier >= requiredTier)
+        //            {
+        //                if (!promotion.ConditionVal.HasValue || order.TotalPrice >= promotion.ConditionVal.Value)
+        //                {
+        //                    if (promotion.ProQuantity > 0)
+        //                    {
+        //                        if (promotion.DiscountVal <= 1)
+        //                        {
+        //                            voucherDiscount = originalPrice * promotion.DiscountVal;
+        //                        }
+        //                        else
+        //                        {
+        //                            voucherDiscount = promotion.DiscountVal;
+        //                        }
+        //                        voucherDiscount = Math.Min(voucherDiscount, originalPrice);
+        //                        priceAfterVoucher -= voucherDiscount;
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    // 5. Giảm giá theo hạng khách hàng
+        //    if (Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var tier))
+        //    {
+        //        var tierDiscountMap = new Dictionary<CustomerTierEnum, decimal>
+        //        {
+        //            { CustomerTierEnum.Standard, 0.02m },
+        //            { CustomerTierEnum.Silver, 0.05m },
+        //            { CustomerTierEnum.Gold, 0.07m },
+        //            { CustomerTierEnum.Diamond, 0.10m }
+        //        };
+
+        //        if (tierDiscountMap.TryGetValue(tier, out var rankPercent))
+        //        {
+        //            var rankDiscount = priceAfterVoucher * rankPercent;
+        //            priceAfterVoucher -= rankDiscount;
+        //        }
+        //    }
+
+        //    // 6. Thêm VAT
+        //    var vat = 0.08m;
+        //    var finalAmount = priceAfterVoucher * (1 + vat);
+
+        //    // 9. Lưu thông tin payment với trạng thái Pending
+        //    var currentUserId = GetCurrentUserId();
+        //    var currentTime = ToGmt7(DateTime.UtcNow);
+
+        //    // Tạo payment record với status "Pending" 
+        //    var payment = new TblPayment
+        //    {
+        //        PayId = Guid.NewGuid(),
+        //        OrdId = ordId,
+        //        CusId = order.CusId,
+        //        Amount = finalAmount,
+        //        PayMethod = "PayOS",
+        //        PayStatus = "Pending",
+        //        IsDeleted = false,
+        //        CreatedAt = ToGmt7(DateTime.UtcNow),
+        //        CreatedBy = GetCurrentUserId()
+        //    };
+
+        //    await _paymentRepository.InsertAsync(payment);
+
+        //    // Tạo PayOS payment request và trả về response
+        //    var payosRequest = new PayOSPaymentRequestDto {
+        //        ResId = resId,
+        //        OrdId = ordId,
+        //        Amount = finalAmount,
+        //        Description = ordId.ToString(),
+        //        ProCode = proCode,
+        //        CustomerName = customer.CusName ?? reservation.TempCustomerName ?? "Khách hàng",
+        //        CustomerEmail = customer.CusEmail
+        //    };
+        //    var payosResult = await _payOSService.CreatePaymentLinkAsync(payosRequest);
+
+        //    return new PayOSPaymentResponseDto {
+        //        CheckoutUrl = payosResult.checkoutUrl,
+        //        QrCode = payosResult.qrCode,
+        //        OrderCode = payosResult.orderCode,
+        //        PaymentLinkId = payosResult.paymentLinkId,
+        //        Status = payosResult.status,
+        //        Amount = payosResult.amount,
+        //        AccountNumber = payosResult.accountNumber
+        //    };
+        //}
+
+        //public async Task HandlePayOSWebhookAsync(WebhookType webhookData)
+        //{
+        //    try
+        //    {
+        //        // 1. Verify webhook data
+        //        var verifiedData = await _payOSService.VerifyWebhookDataAsync(webhookData);
+
+        //        if (!webhookData.success)
+        //        {
+        //            _logger.LogWarning("PayOS webhook received with failure status for order {OrderCode}", verifiedData.orderCode);
+        //            return;
+        //        }
+
+        //        // 2. Tìm payment record
+                
+        //        var payment = await _paymentRepository.FindAsync(p => p.OrdId.ToString() == verifiedData.description && p.PayMethod == "PayOS");
+
+        //        if (payment == null)
+        //        {
+        //            _logger.LogWarning("Payment not found for PayOS order {OrderCode}", verifiedData.orderCode);
+        //            return;
+        //        }
+
+        //        // 3. Cập nhật trạng thái payment
+        //        payment.PayStatus = "Completed";
+        //        payment.UpdatedAt = ToGmt7(DateTime.UtcNow);
+        //        payment.UpdatedBy = GetCurrentUserId();
+
+        //        await _paymentRepository.UpdateAsync(payment);
+
+        //        // 4. Cập nhật trạng thái reservation và table (logic từ CheckoutAndPayAsync)
+        //        var order = await _orderRepository.GetOrderByIdAsync(payment.OrdId);
+        //        if (order != null)
+        //        {
+        //            var reservation = await _reservationsRepository.FindAsync(r => r.ResId == order.ResId);
+        //            if (reservation != null)
+        //            {
+        //                var currentUserId = GetCurrentUserId();
+        //                var currentTime = ToGmt7(DateTime.UtcNow);
+
+        //                // Cập nhật reservation
+        //                reservation.ResStatus = ReservationStatus.Finished.ToString();
+        //                reservation.UpdatedAt = currentTime;
+        //                reservation.UpdatedBy = currentUserId;
+        //                await _reservationsRepository.UpdateAsync(reservation);
+
+        //                // Cập nhật table
+        //                var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
+        //                if (table != null)
+        //                {
+        //                    table.TbiStatus = TableStatus.Empty.ToString();
+        //                    table.UpdatedAt = currentTime;
+        //                    table.UpdatedBy = currentUserId;
+        //                    await _tablesRepository.UpdateAsync(table);
+        //                }
+
+        //                // Cập nhật customer points và tier
+        //                if (reservation.CusId.HasValue)
+        //                {
+        //                    var customer = await _customerRepository.FindByIdAsync(reservation.CusId.Value);
+        //                    if (customer != null)
+        //                    {
+        //                        customer.CusPoints += (int)payment.Amount;
+
+        //                        // Update tier logic
+        //                        if (customer.CusPoints >= 10_000_000)
+        //                            customer.CusTier = CustomerTierEnum.Diamond.ToString();
+        //                        else if (customer.CusPoints >= 5_000_000)
+        //                            customer.CusTier = CustomerTierEnum.Gold.ToString();
+        //                        else if (customer.CusPoints >= 2_000_000)
+        //                            customer.CusTier = CustomerTierEnum.Silver.ToString();
+        //                        else if (customer.CusPoints >= 1_000_000)
+        //                            customer.CusTier = CustomerTierEnum.Standard.ToString();
+        //                        else
+        //                            customer.CusTier = CustomerTierEnum.Unranked.ToString();
+
+        //                        await _customerRepository.UpdateAsync(customer);
+        //                    }
+        //                }
+
+        //                // Send notification
+        //                try
+        //                {
+        //                    var customer = await _customerRepository.FindByIdAsync(reservation.CusId.Value);
+        //                    await _notificationService.SendPaymentSuccessNotificationAsync(
+        //                        reservation.ResId, payment.Amount, customer?.CusName ?? reservation.TempCustomerName ?? "Khách hàng");
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    _logger.LogWarning(ex, "Failed to send payment success notification");
+        //                }
+        //            }
+        //        }
+
+        //        _logger.LogInformation("PayOS payment processed successfully for order {OrderCode}", verifiedData.orderCode);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        _logger.LogError(ex, "Error processing PayOS webhook for order {OrderCode}", webhookData.data?.orderCode);
+        //        throw;
+        //    }
+        //}
     }
 }
