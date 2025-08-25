@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace RestaurantManagement.Service.Dtos.AttendanceDto
 {
-    internal class Class1
+    public class AssignmentDto
     {
+        public TimeOnly shiftTime { get; set; }
+        public DateOnly shiftDate { get; set; }
+        public List<Guid> staId { get; set; }
     }
 }

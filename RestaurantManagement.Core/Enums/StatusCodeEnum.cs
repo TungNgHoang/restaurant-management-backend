@@ -127,6 +127,17 @@ namespace RestaurantManagement.Core.Enums
         [Description("Đánh dấu đã đọc thông báo thành công")]
         F03,
 
+        //StatusCode cho Assignment
+        [Description("Không tìm thấy phân công trong thời gian quy định")]
+        G01,
+        [Description("Tạo phân công thành công")]
+        G02,
+        [Description("Nhân viên này không tồn tại để phân công")]
+        G03,
+        [Description("Cập nhật phân công thành công")]
+        G04,
+
+
         [Description("Bad request.")]
         BadRequest,
 
