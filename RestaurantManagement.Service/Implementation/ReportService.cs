@@ -19,7 +19,7 @@
             IRepository<TblOrderDetail> orderDetailRepository,
             IRepository<TblReservation> reservationRepository,
             IRepository<TblCustomer> customerRepository
-            ) : base(appSettings, mapper, httpContextAccessor)
+            ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;

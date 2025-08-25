@@ -32,7 +32,7 @@ namespace RestaurantManagement.Service.Implementation
             RestaurantDBContext dbContext,
             ILogger<PaymentService> logger,
             IPayOSService payOSService
-            ) : base(appSettings, mapper, httpContextAccessor)
+            ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _dbContext = dbContext;
             _httpContextAccessor = httpContextAccessor;

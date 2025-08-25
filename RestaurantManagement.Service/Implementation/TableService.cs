@@ -1,16 +1,20 @@
-﻿namespace RestaurantManagement.Service.Implementation
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace RestaurantManagement.Service.Implementation
 {
     public class TableService : BaseService, ITableService
     {
         private readonly IMapper _mapper;
         private readonly IRepository<TblTableInfo> _tableRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly RestaurantDBContext _dbContext;
 
-        public TableService(AppSettings appSettings, IMapper mapper, IRepository<TblTableInfo> tableRepository, IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
+        public TableService(AppSettings appSettings, IMapper mapper, IRepository<TblTableInfo> tableRepository, IHttpContextAccessor httpContextAccessor, RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _mapper = mapper;
             _tableRepository = tableRepository;
             _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<TableDto>> GetAllTableAsync(TableModels pagingModel)

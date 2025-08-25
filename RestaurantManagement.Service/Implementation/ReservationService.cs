@@ -25,7 +25,7 @@
             IReservationRepository reservationRepository,
             INotificationService notificationService,
             ILogger<ReservationService> logger
-            ) : base(appSettings, mapper, httpContextAccessor)
+            ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _httpContextAccessor = httpContextAccessor;
             _reservationsRepository = reservationsRepository;

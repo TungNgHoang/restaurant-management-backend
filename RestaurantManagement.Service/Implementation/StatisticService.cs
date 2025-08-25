@@ -1,13 +1,16 @@
-﻿namespace RestaurantManagement.Service.Implementation
+﻿
+namespace RestaurantManagement.Service.Implementation
 {
     public class StatisticService : BaseService, IStatisticService
     {
         private readonly IStatisticRepository _statisticRepository;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public StatisticService(AppSettings appSettings, IMapper mapper, IStatisticRepository statisticRepository, IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
+        protected readonly RestaurantDBContext _context;
+        public StatisticService(AppSettings appSettings, IMapper mapper, IStatisticRepository statisticRepository, IHttpContextAccessor httpContextAccessor, RestaurantDBContext context) : base(appSettings, mapper, httpContextAccessor, context)
         {
             _statisticRepository = statisticRepository;
             _httpContextAccessor = httpContextAccessor;
+            _context = context;
         }
 
         public async Task<StatisticsResponse> GetStatisticsAsync([FromBody] StatisticsRequest request)
@@ -256,9 +259,81 @@
             }).ToList();
         }
 
-        public Task<StatisticsResponse> GetStatisticsAsync(StatisticsRequest request, string userEmail, string userRole)
+
+        public async Task<List<TopDishDto>> GetTopDishesAsync()
         {
-            throw new NotImplementedException();
+            var currentDate = DateTime.Now;
+
+            // Kỳ hiện tại: 30 ngày gần nhất (từ hôm nay về trước 30 ngày)
+            var currentPeriodStart = currentDate.AddDays(-30);
+            var currentPeriodEnd = currentDate;
+
+            // Kỳ trước: 30 ngày trước đó (từ 60 ngày trước đến 30 ngày trước)
+            var previousPeriodStart = currentDate.AddDays(-60);
+            var previousPeriodEnd = currentDate.AddDays(-30);
+
+            // Step 1: Lấy top 5 món ăn của kỳ hiện tại (30 ngày gần nhất)
+            var currentPeriodData = await _context.TblOrderDetails
+                .Where(od => od.CreatedAt >= currentPeriodStart && od.CreatedAt < currentPeriodEnd)
+                .Join(_context.TblMenus,
+                      od => od.MnuId,
+                      m => m.MnuId,
+                      (od, m) => new { OrderDetail = od, Menu = m })
+                .GroupBy(x => new
+                {
+                    x.Menu.MnuId,
+                    x.Menu.MnuName,
+                    x.Menu.MnuPrice,
+                    x.Menu.MnuImage
+                })
+                .Select(g => new
+                {
+                    MnuId = g.Key.MnuId,
+                    MnuName = g.Key.MnuName,
+                    MnuPrice = g.Key.MnuPrice,
+                    MnuImage = g.Key.MnuImage,
+                    OrderCount = g.Count()
+                })
+                .OrderByDescending(x => x.OrderCount)
+                .Take(5).ToListAsync(); 
+
+            // Step 2: Lấy dữ liệu kỳ trước cho cùng những món ăn đó
+            var dishIds = currentPeriodData.Select(x => x.MnuId).ToList();
+
+            var previousPeriodData = await _context.TblOrderDetails
+                .Where(od => od.CreatedAt >= previousPeriodStart && od.CreatedAt < previousPeriodEnd
+                          && dishIds.Contains(od.MnuId))
+                .GroupBy(od => od.MnuId)
+                .Select(g => new
+                {
+                    MnuId = g.Key,
+                    OrderCount = g.Count()
+                })
+                .ToListAsync();
+
+            // Step 3: Kết hợp dữ liệu và tính growth percentage
+            var result = currentPeriodData.Select(current =>
+            {
+                var previous = previousPeriodData.FirstOrDefault(p => p.MnuId == current.MnuId);
+                var previousCount = previous?.OrderCount ?? 0;
+
+                // Công thức tính growth percentage: (current - previous) / previous * 100
+                var growthPercentage = previousCount == 0
+                    ? (current.OrderCount > 0 ? 100m : 0m) // Edge case: kỳ trước = 0
+                    : Math.Round(((decimal)(current.OrderCount - previousCount) / previousCount) * 100, 2);
+
+                return new TopDishDto
+                {
+                    MnuId = current.MnuId,
+                    MnuName = current.MnuName,
+                    MnuPrice = current.MnuPrice,
+                    MnuImage = current.MnuImage,
+                    QuantitySold = current.OrderCount,
+                    GrowthPercentage = growthPercentage
+                };
+            }).ToList();
+
+            return result;
         }
     }
 }

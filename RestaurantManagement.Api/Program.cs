@@ -87,7 +87,8 @@ builder.Services.AddScoped<IPaymentService, PaymentService>();
 ////Addcors
 var allowedFrontendOrigins = new[] {
     "https://pizzadaay.ric.vn",
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "https://jw2rdsbh-3000.asse.devtunnels.ms"
 };
 
 builder.Services.AddCors(options =>

@@ -9,6 +9,7 @@
         private readonly IRepository<TblReservation> _reservationRepository;
         private readonly IRepository<TblMenu> _menuRepository;
         private readonly IOrderRepository _orderRepository;
+        private readonly RestaurantDBContext _dbContext;
 
         public OrderService(
             AppSettings appSettings,
@@ -18,8 +19,9 @@
             IRepository<TblOrderDetail> orderDetailsRepository,
             IRepository<TblMenu> menuRepository,
             IOrderRepository orderRepository,
-            IRepository<TblReservation> reservationRepository
-        ) : base(appSettings, mapper, httpContextAccessor) // Truyền xuống BaseService
+            IRepository<TblReservation> reservationRepository,
+            RestaurantDBContext dbContext
+        ) : base(appSettings, mapper, httpContextAccessor, dbContext) // Truyền xuống BaseService
         {
             _orderInfoRepository = orderInfoRepository;
             _orderDetailsRepository = orderDetailsRepository;
@@ -28,6 +30,7 @@
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _reservationRepository = reservationRepository;
+            _dbContext = dbContext;
         }
         public async Task<OrderDTO> ProcessAndUpdateOrderAsync(Guid tbiId, List<OrderItemDto> newOrderItems)
         {

@@ -164,7 +164,7 @@ namespace RestaurantManagement.Api.Controllers
                     amount: (int)priceAfterVat,
                     description: orderCode.ToString(),
                     items: items,
-                    cancelUrl: "https://6fd09fa701c4.ngrok-free.app/payment/cancel",
+                    cancelUrl: "https://jw2rdsbh-3000.asse.devtunnels.ms/admin-reservation",
                     returnUrl: "https://jw2rdsbh-3000.asse.devtunnels.ms/payment/success"
                 );
 
