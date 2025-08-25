@@ -1,7 +1,5 @@
 ﻿using iTextSharp.text;
 using iTextSharp.text.pdf;
-using System.IO;
-using System.Threading.Tasks;
 
 
 namespace RestaurantManagement.Service.Implementation
@@ -15,6 +13,7 @@ namespace RestaurantManagement.Service.Implementation
         private readonly IRepository<TblPayment> _paymentRepository;
         private readonly IRepository<TblOrderDetail> _orderDetailRepository;
         private readonly IRepository<TblMenu> _menuRepository;
+        private readonly RestaurantDBContext _dbContext;
 
         public InvoiceService(
             AppSettings appSettings,
@@ -25,8 +24,9 @@ namespace RestaurantManagement.Service.Implementation
             IRepository<TblPayment> paymentRepository,
             IRepository<TblOrderDetail> orderDetailRepository,
             IRepository<TblMenu> menuRepository,
-            IHttpContextAccessor httpContextAccessor
-        ) : base(appSettings, mapper, httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            RestaurantDBContext dbContext
+        ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _tableRepository = tableRepository;
             _reservationsRepository = reservationsRepository;
@@ -35,6 +35,7 @@ namespace RestaurantManagement.Service.Implementation
             _orderDetailRepository = orderDetailRepository;
             _menuRepository = menuRepository;
             _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<InvoiceDto>> GetAllInvoiceAsync(InvoiceModels pagingModel)

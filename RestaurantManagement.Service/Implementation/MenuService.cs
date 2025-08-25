@@ -5,12 +5,14 @@
         private readonly IMenuRepository _menuRepository;
         private readonly IMapper _mapper;
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly RestaurantDBContext _dbContext;
 
-        public MenuService(AppSettings appSettings, IMenuRepository menuRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
+        public MenuService(AppSettings appSettings, IMenuRepository menuRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _menuRepository = menuRepository;
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
         }
 
         public async Task<IEnumerable<MenuDto>> GetAllMenuAsync(MenuModels pagingModel)

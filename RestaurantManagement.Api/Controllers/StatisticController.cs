@@ -19,5 +19,24 @@
             var result = await _statisticService.GetStatisticsAsync(request);
             return Ok(result);
         }
+
+        [HttpGet("top-dishes")]
+        public async Task<IActionResult> GetTopDishes()
+        {
+            try
+            {
+                var result = await _statisticService.GetTopDishesAsync();
+
+                return Success(new
+                {
+                    message = "Lấy danh sách top 5 món ăn thành công",
+                    data = result,
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new ErrorException(StatusCodeEnum.BadRequest, ex.Message);
+            }
+        }
     }
 }

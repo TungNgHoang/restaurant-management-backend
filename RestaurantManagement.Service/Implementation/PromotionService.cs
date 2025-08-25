@@ -17,8 +17,8 @@ namespace RestaurantManagement.Service.Implementation
             IOrderRepository orderRepository, 
             IRepository<TblCustomer> customerRepository,
             IPromotionRepository promotionRepository, 
-            IMapper mapper, IHttpContextAccessor httpContextAccessor)
-            : base(appSettings, mapper, httpContextAccessor)
+            IMapper mapper, IHttpContextAccessor httpContextAccessor, RestaurantDBContext dbContext)
+            : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _promotionRepository = promotionRepository;
             _mapper = mapper;

@@ -245,7 +245,7 @@ namespace RestaurantManagement.Service.Implementation
         
         public static long GenerateUniqueOrderCode(Guid guid)
         {
-            long orderCode = Math.Abs(guid.GetHashCode()) * 10000 + (DateTime.Now.Hour * 100 + DateTime.Now.Minute);
+            long orderCode = Math.Abs(guid.GetHashCode()) * 10000 + (DateTime.Now.Hour * 100 + DateTime.Now.Second);
             if (orderCode < 0)
                 return -orderCode;
             return orderCode;
