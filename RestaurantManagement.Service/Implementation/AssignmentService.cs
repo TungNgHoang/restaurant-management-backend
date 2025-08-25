@@ -10,6 +10,7 @@ namespace RestaurantManagement.Service.Implementation
         private readonly IRepository<TblShiftAssignment> _assignmentRepository;
         private readonly IRepository<TblShift> _shiftRepository;
         private readonly IRepository<TblStaff> _staffRepository;
+        private readonly RestaurantDBContext _dbContext;
 
         public AssignmentService(
             AppSettings appSettings, 
@@ -17,14 +18,16 @@ namespace RestaurantManagement.Service.Implementation
             IHttpContextAccessor httpContextAccessor,
             IRepository<TblShiftAssignment> assignmentRepository,
             IRepository<TblShift> shiftRepository,
-            IRepository<TblStaff> staffRepository
-            ) : base(appSettings, mapper, httpContextAccessor)
+            IRepository<TblStaff> staffRepository,
+            RestaurantDBContext dbContext
+            ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;
             _assignmentRepository = assignmentRepository;
             _shiftRepository = shiftRepository;
             _staffRepository = staffRepository;
+            _dbContext = dbContext;
         }
 
         // thêm mới phân công ca làm việc với shiftTime và danh sách staId
