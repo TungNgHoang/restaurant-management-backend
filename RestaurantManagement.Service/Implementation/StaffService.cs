@@ -15,7 +15,8 @@ namespace RestaurantManagement.Service.Implementation
             IStaffRepository staffRepository, 
             IRepository<TblUserAccount> userAccountRepository, 
             IMapper mapper,
-            IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor, 
+            RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _staffRepository = staffRepository;
             _mapper = mapper;

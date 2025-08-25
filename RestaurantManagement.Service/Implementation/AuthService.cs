@@ -12,7 +12,7 @@
             IConfiguration configuration,
             IHttpContextAccessor httpContextAccessor,
             IRepository<TblBlackListToken> blackListTokenRepository,
-            RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor)
+            RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _blackListTokenRepository = blackListTokenRepository ?? throw new ArgumentNullException(nameof(blackListTokenRepository));

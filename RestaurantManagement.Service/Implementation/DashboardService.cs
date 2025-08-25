@@ -18,7 +18,7 @@
             IRepository<TblReservation> reservationRepository,
             IRepository<TblPayment> paymentRepository,
             IHttpContextAccessor httpContextAccessor
-            ) : base(appSettings, mapper, httpContextAccessor)
+            ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;

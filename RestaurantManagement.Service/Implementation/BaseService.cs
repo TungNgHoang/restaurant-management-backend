@@ -6,7 +6,7 @@
         protected IMapper _mapper { get; set; }
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public BaseService(AppSettings appSettings, IMapper mapper, IHttpContextAccessor httpContextAccessor)
+        public BaseService(AppSettings appSettings, IMapper mapper, IHttpContextAccessor httpContextAccessor, RestaurantDBContext context)
         {
             _appSettings = appSettings;
             _mapper = mapper;

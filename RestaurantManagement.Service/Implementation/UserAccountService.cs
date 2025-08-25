@@ -12,7 +12,8 @@
             IMapper mapper,
             IRepository<TblUserAccount> userAccountRepository,
             IAuthService authService,
-            IHttpContextAccessor httpContextAccessor) : base(appSettings, mapper, httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _mapper = mapper;
             _httpContextAccessor = httpContextAccessor;

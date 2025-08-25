@@ -246,13 +246,13 @@ namespace RestaurantManagement.Service.Implementation
         }
         private string ExtractNotificationType(string message)
         {
-            if (message.StartsWith("[Đặt bàn mới]")) return "new_reservation";
-            if (message.StartsWith("[Thanh toán thành công]")) return "payment_success";
-            if (message.StartsWith("[Đặt bàn sắp quá hạn]")) return "reservation_expiring";
-            if (message.StartsWith("[Báo cáo doanh thu hàng tháng]")) return "monthly_report";
-            if (message.StartsWith("[Đặt bàn hủy tự động]")) return "reservation_cancelled";
-            if (message.StartsWith("[Đơn đặt trước hủy tự động]")) return "preorder_cancelled";
-            return "general";
+            if (message.StartsWith("[Đặt bàn mới]")) return NotificationTypeEnum.NewReservation.ToString();
+            if (message.StartsWith("[Thanh toán thành công]")) return NotificationTypeEnum.PaymentSuccess.ToString();
+            if (message.StartsWith("[Đơn đặt bàn sắp quá hạn]")) return NotificationTypeEnum.ReservationExpiringSoon.ToString();
+            if (message.StartsWith("[Báo cáo doanh thu hàng tháng]")) return NotificationTypeEnum.MonthlyRevenueReport.ToString();
+            if (message.StartsWith("[Đơn đặt bàn đã bị hủy tự động]")) return NotificationTypeEnum.ReservationAutoCancelled.ToString();
+            if (message.StartsWith("[Đơn đặt trước hủy tự động]")) return NotificationTypeEnum.PreOrderAutoCancelled.ToString();
+            return "General";
         }
     }
 
