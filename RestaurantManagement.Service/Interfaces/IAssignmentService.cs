@@ -9,8 +9,7 @@ namespace RestaurantManagement.Service.Interfaces
 {
     public interface IAssignmentService
     {
-        Task CreateAssignmentAsync(AssignmentDto dto);
-        Task UpdateAssignmentAsync(AssignmentDto dto);
+        Task SaveAssignmentsAsync(AssignmentRequestDto dto);
         Task<List<AssignmentGroupDto>> GetAssignmentsGroupedByDateAsync();
         Task<AssignmentGroupDto?> GetAssignmentsByDateAsync(DateOnly workDate);
     }
