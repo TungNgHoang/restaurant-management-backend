@@ -13,8 +13,8 @@ namespace RestaurantManagement.Service.Implementation
         private readonly RestaurantDBContext _dbContext;
 
         public AssignmentService(
-            AppSettings appSettings, 
-            IMapper mapper, 
+            AppSettings appSettings,
+            IMapper mapper,
             IHttpContextAccessor httpContextAccessor,
             IRepository<TblShiftAssignment> assignmentRepository,
             IRepository<TblShift> shiftRepository,
@@ -30,92 +30,73 @@ namespace RestaurantManagement.Service.Implementation
             _dbContext = dbContext;
         }
 
-        // thêm mới phân công ca làm việc với shiftTime và danh sách staId
-        public async Task CreateAssignmentAsync(AssignmentDto dto)
+        // Thêm mới và cập nhật phân công ca làm việc
+        public async Task SaveAssignmentsAsync(AssignmentRequestDto dto)
         {
+            using (var transaction = await _dbContext.Database.BeginTransactionAsync())
 
-            var shift = (await _shiftRepository.FilterAsync(
-                s => s.StartTime <= dto.shiftTime
-                  && s.EndTime >= dto.shiftTime
-            )).FirstOrDefault();
-            if (shift == null)
+            try
             {
-                throw new Exception(StatusCodeEnum.G01.ToString());
-            }
-            //Kiểm tra xem staId có trong bảng TblStaff không
-            foreach (var id in dto.staId)
-            {
-                var staff = await _staffRepository.FindByIdAsync(id);
-                if (staff == null)
+                var currentTime = ToGmt7(DateTime.UtcNow);
+
+                // Gom nhóm theo (ShiftTime, ShiftDate)
+                var groupedAssignments = dto.Assignments
+                    .GroupBy(a => new { a.ShiftTime, a.ShiftDate })
+                    .ToList();
+
+                foreach (var group in groupedAssignments)
                 {
-                    throw new Exception(StatusCodeEnum.G03.ToString());
+                    var shift = await GetShiftByTimeAsync(group.Key.ShiftTime);
+
+                    // Check danh sách nhân viên trong nhóm (gom query 1 lần)
+                    var staffs = await GetValidStaffsAsync(group.Select(x => x.StaId).ToList());
+
+                    // Lấy assignment đang có trong DB
+                    var existingAssignments = await _assignmentRepository.FindListAsync(
+                        a => a.WorkDate == group.Key.ShiftDate && a.ShiftId == shift.ShiftId
+                    );
+
+                    var existingStaIds = existingAssignments.Select(a => a.StaId).ToHashSet();
+                    var newStaIds = group.Select(x => x.StaId).ToHashSet();
+
+                    var toAdd = newStaIds.Except(existingStaIds);
+                    var toRemove = existingStaIds.Except(newStaIds);
+
+                    // Thêm mới
+                    foreach (var id in toAdd)
+                    {
+                        var assignment = new TblShiftAssignment
+                        {
+                            AssignmentId = Guid.NewGuid(),
+                            ShiftId = shift.ShiftId,
+                            StaId = id,
+                            WorkDate = group.Key.ShiftDate,
+                            CreatedAt = currentTime
+                        };
+
+                        await _assignmentRepository.InsertAsync(assignment);
+                    }
+
+                    // Xoá bớt
+                    foreach (var id in toRemove)
+                    {
+                        var assignment = existingAssignments.FirstOrDefault(a => a.StaId == id);
+                        if (assignment != null)
+                        {
+                            await _assignmentRepository.DeleteAsync(assignment);
+                        }
+                    }
                 }
-            }
 
-            var currentTime = ToGmt7(DateTime.UtcNow);
-            foreach (var id in dto.staId)
-            {
-                var assignment = new TblShiftAssignment
-                {
-                    AssignmentId = Guid.NewGuid(),
-                    ShiftId = shift.ShiftId,
-                    StaId = id,
-                    WorkDate = dto.shiftDate,
-                    CreatedAt = currentTime
-                };
-                await _assignmentRepository.InsertAsync(assignment);
+                await transaction.CommitAsync();
             }
-            return;
+            catch
+            {
+                await transaction.RollbackAsync();
+                throw;
+            }
         }
 
-        // Cập nhật phân công ca làm việc
-        public async Task UpdateAssignmentAsync(AssignmentDto dto)
-        {
-            var shift = (await _shiftRepository.FilterAsync(
-                s => s.StartTime <= dto.shiftTime
-                  && s.EndTime >= dto.shiftTime
-            )).FirstOrDefault();
-            if (shift == null)
-            {
-                throw new Exception(StatusCodeEnum.G01.ToString());
-            }
-            //Kiểm tra xem staId có trong bảng TblStaff không
-            foreach (var id in dto.staId)
-            {
-                var staff = await _staffRepository.FindByIdAsync(id);
-                if (staff == null)
-                {
-                    throw new Exception(StatusCodeEnum.G03.ToString());
-                }
-            }
-            var existingAssignments = await _assignmentRepository.FindListAsync(a => a.WorkDate == dto.shiftDate && a.ShiftId == shift.ShiftId);
-            var existingStaIds = existingAssignments.Select(a => a.StaId).ToHashSet();
-            var newStaIds = dto.staId.ToHashSet();
-            var toAdd = newStaIds.Except(existingStaIds);
-            var toRemove = existingStaIds.Except(newStaIds);
-            var currentTime = ToGmt7(DateTime.UtcNow);
-            foreach (var id in toAdd)
-            {
-                var assignment = new TblShiftAssignment
-                {
-                    AssignmentId = Guid.NewGuid(),
-                    ShiftId = shift.ShiftId,
-                    StaId = id,
-                    WorkDate = dto.shiftDate,
-                    CreatedAt = currentTime
-                };
-                await _assignmentRepository.InsertAsync(assignment);
-            }
-            foreach (var id in toRemove)
-            {
-                var assignment = existingAssignments.FirstOrDefault(a => a.StaId == id);
-                if (assignment != null)
-                {
-                    await _assignmentRepository.DeleteAsync(assignment);
-                }
-            }
-            return;
-        }
 
         //Lấy Tất cả phân công ca làm việc là gộp theo ngày
         public async Task<List<AssignmentGroupDto>> GetAssignmentsGroupedByDateAsync()
@@ -165,5 +146,33 @@ namespace RestaurantManagement.Service.Implementation
             return result;
         }
 
+        // Lấy ca theo shiftTime
+        private async Task<TblShift> GetShiftByTimeAsync(TimeOnly shiftTime)
+        {
+            var shift = (await _shiftRepository.FilterAsync(
+                s => s.StartTime <= shiftTime && s.EndTime >= shiftTime
+            )).FirstOrDefault();
+
+            if (shift == null)
+            {
+                throw new Exception(StatusCodeEnum.G01.ToString());
+            }
+
+            return shift;
+        }
+
+        // Lấy danh sách nhân viên hợp lệ (gom query 1 lần)
+        private async Task<List<TblStaff>> GetValidStaffsAsync(List<Guid> staffIds)
+        {
+            var staffs = (await _staffRepository.FilterAsync(s => staffIds.Contains(s.StaId))).ToList();
+
+            if (staffs.Count != staffIds.Count)
+            {
+                // Có ít hơn, tức là có nhân viên không tồn tại
+                throw new Exception(StatusCodeEnum.G03.ToString());
+            }
+
+            return staffs;
+        }
     }
 }

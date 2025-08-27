@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Service.Dtos.AttendanceDto
+{
+    public class AssignmentRequestDto
+    {
+        public List<AssignmentItemDto> Assignments { get; set; } = new();
+    }
+
+    public class AssignmentItemDto
+    {
+        public Guid StaId { get; set; }       // Mã nhân viên
+        public TimeOnly ShiftTime { get; set; }  // Thời gian thuộc ca
+        public DateOnly ShiftDate { get; set; }  // Ngày làm việc
+    }
+
+}

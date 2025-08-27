@@ -13,26 +13,13 @@ namespace RestaurantManagement.Api.Controllers
             _AssignmentService = shiftAssignmentService;
         }
 
-        [HttpPost("create-assignment")]
-        public async Task<IActionResult> CreateAssignment([FromBody] AssignmentDto dto)
+        [Authorize(Policy = "ManagerPolicy")]
+        [HttpPut("create-and-update-assignment")]
+        public async Task<IActionResult> UpdateAssignment([FromBody] AssignmentRequestDto dto)
         {
             try
             {
-                await _AssignmentService.CreateAssignmentAsync(dto);
-                return Ok(new { Success = true, Message = StatusCodeEnum.G02});
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, new { Success = false, Message = ex.Message });
-            }
-        }
-
-        [HttpPut("update-assignment")]
-        public async Task<IActionResult> UpdateAssignment([FromBody] AssignmentDto dto)
-        {
-            try
-            {
-                await _AssignmentService.UpdateAssignmentAsync(dto);
+                await _AssignmentService.SaveAssignmentsAsync(dto);
                 return Ok(new { Success = true, Message = StatusCodeEnum.G04 });
             }
             catch (Exception ex)
@@ -41,6 +28,7 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpGet("assignments-grouped")]
         public async Task<IActionResult> GetAssignmentsGrouped()
         {
@@ -48,6 +36,7 @@ namespace RestaurantManagement.Api.Controllers
             return Ok(data);
         }
 
+        [Authorize(Policy = "ManagerPolicy")]
         [HttpGet("assignments-by-date")]
         public async Task<IActionResult> GetAssignmentsByDate([FromQuery] DateOnly date)
         {
