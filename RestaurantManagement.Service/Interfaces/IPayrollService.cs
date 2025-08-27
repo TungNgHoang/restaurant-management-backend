@@ -1,0 +1,12 @@
+﻿using RestaurantManagement.Service.Dtos.AttendanceDto;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Service.Interfaces
+{
+    public interface IPayrollService
+    {
+        Task<PayrollDto> GetMonthlyPayrollAsync(PayrollRequestDto dto);
+        Task<List<PayrollDto>> GetAllMonthlyPayrollsAsync(int month, int year);
+    }
+}

@@ -137,6 +137,23 @@ namespace RestaurantManagement.Core.Enums
         [Description("Cập nhật phân công thành công")]
         G04,
 
+        //StatusCode cho Attendance (Check-in/Check-out)
+        [Description("Chỉ có thể check-in khi ca đang diễn ra.")]
+        H01,
+        [Description("Nhân viên đã check-in trước đó.")]
+        H02,
+        [Description("Chỉ có thể check-out khi ca đang diễn ra hoặc trong vòng 1 giờ sau khi ca kết thúc.")]
+        H03,
+        [Description("Chưa check-in.")]
+        H04,
+        [Description("Đã check-out trước đó.")]
+        H05,
+        [Description("Phân công ca làm không tồn tại.")]
+        H06,
+        [Description("Dữ liệu đầu vào không hợp lệ.")]
+        H07,
+        [Description("Check-out trễ sau giờ làm.")]
+        H08,
 
         [Description("Bad request.")]
         BadRequest,
