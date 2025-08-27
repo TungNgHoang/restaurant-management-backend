@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Moq;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.Core.Exceptions;
+using RestaurantManagement.DataAccess.DbContexts;
 using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.Models;
@@ -23,6 +25,8 @@ public class OrderServiceTests
     private readonly Mock<IRepository<TblMenu>> _menuRepositoryMock;
     private readonly Mock<IOrderRepository> _orderRepositoryMock;
     private readonly Mock<IMapper> _mapperMock;
+    private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
+    private readonly Mock<RestaurantDBContext> _dbContextMock;
     private readonly OrderService _orderService;
 
     public OrderServiceTests()
@@ -34,6 +38,8 @@ public class OrderServiceTests
         _menuRepositoryMock = new Mock<IRepository<TblMenu>>();
         _orderRepositoryMock = new Mock<IOrderRepository>();
         _mapperMock = new Mock<IMapper>();
+        _httpContextAccessorMock = new Mock<IHttpContextAccessor>(); // Mock IHttpContextAccessor
+        _dbContextMock = new Mock<RestaurantDBContext>(); // Mock RestaurantDBContext
 
         // Khởi tạo AppSettings (giả định)
         var appSettings = new AppSettings();
@@ -42,11 +48,13 @@ public class OrderServiceTests
         _orderService = new OrderService(
             appSettings,
             _mapperMock.Object,
+            _httpContextAccessorMock.Object, // Thêm IHttpContextAccessor
             _orderInfoRepositoryMock.Object,
             _orderDetailsRepositoryMock.Object,
             _menuRepositoryMock.Object,
             _orderRepositoryMock.Object,
-            _reservationRepositoryMock.Object
+            _reservationRepositoryMock.Object,
+            _dbContextMock.Object // Thêm RestaurantDBContext
         );
     }
 
@@ -72,9 +80,8 @@ public class OrderServiceTests
         // Arrange
         var tbiId = Guid.NewGuid();
         var reservation = new TblReservation { ResId = Guid.NewGuid(), TbiId = tbiId, ResStatus = "Serving", CusId = Guid.NewGuid() };
-        var menuItem = new TblMenu { MnuId = new Guid("0C7F7AEE-E708-480B-B5A3-0A5A732E1549"), MnuPrice = 10.0m};
+        var menuItem = new TblMenu { MnuId = new Guid("0C7F7AEE-E708-480B-B5A3-0A5A732E1549"), MnuPrice = 10.0m };
         var newOrderItems = new List<OrderItemDto> { new OrderItemDto { MnuID = menuItem.MnuId, OdtQuantity = 2 } };
-        
 
         _reservationRepositoryMock
             .Setup(repo => repo.FindAsync(It.IsAny<Expression<Func<TblReservation, bool>>>()))

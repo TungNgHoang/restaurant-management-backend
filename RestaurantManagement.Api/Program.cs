@@ -78,6 +78,8 @@ builder.Services.AddScoped<IRepository<TblNotification>, Repository<TblNotificat
 builder.Services.AddScoped<IAssignmentService, AssignmentService>();
 builder.Services.AddScoped<IRepository<TblShiftAssignment>, Repository<TblShiftAssignment>>();
 builder.Services.AddScoped<IRepository<TblShift>, Repository<TblShift>>();
+builder.Services.AddScoped<IEmployeeShiftService, EmployeeShiftService>();
+builder.Services.AddScoped<IPayrollService, PayrollService>();
 // Register background service
 builder.Services.AddHostedService<BackgroundTaskUpdate>();
 // Add PayOS settings

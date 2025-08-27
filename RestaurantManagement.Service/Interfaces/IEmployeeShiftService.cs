@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using RestaurantManagement.Service.Dtos.AttendanceDto;
+
+namespace RestaurantManagement.Service.Interfaces
+{
+    public interface IEmployeeShiftService
+    {
+        Task<AttendanceResultDto> EmployeeCheckInAsync(CheckInDto dto);
+        Task<AttendanceResultDto> EmployeeCheckOutAsync(CheckOutDto dto);
+    }
+}
