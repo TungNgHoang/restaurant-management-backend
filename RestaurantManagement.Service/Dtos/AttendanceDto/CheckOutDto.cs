@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Service.Dtos.AttendanceDto
+{
+    public class CheckOutDto
+    {
+        public Guid StaId { get; set; } // ID nhân viên
+        public Guid AssignmentId { get; set; } // ID phân công ca làm
+        public DateTime CheckOutTime { get; set; } // Thời gian check-out do quản lý nhập
+    }
+}

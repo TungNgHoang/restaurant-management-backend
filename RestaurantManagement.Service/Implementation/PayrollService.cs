@@ -1,0 +1,66 @@
+﻿using RestaurantManagement.DataAccess.Implementation;
+using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.Dtos.AttendanceDto;
+using System;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Service.Implementation
+{
+    public class PayrollService : BaseService, IPayrollService
+    {
+        private readonly IRepository<TblPayroll> _payrollRepository;
+        private readonly IRepository<TblStaff> _staffRepository;
+
+        public PayrollService(
+            AppSettings appSettings,
+            IMapper mapper,
+            IHttpContextAccessor httpContextAccessor,
+            IRepository<TblPayroll> payrollRepository,
+            IRepository<TblStaff> staffRepository,
+            RestaurantDBContext dbContext)
+            : base(appSettings, mapper, httpContextAccessor, dbContext)
+        {
+            _payrollRepository = payrollRepository;
+            _staffRepository = staffRepository;
+        }
+
+        public async Task<PayrollDto> GetMonthlyPayrollAsync(PayrollRequestDto dto)
+        {
+            var payrolls = await _payrollRepository.FilterAsync(p => p.StaId == dto.StaId && p.Month == dto.Month && p.Year == dto.Year);
+            var payroll = payrolls.FirstOrDefault();
+
+            if (payroll == null)
+            {
+                throw new Exception("Không có dữ liệu lương cho tháng này.");
+            }
+
+            return new PayrollDto
+            {
+                PayrollId = payroll.PayrollId,
+                StaId = payroll.StaId,
+                Month = payroll.Month,
+                Year = payroll.Year,
+                TotalHours = payroll.TotalHours,
+                TotalSalary = payroll.TotalSalary,
+                CreatedAt = payroll.CreatedAt ?? DateTime.MinValue // Fix: handle nullable DateTime
+            };
+        }
+
+        // Lấy danh sách lương tháng cho tất cả nhân viên
+        public async Task<List<PayrollDto>> GetAllMonthlyPayrollsAsync(int month, int year)
+        {
+            var payrolls = await _payrollRepository.FilterAsync(p => p.Month == month && p.Year == year);
+            return payrolls.Select(p => new PayrollDto
+            {
+                PayrollId = p.PayrollId,
+                StaId = p.StaId,
+                Month = p.Month,
+                Year = p.Year,
+                TotalHours = p.TotalHours,
+                TotalSalary = p.TotalSalary,
+                CreatedAt = p.CreatedAt ?? DateTime.MinValue // Fix: handle nullable DateTime
+            }).ToList();
+        }
+    }
+}
