@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.Service.Dtos.StaffDto;
+﻿using RestaurantManagement.DataAccess.Dtos.StaffReportDto;
+using RestaurantManagement.Service.Dtos.StaffDto;
 
 namespace RestaurantManagement.Service.Interfaces
 {
@@ -9,5 +10,7 @@ namespace RestaurantManagement.Service.Interfaces
         Task<StaffDto> AddStaffAsync(StaffDto staffDto);
         Task<UpdateStaffProfileDto> UpdateStaffProfileAsync(Guid id, UpdateStaffProfileDto staffProfileDto);
         Task DeleteStaffAsync(Guid id);
+        Task<ApiResponseModel<OverviewReportDto>> GetOverviewReportAsync();
+        Task<ApiResponseModel<StaffDetailResponseDto>> GetStaffDetailReportAsync(StaffDetailRequestDto request);
     }
 }

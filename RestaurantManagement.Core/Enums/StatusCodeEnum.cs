@@ -13,7 +13,7 @@ namespace RestaurantManagement.Core.Enums
         ReservatioNotFound = 2,
 
         [Description("Not Found")]
-        PageIndexInvalid = 3,
+        PageIndexInvalid,
 
         [Description("Page Size Invalid")]
         PageSizeInvalid = 4,
