@@ -164,8 +164,8 @@ namespace RestaurantManagement.Api.Controllers
                     amount: (int)priceAfterVat,
                     description: orderCode.ToString(),
                     items: items,
-                    cancelUrl: "https://jw2rdsbh-3000.asse.devtunnels.ms/admin-reservation",
-                    returnUrl: "https://jw2rdsbh-3000.asse.devtunnels.ms/payment/success"
+                    cancelUrl: "https://pizzadaay.ric.vn/admin-reservation",
+                    returnUrl: "https://pizzadaay.ric.vn/payment/success"
                 );
 
                 // Gọi service tạo payment link

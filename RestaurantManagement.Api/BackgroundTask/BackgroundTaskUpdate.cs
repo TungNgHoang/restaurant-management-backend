@@ -282,11 +282,11 @@
                         stoppingToken);
                 }
 
-                // Update IsDeleted = true cho Reservation
+                // Update Status = Cancelled cho Reservation
                 await dbContext.TblReservations
                     .Where(r => r.ResId == reservationId && !r.IsDeleted)
                     .ExecuteUpdateAsync(setters => setters
-                        .SetProperty(r => r.IsDeleted, true),
+                        .SetProperty(r => r.ResStatus, ReservationStatus.Cancelled.ToString()),
                     stoppingToken);
 
                 await dbContext.SaveChangesAsync(stoppingToken);

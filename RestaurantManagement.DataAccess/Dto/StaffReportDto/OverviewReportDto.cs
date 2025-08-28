@@ -25,9 +25,11 @@ namespace RestaurantManagement.DataAccess.Dtos.StaffReportDto
     public class StaffDetailRequestDto
     {
         [Required]
-        public DateTime StartDate { get; set; }
+        [Range(1, 12, ErrorMessage = "Month must be between 1 and 12")]
+        public int Month { get; set; }  // Tháng (1-12)
+
         [Required]
-        public DateTime EndDate { get; set; }
+        public int Year { get; set; }   
         public Guid? StaffId { get; set; }  // Lọc theo ID nhân viên
         public string? Role { get; set; }  // Lọc theo vai trò (department)
         public int PageIndex { get; set; } = 0;
@@ -56,8 +58,10 @@ namespace RestaurantManagement.DataAccess.Dtos.StaffReportDto
         public decimal TotalWorkedHours { get; set; }  // Tổng giờ làm
         public int OnTimeCount { get; set; }  // Số lần đúng giờ
         public int LateCount { get; set; }  // Số lần muộn
+        public int EarlyCount { get; set; }
         public decimal PunctualityRate { get; set; }  // Tỷ lệ đúng giờ (%)
         public string PerformanceGrade { get; set; } = string.Empty;  // Đánh giá (Excellent, Good, v.v.)
+        public decimal TotalSalary { get; set; }  // Tổng lương từ Payroll (mới thêm)
     }
 
     public class SummaryDto

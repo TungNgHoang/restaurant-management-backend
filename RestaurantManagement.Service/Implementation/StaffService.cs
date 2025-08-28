@@ -212,7 +212,7 @@ namespace RestaurantManagement.Service.Implementation
         public async Task<ApiResponseModel<StaffDetailResponseDto>> GetStaffDetailReportAsync(StaffDetailRequestDto request)
         {
             // Validation (giữ nguyên hoặc mở rộng)
-            if (request.StartDate > request.EndDate)
+            if (request.Month > 12 || request.Month < 1 || request.Year < 1)
             {
                 throw new ErrorException(StatusCodeEnum.BadRequest);  // Giả sử có enum BadRequest
             }
@@ -220,7 +220,7 @@ namespace RestaurantManagement.Service.Implementation
             try
             {
                 var (details, total) = await _staffRepository.GetStaffDetailsAsync(request);
-                var summary = await _staffRepository.GetSummaryAsync(request.StartDate, request.EndDate, request.StaffId, request.Role);
+                var summary = await _staffRepository.GetSummaryAsync(request.Month, request.Year, request.StaffId, request.Role);
 
                 if (details == null || details.Count == 0)
                 {

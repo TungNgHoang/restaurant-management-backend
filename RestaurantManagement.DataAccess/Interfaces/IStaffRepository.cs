@@ -7,6 +7,6 @@ namespace RestaurantManagement.DataAccess.Interfaces
     {
         Task<OverviewReportDto> GetOverviewReportAsync();
         Task<(List<StaffDetailDto> Details, int TotalCount)> GetStaffDetailsAsync(StaffDetailRequestDto request);
-        Task<SummaryDto> GetSummaryAsync(DateTime startDate, DateTime endDate, Guid? staffId, string? role);
+        Task<SummaryDto> GetSummaryAsync(int month, int year, Guid? staffId, string? role);
     }
 }
