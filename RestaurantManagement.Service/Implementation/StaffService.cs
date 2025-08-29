@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.Service.Dtos.StaffDto;
+﻿using RestaurantManagement.DataAccess.Dtos.StaffReportDto;
+using RestaurantManagement.Service.Dtos.StaffDto;
 using System.Text.RegularExpressions;
 
 namespace RestaurantManagement.Service.Implementation
@@ -186,6 +187,62 @@ namespace RestaurantManagement.Service.Implementation
             staff.UpdatedAt = currentTime;
             await _staffRepository.UpdateAsync(staff);
             await _userAccountRepository.UpdateAsync(userAccount);
+        }
+
+        public async Task<ApiResponseModel<OverviewReportDto>> GetOverviewReportAsync()
+        {
+            try
+            {
+                var data = await _staffRepository.GetOverviewReportAsync();
+
+                if (data == null || (data.TotalStaff == 0 && data.ActiveStaffToday == 0))  // Ví dụ check error
+                {
+                    throw new ErrorException(StatusCodeEnum.PageIndexInvalid);  // Hoặc enum error phù hợp
+                }
+
+                return new ApiResponseModel<OverviewReportDto>(data);  // Success với data
+            }
+            catch (Exception ex)
+            {
+                // Log error nếu cần
+                throw new ErrorException(StatusCodeEnum.Error);  // Trả về error
+            }
+        }
+
+        public async Task<ApiResponseModel<StaffDetailResponseDto>> GetStaffDetailReportAsync(StaffDetailRequestDto request)
+        {
+            // Validation (giữ nguyên hoặc mở rộng)
+            if (request.Month > 12 || request.Month < 1 || request.Year < 1)
+            {
+                throw new ErrorException(StatusCodeEnum.BadRequest);  // Giả sử có enum BadRequest
+            }
+
+            try
+            {
+                var (details, total) = await _staffRepository.GetStaffDetailsAsync(request);
+                var summary = await _staffRepository.GetSummaryAsync(request.Month, request.Year, request.StaffId, request.Role);
+
+                if (details == null || details.Count == 0)
+                {
+                    throw new ErrorException(StatusCodeEnum.PageIndexInvalid);
+                }
+
+                var response = new StaffDetailResponseDto
+                {
+                    StaffDetails = details,
+                    TotalCount = total,
+                    PageIndex = request.PageIndex,
+                    PageSize = request.PageSize,
+                    Summary = summary
+                };
+
+                return new ApiResponseModel<StaffDetailResponseDto>(response);  // Success
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                throw new ErrorException(StatusCodeEnum.Error);
+            }
         }
     }
 }

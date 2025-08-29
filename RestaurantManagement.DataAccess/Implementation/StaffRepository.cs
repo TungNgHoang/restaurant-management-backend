@@ -1,11 +1,8 @@
-﻿using RestaurantManagement.DataAccess.DbContexts;
+﻿using Microsoft.EntityFrameworkCore;
+using RestaurantManagement.DataAccess.DbContexts;
+using RestaurantManagement.DataAccess.Dtos.StaffReportDto;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace RestaurantManagement.DataAccess.Implementation
 {
@@ -18,6 +15,146 @@ namespace RestaurantManagement.DataAccess.Implementation
             _context = context;
         }
 
-        // Implement any specific methods for staff repository here
+        public async Task<OverviewReportDto> GetOverviewReportAsync()
+        {
+            var today = DateTime.Today;
+            var monthStart = new DateTime(today.Year, today.Month, 1);
+
+            var totalStaff = await _dbSet.CountAsync(s => !s.IsDeleted);
+
+            var activeToday = await _dbContext.TblAttendances
+                .CountAsync(a => a.CheckIn != null && a.CheckIn.Value.Date == today);
+
+            var totalHoursMonth = await _dbContext.TblAttendances
+                .Where(a => a.CheckIn != null && a.CheckOut != null && a.CheckIn.Value >= monthStart)
+                .SumAsync(a => EF.Functions.DateDiffHour(a.CheckIn.Value, a.CheckOut.Value));
+
+            var attendancesToday = await (from a in _dbContext.TblAttendances
+                                          join ass in _dbContext.TblShiftAssignments on a.AssignmentId equals ass.AssignmentId
+                                          join s in _dbContext.TblShifts on ass.ShiftId equals s.ShiftId
+                                          where a.CheckIn != null && a.CheckIn.Value.Date == today
+                                          select new { Attendance = a, Assignment = ass, Shift = s })
+                                          .ToListAsync();
+
+            // Tính toán onTime và late dựa trên dữ liệu đã join
+            var onTime = attendancesToday.Count(x => x.Attendance.CheckIn.HasValue && x.Attendance.CheckIn.Value.TimeOfDay <= x.Shift.StartTime.ToTimeSpan().Add(TimeSpan.FromMinutes(10)));
+            var late = attendancesToday.Count - onTime;
+            var attendanceRate = attendancesToday.Any() ? (decimal)onTime / attendancesToday.Count * 100 : 0;
+
+            // Phân bố ca làm
+            var todayDateOnly = DateOnly.FromDateTime(today.Date);
+            var shifts = await (from s in _dbContext.TblShifts
+                                join ass in _dbContext.TblShiftAssignments on s.ShiftId equals ass.ShiftId
+                                where ass.WorkDate == todayDateOnly && s.IsDeleted != true
+                                group ass by new { s.ShiftName, s.StartTime, s.EndTime } into g
+                                select new ShiftDistributionDto
+                                {
+                                    ShiftName = g.Key.ShiftName,
+                                    StaffCount = g.Count(),
+                                    StartTime = g.Key.StartTime.ToTimeSpan(),
+                                    EndTime = g.Key.EndTime.ToTimeSpan()
+                                })
+                                .ToListAsync();
+
+            return new OverviewReportDto
+            {
+                TotalStaff = totalStaff,
+                ActiveStaffToday = activeToday,
+                TotalHoursThisMonth = totalHoursMonth,
+                AttendanceRate = attendanceRate,
+                OnTimeCount = onTime,
+                LateCount = late,
+                ShiftDistribution = shifts
+            };
+        }
+
+        public async Task<(List<StaffDetailDto> Details, int TotalCount)> GetStaffDetailsAsync(StaffDetailRequestDto request)
+        {
+            var query = _dbSet.Where(s => !s.IsDeleted);
+            if (request.StaffId.HasValue) query = query.Where(s => s.StaId == request.StaffId);
+            if (!string.IsNullOrEmpty(request.Role)) query = query.Where(s => s.StaRole == request.Role);
+            var total = await query.CountAsync();
+            var staffList = await query.Skip(request.PageIndex * request.PageSize).Take(request.PageSize).ToListAsync();
+            var details = new List<StaffDetailDto>();
+
+            // Tính start/end của tháng từ Month/Year
+            var startDate = new DateTime(request.Year, request.Month, 1);
+            var endDate = startDate.AddMonths(1).AddDays(-1);
+            var startDateOnly = DateOnly.FromDateTime(startDate);
+            var endDateOnly = DateOnly.FromDateTime(endDate);
+
+            foreach (var staff in staffList)
+            {
+                // Assignments lọc theo tháng/năm
+                var assignments = await _dbContext.TblShiftAssignments
+                    .Where(sa => sa.StaId == staff.StaId && sa.WorkDate >= startDateOnly && sa.WorkDate <= endDateOnly)
+                    .ToListAsync();
+
+                // Attendances lọc theo tháng/năm
+                var attendances = await _dbContext.TblAttendances
+                    .Where(a => a.StaId == staff.StaId && a.CheckIn >= startDate && a.CheckIn <= endDate)
+                    .ToListAsync();
+
+                var totalDays = assignments.Count;
+                var actualDays = attendances.Count(a => a.CheckIn != null);
+                var workedHours = attendances.Sum(a => a.CheckOut != null ? (a.CheckOut.Value - a.CheckIn.Value).TotalHours : 0);
+
+                // Tính mới dựa trên Status
+                var onTime = attendances.Count(a => a.Status == "OnTime");  // Đếm chính xác "OnTime"
+                var late = attendances.Count(a => a.Status != null && (a.Status.Contains("Late") || a.Status == "LateEarlyLeave"));  // Chứa "Late" hoặc chính xác "LateEarlyLeave"
+                var early = attendances.Count(a => a.Status != null && (a.Status.Contains("Early") || a.Status == "LateEarlyLeave"));  // Chứa "Early" hoặc chính xác "LateEarlyLeave"
+                var punctuality = attendances.Any() ? (decimal)onTime / attendances.Count * 100 : 0;
+                var attendanceRate = totalDays > 0 ? (decimal)actualDays / totalDays * 100 : 0;
+                var grade = attendanceRate > 90 ? "Excellent" : "Average";
+                // Thêm: Lấy TotalSalary từ Payroll theo StaId, Month, Year
+                var payroll = await _dbContext.TblPayrolls
+                    .Where(p => p.StaId == staff.StaId && p.Month == request.Month && p.Year == request.Year)
+                    .FirstOrDefaultAsync();
+
+                var totalSalary = payroll?.TotalSalary ?? 0;  // Nếu không có, default 0
+                details.Add(new StaffDetailDto
+                {
+                    StaffId = staff.StaId,
+                    StaffName = staff.StaName,
+                    Role = staff.StaRole ?? "",
+                    Phone = staff.StaPhone ?? "",
+                    BaseSalary = staff.StaBaseSalary ?? 0,
+                    TotalWorkDays = totalDays,
+                    ActualWorkDays = actualDays,
+                    AttendanceRate = attendanceRate,
+                    TotalWorkedHours = (decimal)workedHours,
+                    OnTimeCount = onTime,
+                    LateCount = late,
+                    EarlyCount = early,
+                    PunctualityRate = punctuality,
+                    PerformanceGrade = grade,
+                    TotalSalary = totalSalary
+                });
+            }
+
+            return (details, total);
+        }
+
+        public async Task<SummaryDto> GetSummaryAsync(int month, int year, Guid? staffId, string? role)
+        {
+            var request = new StaffDetailRequestDto {
+                Month = month,
+                Year = year,
+                StaffId = staffId,
+                Role = role,
+                PageSize = int.MaxValue
+            };
+            var (details, total) = await GetStaffDetailsAsync(request);
+
+            var avgAttendance = details.Any() ? details.Average(d => d.AttendanceRate) : 0;
+            var avgPunctuality = details.Any() ? details.Average(d => d.PunctualityRate) : 0;
+
+            return new SummaryDto
+            {
+                AverageAttendanceRate = avgAttendance,
+                AveragePunctualityRate = avgPunctuality,
+                TotalStaff = total
+            };
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.Service.Dtos.StaffDto;
+﻿using RestaurantManagement.DataAccess.Dtos.StaffReportDto;
+using RestaurantManagement.Service.Dtos.StaffDto;
 
 namespace RestaurantManagement.Api.Controllers
 {
@@ -65,7 +66,39 @@ namespace RestaurantManagement.Api.Controllers
         {
             var staffService = _serviceProvider.GetRequiredService<IStaffService>();
             await staffService.DeleteStaffAsync(id);
-            return Ok(new {message = StatusCodeEnum.E02 }); 
+            return Ok(new { message = StatusCodeEnum.E02 });
+        }
+        [Authorize]
+        [HttpGet("overview")]
+        public async Task<IActionResult> GetOverview()
+        {
+            try
+            {
+                var staffService = _serviceProvider.GetRequiredService<IStaffService>();
+                var response = await staffService.GetOverviewReportAsync();
+
+                return Success(response);
+            }
+            catch (Exception ex)
+            {
+                throw new ErrorException(StatusCodeEnum.BadRequest, ex.Message);
+            }
+        }
+
+        [Authorize]
+        [HttpGet("detail")]
+        public async Task<IActionResult> GetDetail([FromQuery] StaffDetailRequestDto request)
+        {
+            try
+            {
+                var staffService = _serviceProvider.GetRequiredService<IStaffService>();
+                var response = await staffService.GetStaffDetailReportAsync(request);
+                return Success(response);
+            }
+            catch (Exception ex)
+            {
+                throw new ErrorException(StatusCodeEnum.BadRequest, ex.Message);
+            }
         }
     }
 }
