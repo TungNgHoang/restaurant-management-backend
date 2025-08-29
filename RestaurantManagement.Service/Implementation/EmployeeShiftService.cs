@@ -35,50 +35,37 @@ namespace RestaurantManagement.Service.Implementation
             _dbContext = dbContext;
         }
 
-        // Phương thức Check-in
+        #region Check-In
         public async Task<AttendanceResultDto> EmployeeCheckInAsync(CheckInDto dto)
         {
             try
             {
-                // Kiểm tra phân công ca làm
+                // 1. Kiểm tra phân công ca làm
                 var assignment = await _assignmentRepository.FindByIdAsync(dto.AssignmentId);
                 if (assignment == null || assignment.StaId != dto.StaId)
-                {
-                    throw new Exception(StatusCodeEnum.H06.ToString()); // Phân công ca làm không tồn tại
-                }
+                    throw new Exception(StatusCodeEnum.H06.ToString());
 
-                // Lấy thông tin ca làm
                 var shift = await _shiftRepository.FindByIdAsync(assignment.ShiftId);
                 if (shift == null)
-                {
-                    throw new Exception(StatusCodeEnum.H06.ToString()); // Phân công ca làm không tồn tại
-                }
+                    throw new Exception(StatusCodeEnum.H06.ToString());
 
-                // Tính thời gian bắt đầu ca
+                // 2. Tính giờ ca làm
                 var workDate = assignment.WorkDate.ToDateTime(new TimeOnly());
                 var startTime = workDate + shift.StartTime.ToTimeSpan();
                 var endTime = workDate + shift.EndTime.ToTimeSpan();
-                var checkInTime = ToGmt7(dto.CheckInTime); // Chuyển sang múi giờ +07
+                var checkInTime = ToGmt7(dto.CheckInTime);
 
-                // Debug thông tin thời gian
-                Console.WriteLine($"Check-in Time: {checkInTime}, Start Time: {startTime}, End Time: {endTime}");
-
-                // Kiểm tra ca đang diễn ra
+                // 3. Kiểm tra hợp lệ
                 if (checkInTime < startTime || checkInTime > endTime)
-                {
-                    throw new Exception(StatusCodeEnum.H01.ToString()); // Chỉ có thể check-in khi ca đang diễn ra
-                }
+                    throw new Exception(StatusCodeEnum.H01.ToString());
 
-                // Kiểm tra attendance đã tồn tại chưa
-                var attendances = await _attendanceRepository.FilterAsync(a => a.AssignmentId == dto.AssignmentId && a.StaId == dto.StaId);
-                var attendance = attendances.FirstOrDefault();
+                // 4. Attendance
+                var attendance = (await _attendanceRepository.FilterAsync(a =>
+                    a.AssignmentId == dto.AssignmentId && a.StaId == dto.StaId)).FirstOrDefault();
 
                 if (attendance != null && attendance.CheckIn.HasValue)
-                {
-                    throw new Exception(StatusCodeEnum.H02.ToString()); // Nhân viên đã check-in trước đó
-                }
+                    throw new Exception(StatusCodeEnum.H02.ToString());
 
-                // Tạo hoặc cập nhật attendance
                 if (attendance == null)
                 {
                     attendance = new TblAttendance
@@ -102,145 +89,154 @@ namespace RestaurantManagement.Service.Implementation
             }
             catch (Exception ex)
             {
-                // Log lỗi chi tiết để debug
-                Console.WriteLine($"Error in CheckIn: {ex.Message}, StackTrace: {ex.StackTrace}");
-                throw; // Ném lại ngoại lệ để controller xử lý
+                Console.WriteLine($"[CheckIn] Error: {ex.Message}");
+                throw;
             }
         }
+        #endregion
 
-        // Phương thức Check-out
+        #region Check-Out
         public async Task<AttendanceResultDto> EmployeeCheckOutAsync(CheckOutDto dto)
         {
-            // Kiểm tra phân công ca làm
-            var assignment = await _assignmentRepository.FindByIdAsync(dto.AssignmentId);
-            if (assignment == null || assignment.StaId != dto.StaId)
+            try
             {
-                throw new Exception(StatusCodeEnum.H06.ToString()); // Phân công ca làm không tồn tại
-            }
+                // 1. Kiểm tra phân công
+                var assignment = await _assignmentRepository.FindByIdAsync(dto.AssignmentId);
+                if (assignment == null || assignment.StaId != dto.StaId)
+                    throw new Exception(StatusCodeEnum.H06.ToString());
 
-            // Lấy thông tin ca làm
-            var shift = await _shiftRepository.FindByIdAsync(assignment.ShiftId);
-            if (shift == null)
+                var shift = await _shiftRepository.FindByIdAsync(assignment.ShiftId);
+                if (shift == null)
+                    throw new Exception(StatusCodeEnum.H06.ToString());
+
+                // 2. Giờ ca làm
+                var workDate = assignment.WorkDate.ToDateTime(new TimeOnly());
+                var startTime = workDate + shift.StartTime.ToTimeSpan();
+                var endTime = workDate + shift.EndTime.ToTimeSpan();
+                var checkOutTime = ToGmt7(dto.CheckOutTime);
+
+                if (checkOutTime < startTime || checkOutTime > endTime.AddHours(1))
+                    throw new Exception(StatusCodeEnum.H03.ToString());
+
+                // 3. Attendance
+                var attendance = (await _attendanceRepository.FilterAsync(a =>
+                    a.AssignmentId == dto.AssignmentId && a.StaId == dto.StaId)).FirstOrDefault();
+
+                if (attendance == null || !attendance.CheckIn.HasValue)
+                    throw new Exception(StatusCodeEnum.H04.ToString());
+
+                if (attendance.CheckOut.HasValue)
+                    throw new Exception(StatusCodeEnum.H05.ToString());
+
+                attendance.CheckOut = checkOutTime;
+                attendance.Status = CalculateCheckOutStatus(
+                    attendance.Status, endTime.TimeOfDay, checkOutTime.TimeOfDay);
+
+                // 4. Payroll
+                var totalHours = (checkOutTime - attendance.CheckIn.Value).TotalHours;
+                if (totalHours < 0) totalHours = 0;
+
+                var month = workDate.Month;
+                var year = workDate.Year;
+
+                var payroll = await _dbContext.TblPayrolls
+                    .FirstOrDefaultAsync(p => p.StaId == dto.StaId && p.Month == month && p.Year == year);
+
+                if (payroll == null)
+                {
+                    payroll = new TblPayroll
+                    {
+                        PayrollId = Guid.NewGuid(),
+                        StaId = dto.StaId,
+                        Month = month,
+                        Year = year,
+                        TotalHours = 0,
+                        TotalSalary = 0,
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    await _dbContext.TblPayrolls.AddAsync(payroll);
+                }
+
+                payroll.TotalHours += (decimal)totalHours;
+
+                var staff = await _dbContext.TblStaffs.FindAsync(dto.StaId);
+                if (staff != null && staff.StaBaseSalary.HasValue && staff.StaBaseSalary > 0)
+                {
+                    payroll.TotalSalary = (staff.StaBaseSalary.Value / 160m) * payroll.TotalHours;
+                }
+
+                await _attendanceRepository.UpdateAsync(attendance);
+                await _dbContext.SaveChangesAsync();
+
+                return MapToResultDto(attendance);
+            }
+            catch (Exception ex)
             {
-                throw new Exception(StatusCodeEnum.H06.ToString()); // Phân công ca làm không tồn tại
+                Console.WriteLine($"[CheckOut] Error: {ex.Message}");
+                throw;
             }
-
-            // Tính thời gian kết thúc ca
-            var workDate = assignment.WorkDate.ToDateTime(new TimeOnly());
-            var assignmentTime = workDate + shift.EndTime.ToTimeSpan(); // Lấy thời gian kết thúc ca
-            var checkOutTime = ToGmt7(dto.CheckOutTime); // Chuyển sang múi giờ +07
-
-            // Kiểm tra ca đang diễn ra
-            if (checkOutTime < workDate + shift.StartTime.ToTimeSpan() || checkOutTime > assignmentTime)
-            {
-                throw new Exception(StatusCodeEnum.H03.ToString()); // Chỉ có thể check-out khi ca đang diễn ra
-            }
-
-            // Lấy attendance dựa trên StaId và AssignmentId
-            var attendances = await _attendanceRepository.FilterAsync(a => a.AssignmentId == dto.AssignmentId && a.StaId == dto.StaId);
-            var attendance = attendances.FirstOrDefault();
-
-            if (attendance == null)
-            {
-                throw new Exception(StatusCodeEnum.H04.ToString()); // Chưa check-in hoặc bản ghi không tồn tại
-            }
-
-            if (!attendance.CheckIn.HasValue)
-            {
-                throw new Exception(StatusCodeEnum.H04.ToString()); // Chưa check-in
-            }
-
-            if (attendance.CheckOut.HasValue)
-            {
-                throw new Exception(StatusCodeEnum.H05.ToString()); // Đã check-out trước đó
-            }
-
-            // So sánh checkoutTime với assignmentTime để cập nhật Status
-            attendance.Status = CalculateCheckOutStatus(attendance.Status, assignmentTime.TimeOfDay, checkOutTime.TimeOfDay);
-
-            // Cập nhật Check-out time
-            attendance.CheckOut = checkOutTime;
-
-            // Tính tổng giờ làm (giờ làm thực tế từ CheckIn đến CheckOut)
-            var totalHours = (checkOutTime - attendance.CheckIn.Value).TotalHours;
-
-            // Cập nhật tblPayroll
-            var payroll = await _dbContext.TblPayrolls
-                .FirstOrDefaultAsync(p => p.StaId == dto.StaId);
-            if (payroll == null)
-            {
-                payroll = new TblPayroll { StaId = dto.StaId };
-            }
-            payroll.TotalHours = (decimal)totalHours;
-
-            // Lấy BaseSalary từ TblStaff và tính TotalSalary
-            var staff = await _dbContext.TblStaffs.FindAsync(dto.StaId);
-            if (staff != null && staff.StaBaseSalary.HasValue && staff.StaBaseSalary > 0)
-            {
-                payroll.TotalSalary = (staff.StaBaseSalary.Value / 160m) * (decimal)totalHours;
-            }
-
-            // Lưu hoặc cập nhật payroll
-            if (payroll.PayrollId == default)
-            {
-                await _dbContext.TblPayrolls.AddAsync(payroll);
-            }
-            else
-            {
-                _dbContext.TblPayrolls.Update(payroll);
-            }
-
-            // Cập nhật attendance
-            await _attendanceRepository.UpdateAsync(attendance);
-            await _dbContext.SaveChangesAsync();
-
-            return MapToResultDto(attendance);
         }
+        #endregion
 
-        // Tính trạng thái cho Check-in
-        private string CalculateCheckInStatus(TimeSpan assignmentTime, TimeSpan checkInTime)
+        #region Query Attendance
+        public async Task<IEnumerable<AttendanceResultDto>> GetAttendancesByWorkDateAsync(DateTime workDate)
         {
-            var gracePeriod = TimeSpan.FromMinutes(10); // Khoảng cách cho phép
-            if (checkInTime < assignmentTime)
-                return "Early";
-            else if (checkInTime <= assignmentTime + gracePeriod)
-                return "OnTime";
-            else
-                return "Late";
+            var dateOnly = DateOnly.FromDateTime(workDate);
+
+            var query = from sa in _dbContext.TblShiftAssignments
+                        join att in _dbContext.TblAttendances
+                            on sa.AssignmentId equals att.AssignmentId into attJoin
+                        from att in attJoin.DefaultIfEmpty()
+                        where sa.WorkDate == dateOnly
+                        select new AttendanceResultDto
+                        {
+                            AttendanceId = att != null ? att.AttendanceId : Guid.Empty,
+                            StaId = sa.StaId,
+                            AssignmentId = sa.AssignmentId,
+                            ShiftId = sa.ShiftId,
+                            CheckIn = att != null ? att.CheckIn : null,
+                            CheckOut = att != null ? att.CheckOut : null,
+                            Status = att != null ? att.Status : "Chưa check-in"
+                        };
+
+            return await query.ToListAsync();
         }
 
-        // Tính trạng thái cho Check-out
-        private string CalculateCheckOutStatus(string currentStatus, TimeSpan assignmentTime, TimeSpan checkOutTime)
+        #endregion
+
+        #region Helpers
+        private string CalculateCheckInStatus(TimeSpan start, TimeSpan checkIn)
         {
-            var gracePeriod = TimeSpan.FromMinutes(10);
-            if (checkOutTime < assignmentTime - gracePeriod)
-                return "Early";
-            else if (checkOutTime <= assignmentTime + gracePeriod)
-                return currentStatus;
-            else if (currentStatus == "Late")
-                return "LateandEarly";
-            else
-                return currentStatus;
+            var grace = TimeSpan.FromMinutes(10);
+            if (checkIn < start) return "Early";
+            if (checkIn <= start + grace) return "OnTime";
+            return "Late";
         }
 
-        // Map entity sang DTO
-        private AttendanceResultDto MapToResultDto(TblAttendance attendance)
+        private string CalculateCheckOutStatus(string current, TimeSpan end, TimeSpan checkOut)
+        {
+            var grace = TimeSpan.FromMinutes(10);
+            if (checkOut < end - grace) return "Early";
+            if (checkOut <= end + grace) return current;
+            if (current == "Late") return "LateAndEarly";
+            return current;
+        }
+
+        private AttendanceResultDto MapToResultDto(TblAttendance att)
         {
             return new AttendanceResultDto
             {
-                AttendanceId = attendance.AttendanceId,
-                StaId = attendance.StaId,
-                AssignmentId = attendance.AssignmentId,
-                CheckIn = attendance.CheckIn,
-                CheckOut = attendance.CheckOut,
-                Status = attendance.Status
+                AttendanceId = att.AttendanceId,
+                StaId = att.StaId,
+                AssignmentId = att.AssignmentId,
+                CheckIn = att.CheckIn,
+                CheckOut = att.CheckOut,
+                Status = att.Status
             };
         }
 
-        // Helper method từ BaseService
         private DateTime ToGmt7(DateTime utcTime)
-        {
-            return utcTime.ToUniversalTime().AddHours(7); // Điều chỉnh sang múi giờ +07
-        }
+            => utcTime.ToUniversalTime().AddHours(7);
+        #endregion
     }
 }

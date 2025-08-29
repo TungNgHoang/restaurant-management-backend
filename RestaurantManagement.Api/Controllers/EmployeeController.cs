@@ -63,6 +63,17 @@ namespace RestaurantManagement.Api.Controllers
             }
         }
 
+        [Authorize(Policy = "ManagerPolicy")]
+        [HttpGet("get-all-attendances")]
+        public async Task<IActionResult> GetAttendances([FromQuery] DateTime workDate)
+        {
+            if (workDate == default)
+                return BadRequest("WorkDate không hợp lệ.");
+
+            var result = await _employeeService.GetAttendancesByWorkDateAsync(workDate);
+            return Ok(result);
+        }
+
         // Helper method để lấy Description từ StatusCodeEnum
         private string GetStatusCodeDescription(StatusCodeEnum statusCode)
         {

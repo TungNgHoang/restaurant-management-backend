@@ -11,8 +11,9 @@ namespace RestaurantManagement.Service.Dtos.AttendanceDto
         public Guid AttendanceId { get; set; }
         public Guid StaId { get; set; }
         public Guid AssignmentId { get; set; }
+        public Guid ShiftId { get; set; }
         public DateTime? CheckIn { get; set; }
         public DateTime? CheckOut { get; set; }
-        public string Status { get; set; } // OnTime, Late, EarlyLeave
+        public string Status { get; set; }
     }
 }
