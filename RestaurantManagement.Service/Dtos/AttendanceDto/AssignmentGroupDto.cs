@@ -18,5 +18,7 @@ namespace RestaurantManagement.Service.Dtos.AttendanceDto
         public Guid ShiftId { get; set; }
         public Guid StaId { get; set; }
         public DateTime CreatedAt { get; set; }
+        public string staName { get; set; } = string.Empty;
+        public string staRole { get; set; } = string.Empty;
     }
 }
