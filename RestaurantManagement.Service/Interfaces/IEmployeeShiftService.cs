@@ -11,5 +11,7 @@ namespace RestaurantManagement.Service.Interfaces
     {
         Task<AttendanceResultDto> EmployeeCheckInAsync(CheckInDto dto);
         Task<AttendanceResultDto> EmployeeCheckOutAsync(CheckOutDto dto);
+        Task<IEnumerable<AttendanceResultDto>> GetAttendancesByWorkDateAsync(DateTime workDate);
+
     }
 }
