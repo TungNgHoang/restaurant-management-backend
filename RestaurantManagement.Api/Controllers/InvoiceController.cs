@@ -28,13 +28,13 @@ namespace RestaurantManagement.Api.Controllers
             return Success(listResult);
         }
 
-        [Authorize(Policy = "MCPolicy")]
-        [HttpGet("generate/{orderId}")]
-        public async Task<IActionResult> GenerateInvoice([FromRoute] Guid orderId)
-        {
-            var pdfBytes = await _invoiceService.GenerateInvoicePdf(orderId);
-            if (pdfBytes == null) return NotFound("Hóa đơn không tồn tại.");
-            return File(pdfBytes, "application/pdf", $"invoice_{orderId}.pdf");
-        }
+        //[Authorize(Policy = "MCPolicy")]
+        //[HttpGet("generate/{orderId}")]
+        //public async Task<IActionResult> GenerateInvoice([FromRoute] Guid orderId)
+        //{
+        //    var pdfBytes = await _invoiceService.GenerateInvoicePdf(orderId);
+        //    if (pdfBytes == null) return NotFound("Hóa đơn không tồn tại.");
+        //    return File(pdfBytes, "application/pdf", $"invoice_{orderId}.pdf");
+        //}
     }
 }

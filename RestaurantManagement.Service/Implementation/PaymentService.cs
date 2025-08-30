@@ -1,4 +1,7 @@
-﻿using Net.payOS.Types;
+﻿using Elastic.Clients.Elasticsearch.Inference;
+using Microsoft.EntityFrameworkCore;
+using Net.payOS.Types;
+using RestaurantManagement.Service.Dtos.InvoiceDto;
 using RestaurantManagement.Service.Dtos.PaymentDto;
 using RestaurantManagement.Service.Interfaces;
 using System.Security.Cryptography;
@@ -18,6 +21,7 @@ namespace RestaurantManagement.Service.Implementation
         protected readonly RestaurantDBContext _dbContext;
         private readonly ILogger<PaymentService> _logger;
         private readonly IPayOSService _payOSService;
+        private readonly IInvoiceService _invoiceService;
         public PaymentService(
             AppSettings appSettings,
             IMapper mapper,
@@ -31,7 +35,8 @@ namespace RestaurantManagement.Service.Implementation
             INotificationService notificationService,
             RestaurantDBContext dbContext,
             ILogger<PaymentService> logger,
-            IPayOSService payOSService
+            IPayOSService payOSService,
+            IInvoiceService invoiceService
             ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _dbContext = dbContext;
@@ -45,75 +50,67 @@ namespace RestaurantManagement.Service.Implementation
             _notificationService = notificationService;
             _logger = logger;
             _payOSService = payOSService;
+            _invoiceService = invoiceService;
         }
 
-        public async Task CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
+        public async Task<byte[]> CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
         {
             // 1. Lấy thông tin đơn hàng
             var order = await _orderRepository.GetOrderByIdAsync(ordId);
             if (order == null)
                 throw new ErrorException(StatusCodeEnum.ReservatioNotFound);
 
-            // 1. Kiểm tra reservation
+            // 2. Kiểm tra reservation
             var reservation = await _reservationsRepository.FindByIdAsync(resId);
             if (reservation == null || reservation.ResStatus != ReservationStatus.Serving.ToString())
                 throw new ErrorException(StatusCodeEnum.A03);
 
-            // 2. Kiểm tra bàn
+            // 3. Kiểm tra bàn
             var table = await _tablesRepository.FindByIdAsync(reservation.TbiId);
             if (table == null || table.TbiStatus != TableStatus.Occupied.ToString())
                 throw new ErrorException(StatusCodeEnum.A04);
-            // 3. Lấy thông tin khách hàng từ reservation
+
+            // 4. Kiểm tra khách hàng
             if (!reservation.CusId.HasValue)
-            {
                 throw new ErrorException(StatusCodeEnum.C09);
-            }
+
             var customer = await _customerRepository.FindByIdAsync(reservation.CusId.Value);
             if (customer == null)
                 throw new ErrorException(StatusCodeEnum.C09);
 
-            // Giảm giá theo mã khuyến mãi
-
+            // 5. Tính toán giảm giá
             decimal originalPrice = order.TotalPrice;
             decimal priceAfterVoucher = originalPrice;
             decimal voucherDiscount = 0;
             decimal rankDiscount = 0;
+
             if (!string.IsNullOrEmpty(proCode))
             {
-                // tìm promotion theo mã theo hàm FilterAsync
-                var promotionList = await _promotionRepository.FilterAsync(p => p.ProCode == proCode && !p.IsDeleted && p.StartDate <= DateTime.Now && p.EndDate >= DateTime.Now);
+                var promotionList = await _promotionRepository.FilterAsync(p =>
+                    p.ProCode == proCode &&
+                    !p.IsDeleted &&
+                    p.StartDate <= DateTime.Now &&
+                    p.EndDate >= DateTime.Now);
+
                 var promotion = promotionList.FirstOrDefault();
                 if (promotion == null)
                     throw new ErrorException(StatusCodeEnum.D04);
 
-                // Kiểm tra hạng
                 if (Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var customerTier) &&
                     Enum.TryParse<CustomerTierEnum>(promotion.DiscountType, out var requiredTier) &&
                     customerTier >= requiredTier)
                 {
-                    // Kiểm tra điều kiện
                     if (promotion.ConditionVal.HasValue && order.TotalPrice < promotion.ConditionVal.Value)
-                    {
                         throw new ErrorException(StatusCodeEnum.D08);
-                    }
 
-                    //Kiểm tra số lượng khuyến mãi
                     if (promotion.ProQuantity <= 0)
-                    {
                         throw new ErrorException(StatusCodeEnum.D09);
-                    }
 
-                    // Áp dụng giảm từ voucher
-                    if (promotion.DiscountVal <= 1)
-                    {
-                        voucherDiscount = originalPrice * promotion.DiscountVal;
-                    }
-                    else
-                    {
-                        voucherDiscount = promotion.DiscountVal;
-                    }
+                    // Áp dụng giảm giá
+                    voucherDiscount = promotion.DiscountVal <= 1
+                        ? originalPrice * promotion.DiscountVal
+                        : promotion.DiscountVal;
 
-                    // Không vượt quá giá trị đơn hàng
                     voucherDiscount = Math.Min(voucherDiscount, originalPrice);
                     priceAfterVoucher -= voucherDiscount;
                 }
@@ -123,16 +120,16 @@ namespace RestaurantManagement.Service.Implementation
                 }
             }
 
-            // 2. Giảm thêm theo hạng khách hàng
+            // 6. Giảm theo hạng khách
             if (Enum.TryParse<CustomerTierEnum>(customer.CusTier, out var tier))
             {
                 var tierDiscountMap = new Dictionary<CustomerTierEnum, decimal>
-                {
-                    { CustomerTierEnum.Standard, 0.02m },
-                    { CustomerTierEnum.Silver,   0.05m },
-                    { CustomerTierEnum.Gold,     0.07m },
-                    { CustomerTierEnum.Diamond,  0.10m }
-                };
+        {
+            { CustomerTierEnum.Standard, 0.02m },
+            { CustomerTierEnum.Silver,   0.05m },
+            { CustomerTierEnum.Gold,     0.07m },
+            { CustomerTierEnum.Diamond,  0.10m }
+        };
 
                 if (tierDiscountMap.TryGetValue(tier, out var rankPercent))
                 {
@@ -140,15 +137,19 @@ namespace RestaurantManagement.Service.Implementation
                     priceAfterVoucher -= rankDiscount;
                 }
             }
-            var vat = 0.08m; // Giả sử thuế VAT là 8%
+
+            // 7. VAT
+            var vat = 0.08m;
             var priceAfterVat = priceAfterVoucher * (1 + vat);
+
             using (var transaction = await _dbContext.Database.BeginTransactionAsync())
             {
                 try
                 {
                     var currentUserId = GetCurrentUserId();
                     var currentTime = ToGmt7(DateTime.UtcNow);
-                    // 4. Tạo bản ghi thanh toán
+
+                    // Tạo Payment
                     var payment = new TblPayment
                     {
                         PayId = Guid.NewGuid(),
@@ -163,19 +164,19 @@ namespace RestaurantManagement.Service.Implementation
                     };
                     await _paymentRepository.InsertAsync(payment);
 
-                    // 5. Cập nhật trạng thái reservation
-                    reservation.ResStatus = ReservationStatus.Finished.ToString() /*"Finished",*/;
+                    // Cập nhật Reservation
+                    reservation.ResStatus = ReservationStatus.Finished.ToString();
                     reservation.UpdatedAt = currentTime;
                     reservation.UpdatedBy = currentUserId;
                     await _reservationsRepository.UpdateAsync(reservation);
 
-                    // 6. Cập nhật trạng thái bàn
-                    table.TbiStatus = TableStatus.Empty.ToString(); //"Empty"
+                    // Cập nhật Table
+                    table.TbiStatus = TableStatus.Empty.ToString();
                     table.UpdatedAt = currentTime;
-                    table.UpdatedBy = currentUserId; 
+                    table.UpdatedBy = currentUserId;
                     await _tablesRepository.UpdateAsync(table);
 
-                    // 7. Cập nhật trạng thái voucher (giảm số lượng đi 1)
+                    // Cập nhật Voucher
                     if (!string.IsNullOrEmpty(proCode))
                     {
                         var promotion = await _promotionRepository.FindAsync(p => p.ProCode == proCode && !p.IsDeleted);
@@ -183,14 +184,12 @@ namespace RestaurantManagement.Service.Implementation
                         {
                             promotion.ProQuantity -= 1;
                             if (promotion.ProQuantity <= 0)
-                            {
-                                promotion.IsDeleted = true; // Xóa nếu hết số lượng
-                            }
+                                promotion.IsDeleted = true;
                             await _promotionRepository.UpdateAsync(promotion);
                         }
                     }
 
-                    //Cập nhật điểm và lên hạng cho khách
+                    // Cập nhật điểm khách hàng
                     customer.CusPoints += (int)priceAfterVoucher;
                     if (customer.CusPoints >= 10_000_000)
                         customer.CusTier = CustomerTierEnum.Diamond.ToString();
@@ -205,21 +204,68 @@ namespace RestaurantManagement.Service.Implementation
 
                     await _customerRepository.UpdateAsync(customer);
 
-                    // Nếu cả hai thành công, commit transaction
+                    // 8. Lấy danh sách món
+                    var items = await _dbContext.TblOrderDetails
+                        .Where(d => d.OrdId == ordId && !d.IsDeleted)
+                        .Join(_dbContext.TblMenus,
+                              d => d.MnuId,
+                              m => m.MnuId,
+                              (d, m) => new InvoicePrintItemDto
+                              {
+                                  Name = m.MnuName,
+                                  Quantity = d.OdtQuantity,
+                                  UnitPrice = m.MnuPrice
+                              })
+                        .ToListAsync();
+
+                    for (int i = 0; i < items.Count; i++)
+                        items[i].Index = i + 1;
+
+                    // 9. Build Invoice DTO
+                    var invoiceDto = new InvoicePrintDto
+                    {
+                        OrderId = ordId,
+                        InvoiceCode = $"HD-{DateTime.Now:yyyyMMdd}-{new Random().Next(100, 999)}",
+                        StoreName = "PIZZA DAAY",
+                        StoreAddress = "Vạn Phúc, Hà Đông, Hà Nội",
+                        StorePhone = "123 456 789",
+
+                        CustomerName = customer.CusName ?? reservation.TempCustomerName,
+                        CustomerPhone = reservation.TempCustomerPhone,
+                        TableNumber = table.TbiTableNumber.ToString(),
+                        InvoiceDate = currentTime,
+
+                        Items = items,
+
+                        SubTotal = originalPrice,
+                        VatRate = vat,
+                        VatAmount = priceAfterVoucher * vat,
+
+                        VoucherCode = proCode,
+                        VoucherDiscount = voucherDiscount,
+                        RankDiscount = rankDiscount,
+
+                        TotalAmount = priceAfterVat,
+                        PayMethod = payMethod
+                    };
+
+                    // 10. Sinh file PDF
+                    var invoice = await _invoiceService.GenerateInvoicePdf(order.OrdId, invoiceDto);
                     await transaction.CommitAsync();
 
-                    // Send payment success notification
+                    // 11. Notification
                     try
                     {
                         await _notificationService.SendPaymentSuccessNotificationAsync(
                             resId, priceAfterVat, customer.CusName ?? reservation.TempCustomerName ?? "Khách hàng");
-
                         _logger.LogInformation("Đã gửi thông báo thanh toán thành công cho ResId: {ResId}", resId);
                     }
                     catch (Exception ex)
                     {
                         _logger.LogWarning(ex, "Lỗi khi gửi thông báo thanh toán thành công cho ResId: {ResId}", resId);
                     }
+
+                    return invoice;
                 }
                 catch (Exception ex)
                 {
@@ -363,7 +409,7 @@ namespace RestaurantManagement.Service.Implementation
         //        }
 
         //        // 2. Tìm payment record
-                
+
         //        var payment = await _paymentRepository.FindAsync(p => p.OrdId.ToString() == verifiedData.description && p.PayMethod == "PayOS");
 
         //        if (payment == null)

@@ -24,8 +24,9 @@ namespace RestaurantManagement.Api.Controllers
         {
             try
             {
-                await _paymentService.CheckoutAndPayAsync(resId, ordId, proCode, request.PayMethod);
-                return Ok();
+                var pdfBytes = await _paymentService.CheckoutAndPayAsync(resId, ordId, proCode, request.PayMethod);
+                if (pdfBytes == null) return NotFound("Hóa đơn không tồn tại.");
+                return File(pdfBytes, "application/pdf", $"invoice_{ordId}.pdf");
             }
             catch (Exception ex)
             {
