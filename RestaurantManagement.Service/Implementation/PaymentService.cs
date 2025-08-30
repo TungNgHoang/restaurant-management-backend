@@ -1,4 +1,5 @@
-﻿using Net.payOS.Types;
+﻿using Elastic.Clients.Elasticsearch.Inference;
+using Net.payOS.Types;
 using RestaurantManagement.Service.Dtos.PaymentDto;
 using RestaurantManagement.Service.Interfaces;
 using System.Security.Cryptography;
@@ -18,6 +19,7 @@ namespace RestaurantManagement.Service.Implementation
         protected readonly RestaurantDBContext _dbContext;
         private readonly ILogger<PaymentService> _logger;
         private readonly IPayOSService _payOSService;
+        private readonly IInvoiceService _invoiceService;
         public PaymentService(
             AppSettings appSettings,
             IMapper mapper,
@@ -31,7 +33,8 @@ namespace RestaurantManagement.Service.Implementation
             INotificationService notificationService,
             RestaurantDBContext dbContext,
             ILogger<PaymentService> logger,
-            IPayOSService payOSService
+            IPayOSService payOSService,
+            IInvoiceService invoiceService
             ) : base(appSettings, mapper, httpContextAccessor, dbContext)
         {
             _dbContext = dbContext;
@@ -45,9 +48,10 @@ namespace RestaurantManagement.Service.Implementation
             _notificationService = notificationService;
             _logger = logger;
             _payOSService = payOSService;
+            _invoiceService = invoiceService;
         }
 
-        public async Task CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
+        public async Task<byte[]> CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)
         {
             // 1. Lấy thông tin đơn hàng
             var order = await _orderRepository.GetOrderByIdAsync(ordId);
@@ -204,7 +208,7 @@ namespace RestaurantManagement.Service.Implementation
                         customer.CusTier = CustomerTierEnum.Unranked.ToString();
 
                     await _customerRepository.UpdateAsync(customer);
-
+                    var invoice = await _invoiceService.GenerateInvoicePdf(ordId);
                     // Nếu cả hai thành công, commit transaction
                     await transaction.CommitAsync();
 
@@ -220,6 +224,7 @@ namespace RestaurantManagement.Service.Implementation
                     {
                         _logger.LogWarning(ex, "Lỗi khi gửi thông báo thanh toán thành công cho ResId: {ResId}", resId);
                     }
+                    return invoice;
                 }
                 catch (Exception ex)
                 {

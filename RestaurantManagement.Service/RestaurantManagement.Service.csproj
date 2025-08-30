@@ -14,6 +14,7 @@
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.1.4" />
     <PackageReference Include="ESCPOS_NET" Version="3.0.0" />
     <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.2.2" />
+    <PackageReference Include="iTextSharp" Version="5.5.13.4" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.13" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.2">
