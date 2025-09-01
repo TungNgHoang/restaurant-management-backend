@@ -7,7 +7,7 @@ namespace RestaurantManagement.DataAccess.DbContexts;
 
 public partial class RestaurantDBContext : DbContext
 {
-    public RestaurantDBContext()
+    public RestaurantDBContext(DbContextOptionsBuilder<RestaurantDBContext> options)
     {
     }
 

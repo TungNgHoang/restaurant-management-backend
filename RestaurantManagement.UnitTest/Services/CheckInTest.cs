@@ -1,0 +1,148 @@
+﻿using AutoMapper;
+using Elastic.Clients.Elasticsearch;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Org.BouncyCastle.Ocsp;
+using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
+using RestaurantManagement.DataAccess.DbContexts;
+using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.Implementation;
+using RestaurantManagement.Service.Interfaces;
+using System.Linq.Expressions;
+
+namespace RestaurantManagement.UnitTest.Services
+{
+    public class CheckInTest
+    {
+        private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
+        private readonly Mock<IRepository<TblReservation>> _reservationsRepoMock;
+        private readonly Mock<IRepository<TblTableInfo>> _tablesRepoMock;
+        private readonly Mock<IRepository<TblCustomer>> _customerRepoMock;
+        private readonly Mock<IRepository<TblOrderInfo>> _ordersRepoMock;
+        private readonly Mock<IReservationRepository> _reservationRepoMock;
+        private readonly Mock<INotificationService> _notificationServiceMock;
+        private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<ILogger<ReservationService>> _loggerMock;
+        private readonly RestaurantDBContext _dbContextFake;
+        private readonly ReservationService _sut;
+
+        public CheckInTest()
+        {
+            _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+            _reservationsRepoMock = new Mock<IRepository<TblReservation>>();
+            _tablesRepoMock = new Mock<IRepository<TblTableInfo>>();
+            _customerRepoMock = new Mock<IRepository<TblCustomer>>();
+            _ordersRepoMock = new Mock<IRepository<TblOrderInfo>>();
+            _reservationRepoMock = new Mock<IReservationRepository>();
+            _notificationServiceMock = new Mock<INotificationService>();
+            _mapperMock = new Mock<IMapper>();
+            _loggerMock = new Mock<ILogger<ReservationService>>();
+
+            var options = new DbContextOptionsBuilder<RestaurantDBContext>();
+            _dbContextFake = new RestaurantDBContext(options);
+
+            var appSettings = new AppSettings();
+            _sut = new ReservationService(
+                _httpContextAccessorMock.Object,
+                appSettings,
+                _dbContextFake,
+                _mapperMock.Object,
+                _reservationsRepoMock.Object,
+                _tablesRepoMock.Object,
+                _customerRepoMock.Object,
+                _ordersRepoMock.Object,
+                _reservationRepoMock.Object,
+                _notificationServiceMock.Object,
+                _loggerMock.Object
+            );
+        }
+
+        [Fact]
+        public async Task CheckInReservationAsync_ShouldUpdateOrder_When_PreOrderExists()
+        {
+            // Arrange
+            var table = new TblTableInfo
+            {
+                TbiId = Guid.NewGuid(),
+                TbiCapacity = 4,
+                TbiStatus = TableStatus.Empty.ToString()
+            };
+            var reservation = new TblReservation
+            {
+                ResId = Guid.NewGuid(),
+                ResStatus = ReservationStatus.Pending.ToString(),
+                TbiId = table.TbiId,
+                TempCustomerMail = "a@b.com",
+                TempCustomerPhone = "1234567890",
+                TempCustomerName = "A"
+            };
+            var order = new TblOrderInfo
+            {
+                ResId = reservation.ResId,
+                OrdStatus = OrderStatusEnum.PreOrder.ToString()
+            };
+
+            _reservationsRepoMock.Setup(r => r.FindByIdAsync(reservation.ResId))
+                .ReturnsAsync(reservation);
+            _tablesRepoMock.Setup(t => t.FindByIdAsync(table.TbiId))
+                .ReturnsAsync(table);
+            _ordersRepoMock.Setup(o => o.FindAsync(It.IsAny<Expression<Func<TblOrderInfo, bool>>>()))
+                .ReturnsAsync(order);
+
+            // Act
+            await _sut.CheckInReservationAsync(reservation.ResId, 2);
+
+            // Assert
+            _ordersRepoMock.Verify(o => o.UpdateAsync(It.Is<TblOrderInfo>(ord =>
+                ord.OrdStatus == OrderStatusEnum.Order.ToString())), Times.Once);
+            _reservationsRepoMock.Verify(r => r.UpdateAsync(It.Is<TblReservation>(res =>
+                res.ResStatus == ReservationStatus.Serving.ToString())), Times.Once);
+            _tablesRepoMock.Verify(t => t.UpdateAsync(It.Is<TblTableInfo>(tb =>
+                tb.TbiStatus == TableStatus.Occupied.ToString())), Times.Once);
+        }
+
+        [Fact]
+        public async Task CheckInReservationAsync_ShouldWork_When_NoPreOrder()
+        {
+            // Arrange
+            var table = new TblTableInfo
+            {
+                TbiId = Guid.NewGuid(),
+                TbiCapacity = 4,
+                TbiStatus = TableStatus.Empty.ToString()
+            };
+            var reservation = new TblReservation
+            {
+                ResId = Guid.NewGuid(),
+                ResStatus = ReservationStatus.Pending.ToString(),
+                TbiId = table.TbiId,
+                TempCustomerMail = "a@b.com",
+                TempCustomerPhone = "1234567890",
+                TempCustomerName = "A"
+            };
+
+            _reservationsRepoMock.Setup(r => r.FindByIdAsync(reservation.ResId))
+                .ReturnsAsync(reservation);
+            _tablesRepoMock.Setup(t => t.FindByIdAsync(table.TbiId))
+                .ReturnsAsync(table);
+            _ordersRepoMock.Setup(o => o.FindAsync(It.IsAny<Expression<Func<TblOrderInfo, bool>>>()))
+                .ReturnsAsync((TblOrderInfo?)null);
+
+            // Act
+            await _sut.CheckInReservationAsync(reservation.ResId, 2);
+
+            // Assert
+            _ordersRepoMock.Verify(o => o.UpdateAsync(It.IsAny<TblOrderInfo>()), Times.Never);
+            _reservationsRepoMock.Verify(r => r.UpdateAsync(It.Is<TblReservation>(res =>
+                res.ResStatus == ReservationStatus.Serving.ToString())), Times.Once);
+            _tablesRepoMock.Verify(t => t.UpdateAsync(It.Is<TblTableInfo>(tb =>
+                tb.TbiStatus == TableStatus.Occupied.ToString())), Times.Once);
+        }
+    }
+}
