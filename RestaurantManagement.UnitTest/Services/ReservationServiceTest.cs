@@ -1,0 +1,344 @@
+﻿using AutoMapper;
+using Castle.Core.Resource;
+using FluentAssertions;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Microsoft.Extensions.Logging;
+using Moq;
+using RestaurantManagement.Core.ApiModels;
+using RestaurantManagement.Core.Enums;
+using RestaurantManagement.Core.Exceptions;
+using RestaurantManagement.DataAccess.DbContexts;
+using RestaurantManagement.DataAccess.Interfaces;
+using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.Service.Dtos.ReserDto;
+using RestaurantManagement.Service.Implementation;
+using RestaurantManagement.Service.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Text;
+using System.Threading.Tasks;
+using Xunit.Abstractions;
+
+namespace RestaurantManagement.UnitTest.Services
+{
+    public class ReservationServiceTest
+    {
+        private readonly Mock<IHttpContextAccessor> _httpContextAccessorMock;
+        private readonly Mock<IRepository<TblReservation>> _reservationsRepoMock;
+        private readonly Mock<IRepository<TblTableInfo>> _tablesRepoMock;
+        private readonly Mock<IRepository<TblCustomer>> _customerRepoMock;
+        private readonly Mock<IRepository<TblOrderInfo>> _ordersRepoMock;
+        private readonly Mock<IReservationRepository> _reservationRepoMock;
+        private readonly Mock<INotificationService> _notificationServiceMock;
+        private readonly Mock<IMapper> _mapperMock;
+        private readonly Mock<ILogger<ReservationService>> _loggerMock;
+        private readonly RestaurantDBContext _dbContextFake; // nếu cần thì dùng InMemoryDbContext
+        private readonly ITestOutputHelper _output;
+
+        private readonly ReservationService _sut; // System Under Test
+        private readonly object _reservationService;
+        private readonly object _service;
+
+        public ReservationServiceTest(ITestOutputHelper output)
+        {
+            _httpContextAccessorMock = new Mock<IHttpContextAccessor>();
+            _reservationsRepoMock = new Mock<IRepository<TblReservation>>();
+            _tablesRepoMock = new Mock<IRepository<TblTableInfo>>();
+            _customerRepoMock = new Mock<IRepository<TblCustomer>>();
+            _ordersRepoMock = new Mock<IRepository<TblOrderInfo>>();
+            _reservationRepoMock = new Mock<IReservationRepository>();
+            _notificationServiceMock = new Mock<INotificationService>();
+            _mapperMock = new Mock<IMapper>();
+            _loggerMock = new Mock<ILogger<ReservationService>>();
+            _output = output;
+            var options = new DbContextOptionsBuilder<RestaurantDBContext>()
+    .UseInMemoryDatabase(databaseName: "TestDb") // Hoặc SQL Server
+    .Options;
+
+            // Có thể dùng InMemoryDbContext của EF Core hoặc mock hẳn DbContext
+            _dbContextFake = new RestaurantDBContext(options);
+
+            var appSettings = new AppSettings(); 
+
+            _sut = new ReservationService(
+                _httpContextAccessorMock.Object,
+                appSettings,
+                _dbContextFake,
+                _mapperMock.Object,
+                _reservationsRepoMock.Object,
+                _tablesRepoMock.Object,
+                _customerRepoMock.Object,
+                _ordersRepoMock.Object,
+                _reservationRepoMock.Object,
+                _notificationServiceMock.Object,
+                _loggerMock.Object
+            );
+        }
+
+        [Fact]
+        public async Task GetAvailableTablesAsync_ShouldReturnTables_WhenCapacityIsEnoughAndNotReserved()
+        {
+            // Arrange
+            var request = new CheckAvailabilityRequestDto
+            {
+                ResDate = DateTime.Today.AddHours(18),
+                ResEndDate = DateTime.Today.AddHours(20),
+                ResNumber = 4
+            };
+
+            var tables = new List<TblTableInfo>
+            {
+                new TblTableInfo { TbiId = Guid.NewGuid(), TbiCapacity = 4 },
+                new TblTableInfo { TbiId = Guid.NewGuid(), TbiCapacity = 2 }
+            };
+
+            _tablesRepoMock
+                .Setup(r => r.ActiveRecordsAsync())
+                .ReturnsAsync(tables);
+
+            _reservationRepoMock
+                .Setup(r => r.GetOverlappingReservationsAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .ReturnsAsync(new List<TblReservation>()); // không có bàn nào bị đặt
+
+            _mapperMock
+                .Setup(m => m.Map<List<AvailableTableDto>>(It.IsAny<List<TblTableInfo>>()))
+                .Returns((List<TblTableInfo> src) => src.Select(t => new AvailableTableDto { TbiId = t.TbiId, TbiCapacity = t.TbiCapacity }).ToList());
+
+            // Act
+            var result = await _sut.GetAvailableTablesAsync(request);
+
+            // Assert
+            result.Should().HaveCount(1); // chỉ bàn có Capacity >= 4
+            result.First().TbiCapacity.Should().Be(4);
+        }
+
+        [Fact]
+        public async Task GetAvailableTablesAsync_CapacityTooLarge_ShouldReturnEmpty()
+        {
+            // Arrange
+            var tables = new List<TblTableInfo>
+            {
+                new TblTableInfo { TbiId = Guid.NewGuid(), TbiCapacity = 2 },
+                new TblTableInfo { TbiId = Guid.NewGuid(), TbiCapacity = 4 }
+            };
+
+            _tablesRepoMock.Setup(r => r.ActiveRecordsAsync())
+                           .ReturnsAsync(tables);
+
+            _reservationRepoMock.Setup(r => r.GetOverlappingReservationsAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                                .ReturnsAsync(new List<TblReservation>()); // không có bàn bị chiếm
+
+            var request = new CheckAvailabilityRequestDto
+            {
+                ResDate = DateTime.Now,
+                ResEndDate = DateTime.Now.AddHours(2),
+                ResNumber = 10 // Đặt rõ số khách ở đây
+            };
+
+            // Act
+            var result = await _sut.GetAvailableTablesAsync(request);
+
+            // Assert
+            result.Should().BeNullOrEmpty("vì không có bàn nào đủ chỗ cho 10 khách");
+        }
+
+        [Fact]
+        public async Task CreateReservationAsync_ShouldThrowError_WhenStartTimeAfterEndTime()
+        {
+            // Arrange
+            var request = new CreateReservationRequestDto
+            {
+                TbiId = Guid.NewGuid(),
+                ResDate = DateTime.Today.AddHours(20),
+                ResEndTime = DateTime.Today.AddHours(18),
+                ResNumber = 2
+            };
+
+            // Act
+            Func<Task> act = async () => await _sut.CreateReservationAsync(request);
+
+            // Assert
+            await act.Should().ThrowAsync<ErrorException>()
+                .Where(ex => ex.StatusCode == StatusCodeEnum.C02);
+        }
+
+        [Fact]
+        public async Task CreateReservationAsync_ShouldSucceed_WhenValid()
+        {
+            // Arrange
+            var table = new TblTableInfo { TbiId = Guid.NewGuid(), TbiCapacity = 4, TbiTableNumber = 5 };
+            var request = new CreateReservationRequestDto
+            {
+                TbiId = table.TbiId,
+                ResDate = DateTime.Today.AddHours(18),
+                ResEndTime = DateTime.Today.AddHours(20),
+                ResNumber = 2,
+                TempCustomerName = "Test",
+                TempCustomerPhone = "0123456789",
+            };
+
+            _reservationRepoMock
+                .Setup(r => r.GetOverlappingReservationsAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .ReturnsAsync(new List<TblReservation>()); // không có bàn trùng
+
+            _tablesRepoMock
+                .Setup(r => r.FindByIdAsync(table.TbiId))
+                .ReturnsAsync(table);
+
+            _reservationsRepoMock
+                .Setup(r => r.InsertAsync(It.IsAny<TblReservation>()))
+                .Returns(Task.CompletedTask);
+
+            _notificationServiceMock
+                .Setup(n => n.SendNewReservationNotificationAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(Task.CompletedTask);
+
+            _mapperMock
+                .Setup(m => m.Map<ReservationResponseDto>(It.IsAny<TblReservation>()))
+                .Returns(new ReservationResponseDto { TbiId = table.TbiId });
+
+            // Act
+            var result = await _sut.CreateReservationAsync(request);
+
+            // Assert
+            result.TbiId.Should().Be(table.TbiId);
+            _reservationsRepoMock.Verify(r => r.InsertAsync(It.IsAny<TblReservation>()), Times.Once);
+        }
+
+        [Fact]
+        public async Task CreateReservationAsync_ShouldThrow_A02_When_TableNotFound()
+        {
+            // Arrange
+            var request = new CreateReservationRequestDto
+            {
+                TbiId = Guid.NewGuid(),
+                ResDate = DateTime.Today.AddHours(18),
+                ResEndTime = DateTime.Today.AddHours(20),
+                ResNumber = 2
+            };
+
+            _reservationRepoMock
+                .Setup(r => r.GetOverlappingReservationsAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .ReturnsAsync(new List<TblReservation>());
+
+            _tablesRepoMock
+                .Setup(r => r.FindByIdAsync(request.TbiId))
+                .ReturnsAsync((TblTableInfo?)null);
+
+            // Act & Assert
+            var ex = await Assert.ThrowsAsync<ErrorException>(() => _sut.CreateReservationAsync(request));
+            Assert.Equal(StatusCodeEnum.A02, ex.StatusCode);
+        }
+
+        [Fact]
+        public async Task CreateReservationAsync_ShouldThrow_C03_When_PhoneLengthInvalid()
+        {
+            // Arrange
+            var request = new CreateReservationRequestDto
+            {
+                TbiId = Guid.NewGuid(),
+                ResDate = DateTime.Today.AddHours(18),
+                ResEndTime = DateTime.Today.AddHours(20),
+                ResNumber = 2,
+                TempCustomerPhone = "012345" // length != 10
+            };
+
+            // Act & Assert
+            var ex = await Assert.ThrowsAsync<ErrorException>(() => _sut.CreateReservationAsync(request));
+            Assert.Equal(StatusCodeEnum.C03, ex.StatusCode);
+        }
+
+        [Fact]
+        public async Task CreateReservationAsync_ShouldReturnDto_When_ValidAndNotificationSucceeds()
+        {
+            // Arrange
+            var tableId = Guid.NewGuid();
+            var table = new TblTableInfo
+            {
+                TbiId = tableId,
+                TbiCapacity = 4,
+                TbiTableNumber = 7
+            };
+
+            var request = new CreateReservationRequestDto
+            {
+                TbiId = tableId,
+                ResDate = DateTime.Today.AddHours(18),
+                ResEndTime = DateTime.Today.AddHours(20),
+                ResNumber = 2,
+                TempCustomerName = "Khách",
+                TempCustomerPhone = "0123456789",
+                TempCustomerEmail = "a@b.c"
+            };
+
+            _reservationRepoMock
+                .Setup(r => r.GetOverlappingReservationsAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .ReturnsAsync(new List<TblReservation>()); // no overlap
+
+            _tablesRepoMock
+                .Setup(r => r.FindByIdAsync(tableId))
+                .ReturnsAsync(table);
+
+            _reservationsRepoMock
+                .Setup(r => r.InsertAsync(It.IsAny<TblReservation>()))
+                .Returns(Task.CompletedTask)
+                .Verifiable();
+
+            _notificationServiceMock
+                .Setup(n => n.SendNewReservationNotificationAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>()))
+                .Returns(Task.CompletedTask)
+                .Verifiable();
+
+            var expectedDto = new ReservationResponseDto { ResId = Guid.NewGuid(), TbiId = tableId };
+            _mapperMock
+                .Setup(m => m.Map<ReservationResponseDto>(It.IsAny<TblReservation>()))
+                .Returns(expectedDto);
+
+            // Act
+            var result = await _sut.CreateReservationAsync(request);
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(expectedDto.ResId, result.ResId);
+            Assert.Equal(tableId, result.TbiId);
+            _reservationsRepoMock.Verify(r => r.InsertAsync(It.IsAny<TblReservation>()), Times.Once);
+            _notificationServiceMock.Verify(n => n.SendNewReservationNotificationAsync(It.IsAny<Guid>(), It.IsAny<string>(), It.IsAny<string>()), Times.Once);
+        }
+        [Fact]
+        public async Task CreateReservationAsync_ShouldThrow_A02_When_NumberExceedsCapacity()
+        {
+            // Arrange
+            var tableId = Guid.NewGuid();
+            var table = new TblTableInfo
+            {
+                TbiId = tableId,
+                TbiCapacity = 4,
+                TbiTableNumber = 1
+            };
+
+            var request = new CreateReservationRequestDto
+            {
+                TbiId = tableId,
+                ResDate = DateTime.Today.AddHours(18),
+                ResEndTime = DateTime.Today.AddHours(20),
+                ResNumber = 6 // exceeds capacity 4
+            };
+
+            _reservationRepoMock
+                .Setup(r => r.GetOverlappingReservationsAsync(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
+                .ReturnsAsync(new List<TblReservation>());
+
+            _tablesRepoMock
+                .Setup(r => r.FindByIdAsync(tableId))
+                .ReturnsAsync(table);
+
+            // Act & Assert
+            var ex = await Assert.ThrowsAsync<ErrorException>(() => _sut.CreateReservationAsync(request));
+            Assert.Equal(StatusCodeEnum.A02, ex.StatusCode);
+        }
+    }
+}
