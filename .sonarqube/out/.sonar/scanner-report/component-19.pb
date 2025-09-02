@@ -1,0 +1,1 @@
+ (2csX	hr8RestaurantManagement.DataAccess/Interfaces/IPromotion.cs

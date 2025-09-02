@@ -1,0 +1,304 @@
+namespace RestaurantManagement.Api.BackgroundTask
+{
+    public class BackgroundTaskUpdate(IServiceProvider serviceProvider,
+                              ILogger<BackgroundTaskUpdate> logger,
+                              IConfiguration configuration) : BackgroundService
+    {
+        private readonly IServiceProvider _serviceProvider = serviceProvider;
+        private readonly ILogger<BackgroundTaskUpdate> _logger = logger;
+        private readonly IConfiguration _configuration = configuration;
+        private DateTime _lastMonthlyReportDate = DateTime.MinValue;
+
+        protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            _logger.LogInformation("BackgroundTaskUpdate service đang hoạt động");
+            var intervalMinutes = _configuration.GetValue<int>("BackgroundTasks:CleanupIntervalMinutes", 1);
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                try
+                {
+                    //Xử lý các tác vụ định kỳ
+
+                    //Xử lý các đơn đặt đã quá hạn
+                    await ProcessExpiredReservations(stoppingToken);
+                    //Xử lý các đơn đặt sắp quá hạn
+                    await ProcessExpiringReservations(stoppingToken);
+                    //Xử lý báo cáo doanh thu hàng tháng
+                    await ProcessMonthlyRevenueReport(stoppingToken);
+                }
+                catch (OperationCanceledException oce) when (!stoppingToken.IsCancellationRequested)
+                {
+                    // ngoại lệ hủy “ngoài ý muốn”
+                    _logger.LogWarning(oce, "Tác vụ bị huỷ sớm, sẽ lặp lại sau {Interval} phút", intervalMinutes);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Lỗi không mong muốn, service vẫn tiếp tục");
+                }
+
+                try
+                {
+                    await Task.Delay(intervalMinutes, stoppingToken);
+                }
+                catch (OperationCanceledException) when (stoppingToken.IsCancellationRequested)
+                {
+                    // ứng dụng đang shutdown ⇒ thoát vòng lặp
+                }
+            }
+
+            _logger.LogInformation("BackgroundTaskUpdate STOPPED");
+        }
+
+        private async Task ProcessExpiredReservations(CancellationToken stoppingToken)
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var reservationRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblReservation>>();
+            var orderRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblOrderInfo>>();
+            var orderDetailRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblOrderDetail>>();
+            var tableRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblTableInfo>>();
+            var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
+
+            // Sử dụng timezone từ configuration
+            var timeZone = _configuration.GetValue<string>("Application:TimeZone", "SE Asia Standard Time");
+            if (string.IsNullOrWhiteSpace(timeZone))
+            {
+                ArgumentException argumentException = new("The configured time zone is null or empty.", nameof(timeZone));
+                throw argumentException;
+            }
+            var nowGmt7 = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                                                        TimeZoneInfo.FindSystemTimeZoneById(timeZone));
+
+            _logger.LogDebug("Processing expired reservations at {Time}", nowGmt7);
+
+            try
+            {
+                // Query expired reservations
+                var expiredReservations = await reservationRepo
+            .FindElementAsync(r => r.ResAutoCancelAt != null &&
+                            r.ResAutoCancelAt < nowGmt7 &&
+                            r.IsDeleted == false &&
+                            r.ResStatus == ReservationStatus.Pending.ToString()); // ✅ Materialize ngay
+
+                if (!expiredReservations.Any())
+                {
+                    _logger.LogDebug("Không có đặt bàn nào quá hạn");
+                    return;
+                }
+
+                _logger.LogInformation("Tìm thấy {Count} đặt bàn quá hạn", expiredReservations.Count());
+
+                int processedCount = 0;
+                int errorCount = 0;
+
+                // Process each reservation in separate transaction
+                foreach (var reservation in expiredReservations)
+                {
+                    try
+                    {
+                        // Kiểm tra có đơn đặt trước không
+                        var preOrders = await orderRepo.FilterAsync(o => o.ResId == reservation.ResId &&
+                            o.OrdStatus == OrderStatusEnum.PreOrder.ToString() && !o.IsDeleted);
+                        bool hasPreOrder = preOrders.Any();
+
+                        var customerName = reservation.TempCustomerName ?? "Khách hàng";
+
+                        // Xử lý hủy đặt bàn
+                        await ProcessSingleReservation(reservation.ResId, stoppingToken);
+
+                        // Gửi thông báo hủy tự động
+                        await notificationService.SendReservationAutoCancelledNotificationAsync(
+                            reservation.ResId, customerName, hasPreOrder);
+
+                        processedCount++;
+                        _logger.LogDebug("Đã xử lý và gửi thông báo hủy đặt bàn: {ReservationId}", reservation.ResId);
+                    }
+                    catch (Exception ex)
+                    {
+                        errorCount++;
+                        _logger.LogError(ex, "Không thể xử lý đặt bàn {ReservationId}", reservation.ResId);
+                    }
+                }
+
+                _logger.LogInformation("Hoàn thành xử lý: {ProcessedCount} thành công, {ErrorCount} lỗi",
+                                     processedCount, errorCount);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi xảy ra khi truy vấn đặt bàn quá hạn");
+            }
+        }
+
+        private async Task ProcessExpiringReservations(CancellationToken stoppingToken)
+        {
+            using var scope = _serviceProvider.CreateScope();
+            var reservationRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblReservation>>();
+            var notiRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblNotification>>();
+            var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
+
+            var timeZone = _configuration.GetValue<string>("Application:TimeZone", "SE Asia Standard Time");
+            var nowGmt7 = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                                                        TimeZoneInfo.FindSystemTimeZoneById(timeZone));
+            var warningTime = nowGmt7.AddMinutes(5); // 5 minutes from now
+
+            try
+            {
+                // Query reservations expiring in 5 minutes
+                var expiringReservations = await reservationRepo
+                    .FilterAsync(r => r.ResAutoCancelAt != null &&
+                                     r.ResAutoCancelAt <= warningTime &&
+                                     r.ResAutoCancelAt > nowGmt7 &&
+                                     r.IsDeleted == false &&
+                                     r.ResStatus == ReservationStatus.Pending.ToString());
+
+                if (!expiringReservations.Any())
+                {
+                    _logger.LogDebug("Không có đặt bàn nào sắp quá hạn");
+                    return;
+                }
+
+                _logger.LogInformation("Tìm thấy {Count} đặt bàn sắp quá hạn", expiringReservations.Count());
+
+                foreach (var reservation in expiringReservations)
+                {
+                    try
+                    {
+                        bool alreadySent = await notiRepo.AnyAsync(n =>
+                                                    n.ResId == reservation.ResId &&
+                                                    n.Message.Contains("[Đơn đặt bàn sắp quá hạn]"));
+                        if (!alreadySent)
+                        {
+                            var customerName = reservation.TempCustomerName ?? "Khách hàng";
+                            await notificationService.SendReservationExpiringSoonNotificationAsync(
+                                reservation.ResId, customerName, reservation.ResAutoCancelAt.Value);
+                        }
+
+                        _logger.LogDebug("Đã gửi thông báo sắp quá hạn cho đặt bàn: {ReservationId}", reservation.ResId);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex, "Lỗi khi gửi thông báo sắp quá hạn cho đặt bàn {ReservationId}", reservation.ResId);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi xử lý thông báo đặt bàn sắp quá hạn");
+            }
+        }
+
+        private async Task ProcessMonthlyRevenueReport(CancellationToken stoppingToken)
+        {
+            var timeZone = _configuration.GetValue<string>("Application:TimeZone", "SE Asia Standard Time");
+            var nowGmt7 = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow,
+                                                        TimeZoneInfo.FindSystemTimeZoneById(timeZone));
+
+            // Check if we need to send monthly report (first day of month and haven't sent this month)
+            if (nowGmt7.Day != 1 || _lastMonthlyReportDate.Month == nowGmt7.Month && _lastMonthlyReportDate.Year == nowGmt7.Year)
+            {
+                return;
+            }
+
+            using var scope = _serviceProvider.CreateScope();
+            var paymentRepo = scope.ServiceProvider.GetRequiredService<IRepository<TblPayment>>();
+            var notificationService = scope.ServiceProvider.GetRequiredService<INotificationService>();
+
+            try
+            {
+                var lastMonth = nowGmt7.AddMonths(-1);
+                var firstDayOfLastMonth = new DateTime(lastMonth.Year, lastMonth.Month, 1);
+                var lastDayOfLastMonth = firstDayOfLastMonth.AddMonths(1).AddDays(-1);
+
+                // Calculate total revenue for last month
+                var monthlyPayments = await paymentRepo.FilterAsync(p =>
+                    p.CreatedAt >= firstDayOfLastMonth &&
+                    p.CreatedAt <= lastDayOfLastMonth &&
+                    p.PayStatus == "Completed" &&
+                    !p.IsDeleted);
+
+                var totalRevenue = monthlyPayments.Sum(p => p.Amount);
+
+                await notificationService.SendMonthlyRevenueReportNotificationAsync(
+                    totalRevenue, lastMonth.Month, lastMonth.Year);
+
+                _lastMonthlyReportDate = nowGmt7;
+                _logger.LogInformation("Đã gửi báo cáo doanh thu tháng {Month}/{Year}: {Revenue:C0} VND",
+                    lastMonth.Month, lastMonth.Year, totalRevenue);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Lỗi khi tạo báo cáo doanh thu hàng tháng");
+            }
+        }
+
+        private async Task ProcessSingleReservation(Guid reservationId,
+                                                  CancellationToken stoppingToken)
+        {
+            // Sử dụng transaction scope để đảm bảo consistency
+            using var scope = _serviceProvider.CreateScope();
+            var dbContext = scope.ServiceProvider.GetRequiredService<RestaurantDBContext>();
+
+            using var transaction = await dbContext.Database.BeginTransactionAsync(stoppingToken);
+
+            try
+            {
+                // Query lại entity trong scope hiện tại
+                var reservation = await dbContext.TblReservations
+                    .FirstOrDefaultAsync(r => r.ResId == reservationId && !r.IsDeleted, stoppingToken);
+
+                if (reservation == null)
+                {
+                    _logger.LogWarning("Reservation {ResId} not found or already deleted", reservationId);
+                    return;
+                }
+
+                // Double-check status để tránh race condition
+                if (reservation.ResStatus != ReservationStatus.Pending.ToString())
+                {
+                    _logger.LogInformation("Reservation {ResId} status changed to {Status}, skipping",
+                                         reservationId, reservation.ResStatus);
+                    return;
+                }
+
+                // Soft Delete cascade: OrderDetails → Orders → Reservation
+                var orders = await dbContext.TblOrderInfos
+                    .Where(o => o.ResId == reservationId && !o.IsDeleted)
+                    .ToListAsync(stoppingToken);
+                var orderIds = orders.Select(o => o.OrdId).ToList();
+
+                if (orderIds.Any())
+                {
+                    // Update IsDeleted = true cho OrderDetails
+                    await dbContext.TblOrderDetails
+                        .Where(od => orderIds.Contains(od.OrdId) && !od.IsDeleted)
+                        .ExecuteUpdateAsync(setters => setters
+                            .SetProperty(od => od.IsDeleted, true),
+                        stoppingToken);
+
+                    // Update IsDeleted = true cho Orders
+                    await dbContext.TblOrderInfos
+                        .Where(o => o.ResId == reservationId && !o.IsDeleted)
+                        .ExecuteUpdateAsync(setters => setters
+                            .SetProperty(o => o.IsDeleted, true),
+                        stoppingToken);
+                }
+
+                // Update Status = Cancelled cho Reservation
+                await dbContext.TblReservations
+                    .Where(r => r.ResId == reservationId && !r.IsDeleted)
+                    .ExecuteUpdateAsync(setters => setters
+                        .SetProperty(r => r.ResStatus, ReservationStatus.Cancelled.ToString()),
+                    stoppingToken);
+
+                await dbContext.SaveChangesAsync(stoppingToken);
+                await transaction.CommitAsync(stoppingToken);
+
+                _logger.LogInformation("Successfully deleted expired reservation {ResId}", reservationId);
+            }
+            catch (Exception)
+            {
+                await transaction.RollbackAsync(stoppingToken);
+                throw;
+            }
+        }
+    }
+}

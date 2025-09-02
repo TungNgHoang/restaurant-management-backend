@@ -5,12 +5,135 @@
     {
       "tool": {
         "name": "Microsoft (R) Visual C# Compiler",
-        "version": "4.12.0.0",
-        "fileVersion": "4.12.0-3.24631.1 (da7c6c42)",
-        "semanticVersion": "4.12.0",
+        "version": "4.14.0.0",
+        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
+        "semanticVersion": "4.14.0",
         "language": "en-US"
       },
       "results": [
+        {
+          "ruleId": "CS0105",
+          "level": "warning",
+          "message": "The using directive for 'Microsoft.EntityFrameworkCore' appeared previously in this namespace",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/CheckInTest.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 7,
+                  "endLine": 5,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_dbContext' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
+                "region": {
+                  "startLine": 37,
+                  "startColumn": 16,
+                  "endLine": 37,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 52,
+                  "endLine": 32,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_reservationService' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 16,
+                  "endLine": 46,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 33,
+                  "endLine": 43,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable field '_service' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 46,
+                  "startColumn": 16,
+                  "endLine": 46,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 33,
+                  "endLine": 44,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
         {
           "ruleId": "CS8600",
           "level": "warning",
@@ -18,11 +141,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
                 "region": {
-                  "startLine": 62,
+                  "startLine": 73,
                   "startColumn": 27,
-                  "endLine": 62,
+                  "endLine": 73,
                   "endColumn": 47
                 }
               }
@@ -39,11 +162,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
                 "region": {
-                  "startLine": 60,
+                  "startLine": 71,
                   "startColumn": 9,
-                  "endLine": 61,
+                  "endLine": 72,
                   "endColumn": 95
                 }
               }
@@ -60,11 +183,200 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
                 "region": {
-                  "startLine": 85,
+                  "startLine": 72,
+                  "startColumn": 36,
+                  "endLine": 72,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8620",
+          "level": "warning",
+          "message": "Argument of type 'ISetup<IRepository<TblUserAccount>, Task<TblUserAccount>>' cannot be used for parameter 'mock' of type 'IReturns<IRepository<TblUserAccount>, Task<TblUserAccount?>>' in 'IReturnsResult<IRepository<TblUserAccount>> ReturnsExtensions.ReturnsAsync<IRepository<TblUserAccount>, TblUserAccount?>(IReturns<IRepository<TblUserAccount>, Task<TblUserAccount?>> mock, TblUserAccount? value)' due to differences in the nullability of reference types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
+                "region": {
+                  "startLine": 71,
+                  "startColumn": 13,
+                  "endLine": 71,
+                  "endColumn": 98
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
+                "region": {
+                  "startLine": 96,
+                  "startColumn": 48,
+                  "endLine": 96,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/PaymentServiceTest.cs",
+                "region": {
+                  "startLine": 99,
+                  "startColumn": 31,
+                  "endLine": 99,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8620",
+          "level": "warning",
+          "message": "Argument of type 'ISetup<IRepository<TblReservation>, Task<TblReservation>>' cannot be used for parameter 'mock' of type 'IReturns<IRepository<TblReservation>, Task<TblReservation?>>' in 'IReturnsResult<IRepository<TblReservation>> ReturnsExtensions.ReturnsAsync<IRepository<TblReservation>, TblReservation?>(IReturns<IRepository<TblReservation>, Task<TblReservation?>> mock, TblReservation? value)' due to differences in the nullability of reference types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/PaymentServiceTest.cs",
+                "region": {
+                  "startLine": 98,
+                  "startColumn": 13,
+                  "endLine": 98,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8625",
+          "level": "warning",
+          "message": "Cannot convert null literal to non-nullable reference type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
+                "region": {
+                  "startLine": 124,
+                  "startColumn": 48,
+                  "endLine": 124,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8620",
+          "level": "warning",
+          "message": "Argument of type 'ISetup<IRepository<TblOrderInfo>, Task<TblOrderInfo>>' cannot be used for parameter 'mock' of type 'IReturns<IRepository<TblOrderInfo>, Task<TblOrderInfo?>>' in 'IReturnsResult<IRepository<TblOrderInfo>> ReturnsExtensions.ReturnsAsync<IRepository<TblOrderInfo>, TblOrderInfo?>(IReturns<IRepository<TblOrderInfo>, Task<TblOrderInfo?>> mock, TblOrderInfo? value)' due to differences in the nullability of reference types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/CheckInTest.cs",
+                "region": {
+                  "startLine": 134,
+                  "startColumn": 13,
+                  "endLine": 134,
+                  "endColumn": 102
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/PaymentServiceTest.cs",
+                "region": {
+                  "startLine": 161,
+                  "startColumn": 31,
+                  "endLine": 161,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8620",
+          "level": "warning",
+          "message": "Argument of type 'ISetup<IRepository<TblTableInfo>, Task<TblTableInfo>>' cannot be used for parameter 'mock' of type 'IReturns<IRepository<TblTableInfo>, Task<TblTableInfo?>>' in 'IReturnsResult<IRepository<TblTableInfo>> ReturnsExtensions.ReturnsAsync<IRepository<TblTableInfo>, TblTableInfo?>(IReturns<IRepository<TblTableInfo>, Task<TblTableInfo?>> mock, TblTableInfo? value)' due to differences in the nullability of reference types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/PaymentServiceTest.cs",
+                "region": {
+                  "startLine": 160,
+                  "startColumn": 13,
+                  "endLine": 160,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
+                "region": {
+                  "startLine": 95,
                   "startColumn": 27,
-                  "endLine": 85,
+                  "endLine": 95,
                   "endColumn": 45
                 }
               }
@@ -81,12 +393,33 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
                 "region": {
-                  "startLine": 83,
+                  "startLine": 93,
                   "startColumn": 9,
-                  "endLine": 84,
+                  "endLine": 94,
                   "endColumn": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8620",
+          "level": "warning",
+          "message": "Argument of type 'ISetup<IRepository<TblTableInfo>, Task<TblTableInfo>>' cannot be used for parameter 'mock' of type 'IReturns<IRepository<TblTableInfo>, Task<TblTableInfo?>>' in 'IReturnsResult<IRepository<TblTableInfo>> ReturnsExtensions.ReturnsAsync<IRepository<TblTableInfo>, TblTableInfo?>(IReturns<IRepository<TblTableInfo>, Task<TblTableInfo?>> mock, TblTableInfo? value)' due to differences in the nullability of reference types.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 228,
+                  "startColumn": 13,
+                  "endLine": 229,
+                  "endColumn": 60
                 }
               }
             }
@@ -102,11 +435,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
                 "region": {
-                  "startLine": 186,
+                  "startLine": 196,
                   "startColumn": 27,
-                  "endLine": 186,
+                  "endLine": 196,
                   "endColumn": 40
                 }
               }
@@ -123,11 +456,11 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
                 "region": {
-                  "startLine": 184,
+                  "startLine": 194,
                   "startColumn": 9,
-                  "endLine": 185,
+                  "endLine": 195,
                   "endColumn": 71
                 }
               }
@@ -138,17 +471,80 @@
           }
         },
         {
+          "ruleId": "CS0169",
+          "level": "warning",
+          "message": "The field 'ReservationServiceTest._reservationService' is never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 33,
+                  "endLine": 43,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0169",
+          "level": "warning",
+          "message": "The field 'UserAccountServiceTests._dbContext' is never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/UserAccountServiceTests.cs",
+                "region": {
+                  "startLine": 32,
+                  "startColumn": 52,
+                  "endLine": 32,
+                  "endColumn": 62
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0169",
+          "level": "warning",
+          "message": "The field 'ReservationServiceTest._service' is never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/ReservationServiceTest.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 33,
+                  "endLine": 44,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
           "ruleId": "CA1050",
           "level": "note",
           "message": "Declare types in namespaces",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/OrderServiceTests.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.UnitTest/Services/OrderServiceTests.cs",
                 "region": {
-                  "startLine": 18,
+                  "startLine": 21,
                   "startColumn": 14,
-                  "endLine": 18,
+                  "endLine": 21,
                   "endColumn": 31
                 }
               }
@@ -176,6 +572,34 @@
             ]
           }
         },
+        "CS0105": {
+          "id": "CS0105",
+          "shortDescription": "Using directive appeared previously in this namespace",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0105)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS0169": {
+          "id": "CS0169",
+          "shortDescription": "Field is never used",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0169)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
         "CS8600": {
           "id": "CS8600",
           "shortDescription": "Converting null literal or possible null value to non-nullable type.",
@@ -190,11 +614,39 @@
             ]
           }
         },
+        "CS8618": {
+          "id": "CS8618",
+          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
         "CS8620": {
           "id": "CS8620",
           "shortDescription": "Argument cannot be used for parameter due to differences in the nullability of reference types.",
           "defaultLevel": "warning",
           "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8620)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8625": {
+          "id": "CS8625",
+          "shortDescription": "Cannot convert null literal to non-nullable reference type.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8625)",
           "properties": {
             "category": "Compiler",
             "isEnabledByDefault": true,

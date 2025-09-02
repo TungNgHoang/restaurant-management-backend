@@ -1,0 +1,1 @@
+ (2csX,hr9RestaurantManagement.DataAccess/Interfaces/IRepository.cs

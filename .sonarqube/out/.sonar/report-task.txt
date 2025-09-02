@@ -1,6 +1,6 @@
-projectKey=ResProj
+projectKey=ResProj2
 serverUrl=http://localhost:9000
-serverVersion=25.3.0.104237
-dashboardUrl=http://localhost:9000/dashboard?id=ResProj
-ceTaskId=4a4d6d29-4768-49f4-886d-1abf9e20cb29
-ceTaskUrl=http://localhost:9000/api/ce/task?id=4a4d6d29-4768-49f4-886d-1abf9e20cb29
+serverVersion=25.7.0.110598
+dashboardUrl=http://localhost:9000/dashboard?id=ResProj2
+ceTaskId=e37ca77b-0e45-4636-9fba-1f4ab8a2ca9d
+ceTaskUrl=http://localhost:9000/api/ce/task?id=e37ca77b-0e45-4636-9fba-1f4ab8a2ca9d

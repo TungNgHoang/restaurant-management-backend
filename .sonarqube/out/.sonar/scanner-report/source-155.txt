@@ -1,0 +1,37 @@
+using Net.payOS.Types;
+using RestaurantManagement.Service.Dtos.PaymentDto;
+using System.Threading.Tasks;
+
+namespace RestaurantManagement.Api.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PaymentController : BaseApiController
+    {
+        public IPaymentService _paymentService { get; set; }
+
+        private readonly ILogger<PaymentController> _logger;
+
+        public PaymentController(IServiceProvider serviceProvider, IPaymentService paymentService, ILogger<PaymentController> logger) : base(serviceProvider)
+        {
+            _paymentService = paymentService;
+            _logger = logger;
+        }
+
+        [Authorize(Policy = "BillingPolicy")]
+        [HttpPost("checkout/{resId}")]
+        public async Task<IActionResult> CheckoutAndPay(Guid resId, Guid ordId, string? proCode, [FromBody] PaymentRequestDto request)
+        {
+            try
+            {
+                var pdfBytes = await _paymentService.CheckoutAndPayAsync(resId, ordId, proCode, request.PayMethod);
+                if (pdfBytes == null) return NotFound("Hóa đơn không tồn tại.");
+                return File(pdfBytes, "application/pdf", $"invoice_{ordId}.pdf");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Success = false, Message = ex.Message });
+            }
+        }  
+    }
+}

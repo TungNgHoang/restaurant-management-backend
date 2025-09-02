@@ -5,12 +5,33 @@
     {
       "tool": {
         "name": "Microsoft (R) Visual C# Compiler",
-        "version": "4.12.0.0",
-        "fileVersion": "4.12.0-3.24631.1 (da7c6c42)",
-        "semanticVersion": "4.12.0",
+        "version": "4.14.0.0",
+        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
+        "semanticVersion": "4.14.0",
         "language": "en-US"
       },
       "results": [
+        {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Dereference of a possibly null reference.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/SwaggerAuthMiddleware.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 19,
+                  "endLine": 16,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
         {
           "ruleId": "CS8604",
           "level": "warning",
@@ -20,9 +41,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/BaseApiController.cs",
                 "region": {
-                  "startLine": 21,
+                  "startLine": 18,
                   "startColumn": 48,
-                  "endLine": 21,
+                  "endLine": 18,
                   "endColumn": 52
                 }
               }
@@ -41,9 +62,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/BaseApiController.cs",
                 "region": {
-                  "startLine": 28,
+                  "startLine": 25,
                   "startColumn": 47,
-                  "endLine": 28,
+                  "endLine": 25,
                   "endColumn": 51
                 }
               }
@@ -54,31 +75,291 @@
           }
         },
         {
-          "ruleId": "CS8618",
+          "ruleId": "CS8601",
           "level": "warning",
-          "message": "Non-nullable property 'NewOrderItems' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "message": "Possible null reference assignment.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Filters/LogActionFilter.cs",
                 "region": {
-                  "startLine": 44,
-                  "startColumn": 39,
-                  "endLine": 44,
-                  "endColumn": 52
+                  "startLine": 26,
+                  "startColumn": 30,
+                  "endLine": 26,
+                  "endColumn": 80
                 }
               }
             }
           ],
-          "relatedLocations": [
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
             {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Filters/LogActionFilter.cs",
                 "region": {
-                  "startLine": 44,
+                  "startLine": 27,
+                  "startColumn": 26,
+                  "endLine": 27,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'element' in 'Attribute? Attribute.GetCustomAttribute(MemberInfo element, Type attributeType)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/EmployeeController.cs",
+                "region": {
+                  "startLine": 81,
+                  "startColumn": 91,
+                  "endLine": 81,
+                  "endColumn": 100
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/EmployeeController.cs",
+                "region": {
+                  "startLine": 81,
+                  "startColumn": 40,
+                  "endLine": 81,
+                  "endColumn": 131
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'proCode' in 'Task<byte[]> IPaymentService.CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/PaymentController.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 88,
+                  "endLine": 27,
+                  "endColumn": 95
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8602",
+          "level": "warning",
+          "message": "Dereference of a possibly null reference.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/PayOSController.cs",
+                "region": {
+                  "startLine": 222,
+                  "startColumn": 41,
+                  "endLine": 222,
+                  "endColumn": 65
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/PayOSController.cs",
+                "region": {
+                  "startLine": 251,
                   "startColumn": 39,
-                  "endLine": 44,
-                  "endColumn": 52
+                  "endLine": 251,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'id' in 'TimeZoneInfo TimeZoneInfo.FindSystemTimeZoneById(string id)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/BackgroundTask/BackgroundTaskUpdate.cs",
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 93,
+                  "endLine": 140,
+                  "endColumn": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8629",
+          "level": "warning",
+          "message": "Nullable value type may be null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/BackgroundTask/BackgroundTaskUpdate.cs",
+                "region": {
+                  "startLine": 172,
+                  "startColumn": 66,
+                  "endLine": 172,
+                  "endColumn": 93
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'id' in 'TimeZoneInfo TimeZoneInfo.FindSystemTimeZoneById(string id)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/BackgroundTask/BackgroundTaskUpdate.cs",
+                "region": {
+                  "startLine": 193,
+                  "startColumn": 93,
+                  "endLine": 193,
+                  "endColumn": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'uriString' in 'Uri.Uri(string uriString)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 41,
+                  "startColumn": 69,
+                  "endLine": 41,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'defaultIndex' in 'ElasticsearchClientSettings ElasticsearchClientSettingsBase<ElasticsearchClientSettings>.DefaultIndex(string defaultIndex)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 19,
+                  "endLine": 42,
+                  "endColumn": 24
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'username' in 'BasicAuthentication.BasicAuthentication(string username, string password)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 45,
+                  "endLine": 43,
+                  "endColumn": 53
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'password' in 'BasicAuthentication.BasicAuthentication(string username, string password)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 55,
+                  "endLine": 43,
+                  "endColumn": 63
                 }
               }
             }
@@ -96,9 +377,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
                 "region": {
-                  "startLine": 100,
+                  "startLine": 158,
                   "startColumn": 34,
-                  "endLine": 100,
+                  "endLine": 158,
                   "endColumn": 52
                 }
               }
@@ -106,30 +387,6 @@
           ],
           "properties": {
             "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1860",
-          "level": "note",
-          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
-                "region": {
-                  "startLine": 25,
-                  "startColumn": 101,
-                  "endLine": 25,
-                  "endColumn": 128
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1,
-            "customProperties": {
-              "DiagnosticPropertyKey": "Count"
-            }
           }
         },
         {
@@ -141,9 +398,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/AuthController.cs",
                 "region": {
-                  "startLine": 53,
+                  "startLine": 39,
                   "startColumn": 36,
-                  "endLine": 53,
+                  "endLine": 39,
                   "endColumn": 64
                 }
               }
@@ -162,9 +419,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/AuthController.cs",
                 "region": {
-                  "startLine": 60,
+                  "startLine": 46,
                   "startColumn": 36,
-                  "endLine": 60,
+                  "endLine": 46,
                   "endColumn": 63
                 }
               }
@@ -172,6 +429,30 @@
           ],
           "properties": {
             "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1829",
+          "level": "note",
+          "message": "Use the \"Count\" property instead of Enumerable.Count()",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/DashboardController.cs",
+                "region": {
+                  "startLine": 38,
+                  "startColumn": 82,
+                  "endLine": 38,
+                  "endColumn": 100
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "PropertyNameKey": "Count"
+            }
           }
         },
         {
@@ -183,9 +464,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/AuthController.cs",
                 "region": {
-                  "startLine": 52,
+                  "startLine": 38,
                   "startColumn": 30,
-                  "endLine": 52,
+                  "endLine": 38,
                   "endColumn": 74
                 }
               }
@@ -200,24 +481,51 @@
           }
         },
         {
-          "ruleId": "CA2254",
+          "ruleId": "CA1860",
           "level": "note",
-          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
                 "region": {
-                  "startLine": 175,
-                  "startColumn": 36,
-                  "endLine": 175,
-                  "endColumn": 46
+                  "startLine": 18,
+                  "startColumn": 101,
+                  "endLine": 18,
+                  "endColumn": 128
                 }
               }
             }
           ],
           "properties": {
-            "warningLevel": 1
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/OrderController.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 101,
+                  "endLine": 50,
+                  "endColumn": 128
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
           }
         },
         {
@@ -229,10 +537,52 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 167,
+                  "startLine": 86,
                   "startColumn": 23,
-                  "endLine": 167,
+                  "endLine": 86,
                   "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'MapExceptionToStatusCode' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/EmployeeController.cs",
+                "region": {
+                  "startLine": 86,
+                  "startColumn": 32,
+                  "endLine": 86,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetStatusCodeDescription' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/EmployeeController.cs",
+                "region": {
+                  "startLine": 78,
+                  "startColumn": 24,
+                  "endLine": 78,
+                  "endColumn": 48
                 }
               }
             }
@@ -250,9 +600,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 139,
+                  "startLine": 136,
                   "startColumn": 30,
-                  "endLine": 139,
+                  "endLine": 136,
                   "endColumn": 40
                 }
               }
@@ -271,9 +621,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 89,
+                  "startLine": 125,
                   "startColumn": 23,
-                  "endLine": 89,
+                  "endLine": 125,
                   "endColumn": 79
                 }
               }
@@ -284,39 +634,18 @@
           }
         },
         {
-          "ruleId": "CA1835",
+          "ruleId": "CA1860",
           "level": "note",
-          "message": "Change the 'ReadAsync' method call to use the 'Stream.ReadAsync(Memory<byte>, CancellationToken)' overload",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/NotificationsController.cs",
                 "region": {
-                  "startLine": 128,
-                  "startColumn": 23,
-                  "endLine": 128,
-                  "endColumn": 79
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "ASP0015",
-          "level": "note",
-          "message": "The header 'Authorization' can be accessed using the Authorization property",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
-                "region": {
-                  "startLine": 120,
-                  "startColumn": 29,
-                  "endLine": 120,
-                  "endColumn": 69
+                  "startLine": 143,
+                  "startColumn": 45,
+                  "endLine": 143,
+                  "endColumn": 51
                 }
               }
             }
@@ -324,8 +653,7 @@
           "properties": {
             "warningLevel": 1,
             "customProperties": {
-              "HeaderName": "Authorization",
-              "ResolvedPropertyName": "Authorization"
+              "DiagnosticPropertyKey": "Count"
             }
           }
         },
@@ -338,9 +666,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 209,
+                  "startLine": 172,
                   "startColumn": 36,
-                  "endLine": 209,
+                  "endLine": 172,
                   "endColumn": 46
                 }
               }
@@ -359,9 +687,51 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 198,
+                  "startLine": 164,
                   "startColumn": 23,
-                  "endLine": 198,
+                  "endLine": 164,
+                  "endColumn": 79
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2254",
+          "level": "note",
+          "message": "The logging message template should not vary between calls to 'LoggerExtensions.LogInformation(ILogger, string?, params object?[])'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 206,
+                  "startColumn": 36,
+                  "endLine": 206,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1835",
+          "level": "note",
+          "message": "Change the 'ReadAsync' method call to use the 'Stream.ReadAsync(Memory<byte>, CancellationToken)' overload",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
+                "region": {
+                  "startLine": 195,
+                  "startColumn": 23,
+                  "endLine": 195,
                   "endColumn": 79
                 }
               }
@@ -380,9 +750,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 104,
+                  "startLine": 101,
                   "startColumn": 28,
-                  "endLine": 104,
+                  "endLine": 101,
                   "endColumn": 60
                 }
               }
@@ -401,9 +771,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Middlewares/ExceptionMiddleware.cs",
                 "region": {
-                  "startLine": 62,
+                  "startLine": 59,
                   "startColumn": 28,
-                  "endLine": 62,
+                  "endLine": 59,
                   "endColumn": 54
                 }
               }
@@ -411,6 +781,118 @@
           ],
           "properties": {
             "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2208",
+          "level": "note",
+          "message": "Method ProcessExpiredReservations passes 'timeZone' as the paramName argument to a ArgumentException constructor. Replace this argument with one of the method's parameter names. Note that the provided parameter name should have the exact casing as declared on the method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/BackgroundTask/BackgroundTaskUpdate.cs",
+                "region": {
+                  "startLine": 65,
+                  "startColumn": 55,
+                  "endLine": 65,
+                  "endColumn": 122
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ExtractNotificationType' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/NotificationsController.cs",
+                "region": {
+                  "startLine": 233,
+                  "startColumn": 24,
+                  "endLine": 233,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CalculateTimeAgo' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Controllers/NotificationsController.cs",
+                "region": {
+                  "startLine": 244,
+                  "startColumn": 24,
+                  "endLine": 244,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "ASP0015",
+          "level": "note",
+          "message": "The header 'Authorization' can be accessed using the Authorization property",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/Program.cs",
+                "region": {
+                  "startLine": 179,
+                  "startColumn": 29,
+                  "endLine": 179,
+                  "endColumn": 69
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "HeaderName": "Authorization",
+              "ResolvedPropertyName": "Authorization"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Api/BackgroundTask/BackgroundTaskUpdate.cs",
+                "region": {
+                  "startLine": 268,
+                  "startColumn": 21,
+                  "endLine": 268,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
           }
         }
       ],
@@ -436,6 +918,21 @@
             "isEnabledByDefault": true,
             "tags": [
               "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1829": {
+          "id": "CA1829",
+          "shortDescription": "Use Length/Count property instead of Count() when available",
+          "fullDescription": "Enumerable.Count() potentially enumerates the sequence while a Length/Count property is a direct access.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1829",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
               "Telemetry",
               "EnabledRuleInAggressiveMode"
             ]
@@ -471,6 +968,22 @@
             ]
           }
         },
+        "CA2208": {
+          "id": "CA2208",
+          "shortDescription": "Instantiate argument exceptions correctly",
+          "fullDescription": "A call is made to the default (parameterless) constructor of an exception type that is or derives from ArgumentException, or an incorrect string argument is passed to a parameterized constructor of an exception type that is or derives from ArgumentException.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2208",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
         "CA2254": {
           "id": "CA2254",
           "shortDescription": "Template should be a static expression",
@@ -483,6 +996,48 @@
             "tags": [
               "Telemetry",
               "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CS8600": {
+          "id": "CS8600",
+          "shortDescription": "Converting null literal or possible null value to non-nullable type.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8600)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8601": {
+          "id": "CS8601",
+          "shortDescription": "Possible null reference assignment.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8601)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS8602": {
+          "id": "CS8602",
+          "shortDescription": "Dereference of a possibly null reference.",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8602)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
             ]
           }
         },
@@ -500,11 +1055,11 @@
             ]
           }
         },
-        "CS8618": {
-          "id": "CS8618",
-          "shortDescription": "Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.",
+        "CS8629": {
+          "id": "CS8629",
+          "shortDescription": "Nullable value type may be null.",
           "defaultLevel": "warning",
-          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8618)",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8629)",
           "properties": {
             "category": "Compiler",
             "isEnabledByDefault": true,

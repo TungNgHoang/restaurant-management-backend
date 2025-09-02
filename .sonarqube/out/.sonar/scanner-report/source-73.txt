@@ -1,0 +1,13 @@
+namespace RestaurantManagement.Service.Dtos.NotificationDto
+{
+    public class NotificationSettingsDto
+    {
+        public bool EnableNewReservation { get; set; } = true;
+        public bool EnablePaymentSuccess { get; set; } = true;
+        public bool EnableReservationExpiring { get; set; } = true;
+        public bool EnableMonthlyReport { get; set; } = true;
+        public bool EnableAutoCancellation { get; set; } = true;
+        public bool EnablePushNotifications { get; set; } = true;
+        public bool EnableEmailNotifications { get; set; } = false;
+    }
+}

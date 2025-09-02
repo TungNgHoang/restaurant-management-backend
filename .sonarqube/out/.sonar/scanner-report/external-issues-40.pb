@@ -1,0 +1,4 @@
+ƒ
+roslynCS0105]The using directive for 'Microsoft.EntityFrameworkCore' appeared previously in this namespace 2 #@RÞ
+roslynCS8620µArgument of type 'ISetup<IRepository<TblOrderInfo>, Task<TblOrderInfo>>' cannot be used for parameter 'mock' of type 'IReturns<IRepository<TblOrderInfo>, Task<TblOrderInfo?>>' in 'IReturnsResult<IRepository<TblOrderInfo>> ReturnsExtensions.ReturnsAsync<IRepository<TblOrderInfo>, TblOrderInfo?>(IReturns<IRepository<TblOrderInfo>, Task<TblOrderInfo?>> mock, TblOrderInfo? value)' due to differences in the nullability of reference types. 2
+†† e@R

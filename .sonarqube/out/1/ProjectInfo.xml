@@ -12,6 +12,7 @@
   <AnalysisSettings>
     <Property Name="sonar.cs.roslyn.reportFilePaths">D:\FinalProject\RestaurantManagement\.sonarqube\out\1\Issues.json</Property>
     <Property Name="sonar.cs.analyzer.projectOutPaths">D:\FinalProject\RestaurantManagement\.sonarqube\out\1</Property>
+    <Property Name="sonar.cs.scanner.telemetry">D:\FinalProject\RestaurantManagement\.sonarqube\out\1\Telemetry.json</Property>
   </AnalysisSettings>
   <Configuration>Debug</Configuration>
   <Platform>AnyCPU</Platform>

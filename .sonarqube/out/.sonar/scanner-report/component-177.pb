@@ -1,0 +1,1 @@
+± (2csXhr5RestaurantManagement.Core/Enums/SearchOperatorEnum.cs

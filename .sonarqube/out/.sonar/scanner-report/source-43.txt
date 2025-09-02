@@ -1,0 +1,10 @@
+
+namespace RestaurantManagement.UnitTest.Services
+{
+    internal class ReservationDto
+    {
+        public Guid TbiId { get; set; }
+        public Guid CusId { get; set; }
+        public DateTime ResTime { get; set; }
+    }
+}

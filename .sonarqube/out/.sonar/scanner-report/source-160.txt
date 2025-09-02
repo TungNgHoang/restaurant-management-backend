@@ -1,0 +1,42 @@
+namespace RestaurantManagement.Api.Controllers
+{
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class StatisticController : BaseApiController
+    {
+        private readonly IStatisticService _statisticService;
+
+        public StatisticController(IServiceProvider serviceProvider, IStatisticService statisticService) : base(serviceProvider)
+        {
+            _statisticService = statisticService ?? throw new ArgumentNullException(nameof(statisticService));
+        }
+
+        [Authorize(Policy = "AccessAllPolicy")]
+        [HttpPost("get-statistic")]
+        public async Task<IActionResult> GetStatistics([FromBody] StatisticsRequest request)
+        {
+            var result = await _statisticService.GetStatisticsAsync(request);
+            return Ok(result);
+        }
+
+        [HttpGet("top-dishes")]
+        public async Task<IActionResult> GetTopDishes()
+        {
+            try
+            {
+                var result = await _statisticService.GetTopDishesAsync();
+
+                return Success(new
+                {
+                    message = "Lấy danh sách top 5 món ăn thành công",
+                    data = result,
+                });
+            }
+            catch (Exception ex)
+            {
+                throw new ErrorException(StatusCodeEnum.BadRequest, ex.Message);
+            }
+        }
+    }
+}

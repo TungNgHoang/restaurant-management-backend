@@ -1,0 +1,10 @@
+namespace RestaurantManagement.Core.Enums
+{
+    public enum StaffRoleEnum
+    {
+        Admin = 0,
+        Manager = 1,
+        Staff = 2,
+        Cashier = 3,
+    }
+}

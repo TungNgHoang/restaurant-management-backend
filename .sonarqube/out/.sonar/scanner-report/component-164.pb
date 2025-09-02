@@ -1,0 +1,1 @@
+¤ (2csXhrARestaurantManagement.Api/Middlewares/SecurityHeadersMiddleware.cs

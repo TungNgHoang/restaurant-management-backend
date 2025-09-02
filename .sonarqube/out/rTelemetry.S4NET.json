@@ -1,2 +1,4 @@
+{"dotnetenterprise.s4net.params.sonar_cs_opencover_reportspaths.source":"CLI"}
+{"dotnetenterprise.s4net.params.sonar_verbose.source":"CLI"}
 {"dotnetenterprise.s4net.serverInfo.product":"SQ_Server"}
 {"dotnetenterprise.s4net.serverInfo.serverUrl":"localhost"}

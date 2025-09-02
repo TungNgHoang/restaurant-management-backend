@@ -1,0 +1,228 @@
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using RestaurantManagement.Service.Dtos.InvoiceDto;
+
+
+namespace RestaurantManagement.Service.Implementation
+{
+    public class InvoiceService : BaseService, IInvoiceService
+    {
+        private readonly IRepository<TblTableInfo> _tableRepository;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IRepository<TblReservation> _reservationsRepository;
+        private readonly IRepository<TblOrderInfo> _orderInfoRepository;
+        private readonly IRepository<TblPayment> _paymentRepository;
+        private readonly IRepository<TblOrderDetail> _orderDetailRepository;
+        private readonly IRepository<TblMenu> _menuRepository;
+        private readonly RestaurantDBContext _dbContext;
+
+        public InvoiceService(
+            AppSettings appSettings,
+            IMapper mapper,
+            IRepository<TblTableInfo> tableRepository,
+            IRepository<TblReservation> reservationsRepository,
+            IRepository<TblOrderInfo> orderInfoRepository,
+            IRepository<TblPayment> paymentRepository,
+            IRepository<TblOrderDetail> orderDetailRepository,
+            IRepository<TblMenu> menuRepository,
+            IHttpContextAccessor httpContextAccessor,
+            RestaurantDBContext dbContext
+        ) : base(appSettings, mapper, httpContextAccessor, dbContext)
+        {
+            _tableRepository = tableRepository;
+            _reservationsRepository = reservationsRepository;
+            _orderInfoRepository = orderInfoRepository;
+            _paymentRepository = paymentRepository;
+            _orderDetailRepository = orderDetailRepository;
+            _menuRepository = menuRepository;
+            _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
+        }
+
+        public async Task<IEnumerable<InvoiceDto>> GetAllInvoiceAsync(InvoiceModels pagingModel)
+        {
+            // Logic hiện tại của bạn
+            var reservations = await _reservationsRepository.AsNoTrackingAsync();
+            var tables = await _tableRepository.AsNoTrackingAsync();
+            var order = await _orderInfoRepository.AsNoTrackingAsync();
+            var payment = await _paymentRepository.AsNoTrackingAsync();
+
+            var data = from o in order
+                       join r in reservations on o.ResId equals r.ResId
+                       join t in tables on r.TbiId equals t.TbiId
+                       join p in payment on o.OrdId equals p.OrdId
+                       select new
+                       {
+                           t.TbiTableNumber,
+                           r.TempCustomerName,
+                           r.TempCustomerPhone,
+                           r.ResDate,
+                           r.ResEndTime,
+                           r.ResNumber,
+                           o.TotalPrice,
+                           p.PayMethod
+                       };
+
+            var invoiceDto = data.Select(x => new InvoiceDto
+            {
+                TableNumber = x.TbiTableNumber,
+                CustomerName = x.TempCustomerName,
+                CustomerPhone = x.TempCustomerPhone,
+                Date = x.ResDate.Date,
+                TimeIn = x.ResDate.TimeOfDay,
+                TimeOut = x.ResEndTime?.TimeOfDay ?? TimeSpan.Zero,
+                People = x.ResNumber,
+                TotalPrice = x.TotalPrice,
+                PayMethod = x.PayMethod,
+            }).ToList();
+
+            var result = AdvancedFilter(invoiceDto.AsEnumerable(), pagingModel, nameof(InvoiceDto.TimeOut));
+            return result;
+        }
+
+        public async Task<byte[]> GenerateInvoicePdf(Guid orderId, InvoicePrintDto dto)
+        {
+            if (dto == null) return null;
+
+            // Format culture
+            var vi = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
+
+            using (var ms = new MemoryStream())
+            {
+                // A7 page size (points) using iTextSharp constant
+                var pageSize = iTextSharp.text.PageSize.A7;
+                // padding nhỏ cho bill nhỏ
+                var document = new Document(pageSize, 8f, 8f, 8f, 8f);
+                var writer = PdfWriter.GetInstance(document, ms);
+                document.Open();
+
+                // Font Unicode: ưu tiên wwwroot/fonts, fallback windows/linux
+                string fontPath = Path.Combine(AppContext.BaseDirectory, "wwwroot", "fonts", "Roboto-Regular.ttf");
+                if (!File.Exists(fontPath))
+                    fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
+                if (!File.Exists(fontPath))
+                    fontPath = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"; // linux fallback
+
+                BaseFont bf;
+                try
+                {
+                    bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                }
+                catch
+                {
+                    // last fallback to built-in; may not support VN fully
+                    bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, false);
+                }
+
+                // Font sizes smaller because A7
+                var fTitle = new Font(bf, 10, Font.BOLD);
+                var fSub = new Font(bf, 8, Font.BOLD);
+                var fText = new Font(bf, 7, Font.NORMAL);
+                var fTextBold = new Font(bf, 7, Font.BOLD);
+
+                // Header: store name centered
+                var hdr = new Paragraph(dto.StoreName, fTitle) { Alignment = Element.ALIGN_CENTER };
+                document.Add(hdr);
+
+                if (!string.IsNullOrWhiteSpace(dto.StoreAddress))
+                {
+                    var addr = new Paragraph(dto.StoreAddress, fText) { Alignment = Element.ALIGN_CENTER, SpacingAfter = 2f };
+                    document.Add(addr);
+                }
+                if (!string.IsNullOrWhiteSpace(dto.StorePhone))
+                {
+                    var phone = new Paragraph("Tel: " + dto.StorePhone, fText) { Alignment = Element.ALIGN_CENTER, SpacingAfter = 4f };
+                    document.Add(phone);
+                }
+
+                // Invoice meta (left/right two-column)
+                var meta = new PdfPTable(2) { WidthPercentage = 100f };
+                meta.SetWidths(new float[] { 15f, 85f });
+
+                meta.AddCell(new PdfPCell(new Phrase("Số HĐ:", fTextBold)) { Border = Rectangle.NO_BORDER });
+                meta.AddCell(new PdfPCell(new Phrase(dto.InvoiceCode ?? "-", fText)) { Border = Rectangle.NO_BORDER });
+
+                meta.AddCell(new PdfPCell(new Phrase("Ngày:", fTextBold)) { Border = Rectangle.NO_BORDER });
+                meta.AddCell(new PdfPCell(new Phrase(dto.InvoiceDate.ToString("dd/MM/yyyy HH:mm"), fText)) { Border = Rectangle.NO_BORDER });
+
+                meta.AddCell(new PdfPCell(new Phrase("Khách:", fTextBold)) { Border = Rectangle.NO_BORDER });
+                meta.AddCell(new PdfPCell(new Phrase(dto.CustomerName ?? "-", fText)) { Border = Rectangle.NO_BORDER });
+
+                meta.AddCell(new PdfPCell(new Phrase("SĐT:", fTextBold)) { Border = Rectangle.NO_BORDER });
+                meta.AddCell(new PdfPCell(new Phrase(dto.CustomerPhone ?? "-", fText)) { Border = Rectangle.NO_BORDER });
+
+                if (!string.IsNullOrWhiteSpace(dto.TableNumber))
+                {
+                    meta.AddCell(new PdfPCell(new Phrase("Bàn:", fTextBold)) { Border = Rectangle.NO_BORDER });
+                    meta.AddCell(new PdfPCell(new Phrase(dto.TableNumber, fText)) { Border = Rectangle.NO_BORDER });
+                }
+
+                meta.SpacingAfter = 4f;
+                document.Add(meta);
+
+                // Items table: STT | Tên | SL | Thành tiền
+                var itemsTbl = new PdfPTable(4) { WidthPercentage = 100f };
+                itemsTbl.SetWidths(new float[] { 10f, 55f, 15f, 20f });
+
+                PdfPCell h1 = new PdfPCell(new Phrase("TT", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
+                PdfPCell h2 = new PdfPCell(new Phrase("Danh sách món", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
+                PdfPCell h3 = new PdfPCell(new Phrase("SL", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
+                PdfPCell h4 = new PdfPCell(new Phrase("Thành tiền", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
+
+                itemsTbl.AddCell(h1); itemsTbl.AddCell(h2); itemsTbl.AddCell(h3); itemsTbl.AddCell(h4);
+
+                if (dto.Items != null && dto.Items.Count > 0)
+                {
+                    foreach (var it in dto.Items)
+                    {
+                        itemsTbl.AddCell(new PdfPCell(new Phrase(it.Index.ToString(), fText)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 2f });
+                        itemsTbl.AddCell(new PdfPCell(new Phrase(it.Name, fText)) { Padding = 2f });
+                        itemsTbl.AddCell(new PdfPCell(new Phrase(it.Quantity.ToString(), fText)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 2f });
+                        itemsTbl.AddCell(new PdfPCell(new Phrase(string.Format(vi, "{0:N0} VND", it.LineTotal), fText)) { HorizontalAlignment = Element.ALIGN_RIGHT, Padding = 2f });
+                    }
+                }
+                else
+                {
+                    var empty = new PdfPCell(new Phrase("Không có món", fText)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER, Padding = 4f };
+                    itemsTbl.AddCell(empty);
+                }
+
+                document.Add(itemsTbl);
+
+                // Totals (right aligned)
+                var totals = new PdfPTable(2) { WidthPercentage = 100f};
+                totals.SetWidths(new float[] { 40f, 60f });
+
+                void AddTotalRow(string left, string right, bool bold = false)
+                {
+                    totals.AddCell(new PdfPCell(new Phrase(left, bold ? fTextBold : fText)) { Border = Rectangle.NO_BORDER, Padding = 1f });
+                    totals.AddCell(new PdfPCell(new Phrase(right, bold ? fTextBold : fText)) { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT, Padding = 1f });
+                }
+
+                AddTotalRow("Tạm tính:", string.Format(vi, "{0:N0} VND", dto.SubTotal));
+                AddTotalRow($"VAT ({dto.VatRate:P0}):", string.Format(vi, "{0:N0} VND", dto.VatAmount));
+
+                if (!string.IsNullOrWhiteSpace(dto.VoucherCode) && dto.VoucherDiscount > 0)
+                    AddTotalRow($"Voucher ({dto.VoucherCode}):", "-" + string.Format(vi, "{0:N0} VND", dto.VoucherDiscount));
+
+                if (dto.RankDiscount > 0)
+                    AddTotalRow("Giảm hạng:", "-" + string.Format(vi, "{0:N0} VND", dto.RankDiscount));
+
+                AddTotalRow("TỔNG:", string.Format(vi, "{0:N0} VND", dto.TotalAmount), bold: true);
+
+                // Payment method
+                AddTotalRow("Phương thức thanh toán:", dto.PayMethod ?? "-", bold: false);
+
+                totals.SpacingBefore = 4f;
+                document.Add(totals);
+
+                // Footer thank you
+                var footer = new Paragraph("Cảm ơn quý khách! Hẹn gặp lại.", fText) { Alignment = Element.ALIGN_CENTER, SpacingBefore = 6f };
+                document.Add(footer);
+
+                document.Close();
+                return ms.ToArray();
+            }
+        }
+    }
+}

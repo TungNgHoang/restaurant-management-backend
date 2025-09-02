@@ -1,0 +1,103 @@
+namespace RestaurantManagement.Service.Implementation
+{
+    public class MenuService : BaseService, IMenuService
+    {
+        private readonly IMenuRepository _menuRepository;
+        private readonly IMapper _mapper;
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly RestaurantDBContext _dbContext;
+
+        public MenuService(AppSettings appSettings, IMenuRepository menuRepository, IMapper mapper, IHttpContextAccessor httpContextAccessor, RestaurantDBContext dbContext) : base(appSettings, mapper, httpContextAccessor, dbContext)
+        {
+            _menuRepository = menuRepository;
+            _mapper = mapper;
+            _httpContextAccessor = httpContextAccessor;
+            _dbContext = dbContext;
+        }
+
+        public async Task<IEnumerable<MenuDto>> GetAllMenuAsync(MenuModels pagingModel)
+        {
+            // Validate PageIndex and PageSize
+            ValidatePagingModel(pagingModel);
+
+            var data = await _menuRepository.AsNoTrackingAsync();
+
+            var menuDtos = _mapper.Map<List<MenuDto>>(data);
+            var result = AdvancedFilter(menuDtos.AsEnumerable(), pagingModel, nameof(MenuDto.MnuName));
+
+            return result;
+        }
+
+        private void ValidatePagingModel(MenuModels pagingModel)
+        {
+            if (pagingModel.PageIndex < 1)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.PageIndexInvalid);
+            if (pagingModel.PageSize < 1)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.PageSizeInvalid);
+        }
+
+        //Get món bằng ID
+        public async Task<MenuDto> GetMenuByIdAsync(Guid id)
+        {
+            var menu = await _menuRepository.FindByIdAsync(id);
+            if (menu == null)
+                throw new ErrorException(Core.Enums.StatusCodeEnum.D01);
+            return _mapper.Map<MenuDto>(menu);
+        }
+        //Thêm món vào Menu
+        public async Task<MenuDto> AddMenuAsync(MenuDto menuDto)
+        {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
+            var menu = new TblMenu
+            {
+                MnuId = Guid.NewGuid(),
+                MnuName = menuDto.MnuName,
+                MnuPrice = menuDto.MnuPrice,
+                MnuStatus = menuDto.MnuStatus,
+                MnuImage = menuDto.MnuImage,
+                MnuDescription = menuDto.MnuDescription,
+                CreatedAt = currentTime,
+                CreatedBy = currentUserId
+            };
+
+            await _menuRepository.InsertAsync(menu);
+            return menuDto;
+        }
+
+        //Update thông tin món
+        public async Task<MenuDto> UpdateMenuAsync(Guid id, MenuDto menuDto)
+        {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
+            var menu = await _menuRepository.FindByIdAsync(id);
+            if (menu == null) throw new ErrorException(StatusCodeEnum.D01);
+
+            menu.MnuName = menuDto.MnuName;
+            menu.MnuPrice = menuDto.MnuPrice;
+            menu.MnuStatus = menuDto.MnuStatus;
+            menu.MnuImage = menuDto.MnuImage;
+            menu.MnuDescription = menuDto.MnuDescription;
+            menu.UpdatedAt = currentTime;
+            menu.UpdatedBy = currentUserId;
+
+            await _menuRepository.UpdateAsync(menu);
+            return menuDto;
+        }
+        //Xoá món 
+        public async Task<bool> DeleteMenuAsync(Guid id)
+        {
+            var currentUserId = GetCurrentUserId();
+            var currentTime = ToGmt7(DateTime.UtcNow);
+            var menu = await _menuRepository.FindByIdAsync(id);
+            if (menu == null) return false;
+
+            await _menuRepository.DeleteAsync(menu);
+            // Update the menu's deletion information
+            menu.UpdatedAt = currentTime;
+            menu.UpdatedBy = currentUserId;
+            await _menuRepository.UpdateAsync(menu);
+            return true;
+        }
+    }
+}

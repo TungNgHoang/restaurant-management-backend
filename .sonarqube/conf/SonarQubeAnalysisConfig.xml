@@ -4,24 +4,25 @@
   <SonarOutputDir>D:\FinalProject\RestaurantManagement\.sonarqube\out</SonarOutputDir>
   <SonarBinDir>D:\FinalProject\RestaurantManagement\.sonarqube\bin</SonarBinDir>
   <SonarScannerWorkingDirectory>D:\FinalProject\RestaurantManagement</SonarScannerWorkingDirectory>
-  <JavaExePath>C:\Users\Admin\.sonar\cache\11a61a94d383e755b08b4e5890a13d148bc9f95b7149cbbeec62efb8c75a4a67\OpenJDK17U-jre_x64_windows_hotspot_17.0.13_11.zip_extracted\jdk-17.0.13+11-jre/bin/java.exe</JavaExePath>
+  <JavaExePath>C:\Users\DELL\.sonar\cache\11a61a94d383e755b08b4e5890a13d148bc9f95b7149cbbeec62efb8c75a4a67\OpenJDK17U-jre_x64_windows_hotspot_17.0.13_11.zip_extracted\jdk-17.0.13+11-jre/bin/java.exe</JavaExePath>
   <ScanAllAnalysis>true</ScanAllAnalysis>
   <HasBeginStepCommandLineCredentials>true</HasBeginStepCommandLineCredentials>
   <HasBeginStepCommandLineTruststorePassword>false</HasBeginStepCommandLineTruststorePassword>
   <SonarQubeHostUrl>http://localhost:9000</SonarQubeHostUrl>
-  <SonarQubeVersion>25.3.0.104237</SonarQubeVersion>
-  <SonarProjectKey>ResProj</SonarProjectKey>
+  <SonarQubeVersion>25.7.0.110598</SonarQubeVersion>
+  <SonarProjectKey>ResProj2</SonarProjectKey>
   <AdditionalConfig>
     <ConfigSetting Id="BuildUri" />
     <ConfigSetting Id="TfsUri" />
     <ConfigSetting Id="VsCoverageConverterToolPath" />
     <ConfigSetting Id="UnchangedFilesPath" />
     <ConfigSetting Id="sonar.pullrequest.cache.basepath" Value="D:\FinalProject\RestaurantManagement" />
-    <ConfigSetting Id="settings.file.path" Value="C:\Users\Admin\.dotnet\tools\.store\dotnet-sonarscanner\10.1.1\dotnet-sonarscanner\10.1.1\tools\netcoreapp3.1\any\SonarQube.Analysis.xml" />
+    <ConfigSetting Id="settings.file.path" Value="C:\Users\DELL\.dotnet\tools\.store\dotnet-sonarscanner\10.3.0\dotnet-sonarscanner\10.3.0\tools\netcoreapp3.1\any\SonarQube.Analysis.xml" />
   </AdditionalConfig>
   <ServerSettings>
     <Property Name="sonar.cs.ignoreHeaderComments">true</Property>
     <Property Name="sonar.typescript.file.suffixes">.ts,.tsx,.cts,.mts</Property>
+    <Property Name="sonar.ai.codefix.hidden">false</Property>
     <Property Name="sonar.python.xunit.skipDetails">false</Property>
     <Property Name="sonar.ipynb.file.suffixes">ipynb</Property>
     <Property Name="sonar.auth.saml.signature.enabled">false</Property>
@@ -30,6 +31,7 @@
     <Property Name="sonar.forceAuthentication">true</Property>
     <Property Name="sonar.notifications.delay">60</Property>
     <Property Name="sonar.multi-quality-mode.enabled">true</Property>
+    <Property Name="sonar.rust.file.suffixes">.rs</Property>
     <Property Name="sonaranalyzer-cs.ruleNamespace">SonarAnalyzer.CSharp</Property>
     <Property Name="sonar.azureresourcemanager.file.identifier">https://schema.management.azure.com/schemas/,http://schema.management.azure.com/schemas/</Property>
     <Property Name="sonar.cs.analyzeGeneratedCode">false</Property>
@@ -61,14 +63,14 @@
     <Property Name="sonar.ruby.exclusions">**/vendor/**</Property>
     <Property Name="sonar.auth.saml.enabled">false</Property>
     <Property Name="sonar.vbnet.file.suffixes">.vb</Property>
-    <Property Name="sonar.vbnet.analyzer.dotnet.pluginVersion">10.7.0.110445</Property>
+    <Property Name="sonar.vbnet.analyzer.dotnet.pluginVersion">10.11.0.117924</Property>
     <Property Name="sonar.technicalDebt.developmentCost">30</Property>
     <Property Name="sonar.validateWebhooks">true</Property>
     <Property Name="sonar.python.file.suffixes">py</Property>
     <Property Name="sonar.cs.file.suffixes">.cs,.razor</Property>
     <Property Name="sonar.allowPermissionManagementForProjectAdmins">true</Property>
     <Property Name="sonar.text.inclusions.activate">true</Property>
-    <Property Name="sonaranalyzer-vbnet.staticResourceName">SonarAnalyzer-vbnet-10.7.0.110445.zip</Property>
+    <Property Name="sonaranalyzer-vbnet.staticResourceName">SonarAnalyzer-vbnet-10.11.0.117924.zip</Property>
     <Property Name="sonar.java.file.suffixes">.java,.jav</Property>
     <Property Name="sonar.kotlin.file.suffixes">.kt,.kts</Property>
     <Property Name="sonar.php.file.suffixes">php,php3,php4,php5,phtml,inc</Property>
@@ -87,6 +89,7 @@
     <Property Name="sonar.dbcleaner.weeksBeforeKeepingOnlyAnalysesWithVersion">104</Property>
     <Property Name="sonar.qualitygate.ignoreSmallChanges">true</Property>
     <Property Name="sonar.php.exclusions">**/vendor/**</Property>
+    <Property Name="sonar.rust.clippy.enabled">true</Property>
     <Property Name="sonar.vbnet.roslyn.ignoreIssues">false</Property>
     <Property Name="sonar.flex.file.suffixes">as</Property>
     <Property Name="sonar.filesize.limit">20</Property>
@@ -94,6 +97,7 @@
     <Property Name="sonar.auth.github.apiUrl">https://api.github.com/</Property>
     <Property Name="sonar.ruby.file.suffixes">.rb</Property>
     <Property Name="sonar.auth.github.allowUsersToSignUp">true</Property>
+    <Property Name="sonar.kubernetes.helm.activate">true</Property>
     <Property Name="sonar.python.xunit.reportPath">xunit-reports/xunit-result-*.xml</Property>
     <Property Name="sonar.javascript.globals">angular,goog,google,OpenLayers,d3,dojo,dojox,dijit,Backbone,moment,casper,_,sap</Property>
     <Property Name="sonar.dbcleaner.hoursBeforeKeepingOnlyOneSnapshotByDay">24</Property>
@@ -102,32 +106,32 @@
     <Property Name="sonar.terraform.activate">true</Property>
     <Property Name="sonar.auth.github.webUrl">https://github.com/</Property>
     <Property Name="sonar.php.frameworkDetection">true</Property>
-    <Property Name="sonar.cs.analyzer.dotnet.pluginVersion">10.7.0.110445</Property>
-    <Property Name="sonaranalyzer-vbnet.pluginVersion">10.7.0.110445</Property>
+    <Property Name="sonar.cs.analyzer.dotnet.pluginVersion">10.11.0.117924</Property>
+    <Property Name="sonaranalyzer-vbnet.pluginVersion">10.11.0.117924</Property>
     <Property Name="sonar.dbcleaner.weeksBeforeKeepingOnlyOneSnapshotByWeek">4</Property>
     <Property Name="sonaranalyzer-vbnet.analyzerId">SonarAnalyzer.VisualBasic</Property>
     <Property Name="sonar.cs.roslyn.ignoreIssues">false</Property>
     <Property Name="sonaranalyzer-cs.pluginKey">csharp</Property>
     <Property Name="sonar.kubernetes.activate">true</Property>
     <Property Name="sonar.java.ignoreUnnamedModuleForSplitPackage">False</Property>
-    <Property Name="sonar.vbnet.analyzer.dotnet.staticResourceName">SonarAnalyzer-vbnet-10.7.0.110445.zip</Property>
+    <Property Name="sonar.vbnet.analyzer.dotnet.staticResourceName">SonarAnalyzer-vbnet-10.11.0.117924.zip</Property>
     <Property Name="sonar.json.file.suffixes">.json</Property>
     <Property Name="sonar.auth.saml.providerName">SAML</Property>
     <Property Name="provisioning.github.project.visibility.enabled">true</Property>
     <Property Name="sonar.ruby.coverage.reportPaths">coverage/.resultset.json</Property>
     <Property Name="sonar.text.inclusions">**/*.sh,**/*.bash,**/*.zsh,**/*.ksh,**/*.ps1,**/*.properties,**/*.conf,**/*.pem,**/*.config,.env,.aws/config</Property>
     <Property Name="sonar.qualityProfiles.allowDisableInheritedRules">true</Property>
-    <Property Name="sonaranalyzer-cs.staticResourceName">SonarAnalyzer-csharp-10.7.0.110445.zip</Property>
+    <Property Name="sonaranalyzer-cs.staticResourceName">SonarAnalyzer-csharp-10.11.0.117924.zip</Property>
     <Property Name="sonar.auth.gitlab.allowUsersToSignUp">true</Property>
     <Property Name="sonar.projectCreation.mainBranchName">main</Property>
-    <Property Name="sonar.cs.analyzer.dotnet.staticResourceName">SonarAnalyzer-csharp-10.7.0.110445.zip</Property>
+    <Property Name="sonar.cs.analyzer.dotnet.staticResourceName">SonarAnalyzer-csharp-10.11.0.117924.zip</Property>
     <Property Name="sonar.authenticator.downcase">false</Property>
     <Property Name="sonaranalyzer-cs.analyzerId">SonarAnalyzer.CSharp</Property>
     <Property Name="sonar.cs.analyzer.dotnet.pluginKey">csharp</Property>
     <Property Name="sonar.technicalDebt.ratingGrid">0.05,0.1,0.2,0.5</Property>
     <Property Name="sonar.lf.enableGravatar">false</Property>
     <Property Name="sonar.docker.activate">true</Property>
-    <Property Name="sonaranalyzer-cs.pluginVersion">10.7.0.110445</Property>
+    <Property Name="sonaranalyzer-cs.pluginVersion">10.11.0.117924</Property>
     <Property Name="sonar.developerAggregatedInfo.disabled">false</Property>
     <Property Name="sonar.plugins.downloadOnlyRequired">true</Property>
     <Property Name="sonar.azureresourcemanager.file.suffixes">.bicep</Property>
@@ -139,11 +143,14 @@
     <Property Name="sonaranalyzer-vbnet.pluginKey">vbnet</Property>
     <Property Name="sonar.java.jvmframeworkconfig.activate">true</Property>
     <Property Name="sonar.updatecenter.url">https://downloads.sonarsource.com/sonarqube/update/update-center.properties</Property>
-    <Property Name="sonar.core.startTime">4/4/2025 11:44:50 AM</Property>
-    <Property Name="sonar.core.id">147B411E-AZX_HbiBcdGz54UO0ss-</Property>
+    <Property Name="sonar.core.id">147B411E-AZgM5UiL4Q93Ghrcetjy</Property>
+    <Property Name="sonar.core.startTime">9/2/2025 5:47:15 PM</Property>
   </ServerSettings>
   <LocalSettings>
     <Property Name="sonar.host.url">http://localhost:9000</Property>
+    <Property Name="sonar.cs.opencover.reportsPaths">**/RestaurantManagement.UnitTest/TestResults/*/coverage.opencover.xml</Property>
+    <Property Name="sonar.verbose">true</Property>
+    <Property Name="sonar.exclusions">**/RestaurantManagement.UnitTest/TestResults/*/coverage.opencover.xml</Property>
   </LocalSettings>
   <ScannerOptsSettings />
   <AnalyzersSettings>
@@ -152,10 +159,10 @@
       <RulesetPath>D:\FinalProject\RestaurantManagement\.sonarqube\conf\Sonar-cs.ruleset</RulesetPath>
       <DeactivatedRulesetPath>D:\FinalProject\RestaurantManagement\.sonarqube\conf\Sonar-cs-none.ruleset</DeactivatedRulesetPath>
       <AnalyzerPlugins>
-        <AnalyzerPlugin Key="csharp" Version="10.7.0.110445" StaticResourceName="SonarAnalyzer-csharp-10.7.0.110445.zip">
+        <AnalyzerPlugin Key="csharp" Version="10.11.0.117924" StaticResourceName="SonarAnalyzer-csharp-10.11.0.117924.zip">
           <AssemblyPaths>
-            <Path>C:\Users\Admin\AppData\Local\Temp\.sonarqube\resources\0\SonarAnalyzer.CSharp.dll</Path>
-            <Path>C:\Users\Admin\AppData\Local\Temp\.sonarqube\resources\0\THIRD-PARTY-NOTICES.txt</Path>
+            <Path>C:\Users\DELL\AppData\Local\Temp\.sonarqube\resources\0\SonarAnalyzer.CSharp.dll</Path>
+            <Path>C:\Users\DELL\AppData\Local\Temp\.sonarqube\resources\0\THIRD-PARTY-NOTICES.txt</Path>
           </AssemblyPaths>
         </AnalyzerPlugin>
       </AnalyzerPlugins>
@@ -168,10 +175,10 @@
       <RulesetPath>D:\FinalProject\RestaurantManagement\.sonarqube\conf\Sonar-vbnet.ruleset</RulesetPath>
       <DeactivatedRulesetPath>D:\FinalProject\RestaurantManagement\.sonarqube\conf\Sonar-vbnet-none.ruleset</DeactivatedRulesetPath>
       <AnalyzerPlugins>
-        <AnalyzerPlugin Key="vbnet" Version="10.7.0.110445" StaticResourceName="SonarAnalyzer-vbnet-10.7.0.110445.zip">
+        <AnalyzerPlugin Key="vbnet" Version="10.11.0.117924" StaticResourceName="SonarAnalyzer-vbnet-10.11.0.117924.zip">
           <AssemblyPaths>
-            <Path>C:\Users\Admin\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.dll</Path>
-            <Path>C:\Users\Admin\AppData\Local\Temp\.sonarqube\resources\1\THIRD-PARTY-NOTICES.txt</Path>
+            <Path>C:\Users\DELL\AppData\Local\Temp\.sonarqube\resources\1\SonarAnalyzer.VisualBasic.dll</Path>
+            <Path>C:\Users\DELL\AppData\Local\Temp\.sonarqube\resources\1\THIRD-PARTY-NOTICES.txt</Path>
           </AssemblyPaths>
         </AnalyzerPlugin>
       </AnalyzerPlugins>

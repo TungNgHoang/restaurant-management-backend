@@ -16,6 +16,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Xunit;
+using Microsoft.EntityFrameworkCore;
 
 public class OrderServiceTests
 {
@@ -39,7 +40,9 @@ public class OrderServiceTests
         _orderRepositoryMock = new Mock<IOrderRepository>();
         _mapperMock = new Mock<IMapper>();
         _httpContextAccessorMock = new Mock<IHttpContextAccessor>(); // Mock IHttpContextAccessor
-        _dbContextMock = new Mock<RestaurantDBContext>(); // Mock RestaurantDBContext
+        var options = new DbContextOptionsBuilder<RestaurantDBContext>().Options;
+
+        _dbContextMock = new Mock<RestaurantDBContext>(options);
 
         // Khởi tạo AppSettings (giả định)
         var appSettings = new AppSettings();

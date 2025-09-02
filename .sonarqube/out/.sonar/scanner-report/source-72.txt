@@ -1,0 +1,14 @@
+namespace RestaurantManagement.Service.Dtos.NotificationDto
+{
+    public class NotificationResponseDto
+    {
+        public Guid NotiId { get; set; }
+        public Guid? ResId { get; set; }
+        public string Message { get; set; }
+        public bool IsRead { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public string? CreatedBy { get; set; }
+        public string NotificationType { get; set; }
+        public string TimeAgo { get; set; }
+    }
+}

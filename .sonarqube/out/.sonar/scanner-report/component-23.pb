@@ -1,0 +1,1 @@
+ (2csXhrBRestaurantManagement.DataAccess/Interfaces/IStatisticRepository.cs

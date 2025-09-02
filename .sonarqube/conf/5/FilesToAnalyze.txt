@@ -2,11 +2,16 @@
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\ApiModels\AppSettings.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\ApiModels\PaginatedList.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\ApiModels\PagingBaseModel.cs
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\CustomerTierEnum.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\FilterOptionEnum.cs
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\NotificationTypeEnum.cs
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\OrderStatusEnum.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\ReservationStatus.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\SearchOperatorEnum.cs
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\StaffRoleEnum.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\StatusCodeEnum.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Enums\TableStatus.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Exceptions\ErrorException.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Extensions\EnumExtension.cs
+D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\Models\ApiLogs.cs
 D:\FinalProject\RestaurantManagement\RestaurantManagement.Core\.gitignore

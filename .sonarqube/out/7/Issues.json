@@ -5,12 +5,54 @@
     {
       "tool": {
         "name": "Microsoft (R) Visual C# Compiler",
-        "version": "4.12.0.0",
-        "fileVersion": "4.12.0-3.24631.1 (da7c6c42)",
-        "semanticVersion": "4.12.0",
+        "version": "4.14.0.0",
+        "fileVersion": "4.14.0-3.25359.3 (6dbcfd2f)",
+        "semanticVersion": "4.14.0",
         "language": "en-US"
       },
       "results": [
+        {
+          "ruleId": "CS8765",
+          "level": "warning",
+          "message": "Nullability of type of parameter 'exception' doesn't match overridden member (possibly because of nullability attributes).",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Hubs/NotificationHub.cs",
+                "region": {
+                  "startLine": 33,
+                  "startColumn": 36,
+                  "endLine": 33,
+                  "endColumn": 55
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'AssignmentService._mapper' hides inherited member 'BaseService._mapper'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AssignmentService.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 34,
+                  "endLine": 8,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
         {
           "ruleId": "CS0108",
           "level": "warning",
@@ -20,9 +62,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/DashboardService.cs",
                 "region": {
-                  "startLine": 19,
+                  "startLine": 5,
                   "startColumn": 34,
-                  "endLine": 19,
+                  "endLine": 5,
                   "endColumn": 41
                 }
               }
@@ -41,10 +83,52 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/MenuService.cs",
                 "region": {
-                  "startLine": 16,
+                  "startLine": 6,
                   "startColumn": 34,
-                  "endLine": 16,
+                  "endLine": 6,
                   "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'EmployeeShiftService._mapper' hides inherited member 'BaseService._mapper'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 34,
+                  "endLine": 13,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'EmployeeShiftService.ToGmt7(DateTime)' hides inherited member 'BaseService.ToGmt7(DateTime)'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 238,
+                  "startColumn": 26,
+                  "endLine": 238,
+                  "endColumn": 32
                 }
               }
             }
@@ -62,9 +146,30 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/OrderService.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 5,
                   "startColumn": 34,
-                  "endLine": 15,
+                  "endLine": 5,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'ReportService._mapper' hides inherited member 'BaseService._mapper'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReportService.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 34,
+                  "endLine": 5,
                   "endColumn": 41
                 }
               }
@@ -83,10 +188,10 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
                 "region": {
-                  "startLine": 25,
-                  "startColumn": 38,
-                  "endLine": 25,
-                  "endColumn": 45
+                  "startLine": 5,
+                  "startColumn": 34,
+                  "endLine": 5,
+                  "endColumn": 41
                 }
               }
             }
@@ -104,9 +209,51 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/TableService.cs",
                 "region": {
-                  "startLine": 21,
+                  "startLine": 7,
                   "startColumn": 34,
-                  "endLine": 21,
+                  "endLine": 7,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'StaffService._mapper' hides inherited member 'BaseService._mapper'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 33,
+                  "endLine": 11,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 2
+          }
+        },
+        {
+          "ruleId": "CS0108",
+          "level": "warning",
+          "message": "'PromotionService._mapper' hides inherited member 'BaseService._mapper'. Use the new keyword if hiding was intended.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PromotionService.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 34,
+                  "endLine": 9,
                   "endColumn": 41
                 }
               }
@@ -119,7 +266,449 @@
         {
           "ruleId": "CS8618",
           "level": "warning",
-          "message": "Non-nullable property 'Period' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "message": "Non-nullable property 'StaName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 11,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 11,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaRole' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaEmail' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaPhone' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 23,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/UpdateStaffProfileDto.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 23,
+                  "endLine": 14,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 11,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 11,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaRole' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaEmail' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 23,
+                  "endLine": 14,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 14,
+                  "startColumn": 23,
+                  "endLine": 14,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaPhone' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 23,
+                  "endLine": 15,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/StaffDto.cs",
+                "region": {
+                  "startLine": 15,
+                  "startColumn": 23,
+                  "endLine": 15,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaRole' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaEmail' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'StaPhone' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/StaffDto/GetStaffByIdDto.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Time' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
           "locations": [
             {
               "resultFile": {
@@ -128,7 +717,7 @@
                   "startLine": 11,
                   "startColumn": 23,
                   "endLine": 11,
-                  "endColumn": 29
+                  "endColumn": 27
                 }
               }
             }
@@ -141,6 +730,40 @@
                   "startLine": 11,
                   "startColumn": 23,
                   "endLine": 11,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Period' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsResponse.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsResponse.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
                   "endColumn": 29
                 }
               }
@@ -159,9 +782,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsResponse.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 6,
                   "startColumn": 37,
-                  "endLine": 12,
+                  "endLine": 6,
                   "endColumn": 41
                 }
               }
@@ -172,9 +795,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsResponse.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 6,
                   "startColumn": 37,
-                  "endLine": 12,
+                  "endLine": 6,
                   "endColumn": 41
                 }
               }
@@ -193,9 +816,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsRequest.cs",
                 "region": {
-                  "startLine": 11,
+                  "startLine": 5,
                   "startColumn": 23,
-                  "endLine": 11,
+                  "endLine": 5,
                   "endColumn": 29
                 }
               }
@@ -206,9 +829,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsRequest.cs",
                 "region": {
-                  "startLine": 11,
+                  "startLine": 5,
                   "startColumn": 23,
-                  "endLine": 11,
+                  "endLine": 5,
                   "endColumn": 29
                 }
               }
@@ -221,16 +844,16 @@
         {
           "ruleId": "CS8618",
           "level": "warning",
-          "message": "Non-nullable property 'UacUsername' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "message": "Non-nullable property 'CustomerMail' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 8,
                   "startColumn": 23,
-                  "endLine": 12,
-                  "endColumn": 34
+                  "endLine": 8,
+                  "endColumn": 35
                 }
               }
             }
@@ -238,318 +861,12 @@
           "relatedLocations": [
             {
               "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 8,
                   "startColumn": 23,
-                  "endLine": 12,
-                  "endColumn": 34
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'UacRole' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 23,
-                  "endLine": 13,
-                  "endColumn": 30
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
-                "region": {
-                  "startLine": 13,
-                  "startColumn": 23,
-                  "endLine": 13,
-                  "endColumn": 30
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'Time' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsResponse.cs",
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 23,
-                  "endLine": 17,
-                  "endColumn": 27
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/StatisticsResponse.cs",
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 23,
-                  "endLine": 17,
-                  "endColumn": 27
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable field '_dbContext' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the field as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AuthService.cs",
-                "region": {
-                  "startLine": 30,
-                  "startColumn": 16,
-                  "endLine": 30,
-                  "endColumn": 27
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AuthService.cs",
-                "region": {
-                  "startLine": 26,
-                  "startColumn": 46,
-                  "endLine": 26,
-                  "endColumn": 56
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 23,
-                  "endLine": 14,
-                  "endColumn": 28
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 23,
-                  "endLine": 14,
-                  "endColumn": 28
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 23,
-                  "endLine": 17,
-                  "endColumn": 31
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 23,
-                  "endLine": 17,
-                  "endColumn": 31
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'MnuName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 23,
-                  "endLine": 14,
-                  "endColumn": 30
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 14,
-                  "startColumn": 23,
-                  "endLine": 14,
-                  "endColumn": 30
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'MnuStatus' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 16,
-                  "startColumn": 23,
-                  "endLine": 16,
-                  "endColumn": 32
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 16,
-                  "startColumn": 23,
-                  "endLine": 16,
-                  "endColumn": 32
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'MnuImage' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 23,
-                  "endLine": 17,
-                  "endColumn": 31
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 17,
-                  "startColumn": 23,
-                  "endLine": 17,
-                  "endColumn": 31
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8618",
-          "level": "warning",
-          "message": "Non-nullable property 'MnuDescription' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 23,
-                  "endLine": 18,
-                  "endColumn": 37
-                }
-              }
-            }
-          ],
-          "relatedLocations": [
-            {
-              "physicalLocation": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
-                "region": {
-                  "startLine": 18,
-                  "startColumn": 23,
-                  "endLine": 18,
-                  "endColumn": 37
+                  "endLine": 8,
+                  "endColumn": 35
                 }
               }
             }
@@ -567,9 +884,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 14,
+                  "startLine": 9,
                   "startColumn": 23,
-                  "endLine": 14,
+                  "endLine": 9,
                   "endColumn": 35
                 }
               }
@@ -580,9 +897,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 14,
+                  "startLine": 9,
                   "startColumn": 23,
-                  "endLine": 14,
+                  "endLine": 9,
                   "endColumn": 35
                 }
               }
@@ -601,9 +918,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 10,
                   "startColumn": 23,
-                  "endLine": 15,
+                  "endLine": 10,
                   "endColumn": 35
                 }
               }
@@ -614,9 +931,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 10,
                   "startColumn": 23,
-                  "endLine": 15,
+                  "endLine": 10,
                   "endColumn": 35
                 }
               }
@@ -635,9 +952,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 20,
+                  "startLine": 15,
                   "startColumn": 23,
-                  "endLine": 20,
+                  "endLine": 15,
                   "endColumn": 29
                 }
               }
@@ -648,10 +965,44 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/ReserDto.cs",
                 "region": {
-                  "startLine": 20,
+                  "startLine": 15,
                   "startColumn": 23,
-                  "endLine": 20,
+                  "endLine": 15,
                   "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'NewOrderItems' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/OrderRequest.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 39,
+                  "endLine": 22,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/OrderRequest.cs",
+                "region": {
+                  "startLine": 22,
+                  "startColumn": 39,
+                  "endLine": 22,
+                  "endColumn": 52
                 }
               }
             }
@@ -669,9 +1020,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/CreateReservationRequestDto.cs",
                 "region": {
-                  "startLine": 11,
+                  "startLine": 5,
                   "startColumn": 23,
-                  "endLine": 11,
+                  "endLine": 5,
                   "endColumn": 39
                 }
               }
@@ -682,9 +1033,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/CreateReservationRequestDto.cs",
                 "region": {
-                  "startLine": 11,
+                  "startLine": 5,
                   "startColumn": 23,
-                  "endLine": 11,
+                  "endLine": 5,
                   "endColumn": 39
                 }
               }
@@ -703,9 +1054,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/CreateReservationRequestDto.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 6,
                   "startColumn": 23,
-                  "endLine": 12,
+                  "endLine": 6,
                   "endColumn": 40
                 }
               }
@@ -716,10 +1067,180 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/CreateReservationRequestDto.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 6,
                   "startColumn": 23,
-                  "endLine": 12,
+                  "endLine": 6,
                   "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TempCustomerEmail' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/CreateReservationRequestDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReserDto/CreateReservationRequestDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'NewOrderItems' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/OrderRequest.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 39,
+                  "endLine": 16,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/ApiModels/OrderRequest.cs",
+                "region": {
+                  "startLine": 16,
+                  "startColumn": 39,
+                  "endLine": 16,
+                  "endColumn": 52
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'staId' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AttendanceDto/AssignmentDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 27,
+                  "endLine": 13,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AttendanceDto/AssignmentDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 27,
+                  "endLine": 13,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'MnuName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/TopDishDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/TopDishDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'MnuImage' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/TopDishDto.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/TopDishDto.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 31
                 }
               }
             }
@@ -737,9 +1258,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/TableDto.cs",
                 "region": {
-                  "startLine": 12,
+                  "startLine": 6,
                   "startColumn": 23,
-                  "endLine": 12,
+                  "endLine": 6,
                   "endColumn": 32
                 }
               }
@@ -750,10 +1271,180 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/TableDto.cs",
                 "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Status' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AttendanceDto/AttendanceResultDto.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 23,
+                  "endLine": 17,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AttendanceDto/AttendanceResultDto.cs",
+                "region": {
+                  "startLine": 17,
+                  "startColumn": 23,
+                  "endLine": 17,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'ReportDay' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 5,
+                  "startColumn": 23,
+                  "endLine": 5,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'ReportMonth' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'ReportYear' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 33
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'BestSellingDish' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
                   "startLine": 12,
                   "startColumn": 23,
                   "endLine": 12,
-                  "endColumn": 32
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/ReportDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 38
                 }
               }
             }
@@ -771,9 +1462,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/InvoiceDto.cs",
                 "region": {
-                  "startLine": 8,
+                  "startLine": 6,
                   "startColumn": 23,
-                  "endLine": 8,
+                  "endLine": 6,
                   "endColumn": 35
                 }
               }
@@ -784,9 +1475,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/InvoiceDto.cs",
                 "region": {
-                  "startLine": 8,
+                  "startLine": 6,
                   "startColumn": 23,
-                  "endLine": 8,
+                  "endLine": 6,
                   "endColumn": 35
                 }
               }
@@ -805,9 +1496,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/InvoiceDto.cs",
                 "region": {
-                  "startLine": 9,
+                  "startLine": 7,
                   "startColumn": 23,
-                  "endLine": 9,
+                  "endLine": 7,
                   "endColumn": 36
                 }
               }
@@ -818,9 +1509,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/InvoiceDto.cs",
                 "region": {
-                  "startLine": 9,
+                  "startLine": 7,
                   "startColumn": 23,
-                  "endLine": 9,
+                  "endLine": 7,
                   "endColumn": 36
                 }
               }
@@ -839,9 +1530,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/InvoiceDto.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 13,
                   "startColumn": 23,
-                  "endLine": 15,
+                  "endLine": 13,
                   "endColumn": 32
                 }
               }
@@ -852,10 +1543,214 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/ReportsDto/InvoiceDto.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 13,
                   "startColumn": 23,
-                  "endLine": 15,
+                  "endLine": 13,
                   "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'UacUsername' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'UacPassword' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'UacRole' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/UserAccountDto.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Email' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 28
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Password' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/AuthDto/LoginRequestDto.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Description' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/PaymentDto/PayOSOrderStatusDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/PaymentDto/PayOSOrderStatusDto.cs",
+                "region": {
+                  "startLine": 13,
+                  "startColumn": 23,
+                  "endLine": 13,
+                  "endColumn": 34
                 }
               }
             }
@@ -873,9 +1768,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/PaymentDto/PaymentRequestDto.cs",
                 "region": {
-                  "startLine": 11,
+                  "startLine": 5,
                   "startColumn": 23,
-                  "endLine": 11,
+                  "endLine": 5,
                   "endColumn": 32
                 }
               }
@@ -886,9 +1781,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/PaymentDto/PaymentRequestDto.cs",
                 "region": {
-                  "startLine": 11,
+                  "startLine": 5,
                   "startColumn": 23,
-                  "endLine": 11,
+                  "endLine": 5,
                   "endColumn": 32
                 }
               }
@@ -899,18 +1794,52 @@
           }
         },
         {
-          "ruleId": "CS8604",
+          "ruleId": "CS8602",
           "level": "warning",
-          "message": "Possible null reference argument for parameter 's' in 'byte[] Encoding.GetBytes(string s)'.",
+          "message": "Dereference of a possibly null reference.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AuthService.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 39,
-                  "startColumn": 71,
-                  "endLine": 39,
-                  "endColumn": 89
+                  "startLine": 92,
+                  "startColumn": 42,
+                  "endLine": 92,
+                  "endColumn": 66
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Reason' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/PaymentDto/CancelPaymentLinkRequest.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 29
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/PaymentDto/CancelPaymentLinkRequest.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 29
                 }
               }
             }
@@ -928,9 +1857,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/OrderDto.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 11,
                   "startColumn": 37,
-                  "endLine": 15,
+                  "endLine": 11,
                   "endColumn": 49
                 }
               }
@@ -941,9 +1870,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/OrderDto.cs",
                 "region": {
-                  "startLine": 15,
+                  "startLine": 11,
                   "startColumn": 37,
-                  "endLine": 15,
+                  "endLine": 11,
                   "endColumn": 49
                 }
               }
@@ -962,9 +1891,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/OrderDetailsDto.cs",
                 "region": {
-                  "startLine": 17,
+                  "startLine": 11,
                   "startColumn": 23,
-                  "endLine": 17,
+                  "endLine": 11,
                   "endColumn": 30
                 }
               }
@@ -975,9 +1904,9 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/OrderDetailsDto.cs",
                 "region": {
-                  "startLine": 17,
+                  "startLine": 11,
                   "startColumn": 23,
-                  "endLine": 17,
+                  "endLine": 11,
                   "endColumn": 30
                 }
               }
@@ -988,18 +1917,73 @@
           }
         },
         {
-          "ruleId": "CS8603",
+          "ruleId": "CS8618",
           "level": "warning",
-          "message": "Possible null reference return.",
+          "message": "Non-nullable property 'MnuImage' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/MenuService.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/OrderDetailsDto.cs",
                 "region": {
-                  "startLine": 49,
-                  "startColumn": 20,
-                  "endLine": 49,
-                  "endColumn": 68
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/OrderDetailsDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'element' in 'Attribute? Attribute.GetCustomAttribute(MemberInfo element, Type attributeType)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/NotificationService.cs",
+                "region": {
+                  "startLine": 264,
+                  "startColumn": 102,
+                  "endLine": 264,
+                  "endColumn": 107
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8600",
+          "level": "warning",
+          "message": "Converting null literal or possible null value to non-nullable type.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/NotificationService.cs",
+                "region": {
+                  "startLine": 264,
+                  "startColumn": 29,
+                  "endLine": 264,
+                  "endColumn": 160
                 }
               }
             }
@@ -1017,9 +2001,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/CreateOrderRequestDto.cs",
                 "region": {
-                  "startLine": 14,
+                  "startLine": 8,
                   "startColumn": 37,
-                  "endLine": 14,
+                  "endLine": 8,
                   "endColumn": 49
                 }
               }
@@ -1030,10 +2014,557 @@
               "physicalLocation": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/OrdersDto/CreateOrderRequestDto.cs",
                 "region": {
-                  "startLine": 14,
+                  "startLine": 8,
                   "startColumn": 37,
-                  "endLine": 14,
+                  "endLine": 8,
                   "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Message' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/NotificationDto/NotificationResponseDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/NotificationDto/NotificationResponseDto.cs",
+                "region": {
+                  "startLine": 7,
+                  "startColumn": 23,
+                  "endLine": 7,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'NotificationType' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/NotificationDto/NotificationResponseDto.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 11,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/NotificationDto/NotificationResponseDto.cs",
+                "region": {
+                  "startLine": 11,
+                  "startColumn": 23,
+                  "endLine": 11,
+                  "endColumn": 39
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TimeAgo' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/NotificationDto/NotificationResponseDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/NotificationDto/NotificationResponseDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'CustomerName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 23,
+                  "endLine": 26,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 26,
+                  "startColumn": 23,
+                  "endLine": 26,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'CustomerPhone' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 23,
+                  "endLine": 27,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 27,
+                  "startColumn": 23,
+                  "endLine": 27,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'TableNumber' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 23,
+                  "endLine": 28,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 28,
+                  "startColumn": 23,
+                  "endLine": 28,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'VoucherCode' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 23,
+                  "endLine": 36,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 36,
+                  "startColumn": 23,
+                  "endLine": 36,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'PayMethod' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 23,
+                  "endLine": 40,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 23,
+                  "endLine": 40,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'Name' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/InvoiceDto/InvoicePrintItemDto.cs",
+                "region": {
+                  "startLine": 12,
+                  "startColumn": 23,
+                  "endLine": 12,
+                  "endColumn": 27
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8629",
+          "level": "warning",
+          "message": "Nullable value type may be null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AssignmentService.cs",
+                "region": {
+                  "startLine": 117,
+                  "startColumn": 37,
+                  "endLine": 117,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'MnuName' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 6,
+                  "startColumn": 23,
+                  "endLine": 6,
+                  "endColumn": 30
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'MnuStatus' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 8,
+                  "startColumn": 23,
+                  "endLine": 8,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'MnuImage' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 9,
+                  "startColumn": 23,
+                  "endLine": 9,
+                  "endColumn": 31
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8618",
+          "level": "warning",
+          "message": "Non-nullable property 'MnuDescription' must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring the property as nullable.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "relatedLocations": [
+            {
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Dtos/MenusDto/MenuDto.cs",
+                "region": {
+                  "startLine": 10,
+                  "startColumn": 23,
+                  "endLine": 10,
+                  "endColumn": 37
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'current' in 'string EmployeeShiftService.CalculateCheckOutStatus(string current, TimeSpan end, TimeSpan checkOut)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 133,
+                  "startColumn": 21,
+                  "endLine": 133,
+                  "endColumn": 38
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8629",
+          "level": "warning",
+          "message": "Nullable value type may be null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AssignmentService.cs",
+                "region": {
+                  "startLine": 145,
+                  "startColumn": 33,
+                  "endLine": 145,
+                  "endColumn": 54
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Possible null reference return.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/InvoiceService.cs",
+                "region": {
+                  "startLine": 85,
+                  "startColumn": 37,
+                  "endLine": 85,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS1998",
+          "level": "warning",
+          "message": "This async method lacks 'await' operators and will run synchronously. Consider using the 'await' operator to await non-blocking API calls, or 'await Task.Run(...)' to do CPU-bound work on a background thread.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/InvoiceService.cs",
+                "region": {
+                  "startLine": 83,
+                  "startColumn": 35,
+                  "endLine": 83,
+                  "endColumn": 53
                 }
               }
             }
@@ -1051,9 +2582,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/OrderService.cs",
                 "region": {
-                  "startLine": 57,
+                  "startLine": 59,
                   "startColumn": 29,
-                  "endLine": 57,
+                  "endLine": 59,
                   "endColumn": 52
                 }
               }
@@ -1064,18 +2595,60 @@
           }
         },
         {
-          "ruleId": "CS8602",
+          "ruleId": "CS8601",
           "level": "warning",
-          "message": "Dereference of a possibly null reference.",
+          "message": "Possible null reference assignment.",
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
                 "region": {
-                  "startLine": 105,
-                  "startColumn": 42,
-                  "endLine": 105,
-                  "endColumn": 66
+                  "startLine": 199,
+                  "startColumn": 38,
+                  "endLine": 199,
+                  "endColumn": 80
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 234,
+                  "startColumn": 26,
+                  "endLine": 234,
+                  "endColumn": 36
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/OrderService.cs",
+                "region": {
+                  "startLine": 152,
+                  "startColumn": 32,
+                  "endLine": 152,
+                  "endColumn": 49
                 }
               }
             }
@@ -1093,9 +2666,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 274,
+                  "startLine": 261,
                   "startColumn": 51,
-                  "endLine": 274,
+                  "endLine": 261,
                   "endColumn": 55
                 }
               }
@@ -1114,9 +2687,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 286,
+                  "startLine": 273,
                   "startColumn": 21,
-                  "endLine": 287,
+                  "endLine": 274,
                   "endColumn": 95
                 }
               }
@@ -1135,9 +2708,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 296,
+                  "startLine": 283,
                   "startColumn": 43,
-                  "endLine": 296,
+                  "endLine": 283,
                   "endColumn": 94
                 }
               }
@@ -1156,9 +2729,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 296,
+                  "startLine": 283,
                   "startColumn": 43,
-                  "endLine": 296,
+                  "endLine": 283,
                   "endColumn": 94
                 }
               }
@@ -1177,9 +2750,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 301,
+                  "startLine": 288,
                   "startColumn": 43,
-                  "endLine": 301,
+                  "endLine": 288,
                   "endColumn": 94
                 }
               }
@@ -1198,9 +2771,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 301,
+                  "startLine": 288,
                   "startColumn": 43,
-                  "endLine": 301,
+                  "endLine": 288,
                   "endColumn": 94
                 }
               }
@@ -1219,9 +2792,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 313,
+                  "startLine": 300,
                   "startColumn": 69,
-                  "endLine": 313,
+                  "endLine": 300,
                   "endColumn": 113
                 }
               }
@@ -1240,9 +2813,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 313,
+                  "startLine": 300,
                   "startColumn": 69,
-                  "endLine": 313,
+                  "endLine": 300,
                   "endColumn": 113
                 }
               }
@@ -1261,9 +2834,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 325,
+                  "startLine": 312,
                   "startColumn": 71,
-                  "endLine": 325,
+                  "endLine": 312,
                   "endColumn": 115
                 }
               }
@@ -1282,9 +2855,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 325,
+                  "startLine": 312,
                   "startColumn": 71,
-                  "endLine": 325,
+                  "endLine": 312,
                   "endColumn": 115
                 }
               }
@@ -1303,9 +2876,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 343,
+                  "startLine": 330,
                   "startColumn": 47,
-                  "endLine": 343,
+                  "endLine": 330,
                   "endColumn": 106
                 }
               }
@@ -1324,9 +2897,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 343,
+                  "startLine": 330,
                   "startColumn": 47,
-                  "endLine": 343,
+                  "endLine": 330,
                   "endColumn": 106
                 }
               }
@@ -1345,9 +2918,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 348,
+                  "startLine": 335,
                   "startColumn": 47,
-                  "endLine": 348,
+                  "endLine": 335,
                   "endColumn": 106
                 }
               }
@@ -1366,9 +2939,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 348,
+                  "startLine": 335,
                   "startColumn": 47,
-                  "endLine": 348,
+                  "endLine": 335,
                   "endColumn": 106
                 }
               }
@@ -1379,6 +2952,279 @@
           }
         },
         {
+          "ruleId": "CS8603",
+          "level": "warning",
+          "message": "Possible null reference return.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PromotionService.cs",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 20,
+                  "endLine": 53,
+                  "endColumn": 83
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PaymentService.cs",
+                "region": {
+                  "startLine": 233,
+                  "startColumn": 40,
+                  "endLine": 233,
+                  "endColumn": 88
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PaymentService.cs",
+                "region": {
+                  "startLine": 234,
+                  "startColumn": 41,
+                  "endLine": 234,
+                  "endColumn": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 38,
+                  "endLine": 42,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 43,
+                  "startColumn": 39,
+                  "endLine": 43,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8629",
+          "level": "warning",
+          "message": "Nullable value type may be null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 44,
+                  "startColumn": 44,
+                  "endLine": 44,
+                  "endColumn": 68
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 77,
+                  "startColumn": 28,
+                  "endLine": 77,
+                  "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8629",
+          "level": "warning",
+          "message": "Nullable value type may be null.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 78,
+                  "startColumn": 33,
+                  "endLine": 78,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 79,
+                  "startColumn": 27,
+                  "endLine": 79,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'item' in 'bool List<string>.Contains(string item)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PromotionService.cs",
+                "region": {
+                  "startLine": 101,
+                  "startColumn": 40,
+                  "endLine": 101,
+                  "endColumn": 49
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8604",
+          "level": "warning",
+          "message": "Possible null reference argument for parameter 'addresses' in 'void MailAddressCollection.Add(string addresses)'.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PromotionService.cs",
+                "region": {
+                  "startLine": 167,
+                  "startColumn": 33,
+                  "endLine": 167,
+                  "endColumn": 50
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 205,
+                  "startColumn": 30,
+                  "endLine": 205,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
+          "ruleId": "CS0168",
+          "level": "warning",
+          "message": "The variable 'ex' is declared but never used",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 241,
+                  "startColumn": 30,
+                  "endLine": 241,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 3
+          }
+        },
+        {
           "ruleId": "CS8601",
           "level": "warning",
           "message": "Possible null reference assignment.",
@@ -1387,10 +3233,10 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
                 "region": {
-                  "startLine": 177,
-                  "startColumn": 43,
-                  "endLine": 177,
-                  "endColumn": 71
+                  "startLine": 192,
+                  "startColumn": 39,
+                  "endLine": 192,
+                  "endColumn": 67
                 }
               }
             }
@@ -1408,9 +3254,93 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
                 "region": {
-                  "startLine": 250,
-                  "startColumn": 36,
-                  "endLine": 250,
+                  "startLine": 206,
+                  "startColumn": 44,
+                  "endLine": 206,
+                  "endColumn": 72
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
+                "region": {
+                  "startLine": 293,
+                  "startColumn": 32,
+                  "endLine": 293,
+                  "endColumn": 60
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
+                "region": {
+                  "startLine": 294,
+                  "startColumn": 32,
+                  "endLine": 294,
+                  "endColumn": 61
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
+                "region": {
+                  "startLine": 299,
+                  "startColumn": 26,
+                  "endLine": 299,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CS8601",
+          "level": "warning",
+          "message": "Possible null reference assignment.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
+                "region": {
+                  "startLine": 309,
+                  "startColumn": 45,
+                  "endLine": 309,
                   "endColumn": 64
                 }
               }
@@ -1427,12 +3357,12 @@
           "locations": [
             {
               "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
                 "region": {
-                  "startLine": 251,
-                  "startColumn": 36,
-                  "endLine": 251,
-                  "endColumn": 65
+                  "startLine": 330,
+                  "startColumn": 32,
+                  "endLine": 330,
+                  "endColumn": 48
                 }
               }
             }
@@ -1442,111 +3372,37 @@
           }
         },
         {
-          "ruleId": "CS8601",
-          "level": "warning",
-          "message": "Possible null reference assignment.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
-                "region": {
-                  "startLine": 256,
-                  "startColumn": 30,
-                  "endLine": 256,
-                  "endColumn": 51
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS8601",
-          "level": "warning",
-          "message": "Possible null reference assignment.",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
-                "region": {
-                  "startLine": 266,
-                  "startColumn": 49,
-                  "endLine": 266,
-                  "endColumn": 68
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CS0649",
-          "level": "warning",
-          "message": "Field 'AuthService._dbContext' is never assigned to, and will always have its default value null",
+          "ruleId": "CA1510",
+          "level": "note",
+          "message": "Use 'ArgumentNullException.ThrowIfNull' instead of explicitly throwing a new exception instance",
           "locations": [
             {
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AuthService.cs",
                 "region": {
-                  "startLine": 26,
-                  "startColumn": 46,
-                  "endLine": 26,
-                  "endColumn": 56
+                  "startLine": 24,
+                  "startColumn": 13,
+                  "endLine": 25,
+                  "endColumn": 63
                 }
               }
             }
           ],
-          "properties": {
-            "warningLevel": 4
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'ValidatePagingModel' does not access instance data and can be marked as static",
-          "locations": [
+          "relatedLocations": [
             {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/MenuService.cs",
+              "physicalLocation": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/AuthService.cs",
                 "region": {
-                  "startLine": 37,
-                  "startColumn": 22,
-                  "endLine": 37,
-                  "endColumn": 41
+                  "startLine": 24,
+                  "startColumn": 17,
+                  "endLine": 24,
+                  "endColumn": 21
                 }
               }
             }
           ],
           "properties": {
             "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1860",
-          "level": "note",
-          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/OrderService.cs",
-                "region": {
-                  "startLine": 121,
-                  "startColumn": 35,
-                  "endLine": 121,
-                  "endColumn": 46
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1,
-            "customProperties": {
-              "DiagnosticPropertyKey": "Count"
-            }
           }
         },
         {
@@ -1558,9 +3414,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/TableService.cs",
                 "region": {
-                  "startLine": 43,
+                  "startLine": 38,
                   "startColumn": 22,
-                  "endLine": 43,
+                  "endLine": 38,
                   "endColumn": 41
                 }
               }
@@ -1579,9 +3435,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 113,
+                  "startLine": 100,
                   "startColumn": 57,
-                  "endLine": 113,
+                  "endLine": 100,
                   "endColumn": 96
                 }
               }
@@ -1596,6 +3452,27 @@
           }
         },
         {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ValidatePagingModel' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/MenuService.cs",
+                "region": {
+                  "startLine": 31,
+                  "startColumn": 22,
+                  "endLine": 31,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
           "ruleId": "CA1860",
           "level": "note",
           "message": "Prefer comparing 'Length' to 0 rather than using 'Any()', both for clarity and for performance",
@@ -1604,9 +3481,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 135,
+                  "startLine": 122,
                   "startColumn": 41,
-                  "endLine": 135,
+                  "endLine": 122,
                   "endColumn": 58
                 }
               }
@@ -1628,9 +3505,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 135,
+                  "startLine": 122,
                   "startColumn": 88,
-                  "endLine": 135,
+                  "endLine": 122,
                   "endColumn": 107
                 }
               }
@@ -1652,10 +3529,537 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
                 "region": {
-                  "startLine": 229,
+                  "startLine": 216,
                   "startColumn": 31,
-                  "endLine": 229,
+                  "endLine": 216,
                   "endColumn": 42
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ExtractNotificationType' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/NotificationService.cs",
+                "region": {
+                  "startLine": 247,
+                  "startColumn": 24,
+                  "endLine": 247,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CalculateCheckInStatus' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 208,
+                  "startColumn": 24,
+                  "endLine": 208,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'CalculateCheckOutStatus' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 216,
+                  "startColumn": 24,
+                  "endLine": 216,
+                  "endColumn": 47
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'MapToResultDto' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 225,
+                  "startColumn": 37,
+                  "endLine": 225,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ToGmt7' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/EmployeeShiftService.cs",
+                "region": {
+                  "startLine": 238,
+                  "startColumn": 26,
+                  "endLine": 238,
+                  "endColumn": 32
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/OrderService.cs",
+                "region": {
+                  "startLine": 126,
+                  "startColumn": 35,
+                  "endLine": 126,
+                  "endColumn": 46
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ToGmt7' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/BaseService.cs",
+                "region": {
+                  "startLine": 370,
+                  "startColumn": 28,
+                  "endLine": 370,
+                  "endColumn": 34
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 51,
+                  "endLine": 48,
+                  "endColumn": 74
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA2208",
+          "level": "note",
+          "message": "Method CreatePaymentLinkAsync passes 'orderCode' as the paramName argument to a ArgumentException constructor. Replace this argument with one of the method's parameter names. Note that the provided parameter name should have the exact casing as declared on the method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 35,
+                  "startColumn": 27,
+                  "endLine": 35,
+                  "endColumn": 109
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2208",
+          "level": "note",
+          "message": "Method CreatePaymentLinkAsync passes 'amount' as the paramName argument to a ArgumentException constructor. Replace this argument with one of the method's parameter names. Note that the provided parameter name should have the exact casing as declared on the method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 40,
+                  "startColumn": 27,
+                  "endLine": 40,
+                  "endColumn": 101
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2208",
+          "level": "note",
+          "message": "Method CreatePaymentLinkAsync passes 'description' as the paramName argument to a ArgumentException constructor. Replace this argument with one of the method's parameter names. Note that the provided parameter name should have the exact casing as declared on the method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 45,
+                  "startColumn": 27,
+                  "endLine": 45,
+                  "endColumn": 112
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA2208",
+          "level": "note",
+          "message": "Method CreatePaymentLinkAsync passes 'items' as the paramName argument to a ArgumentException constructor. Replace this argument with one of the method's parameter names. Note that the provided parameter name should have the exact casing as declared on the method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 50,
+                  "startColumn": 27,
+                  "endLine": 50,
+                  "endColumn": 110
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1861",
+          "level": "note",
+          "message": "Prefer 'static readonly' fields over constant array arguments if the called method is called repeatedly and is not mutating the passed array",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/InvoiceService.cs",
+                "region": {
+                  "startLine": 140,
+                  "startColumn": 32,
+                  "endLine": 140,
+                  "endColumn": 56
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "paramName": "relativeWidths"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1861",
+          "level": "note",
+          "message": "Prefer 'static readonly' fields over constant array arguments if the called method is called repeatedly and is not mutating the passed array",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/InvoiceService.cs",
+                "region": {
+                  "startLine": 165,
+                  "startColumn": 36,
+                  "endLine": 165,
+                  "endColumn": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "paramName": "relativeWidths"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1861",
+          "level": "note",
+          "message": "Prefer 'static readonly' fields over constant array arguments if the called method is called repeatedly and is not mutating the passed array",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/InvoiceService.cs",
+                "region": {
+                  "startLine": 194,
+                  "startColumn": 34,
+                  "endLine": 194,
+                  "endColumn": 58
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "paramName": "relativeWidths"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1862",
+          "ruleKey": "CA1862-001",
+          "level": "note",
+          "message": "Prefer using 'string.Equals(string, StringComparison)' to perform a case-insensitive comparison, but keep in mind that this might cause subtle changes in behavior, so make sure to conduct thorough testing after applying the suggestion, or if culturally sensitive comparison is not required, consider using 'StringComparison.OrdinalIgnoreCase'",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PromotionService.cs",
+                "region": {
+                  "startLine": 59,
+                  "startColumn": 68,
+                  "endLine": 59,
+                  "endColumn": 121
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "LeftOffendingMethod": "ToLower",
+              "RightOffendingMethod": "ToLower"
+            }
+          }
+        },
+        {
+          "ruleId": "CA1860",
+          "level": "note",
+          "message": "Prefer comparing 'Count' to 0 rather than using 'Any()', both for clarity and for performance",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 238,
+                  "startColumn": 47,
+                  "endLine": 238,
+                  "endColumn": 70
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1,
+            "customProperties": {
+              "DiagnosticPropertyKey": "Count"
+            }
+          }
+        },
+        {
+          "ruleId": "CA2208",
+          "level": "note",
+          "message": "Method VerifyPaymentWebhookData passes 'signature' as the paramName argument to a ArgumentException constructor. Replace this argument with one of the method's parameter names. Note that the provided parameter name should have the exact casing as declared on the method.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 205,
+                  "startColumn": 27,
+                  "endLine": 205,
+                  "endColumn": 116
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'IsValidPaymentData' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PayOSService.cs",
+                "region": {
+                  "startLine": 232,
+                  "startColumn": 22,
+                  "endLine": 232,
+                  "endColumn": 40
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' to generate the regular expression implementation at compile-time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 93,
+                  "startColumn": 66,
+                  "endLine": 93,
+                  "endColumn": 111
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "SYSLIB1045",
+          "level": "note",
+          "message": "Use 'GeneratedRegexAttribute' to generate the regular expression implementation at compile-time.",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 139,
+                  "startColumn": 73,
+                  "endLine": 139,
+                  "endColumn": 125
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ValidatePagingModel' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StaffService.cs",
+                "region": {
+                  "startLine": 53,
+                  "startColumn": 22,
+                  "endLine": 53,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ValidatePagingModel' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/PromotionService.cs",
+                "region": {
+                  "startLine": 42,
+                  "startColumn": 22,
+                  "endLine": 42,
+                  "endColumn": 41
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'ValidatePagingModel' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReportService.cs",
+                "region": {
+                  "startLine": 100,
+                  "startColumn": 22,
+                  "endLine": 100,
+                  "endColumn": 41
                 }
               }
             }
@@ -1673,31 +4077,10 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/ReservationService.cs",
                 "region": {
-                  "startLine": 225,
-                  "startColumn": 26,
-                  "endLine": 225,
-                  "endColumn": 45
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'GetWeekOfMonth' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
-                "region": {
-                  "startLine": 183,
-                  "startColumn": 21,
-                  "endLine": 183,
-                  "endColumn": 35
+                  "startLine": 268,
+                  "startColumn": 22,
+                  "endLine": 268,
+                  "endColumn": 41
                 }
               }
             }
@@ -1715,9 +4098,9 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
                 "region": {
-                  "startLine": 66,
+                  "startLine": 57,
                   "startColumn": 38,
-                  "endLine": 66,
+                  "endLine": 57,
                   "endColumn": 50
                 }
               }
@@ -1736,9 +4119,51 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
                 "region": {
-                  "startLine": 102,
+                  "startLine": 93,
                   "startColumn": 38,
-                  "endLine": 102,
+                  "endLine": 93,
+                  "endColumn": 51
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetWeekOfMonth' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
+                "region": {
+                  "startLine": 174,
+                  "startColumn": 21,
+                  "endLine": 174,
+                  "endColumn": 35
+                }
+              }
+            }
+          ],
+          "properties": {
+            "warningLevel": 1
+          }
+        },
+        {
+          "ruleId": "CA1822",
+          "level": "note",
+          "message": "Member 'GetYearlyData' does not access instance data and can be marked as static",
+          "locations": [
+            {
+              "resultFile": {
+                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
+                "region": {
+                  "startLine": 223,
+                  "startColumn": 38,
+                  "endLine": 223,
                   "endColumn": 51
                 }
               }
@@ -1757,31 +4182,10 @@
               "resultFile": {
                 "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
                 "region": {
-                  "startLine": 191,
+                  "startLine": 182,
                   "startColumn": 38,
-                  "endLine": 191,
+                  "endLine": 182,
                   "endColumn": 54
-                }
-              }
-            }
-          ],
-          "properties": {
-            "warningLevel": 1
-          }
-        },
-        {
-          "ruleId": "CA1822",
-          "level": "note",
-          "message": "Member 'GetYearlyData' does not access instance data and can be marked as static",
-          "locations": [
-            {
-              "resultFile": {
-                "uri": "file:///D:/FinalProject/RestaurantManagement/RestaurantManagement.Service/Implementation/StatisticService.cs",
-                "region": {
-                  "startLine": 232,
-                  "startColumn": 38,
-                  "endLine": 232,
-                  "endColumn": 51
                 }
               }
             }
@@ -1792,6 +4196,21 @@
         }
       ],
       "rules": {
+        "CA1510": {
+          "id": "CA1510",
+          "shortDescription": "Use ArgumentNullException throw helper",
+          "fullDescription": "Throw helpers are simpler and more efficient than an if block constructing a new exception instance.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1510",
+          "properties": {
+            "category": "Maintainability",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
         "CA1822": {
           "id": "CA1822",
           "shortDescription": "Mark members as static",
@@ -1823,6 +4242,21 @@
             ]
           }
         },
+        "CA1861": {
+          "id": "CA1861",
+          "shortDescription": "Avoid constant arrays as arguments",
+          "fullDescription": "Constant arrays passed as arguments are not reused when called repeatedly, which implies a new array is created each time. Consider extracting them to 'static readonly' fields to improve performance if the passed array is not mutated within the called method.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1861",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
         "CA1862": {
           "id": "CA1862",
           "shortDescription": "Use the 'StringComparison' method overloads to perform case-insensitive string comparisons",
@@ -1833,6 +4267,37 @@
             "category": "Performance",
             "isEnabledByDefault": true,
             "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA1862-001": {
+          "id": "CA1862",
+          "shortDescription": "Use the 'StringComparison' method overloads to perform case-insensitive string comparisons",
+          "fullDescription": "Avoid calling 'ToLower', 'ToUpper', 'ToLowerInvariant' and 'ToUpperInvariant' to perform case-insensitive string comparisons, as in 'string.ToLower() == string.ToLower()', because they lead to an allocation. Instead, use 'string.Equals(string, StringComparison)' to perform case-insensitive comparisons. Switching to using an overload that takes a 'StringComparison' might cause subtle changes in behavior, so it's important to conduct thorough testing after applying the suggestion. Additionally, if a culturally sensitive comparison is not required, consider using 'StringComparison.OrdinalIgnoreCase'.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca1862",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Telemetry",
+              "EnabledRuleInAggressiveMode"
+            ]
+          }
+        },
+        "CA2208": {
+          "id": "CA2208",
+          "shortDescription": "Instantiate argument exceptions correctly",
+          "fullDescription": "A call is made to the default (parameterless) constructor of an exception type that is or derives from ArgumentException, or an incorrect string argument is passed to a parameterized constructor of an exception type that is or derives from ArgumentException.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/code-analysis/quality-rules/ca2208",
+          "properties": {
+            "category": "Usage",
+            "isEnabledByDefault": true,
+            "tags": [
+              "PortedFromFxCop",
               "Telemetry",
               "EnabledRuleInAggressiveMode"
             ]
@@ -1853,11 +4318,25 @@
             ]
           }
         },
-        "CS0649": {
-          "id": "CS0649",
-          "shortDescription": "Field is never assigned to, and will always have its default value",
+        "CS0168": {
+          "id": "CS0168",
+          "shortDescription": "Variable is declared but never used",
           "defaultLevel": "warning",
-          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0649)",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS0168)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "CS1998": {
+          "id": "CS1998",
+          "shortDescription": "Async method lacks 'await' operators and will run synchronously",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS1998)",
           "properties": {
             "category": "Compiler",
             "isEnabledByDefault": true,
@@ -1963,6 +4442,30 @@
               "Compiler",
               "Telemetry"
             ]
+          }
+        },
+        "CS8765": {
+          "id": "CS8765",
+          "shortDescription": "Nullability of type of parameter doesn't match overridden member (possibly because of nullability attributes).",
+          "defaultLevel": "warning",
+          "helpUri": "https://msdn.microsoft.com/query/roslyn.query?appId=roslyn&k=k(CS8765)",
+          "properties": {
+            "category": "Compiler",
+            "isEnabledByDefault": true,
+            "tags": [
+              "Compiler",
+              "Telemetry"
+            ]
+          }
+        },
+        "SYSLIB1045": {
+          "id": "SYSLIB1045",
+          "shortDescription": "Convert to 'GeneratedRegexAttribute'.",
+          "defaultLevel": "note",
+          "helpUri": "https://learn.microsoft.com/dotnet/fundamentals/syslib-diagnostics/syslib1045",
+          "properties": {
+            "category": "Performance",
+            "isEnabledByDefault": true
           }
         }
       }

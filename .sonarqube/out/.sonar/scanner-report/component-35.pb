@@ -1,0 +1,1 @@
+# (2csXhr2RestaurantManagement.DataAccess/Models/TblShift.cs

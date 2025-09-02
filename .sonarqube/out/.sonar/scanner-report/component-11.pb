@@ -1,0 +1,1 @@
+ (2csXhrERestaurantManagement.DataAccess/Implementation/PromotionRepository.cs

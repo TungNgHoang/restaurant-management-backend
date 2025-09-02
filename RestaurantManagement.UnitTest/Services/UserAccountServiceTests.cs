@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Moq;
 using RestaurantManagement.Core.ApiModels;
 using RestaurantManagement.Core.Enums;
@@ -30,7 +31,7 @@ namespace RestaurantManagement.UnitTest.Services
         private readonly Mock<IHttpContextAccessor> _httpContextAccessor;
         private readonly Mock<RestaurantDBContext> _dbContext;
         private readonly AppSettings _appSettings;
-
+        private readonly Mock<RestaurantDBContext> _dbContextMock;
         private readonly UserAccountService _sut;
 
         public UserAccountServiceTests()
@@ -39,7 +40,9 @@ namespace RestaurantManagement.UnitTest.Services
             _authService = new Mock<IAuthService>();
             _mapper = new Mock<IMapper>();
             _httpContextAccessor = new Mock<IHttpContextAccessor>();
-            _dbContext = new Mock<RestaurantDBContext>(); // nếu sealed thì thay bằng InMemoryDbContext
+            var options = new DbContextOptionsBuilder<RestaurantDBContext>().Options;
+
+            _dbContextMock = new Mock<RestaurantDBContext>(options);
             _appSettings = new AppSettings
             {
                 // setup giá trị cần thiết nếu có (ví dụ JWTSecret, Expiry, v.v.)
@@ -51,7 +54,7 @@ namespace RestaurantManagement.UnitTest.Services
                 _userRepo.Object,
                 _authService.Object,
                 _httpContextAccessor.Object,
-                _dbContext.Object
+                _dbContextMock.Object
             );
         }
 

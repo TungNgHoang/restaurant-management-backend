@@ -1,0 +1,17 @@
+using System;
+using System.Collections.Generic;
+
+namespace RestaurantManagement.DataAccess.Models;
+
+public partial class TblShiftAssignment
+{
+    public Guid AssignmentId { get; set; }
+
+    public Guid StaId { get; set; }
+
+    public Guid ShiftId { get; set; }
+
+    public DateOnly WorkDate { get; set; }
+
+    public DateTime? CreatedAt { get; set; }
+}

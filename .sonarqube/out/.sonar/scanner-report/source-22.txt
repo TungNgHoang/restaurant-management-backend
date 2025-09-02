@@ -1,0 +1,12 @@
+using RestaurantManagement.DataAccess.Models;
+using RestaurantManagement.DataAccess.Dtos.StaffReportDto;
+
+namespace RestaurantManagement.DataAccess.Interfaces
+{
+    public interface IStaffRepository : IRepository<TblStaff>
+    {
+        Task<OverviewReportDto> GetOverviewReportAsync();
+        Task<(List<StaffDetailDto> Details, int TotalCount)> GetStaffDetailsAsync(StaffDetailRequestDto request);
+        Task<SummaryDto> GetSummaryAsync(int month, int year, Guid? staffId, string? role);
+    }
+}

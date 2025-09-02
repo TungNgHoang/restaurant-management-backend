@@ -1,0 +1,1 @@
+© (2csXhr2RestaurantManagement.Core/ApiModels/AppSettings.cs

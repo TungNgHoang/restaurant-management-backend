@@ -1,0 +1,8 @@
+namespace RestaurantManagement.Service.Dtos.ReserDto
+{
+    public class UpdateReservationRequestDto
+    {
+        public Guid TbiId { get; set; }
+        public int ResNumber { get; set; }
+    }
+}

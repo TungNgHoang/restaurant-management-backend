@@ -1,0 +1,2 @@
+Ð
+roslynCS8604©Possible null reference argument for parameter 'proCode' in 'Task<byte[]> IPaymentService.CheckoutAndPayAsync(Guid resId, Guid ordId, string proCode, string payMethod)'. 2W ^@R

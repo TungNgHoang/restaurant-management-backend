@@ -1,0 +1,1 @@
+ (2csX!hr<RestaurantManagement.Api/AutoMapperProfile/ProjectProfile.cs
