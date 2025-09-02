@@ -10,7 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="coverlet.collector" Version="6.0.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.1.4" />
     <PackageReference Include="ESCPOS_NET" Version="3.0.0" />
     <PackageReference Include="InTheHand.Net.Bluetooth" Version="4.2.2" />

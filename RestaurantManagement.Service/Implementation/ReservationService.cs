@@ -131,7 +131,7 @@
                        select new
                        {
                            reservation.ResId,
-                           OrdId = order?.OrdId,
+                           order?.OrdId,
                            reservation.TempCustomerName,
                            reservation.TempCustomerPhone,
                            reservation.TempCustomerMail,
@@ -149,6 +149,7 @@
                 OrdId = x.OrdId,
                 TableNumber = x.TbiTableNumber,
                 CustomerName = x.TempCustomerName,
+                CustomerMail = x.TempCustomerMail,
                 ContactPhone = x.TempCustomerPhone,
                 ReservationDate = x.ResDate.Date,
                 TimeIn = x.ResDate.TimeOfDay,
