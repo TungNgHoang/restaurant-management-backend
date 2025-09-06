@@ -1,5 +1,7 @@
-﻿using iTextSharp.text;
-using iTextSharp.text.pdf;
+﻿using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
+using System.Globalization;
 using RestaurantManagement.Service.Dtos.InvoiceDto;
 
 
@@ -84,145 +86,122 @@ namespace RestaurantManagement.Service.Implementation
         {
             if (dto == null) return null;
 
-            // Format culture
             var vi = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 
-            using (var ms = new MemoryStream())
+            var document = Document.Create(container =>
             {
-                // A7 page size (points) using iTextSharp constant
-                var pageSize = iTextSharp.text.PageSize.A7;
-                // padding nhỏ cho bill nhỏ
-                var document = new Document(pageSize, 8f, 8f, 8f, 8f);
-                var writer = PdfWriter.GetInstance(document, ms);
-                document.Open();
-
-                // Font Unicode: ưu tiên wwwroot/fonts, fallback windows/linux
-                string fontPath = Path.Combine(AppContext.BaseDirectory, "wwwroot", "fonts", "Roboto-Regular.ttf");
-                if (!File.Exists(fontPath))
-                    fontPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "arial.ttf");
-                if (!File.Exists(fontPath))
-                    fontPath = "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"; // linux fallback
-
-                BaseFont bf;
-                try
+                container.Page(page =>
                 {
-                    bf = BaseFont.CreateFont(fontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
-                }
-                catch
-                {
-                    // last fallback to built-in; may not support VN fully
-                    bf = BaseFont.CreateFont(BaseFont.HELVETICA, BaseFont.CP1252, false);
-                }
+                    page.Size(PageSizes.A7);
+                    page.Margin(10);
+                    page.DefaultTextStyle(x => x.FontSize(9).FontFamily("Arial"));
 
-                // Font sizes smaller because A7
-                var fTitle = new Font(bf, 10, Font.BOLD);
-                var fSub = new Font(bf, 8, Font.BOLD);
-                var fText = new Font(bf, 7, Font.NORMAL);
-                var fTextBold = new Font(bf, 7, Font.BOLD);
-
-                // Header: store name centered
-                var hdr = new Paragraph(dto.StoreName, fTitle) { Alignment = Element.ALIGN_CENTER };
-                document.Add(hdr);
-
-                if (!string.IsNullOrWhiteSpace(dto.StoreAddress))
-                {
-                    var addr = new Paragraph(dto.StoreAddress, fText) { Alignment = Element.ALIGN_CENTER, SpacingAfter = 2f };
-                    document.Add(addr);
-                }
-                if (!string.IsNullOrWhiteSpace(dto.StorePhone))
-                {
-                    var phone = new Paragraph("Tel: " + dto.StorePhone, fText) { Alignment = Element.ALIGN_CENTER, SpacingAfter = 4f };
-                    document.Add(phone);
-                }
-
-                // Invoice meta (left/right two-column)
-                var meta = new PdfPTable(2) { WidthPercentage = 100f };
-                meta.SetWidths(new float[] { 15f, 85f });
-
-                meta.AddCell(new PdfPCell(new Phrase("Số HĐ:", fTextBold)) { Border = Rectangle.NO_BORDER });
-                meta.AddCell(new PdfPCell(new Phrase(dto.InvoiceCode ?? "-", fText)) { Border = Rectangle.NO_BORDER });
-
-                meta.AddCell(new PdfPCell(new Phrase("Ngày:", fTextBold)) { Border = Rectangle.NO_BORDER });
-                meta.AddCell(new PdfPCell(new Phrase(dto.InvoiceDate.ToString("dd/MM/yyyy HH:mm"), fText)) { Border = Rectangle.NO_BORDER });
-
-                meta.AddCell(new PdfPCell(new Phrase("Khách:", fTextBold)) { Border = Rectangle.NO_BORDER });
-                meta.AddCell(new PdfPCell(new Phrase(dto.CustomerName ?? "-", fText)) { Border = Rectangle.NO_BORDER });
-
-                meta.AddCell(new PdfPCell(new Phrase("SĐT:", fTextBold)) { Border = Rectangle.NO_BORDER });
-                meta.AddCell(new PdfPCell(new Phrase(dto.CustomerPhone ?? "-", fText)) { Border = Rectangle.NO_BORDER });
-
-                if (!string.IsNullOrWhiteSpace(dto.TableNumber))
-                {
-                    meta.AddCell(new PdfPCell(new Phrase("Bàn:", fTextBold)) { Border = Rectangle.NO_BORDER });
-                    meta.AddCell(new PdfPCell(new Phrase(dto.TableNumber, fText)) { Border = Rectangle.NO_BORDER });
-                }
-
-                meta.SpacingAfter = 4f;
-                document.Add(meta);
-
-                // Items table: STT | Tên | SL | Thành tiền
-                var itemsTbl = new PdfPTable(4) { WidthPercentage = 100f };
-                itemsTbl.SetWidths(new float[] { 10f, 55f, 15f, 20f });
-
-                PdfPCell h1 = new PdfPCell(new Phrase("TT", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
-                PdfPCell h2 = new PdfPCell(new Phrase("Danh sách món", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
-                PdfPCell h3 = new PdfPCell(new Phrase("SL", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
-                PdfPCell h4 = new PdfPCell(new Phrase("Thành tiền", fSub)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 3f };
-
-                itemsTbl.AddCell(h1); itemsTbl.AddCell(h2); itemsTbl.AddCell(h3); itemsTbl.AddCell(h4);
-
-                if (dto.Items != null && dto.Items.Count > 0)
-                {
-                    foreach (var it in dto.Items)
+                    page.Content().Column(col =>
                     {
-                        itemsTbl.AddCell(new PdfPCell(new Phrase(it.Index.ToString(), fText)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 2f });
-                        itemsTbl.AddCell(new PdfPCell(new Phrase(it.Name, fText)) { Padding = 2f });
-                        itemsTbl.AddCell(new PdfPCell(new Phrase(it.Quantity.ToString(), fText)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 2f });
-                        itemsTbl.AddCell(new PdfPCell(new Phrase(string.Format(vi, "{0:N0} VND", it.LineTotal), fText)) { HorizontalAlignment = Element.ALIGN_RIGHT, Padding = 2f });
-                    }
-                }
-                else
-                {
-                    var empty = new PdfPCell(new Phrase("Không có món", fText)) { Colspan = 4, HorizontalAlignment = Element.ALIGN_CENTER, Padding = 4f };
-                    itemsTbl.AddCell(empty);
-                }
+                        // Header
+                        col.Item().AlignCenter().Text(dto.StoreName).Bold().FontSize(14);
+                        if (!string.IsNullOrWhiteSpace(dto.StoreAddress))
+                            col.Item().AlignCenter().Text(dto.StoreAddress).FontSize(8);
+                        if (!string.IsNullOrWhiteSpace(dto.StorePhone))
+                            col.Item().AlignCenter().Text("Tel: " + dto.StorePhone).FontSize(8);
 
-                document.Add(itemsTbl);
+                        col.Item().LineHorizontal(1).LineColor(Colors.Grey.Medium);
 
-                // Totals (right aligned)
-                var totals = new PdfPTable(2) { WidthPercentage = 100f};
-                totals.SetWidths(new float[] { 40f, 60f });
+                        // Meta
+                        col.Item().Grid(grid =>
+                        {
+                            grid.Columns(2);
+                            grid.Item().Text("Số HĐ:").Bold();
+                            grid.Item().Text(dto.InvoiceCode ?? "-");
 
-                void AddTotalRow(string left, string right, bool bold = false)
-                {
-                    totals.AddCell(new PdfPCell(new Phrase(left, bold ? fTextBold : fText)) { Border = Rectangle.NO_BORDER, Padding = 1f });
-                    totals.AddCell(new PdfPCell(new Phrase(right, bold ? fTextBold : fText)) { Border = Rectangle.NO_BORDER, HorizontalAlignment = Element.ALIGN_RIGHT, Padding = 1f });
-                }
+                            grid.Item().Text("Ngày:").Bold();
+                            grid.Item().Text(dto.InvoiceDate.ToString("dd/MM/yyyy HH:mm"));
 
-                AddTotalRow("Tạm tính:", string.Format(vi, "{0:N0} VND", dto.SubTotal));
-                AddTotalRow($"VAT ({dto.VatRate:P0}):", string.Format(vi, "{0:N0} VND", dto.VatAmount));
+                            grid.Item().Text("Khách:").Bold();
+                            grid.Item().Text(dto.CustomerName ?? "-");
 
-                if (!string.IsNullOrWhiteSpace(dto.VoucherCode) && dto.VoucherDiscount > 0)
-                    AddTotalRow($"Voucher ({dto.VoucherCode}):", "-" + string.Format(vi, "{0:N0} VND", dto.VoucherDiscount));
+                            grid.Item().Text("Bàn:").Bold();
+                            grid.Item().Text(dto.TableNumber ?? "-");
+                        });
 
-                if (dto.RankDiscount > 0)
-                    AddTotalRow("Giảm hạng:", "-" + string.Format(vi, "{0:N0} VND", dto.RankDiscount));
+                        col.Item().LineHorizontal(1).LineColor(Colors.Grey.Lighten2);
 
-                AddTotalRow("TỔNG:", string.Format(vi, "{0:N0} VND", dto.TotalAmount), bold: true);
+                        // Items
+                        col.Item().Table(table =>
+                        {
+                            table.ColumnsDefinition(columns =>
+                            {
+                                columns.ConstantColumn(20); // TT
+                                columns.RelativeColumn(3);  // Tên
+                                columns.ConstantColumn(25); // SL
+                                columns.RelativeColumn(2);  // Thành tiền
+                            });
 
-                // Payment method
-                AddTotalRow("Phương thức thanh toán:", dto.PayMethod ?? "-", bold: false);
+                            // Header row
+                            table.Header(header =>
+                            {
+                                header.Cell().Text("TT").Bold().AlignCenter();
+                                header.Cell().Text("Món").Bold();
+                                header.Cell().Text("SL").Bold().AlignCenter();
+                                header.Cell().Text("Thành tiền").Bold().AlignRight();
+                            });
 
-                totals.SpacingBefore = 4f;
-                document.Add(totals);
+                            if (dto.Items != null && dto.Items.Any())
+                            {
+                                foreach (var it in dto.Items)
+                                {
+                                    table.Cell().Text(it.Index.ToString()).AlignCenter();
+                                    table.Cell().Text(it.Name);
+                                    table.Cell().Text(it.Quantity.ToString()).AlignCenter();
+                                    table.Cell().Text(string.Format(vi, "{0:N0}₫", it.LineTotal)).AlignRight();
+                                }
+                            }
+                            else
+                            {
+                                table.Cell().ColumnSpan(4).AlignCenter().Text("Không có món");
+                            }
+                        });
 
-                // Footer thank you
-                var footer = new Paragraph("Cảm ơn quý khách! Hẹn gặp lại.", fText) { Alignment = Element.ALIGN_CENTER, SpacingBefore = 6f };
-                document.Add(footer);
+                        col.Item().LineHorizontal(1).LineColor(Colors.Black);
 
-                document.Close();
-                return ms.ToArray();
-            }
+                        // Totals
+                        col.Item().PaddingTop(4).Column(tot =>
+                        {
+                            void AddRow(string label, string value, bool bold = false)
+                            {
+                                tot.Item().Row(r =>
+                                {
+                                    var textLabel = r.RelativeItem().Text(label);
+                                    if (bold) textLabel.Bold();
+
+                                    var textValue = r.ConstantItem(70).AlignRight().Text(value);
+                                    if (bold) textValue.Bold();
+                                });
+                            }
+
+                            AddRow("Tạm tính:", string.Format(vi, "{0:N0}₫", dto.SubTotal));
+                            AddRow($"VAT ({dto.VatRate:P0}):", string.Format(vi, "{0:N0}₫", dto.VatAmount));
+
+                            if (!string.IsNullOrWhiteSpace(dto.VoucherCode) && dto.VoucherDiscount > 0)
+                                AddRow($"Voucher ({dto.VoucherCode}):", "-" + string.Format(vi, "{0:N0}₫", dto.VoucherDiscount));
+
+                            if (dto.RankDiscount > 0)
+                                AddRow("Giảm hạng:", "-" + string.Format(vi, "{0:N0}₫", dto.RankDiscount));
+
+                            AddRow("TỔNG:", string.Format(vi, "{0:N0}₫", dto.TotalAmount), bold: true);
+                            AddRow("Thanh toán:", dto.PayMethod ?? "-", bold: false);
+                        });
+
+                        col.Item().LineHorizontal(1).LineColor(Colors.Grey.Medium);
+
+                        // Footer
+                        col.Item().AlignCenter().Text("⭐ Cảm ơn quý khách! Hẹn gặp lại ⭐")
+                            .FontSize(8).Italic().FontColor(Colors.Grey.Darken1);
+                    });
+                });
+            });
+
+            return document.GeneratePdf();
         }
     }
 }
