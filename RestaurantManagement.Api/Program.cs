@@ -11,6 +11,7 @@ using RestaurantManagement.DataAccess.Implementation;
 using RestaurantManagement.DataAccess.Infrastructure;
 using Serilog;
 using System.Text.Json.Serialization;
+using QuestPDF.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -18,6 +19,7 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 // Add services to the container.
 // Thêm SignalR
 builder.Services.AddSignalR();
+QuestPDF.Settings.License = LicenseType.Community;
 
 var appSettingsSection = builder.Configuration.GetSection("AppSettings");
 builder.Services.Configure<AppSettings>(appSettingsSection);
