@@ -9,10 +9,14 @@ namespace RestaurantManagement.DataAccess.Implementation
     public class StaffRepository : Repository<TblStaff>, IStaffRepository
     {
         private readonly RestaurantDBContext _context;
+        private readonly IRepository<TblStaff> _staffRepository;
+        private readonly IRepository<TblUserAccount> _userAccountRepository;
 
-        public StaffRepository(RestaurantDBContext context) : base(context)
+        public StaffRepository(RestaurantDBContext context, IRepository<TblStaff> staffRepository, IRepository<TblUserAccount> userAccountRepository) : base(context)
         {
             _context = context;
+            _staffRepository = staffRepository;
+            _userAccountRepository = userAccountRepository;
         }
 
         public async Task<OverviewReportDto> GetOverviewReportAsync()
@@ -20,7 +24,13 @@ namespace RestaurantManagement.DataAccess.Implementation
             var today = DateTime.Today;
             var monthStart = new DateTime(today.Year, today.Month, 1);
 
-            var totalStaff = await _dbSet.CountAsync(s => !s.IsDeleted);
+            var staffList = await _staffRepository.AsNoTrackingAsync();
+            var accountList = await _userAccountRepository.AsNoTrackingAsync();
+            var data = from s in staffList
+                       join u in accountList on s.UacId equals u.UacId
+                       select s;
+
+            var totalStaff = data.Count();
 
             var activeToday = await _dbContext.TblAttendances
                 .CountAsync(a => a.CheckIn != null && a.CheckIn.Value.Date == today);
