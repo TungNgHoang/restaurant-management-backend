@@ -185,8 +185,6 @@ namespace RestaurantManagement.Service.Implementation
                             if (!string.IsNullOrWhiteSpace(dto.VoucherCode) && dto.VoucherDiscount > 0)
                                 AddRow($"Voucher ({dto.VoucherCode}):", "-" + string.Format(vi, "{0:N0}₫", dto.VoucherDiscount));
 
-                            if (dto.RankDiscount > 0)
-                                AddRow("Giảm hạng:", "-" + string.Format(vi, "{0:N0}₫", dto.RankDiscount));
 
                             AddRow("TỔNG:", string.Format(vi, "{0:N0}₫", dto.TotalAmount), bold: true);
                             AddRow("Thanh toán:", dto.PayMethod ?? "-", bold: false);

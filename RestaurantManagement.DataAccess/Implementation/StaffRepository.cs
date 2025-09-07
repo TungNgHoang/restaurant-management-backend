@@ -42,10 +42,12 @@ namespace RestaurantManagement.DataAccess.Implementation
             var attendanceRate = attendancesToday.Any() ? (decimal)onTime / attendancesToday.Count * 100 : 0;
 
             // Phân bố ca làm
-            var todayDateOnly = DateOnly.FromDateTime(today.Date);
+
+            var targetMonth = today.Month;
+            var targetYear = today.Year;
             var shifts = await (from s in _dbContext.TblShifts
                                 join ass in _dbContext.TblShiftAssignments on s.ShiftId equals ass.ShiftId
-                                where ass.WorkDate == todayDateOnly && s.IsDeleted != true
+                                where ass.WorkDate.Month == targetMonth && ass.WorkDate.Year == targetYear && s.IsDeleted != true
                                 group ass by new { s.ShiftName, s.StartTime, s.EndTime } into g
                                 select new ShiftDistributionDto
                                 {
