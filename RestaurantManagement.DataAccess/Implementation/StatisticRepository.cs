@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RestaurantManagement.Core.Enums;
 using RestaurantManagement.DataAccess.DbContexts;
+using RestaurantManagement.DataAccess.Dto.StatisticReportDto;
 using RestaurantManagement.DataAccess.Interfaces;
 using RestaurantManagement.DataAccess.Models;
 
@@ -45,6 +46,46 @@ namespace RestaurantManagement.DataAccess.Implementation
         {
             return await _context.TblPayments
                 .Where(p => !p.IsDeleted && p.CreatedAt >= startDate && p.CreatedAt < endDate)
+                .ToListAsync();
+        }
+
+        public async Task<List<TableUsageRawDto>> GetTableUsageDataAsync(DateTime startDate, DateTime endDate)
+        {
+            // Raw SQL cho performance tối đa với repository pattern
+            var sql = @"
+            SELECT 
+                t.TbiTableNumber as TableNumber,
+                t.TbiCapacity as Capacity,
+                COALESCE(r.ReservationCount, 0) as ReservationCount,
+                COALESCE(o.OrderCount, 0) as OrderCount
+            FROM tblTableInfo t
+            LEFT JOIN (
+                SELECT 
+                    TbiID,
+                    COUNT(*) as ReservationCount
+                FROM tblReservation 
+                WHERE IsDeleted = 0 
+                  AND ResDate >= {0}
+                  AND ResDate < {1}
+                GROUP BY TbiID
+            ) r ON t.TbiID = r.TbiID
+            LEFT JOIN (
+                SELECT 
+                    TbiID,
+                    COUNT(*) as OrderCount
+                FROM tblOrderInfo 
+                WHERE IsDeleted = 0 
+                  AND CreatedAt >= {0}
+                  AND CreatedAt < {1}
+                  AND OrdStatus != 'Cancelled'
+                GROUP BY TbiID
+            ) o ON t.TbiID = o.TbiID
+            WHERE t.IsDeleted = 0
+            ORDER BY TableNumber";
+
+            return await _context.Database
+                .SqlQueryRaw<TableUsageRawDto>(sql, startDate, endDate)
+                .AsNoTracking()
                 .ToListAsync();
         }
     }

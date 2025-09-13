@@ -1,4 +1,5 @@
-﻿using RestaurantManagement.DataAccess.Models;
+﻿using RestaurantManagement.DataAccess.Dto.StatisticReportDto;
+using RestaurantManagement.DataAccess.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,6 @@ namespace RestaurantManagement.DataAccess.Interfaces
         Task<List<TblOrderInfo>> GetCustomersAsync(DateTime startDate, DateTime endDate);
         Task<List<TblOrderDetail>> GetDishesAsync(DateTime startDate, DateTime endDate);
         Task<List<TblReservation>> GetReservationsAsync(DateTime startDate, DateTime endDate);
+        Task<List<TableUsageRawDto>> GetTableUsageDataAsync(DateTime startDate, DateTime endDate);
     }
 }

@@ -62,9 +62,9 @@
                 await _reservationService.CheckInReservationAsync(resId, actualNumber);
                 return Success();
             }
-            catch
+            catch (Exception ex)
             {
-                throw new ErrorException(StatusCodeEnum.Error);
+                throw new ErrorException(ex.Message);
             }
         }
 

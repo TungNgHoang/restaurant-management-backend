@@ -1,4 +1,6 @@
 ﻿
+using RestaurantManagement.Service.Dtos.StatisticDto;
+
 namespace RestaurantManagement.Service.Implementation
 {
     public class StatisticService : BaseService, IStatisticService
@@ -334,6 +336,74 @@ namespace RestaurantManagement.Service.Implementation
             }).ToList();
 
             return result;
+        }
+
+        public async Task<TableUsageResponse> GetTableUsageReportAsync(int month, int year)
+        {
+            // Validate input
+            if (month < 1 || month > 12)
+                throw new ArgumentException("Tháng phải từ 1 đến 12");
+
+            if (year < 1900 || year > 2100)
+                throw new ArgumentException("Năm không hợp lệ");
+
+            var startDate = new DateTime(year, month, 1);
+            var currentDate = DateTime.Now.Date;
+
+            var endDate = (year == currentDate.Year && month == currentDate.Month)
+                ? currentDate.AddDays(1)
+                : startDate.AddMonths(1);
+
+            var totalDays = (endDate.AddDays(-1) - startDate).Days + 1;
+
+            // Sử dụng repository chuyên dụng cho performance
+            var tableUsageData = await _statisticRepository.GetTableUsageDataAsync(startDate, endDate);
+
+            var totalOrders = tableUsageData.Sum(x => x.OrderCount);
+            var tablesUsed = tableUsageData.Count(x => x.OrderCount > 0);
+
+            var tableUsageList = tableUsageData.Select(data =>
+            {
+                var conversionRate = data.ReservationCount == 0 ? 0m :
+                    Math.Round((decimal)data.OrderCount / data.ReservationCount * 100, 2);
+
+                var usageRate = totalOrders == 0 ? 0m :
+                    Math.Round((decimal)data.OrderCount / totalOrders * 100, 2);
+
+                string status = usageRate switch
+                {
+                    0 => "Không được sử dụng, cần chú ý",
+                    > 0 and <= 30 => "Thấp",
+                    > 30 and <= 60 => "Trung bình",
+                    > 60 => "Cao",
+                    _ => "Không xác định"
+                };
+
+                return new TableUsageDto
+                {
+                    TableNumber = data.TableNumber,
+                    Capacity = data.Capacity,
+                    ReservationCount = data.ReservationCount,
+                    OrderCount = data.OrderCount,
+                    ConversionRate = conversionRate,
+                    UsageRate = usageRate,
+                    Status = status
+                };
+            }).ToList();
+
+            var averageUsageRate = tableUsageData.Count == 0 ? 0m :
+                Math.Round((decimal)tablesUsed / tableUsageData.Count * 100, 2);
+
+            return new TableUsageResponse
+            {
+                Month = $"{month:D2}/{year}",
+                TotalDays = totalDays,
+                TotalTables = tableUsageData.Count,
+                TablesUsed = tablesUsed,
+                AverageUsageRate = averageUsageRate,
+                TotalOrders = totalOrders,
+                Tables = tableUsageList
+            };
         }
     }
 }

@@ -38,5 +38,19 @@
                 throw new ErrorException(StatusCodeEnum.BadRequest, ex.Message);
             }
         }
+
+        [HttpGet("table-usage")]
+        public async Task<IActionResult> GetTableUsageReport(int month, int year)
+        {
+            try
+            {
+                var result = await _statisticService.GetTableUsageReportAsync(month, year);
+                return Success(new { Success = true, Data = result });
+            }
+            catch (Exception ex)
+            {
+               throw new ErrorException(StatusCodeEnum.BadRequest, ex.Message);
+            }
+        }
     }
 }
