@@ -76,7 +76,7 @@ namespace RestaurantManagement.Service.Implementation
 
         public async Task SendPaymentSuccessNotificationAsync(Guid resId, decimal amount, string customerName)
         {
-            var message = $"Khách hàng {customerName} đã thanh toán thành công số tiền {amount:C0} VND";
+            var message = $"Khách hàng {customerName} đã thanh toán thành công số tiền {amount.ToString("N0")} VND";
             await SendNotificationAsync(NotificationTypeEnum.PaymentSuccess, message, resId);
         }
 
