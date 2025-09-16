@@ -9,7 +9,7 @@ using System.Security.Claims;
 
 namespace RestaurantManagement.Api.Controllers
 {
-    [Authorize]
+    
     [Route("api/Table")]
     [ApiController]
     public class TableController : BaseApiController
@@ -22,7 +22,7 @@ namespace RestaurantManagement.Api.Controllers
 
         }
 
-        [Authorize(Policy = "SaMPolicy")]
+        
         [HttpPost("get-all-table")]
         public async Task<IActionResult> GetAllTable([FromBody] TableModels pagingModel)
         {
