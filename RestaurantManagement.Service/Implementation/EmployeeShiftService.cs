@@ -56,7 +56,8 @@ namespace RestaurantManagement.Service.Implementation
                 var checkInTime = ToGmt7(dto.CheckInTime);
 
                 // 3. Kiểm tra hợp lệ
-                if (checkInTime < startTime || checkInTime > endTime)
+                var earlyAllowance = TimeSpan.FromMinutes(30);
+                if (checkInTime < startTime - earlyAllowance || checkInTime > endTime)
                     throw new Exception(StatusCodeEnum.H01.ToString());
 
                 // 4. Attendance
@@ -115,8 +116,8 @@ namespace RestaurantManagement.Service.Implementation
                 var endTime = workDate + shift.EndTime.ToTimeSpan();
                 var checkOutTime = ToGmt7(dto.CheckOutTime);
 
-                if (checkOutTime < startTime || checkOutTime > endTime.AddHours(1))
-                    throw new Exception(StatusCodeEnum.H03.ToString());
+                //if (checkOutTime < startTime || checkOutTime > endTime.AddHours(1))
+                //    throw new Exception(StatusCodeEnum.H03.ToString());
 
                 // 3. Attendance
                 var attendance = (await _attendanceRepository.FilterAsync(a =>
