@@ -44,7 +44,7 @@
             }
         }
 
-        [Authorize(Policy = "MCPolicy")]
+        [Authorize(Policy = "SaMPolicy")]
         [HttpPost("get-reservation")]
         public async Task<IActionResult> GetReservations([FromBody] ReserModel pagingModel)
         {
